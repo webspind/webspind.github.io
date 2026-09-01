@@ -1,11 +1,12 @@
 /* Webspind — design tokens lifted from Jagtproven/Design/Theme.swift
    so the site and the apps read as one house.
-   Light ("blødt papir") is the primary mode; dark is designed alongside it,
-   never bolted on afterwards. Spacing follows the 8 pt grid from the
-   UX guide; card radii are concentric (outer = inner + padding). */
+   The site is light only — the warm "blødt papir" palette, held regardless
+   of the visitor's system setting. Spacing follows the 8 pt grid from the
+   UX guide; card radii are concentric (outer = inner + padding).
+   (The dark palette lives in git history if it is ever wanted back.) */
 
 :root {
-  color-scheme: light dark;
+  color-scheme: light;  /* white mode only */
 
   /* --- palette: JPColor, light --- */
   --paper:        #faf8f3;  /* background     */
@@ -49,29 +50,6 @@
   /* springs, not easeInOut — from the motion section of the guide */
   --snappy: 220ms cubic-bezier(0.32, 0.72, 0, 1);
   --smooth: 360ms cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper:       #121714;
-    --surface:     #1f2421;
-    --raised:      #29302b;
-    --forest:      #78ad87;
-    --forest-deep: #669975;
-    --amber:       #eb9e52;
-    --amber-soft:  #4d381c;
-    --ink:         #f2f2f2;
-    --ink-soft:    #adadad;
-    --hairline:    #3d3d3d;
-    --success:     #70bd8a;
-
-    --link:        #8fbd9b;
-    --link-hover:  #eb9e52;
-    --web-stroke:  #78ad87;
-    --web-alpha:   0.20;
-    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.30), 0 8px 24px -12px rgba(0, 0, 0, 0.50);
-    --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.34), 0 16px 36px -14px rgba(0, 0, 0, 0.60);
-  }
 }
 
 * { box-sizing: border-box; }
@@ -257,18 +235,8 @@ a:hover { color: var(--link-hover); }
 .btn-primary { background: var(--forest-deep); color: #fffefc; }
 .btn-primary:hover { background: var(--forest); color: #fffefc; }
 
-@media (prefers-color-scheme: dark) {
-  .btn-primary { color: #121714; }
-  .btn-primary:hover { color: #121714; }
-}
-
 .btn-secondary { background: var(--amber-soft); color: var(--forest-deep); }
 .btn-secondary:hover { background: color-mix(in srgb, var(--amber-soft) 74%, var(--amber)); color: var(--forest-deep); }
-
-@media (prefers-color-scheme: dark) {
-  .btn-secondary { color: var(--amber); }
-  .btn-secondary:hover { color: var(--amber); }
-}
 
 /* ---------- sections ---------- */
 
@@ -320,8 +288,6 @@ a.card:active { transform: translateY(-1px) scale(0.99); }
   color: var(--forest-deep);
 }
 
-@media (prefers-color-scheme: dark) { .tile { color: var(--amber); } }
-
 .tile svg { display: block; }
 
 .card h3 {
@@ -358,8 +324,6 @@ a.card:hover .card-foot .arrow { transform: translateX(3px); }
   color: var(--forest-deep);
   white-space: nowrap;
 }
-
-@media (prefers-color-scheme: dark) { .badge { color: var(--amber); } }
 
 .badge.shipped { background: color-mix(in srgb, var(--success) 16%, transparent); color: var(--success); }
 
@@ -412,10 +376,6 @@ a.card:hover .card-foot .arrow { transform: translateX(3px); }
 
 .callout p { margin: 0; color: var(--forest-deep); max-width: none; }
 .callout strong { color: var(--forest-deep); }
-
-@media (prefers-color-scheme: dark) {
-  .callout p, .callout strong { color: #e6dccb; }
-}
 
 .back {
   display: inline-flex;

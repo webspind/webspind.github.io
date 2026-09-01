@@ -50,15 +50,16 @@ with a `.grid` of `.card` links, same shape as the apps section.
 Colours, spacing and motion come from `Jagtproven/Design/Theme.swift` and
 `UXDesignGuide2026.md`, so the site and the apps read as the same house:
 
-- **Palette** — the JPColor tokens (warm paper `#faf8f3`, forest `#213d2e`,
-  amber `#cc7524`), light and dark defined together, never bolted on after.
+- **Palette** — the JPColor light tokens (warm paper `#faf8f3`, forest
+  `#213d2e`, amber `#cc7524`). The site is light only, held regardless of the
+  visitor's system theme. The dark palette is in git history if wanted back.
 - **Spacing** — the 8 pt grid (`--s1`…`--s12`).
 - **Radii** — concentric: outer = inner + padding (8 + 16 = 24 on cards).
 - **Type** — SF Pro Rounded for display, SF Pro Text for prose.
 - **Motion** — spring curves, 0.965 press scale, all of it behind
   `prefers-reduced-motion`.
 
-Contrast is 4.5:1 or better on every text pairing in both modes.
+Contrast is 4.5:1 or better on every text pairing.
 
 ### Regenerating the pages
 

@@ -60,8 +60,7 @@ def page(path, title, desc, body, current=None, canonical=None):
   <link rel="stylesheet" href="/styles.css">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/favicon.svg">
-  <meta name="theme-color" content="#faf8f3" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#121714" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#faf8f3">
   <link rel="canonical" href="https://webspind.com%s">
   <meta property="og:title" content="%s">
   <meta property="og:description" content="%s">
