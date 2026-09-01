@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="da">
+<html lang="da" data-nolang>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ikke fundet — Webspind</title>
-  <meta name="description" content="Siden findes ikke.">
+  <title>Ikke fundet / Not found — Webspind</title>
+  <meta name="description" content="Siden findes ikke. / The page does not exist.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
@@ -13,9 +13,10 @@
   <link rel="apple-touch-icon" href="/favicon.svg">
   <meta name="theme-color" content="#f1eee4">
   <link rel="canonical" href="https://webspind.com/404.html">
-  <meta property="og:title" content="Ikke fundet — Webspind">
-  <meta property="og:description" content="Siden findes ikke.">
+  <meta property="og:title" content="Ikke fundet / Not found — Webspind">
+  <meta property="og:description" content="Siden findes ikke. / The page does not exist.">
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="da_DK">
   <meta property="og:url" content="https://webspind.com/404.html">
 </head>
 <body>
@@ -29,9 +30,11 @@
         <span>Webspind</span>
       </a>
       <nav class="nav" aria-label="Main">
-        <a href="/">Appen</a>
+        <a href="/#apps">Apps</a>
+        <a href="/#games">Spil</a>
         <a href="/support.html">Support</a>
         <a href="/privacy/">Privatliv</a>
+        <span class="lang-switch"><a href="/" data-lang="da" aria-current="true">DA</a><span aria-hidden="true">|</span><a href="/en/" data-lang="en">EN</a></span>
         <a class="contact" href="mailto:hej@webspind.com">Skriv til mig</a>
       </nav>
     </div>
@@ -42,8 +45,12 @@
     <div class="center-page">
       <img src="/favicon.svg" alt="" width="52" height="52" style="opacity:.6">
       <h1>404</h1>
-      <p>Den sti fører ikke nogen steder hen.</p>
-      <p><a class="btn btn-secondary" href="/">Tilbage til Webspind</a></p>
+      <p lang="da">Den sti fører ikke nogen steder hen.</p>
+      <p lang="en">That path does not lead anywhere.</p>
+      <p class="hero-actions" style="justify-content:center">
+        <a class="btn btn-secondary" href="/" lang="da">Tilbage til Webspind</a>
+        <a class="btn btn-secondary" href="/en/" lang="en">Back to Webspind</a>
+      </p>
     </div>
   </main>
 
@@ -52,12 +59,11 @@
       <div class="footer-top">
         <span class="footer-brand"><img src="/favicon.svg" alt="">© 2026 Webspind · Danmark</span>
         <span class="footer-links">
-          <a href="/">Appen</a>
+          <a href="/">Forsiden</a>
           <a href="/privacy/">Privatliv</a>
           <a href="mailto:hej@webspind.com">E-mail</a>
         </span>
       </div>
-      <p class="footer-credit">Midlertidige fotos: <a href="https://commons.wikimedia.org/wiki/File:Metskits_-_Roe_deer_-_Capreolus_capreolus_(4).jpg">rådyr</a>, <a href="https://commons.wikimedia.org/wiki/File:Anas_platyrhynchos_male_female.jpg">gråand</a>, <a href="https://commons.wikimedia.org/wiki/File:Pheasant.jpg">fasan</a>, <a href="https://commons.wikimedia.org/wiki/File:Common_Wood_Pigeon_(Columba_palumbus).JPG">ringdue</a>, <a href="https://commons.wikimedia.org/wiki/File:Grauwe_gans_-_greylag_goose_-_Anser_anser.jpg">grågås</a> — Wikimedia Commons, CC BY / CC BY-SA. Husk at kreditere fotograferne korrekt, eller udskift dem med dine egne billeder inden lancering.</p>
     </div>
   </footer>
 

@@ -3,7 +3,51 @@
 (function () {
   "use strict";
 
-  document.documentElement.setAttribute("data-js-reveal", "");
+  var de = document.documentElement;
+
+  // ---- language: Danish tree at "/", English tree at "/en/".
+  // A stored choice always wins and redirects either direction. With no
+  // stored choice, an explicit URL is trusted: we only auto-redirect a
+  // Danish-tree visitor to /en when the browser language isn't Danish —
+  // we never bounce someone off /en based on browser language alone.
+  // Pages with no twin (the Danish-only policy, the bilingual 404) carry
+  // data-nolang and are left alone — redirecting the 404 would bounce,
+  // because GitHub Pages serves it under the URL that was asked for.
+  var LS_KEY = "webspindLang";
+
+  function storedLang() {
+    try { return localStorage.getItem(LS_KEY); } catch (e) { return null; }
+  }
+  function storeLang(v) {
+    try { localStorage.setItem(LS_KEY, v); } catch (e) {}
+  }
+
+  if (!de.hasAttribute("data-nolang")) {
+    var path = location.pathname;
+    var inEn = path === "/en" || path.indexOf("/en/") === 0;
+    var pref = storedLang();
+    var target = null;
+    if (pref === "en" || pref === "da") {
+      if (pref === "en" && !inEn) target = "/en" + path;
+      else if (pref === "da" && inEn) target = path.slice(3) || "/";
+    } else if (!inEn) {
+      var browserIsDa = String(navigator.language || "").toLowerCase().indexOf("da") === 0;
+      if (!browserIsDa) target = "/en" + path;
+    }
+    // Only ever move between the two trees, and never to where we already are.
+    if (target && target !== path) {
+      location.replace(target + location.search + location.hash);
+      return;
+    }
+  }
+
+  // Clicking DA or EN in the header stores the choice, then follows the link.
+  document.addEventListener("click", function (e) {
+    var a = e.target && e.target.closest ? e.target.closest("[data-lang]") : null;
+    if (a) storeLang(a.getAttribute("data-lang"));
+  });
+
+  de.setAttribute("data-js-reveal", "");
 
   var io = null;
   function reveal(el) {
@@ -34,13 +78,11 @@
   }, 2500);
 
   function onScroll() {
-    var de = document.documentElement, b = document.body;
+    var b = document.body;
     var y = window.scrollY || de.scrollTop || b.scrollTop || 0;
     var h = Math.max(de.scrollHeight, b.scrollHeight) - window.innerHeight;
     var bar = document.querySelector("[data-progress]");
-    var par = document.querySelector("[data-parallax]");
     if (bar) bar.style.width = (h > 0 ? Math.min(100, Math.max(0, (y / h) * 100)) : 0) + "%";
-    if (par) par.style.transform = "translate3d(0," + (y * 0.18).toFixed(1) + "px,0)";
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
@@ -53,12 +95,18 @@
   var mailBtn = document.querySelector("[data-send-mail]");
   if (mailBtn) {
     mailBtn.addEventListener("click", function () {
+      var isDa = de.lang !== "en";
       var subjectEl = document.querySelector("[data-field-subject]");
       var emailEl = document.querySelector("[data-field-email]");
       var bodyEl = document.querySelector("[data-field-body]");
-      var subjectVal = subjectEl && subjectEl.value && subjectEl.value !== "Vælg…" ? subjectEl.value : "Support — Jagtprøven";
-      var bodyVal = (bodyEl && bodyEl.value ? bodyEl.value : "") + (emailEl && emailEl.value ? "\n\nSvar til: " + emailEl.value : "");
-      window.location.href = "mailto:support@webspind.com?subject=" + encodeURIComponent(subjectVal) + "&body=" + encodeURIComponent(bodyVal);
+      // The placeholder option has an empty value, so this works in either
+      // language without matching on the label text.
+      var subjectVal = subjectEl && subjectEl.value ? subjectEl.value : "Support — Jagtprøven";
+      var replyLabel = isDa ? "\n\nSvar til: " : "\n\nReply to: ";
+      var bodyVal = (bodyEl && bodyEl.value ? bodyEl.value : "") +
+                    (emailEl && emailEl.value ? replyLabel + emailEl.value : "");
+      window.location.href = "mailto:support@webspind.com?subject=" +
+        encodeURIComponent(subjectVal) + "&body=" + encodeURIComponent(bodyVal);
     });
   }
 })();

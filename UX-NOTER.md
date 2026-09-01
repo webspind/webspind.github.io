@@ -18,13 +18,17 @@ den man selv gætter på.
 
 Ting jeg allerede ved mangler en beslutning fra dig:
 
-- [x] **Sprog.** Besvaret af "Webspind v2"-designet: siden er nu på dansk.
+- [x] **Sprog.** Siden er tosproget fra 1. sep. 2026: dansk på `/`, engelsk
+      på `/en/`. Browserens sprog afgør, hvor du lander første gang, og
+      DA | EN-skifteren i headeren husker dit valg. Se "Sprog" under
+      Gennemgående, hvis noget i oversættelserne skurrer.
 - [ ] **Jagtprøven-status.** Forsiden viser nu "App Store-link følger" som
       pladsholder overalt i stedet for et "In Development"-badge. Skal
       skiftes til det rigtige link, når appen er godkendt.
-- [ ] **Games-sektionen.** Fjernet fra forsiden i v2-redesignet, som er
-      bygget ensidigt om Jagtprøven. Skal spil have en plads igen — egen
-      sektion, eller en separat side — når det første er klar?
+- [x] **Games-sektionen.** Tilbage på forsiden som en tom tilstand
+      ("Intet udgivet endnu"). Når det første spil er klar, fyldes
+      `GAMES`-listen i `build-pages.py`, og den tomme tilstand bliver
+      automatisk til kort ligesom Apps-sektionen.
 - [ ] **Dark mode.** Fjernet 1. september på din anmodning — siden er hvid
       uanset systemindstilling. Paletten ligger i git-historikken og kan
       hentes tilbage, evt. med en manuel til/fra-knap i stedet for at følge
@@ -36,23 +40,42 @@ Ting jeg allerede ved mangler en beslutning fra dig:
 
 ### Hero (øverste sektion)
 
-_Overskrift, brødtekst, de to knapper, spindet i baggrunden._
+_Eyebrow, overskrift, den ene linje brødtekst, de to knapper. Ingen
+foto og ingen parallax længere — heroen er ren tekst._
 
 -
 
 ### Apps-sektionen
 
-_Kortene, ikonerne, badget, teksten._
+_Jagtprøven-kortet: ikonet, navnet, platformlinjen, pitchen, badget
+"App Store-link følger" og "Læs mere"-linket._
 
 -
 
 ### Games-sektionen
 
-_Den tomme tilstand._
+_Den tomme tilstand: ikonet, "Intet udgivet endnu" og linjen under._
 
 -
 
-### Get in Touch
+### Kontakt-striben
+
+_Den nederste stribe med support- og privatlivsknapperne._
+
+-
+
+---
+
+## App-siden (`/jagtproven/`)
+
+_Hele Jagtprøven-pitchen ligger her nu, ikke på forsiden. Hero med
+app-ikon, de to skærmbilleder og taltavlen, derefter forbeholdet,
+de tre highlight-kort, "Hvad du får", de syv emner, jagttiderne,
+gratis-afsnittet, om-afsnittet og den afsluttende CTA._
+
+_Fugle-rækken og gåse-billedet er væk — det var de sidste
+Wikimedia-fotos. Fuglekending er stadig dækket af highlight-kortet og
+skærmbilledet._
 
 -
 
@@ -79,6 +102,22 @@ _Oversigten på `/privacy/` og selve politikken._
 -
 
 ### Footer
+
+-
+
+### Sprog
+
+_Dansk på `/`, engelsk på `/en/`. Første besøg uden gemt valg: en
+eksplicit `/en/`-adresse respekteres altid, og kun besøgende der lander
+på den danske forside med en browser der ikke er sat til dansk, sendes
+videre til `/en/`. Trykker du DA eller EN i headeren, gemmes valget i
+`localStorage`, og fra da af slår det gemte valg browsersproget fra i
+begge retninger. Privatlivspolitikken
+for Jagtprøven findes kun på dansk — appen er dansk — og 404-siden er
+tosproget på én side; begge dele springer omdirigeringen over._
+
+_Skriv her, hvis en engelsk formulering lyder forkert, eller hvis der
+er dansk tekst tilbage i den engelske version._
 
 -
 
@@ -143,6 +182,19 @@ Log over hvad der er lavet, så vi kan se hvad der virkede.
   formular der bygger en mailto-besked lokalt (intet sendes til en server).
   Apps/Games-portefølje-sektionerne er væk fra forsiden — se åbent punkt
   om Games ovenfor.
+- **1. sep. 2026** — Siden bygget om til et studie-showcase: forsiden er
+  nu kort (hero, Apps, Games, kontakt-stribe), og hele Jagtprøven-pitchen
+  er flyttet til sin egen side på `/jagtproven/`. Apps-sektionen bygges
+  fra en liste, så app nummer to er én linje data og ikke ny markup.
+  Games er tilbage som tom tilstand.
+- **1. sep. 2026** — Siden er blevet tosproget: dansk på `/`, engelsk på
+  `/en/`, begge genereret fra én strengtabel i `build-pages.py`. DA |
+  EN-skifter i headeren, `hreflang`-alternativer på alle tosprogede
+  sider, og førstegangsbesøg sendes til det rigtige træ ud fra browserens
+  sprog.
+- **1. sep. 2026** — De sidste Wikimedia-fotos er væk (fugle-rækken,
+  gåse-billedet og rådyret i heroen), og dermed også kreditlinjen i
+  footeren. Alle billeder på siden er nu vores egne fra `assets/`.
 - **1. sep. 2026** — App-sektionens pladsholdere erstattet med rigtigt
   indhold: bygget Jagtprøven i iOS Simulator og hentet et quiz- og et
   fuglekendings-skærmbillede derfra, plus det faktiske app-ikon fra
