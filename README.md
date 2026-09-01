@@ -45,6 +45,12 @@ Live within ~1 minute.
 Replace the `<div class="empty">…</div>` inside `<section id="games">` in `index.html`
 with a `.grid` of `.card` links, same shape as the apps section.
 
+## UX-noter
+
+`UX-NOTER.md` is the working file for design feedback — walk the site,
+write what bothers you under the relevant heading, hand it over, and the
+changes get made from it.
+
 ## Design
 
 Colours, spacing and motion come from `Jagtproven/Design/Theme.swift` and
