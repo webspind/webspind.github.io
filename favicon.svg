@@ -1,11 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-  <rect width="24" height="24" rx="5.4" fill="#faf8f3"/>
-  <g fill="none" stroke="#213d2e" stroke-width="1.15" stroke-linecap="round">
-    <line x1="12" y1="12" x2="12" y2="3"/><line x1="12" y1="12" x2="19.8" y2="7.5"/>
-    <line x1="12" y1="12" x2="19.8" y2="16.5"/><line x1="12" y1="12" x2="12" y2="21"/>
-    <line x1="12" y1="12" x2="4.2" y2="16.5"/><line x1="12" y1="12" x2="4.2" y2="7.5"/>
-    <path d="M12 7 Q15.2 8 16.5 10 Q17.7 12 16.5 14 Q15.2 16 12 17 Q8.8 16 7.5 14 Q6.3 12 7.5 10 Q8.8 8 12 7"/>
-    <path d="M12 3.4 Q17.5 5 19.5 7.7 Q21.4 12 19.5 16.3 Q17.5 19 12 20.6 Q6.5 19 4.5 16.3 Q2.6 12 4.5 7.7 Q6.5 5 12 3.4"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Webspind">
+  <defs>
+    <clipPath id="sq"><rect x="0" y="0" width="64" height="64" rx="15"></rect></clipPath>
+  </defs>
+  <rect x="0" y="0" width="64" height="64" rx="15" fill="#2f6b3a"></rect>
+  <g clip-path="url(#sq)" fill="none" stroke="#f6f5f0" stroke-width="3.4" stroke-linecap="round">
+    <circle cx="4" cy="60" r="18"></circle>
+    <circle cx="4" cy="60" r="34"></circle>
+    <circle cx="4" cy="60" r="50"></circle>
+    <line x1="4" y1="60" x2="4" y2="4"></line>
+    <line x1="4" y1="60" x2="60" y2="60"></line>
+    <line x1="4" y1="60" x2="52" y2="12"></line>
   </g>
-  <circle cx="12" cy="12" r="1.5" fill="#cc7524"/>
 </svg>

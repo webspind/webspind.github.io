@@ -1,18 +1,21 @@
 # webspind.com
 
-Static site. Plain HTML + one CSS file. No build step, no dependencies, no framework.
-Hosted on **GitHub Pages** — pushing to `main` publishes the site.
+Static site. Plain HTML + one CSS file + one small JS file. No build step,
+no dependencies, no framework. Hosted on **GitHub Pages** — pushing to
+`main` publishes the site. Content is Danish (Jagtprøven is a Danish app
+for the Danish App Store).
 
 ## Files
 
 ```
-index.html              Home: apps + games
+index.html              Home: the Jagtprøven pitch, top to bottom
 support.html            Support / contact page (use as App Store "Support URL")
 privacy/index.html      Index of all privacy policies
 privacy/jagtproven.html Jagtprøven policy (use as App Store "Privacy Policy URL")
 404.html                Not-found page
 styles.css              The whole design
-favicon.svg             Web icon
+site.js                 Scroll reveal, hero parallax, progress bar, mailto-builder for the support form
+favicon.svg             Web icon, also used as the header/footer logo mark
 CNAME                   Tells GitHub Pages the custom domain is webspind.com — do not delete
 .nojekyll               Stops GitHub from running Jekyll over the files
 robots.txt, sitemap.xml SEO basics — add new pages to the sitemap
@@ -35,15 +38,16 @@ Live within ~1 minute.
 
 ## Add a new app
 
-1. Copy `privacy/jagtproven.html` to `privacy/<appname>.html`, edit the text.
-2. Add a card to the grid in `index.html` (`<section id="apps">`) and in `privacy/index.html`.
-3. Add both URLs to `sitemap.xml`.
-4. Commit and push.
+The homepage is single-app (Jagtprøven) as of the v2 redesign, so a second
+app needs its own privacy policy at minimum:
 
-## Add a game
-
-Replace the `<div class="empty">…</div>` inside `<section id="games">` in `index.html`
-with a `.grid` of `.card` links, same shape as the apps section.
+1. Copy `privacy/jagtproven.html` to `privacy/<appname>.html`, edit the text
+   in `build-pages.py` (`POLICY_SECTIONS`, or duplicate the page() call for a
+   second policy).
+2. Add a card to `priv_index_body` in `build-pages.py` (renders `/privacy/`).
+3. Add the new URL to `sitemap.xml`.
+4. Decide whether the homepage should go back to a multi-app grid — see the
+   open "Games-sektionen" item in `UX-NOTER.md`.
 
 ## UX-noter
 
@@ -53,19 +57,24 @@ changes get made from it.
 
 ## Design
 
-Colours, spacing and motion come from `Jagtproven/Design/Theme.swift` and
-`UXDesignGuide2026.md`, so the site and the apps read as the same house:
+As of 1 September 2026 the site follows the **"Webspind v2"** Claude Design
+project (claude.ai/design), implemented from `Webspind v2.dc.html`:
 
-- **Palette** — the JPColor light tokens (warm paper `#faf8f3`, forest
-  `#213d2e`, amber `#cc7524`). The site is light only, held regardless of the
-  visitor's system theme. The dark palette is in git history if wanted back.
-- **Spacing** — the 8 pt grid (`--s1`…`--s12`).
-- **Radii** — concentric: outer = inner + padding (8 + 16 = 24 on cards).
-- **Type** — SF Pro Rounded for display, SF Pro Text for prose.
-- **Motion** — spring curves, 0.965 press scale, all of it behind
+- **Palette** — warm paper `#f1eee4`, card `#fbfaf5`, forest `#1f5a35`,
+  rust `#8f4712`, ink `#15211a`. Light only, held regardless of the
+  visitor's system theme. The previous palette (from `Theme.swift`) and the
+  dark palette are both in git history if wanted back.
+- **Spacing** — the 8 pt grid (`--s1`…`--s12`), concentric card radii.
+- **Type** — Bricolage Grotesque for display, Instrument Sans for UI text,
+  Newsreader (serif) for long-form prose (the about section, policy body).
+  Loaded from Google Fonts.
+- **Motion** — scroll-reveal (`.rv`, driven by `site.js`), a subtle hero
+  parallax, a scroll-progress bar under the header, all of it behind
   `prefers-reduced-motion`.
 
-Contrast is 4.5:1 or better on every text pairing.
+Contrast is 4.5:1 or better on every text pairing. Homepage photos are
+temporary Wikimedia Commons hotlinks — see the credit line in the footer —
+swap them for real screenshots and photos before shipping.
 
 ### Regenerating the pages
 

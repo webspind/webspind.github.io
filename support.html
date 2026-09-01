@@ -1,80 +1,120 @@
 <!doctype html>
-<html lang="en">
+<html lang="da">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Support — Webspind</title>
-  <meta name="description" content="Support for Webspind apps and games.">
+  <meta name="description" content="Support til Jagtprøven. Skriv direkte til mig, jeg svarer inden for to hverdage.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/favicon.svg">
-  <meta name="theme-color" content="#faf8f3">
+  <meta name="theme-color" content="#f1eee4">
   <link rel="canonical" href="https://webspind.com/support.html">
   <meta property="og:title" content="Support — Webspind">
-  <meta property="og:description" content="Support for Webspind apps and games.">
+  <meta property="og:description" content="Support til Jagtprøven. Skriv direkte til mig, jeg svarer inden for to hverdage.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://webspind.com/support.html">
 </head>
 <body>
+  <div class="ambience" aria-hidden="true"></div>
+  <div class="ambience-grid" aria-hidden="true"></div>
 
   <header class="site-header">
     <div class="wrap">
       <a class="brand" href="/">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" aria-hidden="true">
-        <g class="web-ring">
-          <line x1="12" y1="12" x2="12" y2="2.4"/><line x1="12" y1="12" x2="20.3" y2="7.2"/>
-          <line x1="12" y1="12" x2="20.3" y2="16.8"/><line x1="12" y1="12" x2="12" y2="21.6"/>
-          <line x1="12" y1="12" x2="3.7" y2="16.8"/><line x1="12" y1="12" x2="3.7" y2="7.2"/>
-          <path d="M12 6.6 Q15.4 7.7 16.8 9.85 Q18.1 12 16.8 14.15 Q15.4 16.3 12 17.4 Q8.6 16.3 7.2 14.15 Q5.9 12 7.2 9.85 Q8.6 7.7 12 6.6"/>
-          <path d="M12 2.9 Q17.8 4.6 19.9 7.5 Q21.9 12 19.9 16.5 Q17.8 19.4 12 21.1 Q6.2 19.4 4.1 16.5 Q2.1 12 4.1 7.5 Q6.2 4.6 12 2.9"/>
-        </g>
-      </svg>
-        Webspind
+        <img src="/favicon.svg" alt="" width="28" height="28">
+        <span>Webspind</span>
       </a>
       <nav class="nav" aria-label="Main">
-        <a href="/#apps">Apps</a>
-        <a href="/#games">Games</a>
-        <a href="/privacy/">Privacy</a>
+        <a href="/">Appen</a>
         <a href="/support.html" aria-current="page">Support</a>
+        <a href="/privacy/">Privatliv</a>
+        <a class="contact" href="mailto:hej@webspind.com">Skriv til mig</a>
       </nav>
     </div>
+    <div class="progress-track"><div class="progress-bar" data-progress="1"></div></div>
   </header>
 
-  <article class="prose">
-    <div class="wrap">
-      <h1>Support</h1>
-      <p class="updated">Usually answered within a few days</p>
-
-      <div class="callout">
-        <p>Found a bug, want a feature, or is something not working? Write to <a href="mailto:webspind@gmail.com">webspind@gmail.com</a> and I'll get back to you.</p>
+  <main>
+    <div class="support-page">
+      <div class="page-head">
+        <h1>Support</h1>
+        <p>Skriv direkte til mig. Jeg læser alle beskeder og svarer inden for to hverdage, på dansk eller engelsk. Skriv hvilken iPhone og iOS-version du har, og hvad der skete — det sparer os begge en runde.</p>
       </div>
-
-      <h2>What Helps Me Fix It Faster</h2>
-      <ul>
-        <li>Which app, and which version.</li>
-        <li>Your iOS version and device model.</li>
-        <li>What you did, what you expected, and what happened instead.</li>
-        <li>A screenshot or screen recording, if it's something visual.</li>
-      </ul>
-
-      <h2>Purchases and Refunds</h2>
-      <p>All purchases go through Apple, so refunds do too — request one at <a href="https://reportaproblem.apple.com" rel="noopener">reportaproblem.apple.com</a>. If a purchase isn't unlocking correctly inside the app, that one's on me: email me and I'll sort it out.</p>
-
-      <h2>Privacy</h2>
-      <p>Each app's privacy policy is on the <a href="/privacy/">privacy page</a>.</p>
+      <div class="contact-grid rv">
+        <a class="contact-card" href="mailto:support@webspind.com">
+          <span class="label">E-mail</span>
+          <span class="value link">support@webspind.com</span>
+        </a>
+        <div class="contact-card">
+          <span class="label">Svartid</span>
+          <span class="value">Inden for 2 hverdage</span>
+        </div>
+        <div class="contact-card">
+          <span class="label">Refusion</span>
+          <span class="value">Håndteres af Apple</span>
+        </div>
+      </div>
+      <div class="support-form rv">
+        <h2>Send en besked</h2>
+        <div class="form-grid">
+          <label class="field">Hvad handler det om
+            <select data-field-subject>
+              <option>Vælg…</option>
+              <option>Jagtprøven — fejl i appen</option>
+              <option>Jagtprøven — køb eller gendannelse</option>
+              <option>Jagtprøven — fejl i et spørgsmål</option>
+              <option>Forslag til appen</option>
+              <option>Andet</option>
+            </select>
+          </label>
+          <label class="field">Din e-mail
+            <input type="email" placeholder="dig@eksempel.dk" data-field-email>
+          </label>
+        </div>
+        <label class="field">Hvad skete der
+          <textarea rows="5" placeholder="Model og iOS-version, hvad du gjorde, og hvad du forventede." data-field-body></textarea>
+        </label>
+        <div class="form-actions">
+          <button type="button" class="btn btn-primary" data-send-mail>Åbn i dit mailprogram</button>
+          <span class="note">Intet gemmes her — den skriver bare mailen for dig.</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <h2 style="font-size:clamp(22px,2.8vw,30px)">Ofte stillede spørgsmål</h2>
+        <div class="faq rv">
+          <details><summary>Er det prøvens rigtige spørgsmål?</summary><p class="answer">Nej. Spørgsmålene er skrevet til appen ud fra det offentlige pensum til jagttegnsprøven. Appen er en uafhængig træningsapp og er ikke tilknyttet Naturstyrelsen eller Miljøministeriet.</p></details>
+          <details><summary>Kan jeg bruge jagttiderne, når jeg er på jagt?</summary><p class="answer">Brug dem til at øve. Jagttiderne i appen er vejledende og er ikke et juridisk opslagsværk — slå altid op i den gældende bekendtgørelse, før du går ud. Flere arter har desuden lokale og regionale jagttider, som appen kun noterer.</p></details>
+          <details><summary>Hvad kan jeg prøve gratis?</summary><p class="answer">Hele emnet “Sikkerhed på jagt”, fire fuglearter og fire jagttider. Resten låses op med ét engangskøb, ikke et abonnement.</p></details>
+          <details><summary>Hvordan får jeg mit køb tilbage på en ny telefon?</summary><p class="answer">Åbn appen, gå til Indstillinger og tryk Gendan køb. Købet hænger på din Apple-konto, så det er nok at være logget ind med den samme. Sker der intet, så skriv til mig med købsdatoen, så ordner jeg det.</p></details>
+          <details><summary>Gemmer appen mine besvarelser et sted?</summary><p class="answer">Kun på din egen telefon. Der er ingen brugerkonto og ingen server hos mig, så din statistik og dine favoritfugle forlader ikke enheden.</p></details>
+          <details><summary>Jeg mener, et svar er forkert</summary><p class="answer">Skriv hvilket spørgsmål det er, og hvad du mener er galt, gerne med henvisning. Pensum ændrer sig, og jeg retter hurtigt — det er mig selv, der læser mailen.</p></details>
+        </div>
+      </div>
+      <div class="urgent rv">
+        <span class="head">Noget der ikke kan vente?</span>
+        <span class="body">Skal du til prøve i morgen, eller mistede appen dine data? Skriv “hastende” i emnefeltet. Dem svarer jeg på samme dag, når jeg ikke er på farten.</span>
+      </div>
     </div>
-  </article>
+  </main>
 
   <footer class="site-footer">
     <div class="wrap">
-      <span>© 2026 Webspind</span>
-      <span class="footer-links">
-        <a href="/">Home</a>
-        <a href="/privacy/">Privacy</a>
-        <a href="/support.html">Support</a>
-      </span>
+      <div class="footer-top">
+        <span class="footer-brand"><img src="/favicon.svg" alt="">© 2026 Webspind · Danmark</span>
+        <span class="footer-links">
+          <a href="/">Appen</a>
+          <a href="/privacy/">Privatliv</a>
+          <a href="mailto:hej@webspind.com">E-mail</a>
+        </span>
+      </div>
+      <p class="footer-credit">Midlertidige fotos: <a href="https://commons.wikimedia.org/wiki/File:Metskits_-_Roe_deer_-_Capreolus_capreolus_(4).jpg">rådyr</a>, <a href="https://commons.wikimedia.org/wiki/File:Anas_platyrhynchos_male_female.jpg">gråand</a>, <a href="https://commons.wikimedia.org/wiki/File:Pheasant.jpg">fasan</a>, <a href="https://commons.wikimedia.org/wiki/File:Common_Wood_Pigeon_(Columba_palumbus).JPG">ringdue</a>, <a href="https://commons.wikimedia.org/wiki/File:Grauwe_gans_-_greylag_goose_-_Anser_anser.jpg">grågås</a> — Wikimedia Commons, CC BY / CC BY-SA. Husk at kreditere fotograferne korrekt, eller udskift dem med dine egne billeder inden lancering.</p>
     </div>
   </footer>
 
+  <script src="/site.js"></script>
 </body>
 </html>

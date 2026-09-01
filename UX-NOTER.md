@@ -18,12 +18,13 @@ den man selv gætter på.
 
 Ting jeg allerede ved mangler en beslutning fra dig:
 
-- [ ] **Sprog.** Siden er på engelsk, men Jagtprøven er en dansk app til dansk
-      App Store. Skal siden være dansk? Eller begge dele?
-- [ ] **Jagtprøven-status.** Står som "In Development". Når den er udgivet:
-      skal badget skiftes og et App Store-link ind?
-- [ ] **Games-sektionen.** Står tom med vilje. Hvilke spil skal på, og med
-      hvilke navne?
+- [x] **Sprog.** Besvaret af "Webspind v2"-designet: siden er nu på dansk.
+- [ ] **Jagtprøven-status.** Forsiden viser nu "App Store-link følger" som
+      pladsholder overalt i stedet for et "In Development"-badge. Skal
+      skiftes til det rigtige link, når appen er godkendt.
+- [ ] **Games-sektionen.** Fjernet fra forsiden i v2-redesignet, som er
+      bygget ensidigt om Jagtprøven. Skal spil have en plads igen — egen
+      sektion, eller en separat side — når det første er klar?
 - [ ] **Dark mode.** Fjernet 1. september på din anmodning — siden er hvid
       uanset systemindstilling. Paletten ligger i git-historikken og kan
       hentes tilbage, evt. med en manuel til/fra-knap i stedet for at følge
@@ -135,6 +136,13 @@ Log over hvad der er lavet, så vi kan se hvad der virkede.
   app-paletten, 8 pt-grid, koncentriske radier, Title Case-overskrifter,
   spring-animationer, tomme tilstande med symbol og én linje.
 - **1. sep. 2026** — Dark mode fjernet, siden er hvid uanset systemtema.
+- **1. sep. 2026** — Implementeret "Webspind v2" (Claude Design-projekt):
+  ny forside ensidigt bygget om Jagtprøven, dansk tekst gennemgående, ny
+  palet og typografi (Bricolage Grotesque / Instrument Sans / Newsreader),
+  scroll-reveal og parallax i hero, FAQ med `<details>`, og en support-
+  formular der bygger en mailto-besked lokalt (intet sendes til en server).
+  Apps/Games-portefølje-sektionerne er væk fra forsiden — se åbent punkt
+  om Games ovenfor.
 
 ---
 

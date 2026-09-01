@@ -1,166 +1,255 @@
 <!doctype html>
-<html lang="en">
+<html lang="da">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Webspind — Small apps, made with care</title>
-  <meta name="description" content="Webspind builds focused iOS apps and games. Support and privacy policies for every app.">
+  <title>Webspind — Jagtprøven, uden gætteri</title>
+  <meta name="description" content="Jagtprøven: hele teorien, fuglekending og jagttider i én app, med en forklaring på hvert svar. Uafhængig træningsapp til iPhone og iPad.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/favicon.svg">
-  <meta name="theme-color" content="#faf8f3">
+  <meta name="theme-color" content="#f1eee4">
   <link rel="canonical" href="https://webspind.com/">
-  <meta property="og:title" content="Webspind — Small apps, made with care">
-  <meta property="og:description" content="Webspind builds focused iOS apps and games. Support and privacy policies for every app.">
+  <meta property="og:title" content="Webspind — Jagtprøven, uden gætteri">
+  <meta property="og:description" content="Jagtprøven: hele teorien, fuglekending og jagttider i én app, med en forklaring på hvert svar. Uafhængig træningsapp til iPhone og iPad.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://webspind.com/">
 </head>
 <body>
+  <div class="ambience" aria-hidden="true"></div>
+  <div class="ambience-grid" aria-hidden="true"></div>
 
   <header class="site-header">
     <div class="wrap">
       <a class="brand" href="/">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" aria-hidden="true">
-        <g class="web-ring">
-          <line x1="12" y1="12" x2="12" y2="2.4"/><line x1="12" y1="12" x2="20.3" y2="7.2"/>
-          <line x1="12" y1="12" x2="20.3" y2="16.8"/><line x1="12" y1="12" x2="12" y2="21.6"/>
-          <line x1="12" y1="12" x2="3.7" y2="16.8"/><line x1="12" y1="12" x2="3.7" y2="7.2"/>
-          <path d="M12 6.6 Q15.4 7.7 16.8 9.85 Q18.1 12 16.8 14.15 Q15.4 16.3 12 17.4 Q8.6 16.3 7.2 14.15 Q5.9 12 7.2 9.85 Q8.6 7.7 12 6.6"/>
-          <path d="M12 2.9 Q17.8 4.6 19.9 7.5 Q21.9 12 19.9 16.5 Q17.8 19.4 12 21.1 Q6.2 19.4 4.1 16.5 Q2.1 12 4.1 7.5 Q6.2 4.6 12 2.9"/>
-        </g>
-      </svg>
-        Webspind
+        <img src="/favicon.svg" alt="" width="28" height="28">
+        <span>Webspind</span>
       </a>
       <nav class="nav" aria-label="Main">
-        <a href="/#apps">Apps</a>
-        <a href="/#games">Games</a>
-        <a href="/privacy/">Privacy</a>
+        <a href="/">Appen</a>
         <a href="/support.html">Support</a>
+        <a href="/privacy/">Privatliv</a>
+        <a class="contact" href="mailto:hej@webspind.com">Skriv til mig</a>
       </nav>
     </div>
+    <div class="progress-track"><div class="progress-bar" data-progress="1"></div></div>
   </header>
 
-  <div class="hero">
-<svg class="hero-web" viewBox="0 0 720 720" fill="none" aria-hidden="true" focusable="false">
-  <defs><radialGradient id="wfade" cx="50%" cy="50%" r="50%">
-    <stop class="ws0" offset="0%"/>
-    <stop class="ws1" offset="48%"/>
-    <stop class="ws2" offset="100%"/>
-  </radialGradient></defs>
-  <g stroke="url(#wfade)" stroke-width="1.25" stroke-linecap="round">
-    <line x1="360" y1="360" x2="360.0" y2="26.0"/>
-    <line x1="360" y1="360" x2="487.8" y2="51.4"/>
-    <line x1="360" y1="360" x2="596.2" y2="123.8"/>
-    <line x1="360" y1="360" x2="668.6" y2="232.2"/>
-    <line x1="360" y1="360" x2="694.0" y2="360.0"/>
-    <line x1="360" y1="360" x2="668.6" y2="487.8"/>
-    <line x1="360" y1="360" x2="596.2" y2="596.2"/>
-    <line x1="360" y1="360" x2="487.8" y2="668.6"/>
-    <line x1="360" y1="360" x2="360.0" y2="694.0"/>
-    <line x1="360" y1="360" x2="232.2" y2="668.6"/>
-    <line x1="360" y1="360" x2="123.8" y2="596.2"/>
-    <line x1="360" y1="360" x2="51.4" y2="487.8"/>
-    <line x1="360" y1="360" x2="26.0" y2="360.0"/>
-    <line x1="360" y1="360" x2="51.4" y2="232.2"/>
-    <line x1="360" y1="360" x2="123.8" y2="123.8"/>
-    <line x1="360" y1="360" x2="232.2" y2="51.4"/>
-    <path d="M 360.0 296.0 Q 371.7 301.0 384.5 300.9 Q 393.4 310.0 405.3 314.7 Q 410.0 326.6 419.1 335.5 Q 419.0 348.3 424.0 360.0 Q 419.0 371.7 419.1 384.5 Q 410.0 393.4 405.3 405.3 Q 393.4 410.0 384.5 419.1 Q 371.7 419.0 360.0 424.0 Q 348.3 419.0 335.5 419.1 Q 326.6 410.0 314.7 405.3 Q 310.0 393.4 300.9 384.5 Q 301.0 371.7 296.0 360.0 Q 301.0 348.3 300.9 335.5 Q 310.0 326.6 314.7 314.7 Q 326.6 310.0 335.5 300.9 Q 348.3 301.0 360.0 296.0"/>
-    <path d="M 360.0 252.0 Q 379.8 260.4 401.3 260.2 Q 416.4 275.6 436.4 283.6 Q 444.4 303.6 459.8 318.7 Q 459.6 340.2 468.0 360.0 Q 459.6 379.8 459.8 401.3 Q 444.4 416.4 436.4 436.4 Q 416.4 444.4 401.3 459.8 Q 379.8 459.6 360.0 468.0 Q 340.2 459.6 318.7 459.8 Q 303.6 444.4 283.6 436.4 Q 275.6 416.4 260.2 401.3 Q 260.4 379.8 252.0 360.0 Q 260.4 340.2 260.2 318.7 Q 275.6 303.6 283.6 283.6 Q 303.6 275.6 318.7 260.2 Q 340.2 260.4 360.0 252.0"/>
-    <path d="M 360.0 202.0 Q 389.0 214.3 420.5 214.0 Q 442.5 236.5 471.7 248.3 Q 483.5 277.5 506.0 299.5 Q 505.7 331.0 518.0 360.0 Q 505.7 389.0 506.0 420.5 Q 483.5 442.5 471.7 471.7 Q 442.5 483.5 420.5 506.0 Q 389.0 505.7 360.0 518.0 Q 331.0 505.7 299.5 506.0 Q 277.5 483.5 248.3 471.7 Q 236.5 442.5 214.0 420.5 Q 214.3 389.0 202.0 360.0 Q 214.3 331.0 214.0 299.5 Q 236.5 277.5 248.3 248.3 Q 277.5 236.5 299.5 214.0 Q 331.0 214.3 360.0 202.0"/>
-    <path d="M 360.0 146.0 Q 399.2 162.7 441.9 162.3 Q 471.8 192.7 511.3 208.7 Q 527.3 248.2 557.7 278.1 Q 557.3 320.8 574.0 360.0 Q 557.3 399.2 557.7 441.9 Q 527.3 471.8 511.3 511.3 Q 471.8 527.3 441.9 557.7 Q 399.2 557.3 360.0 574.0 Q 320.8 557.3 278.1 557.7 Q 248.2 527.3 208.7 511.3 Q 192.7 471.8 162.3 441.9 Q 162.7 399.2 146.0 360.0 Q 162.7 320.8 162.3 278.1 Q 192.7 248.2 208.7 208.7 Q 248.2 192.7 278.1 162.3 Q 320.8 162.7 360.0 146.0"/>
-    <path d="M 360.0 84.0 Q 410.6 105.5 465.6 105.0 Q 504.1 144.3 555.2 164.8 Q 575.7 215.9 615.0 254.4 Q 614.5 309.4 636.0 360.0 Q 614.5 410.6 615.0 465.6 Q 575.7 504.1 555.2 555.2 Q 504.1 575.7 465.6 615.0 Q 410.6 614.5 360.0 636.0 Q 309.4 614.5 254.4 615.0 Q 215.9 575.7 164.8 555.2 Q 144.3 504.1 105.0 465.6 Q 105.5 410.6 84.0 360.0 Q 105.5 309.4 105.0 254.4 Q 144.3 215.9 164.8 164.8 Q 215.9 144.3 254.4 105.0 Q 309.4 105.5 360.0 84.0"/>
-    <path d="M 360.0 26.0 Q 421.3 52.1 487.8 51.4 Q 534.4 99.0 596.2 123.8 Q 621.0 185.6 668.6 232.2 Q 667.9 298.7 694.0 360.0 Q 667.9 421.3 668.6 487.8 Q 621.0 534.4 596.2 596.2 Q 534.4 621.0 487.8 668.6 Q 421.3 667.9 360.0 694.0 Q 298.7 667.9 232.2 668.6 Q 185.6 621.0 123.8 596.2 Q 99.0 534.4 51.4 487.8 Q 52.1 421.3 26.0 360.0 Q 52.1 298.7 51.4 232.2 Q 99.0 185.6 123.8 123.8 Q 185.6 99.0 232.2 51.4 Q 298.7 52.1 360.0 26.0"/>
-  </g>
-</svg>
-    <div class="wrap">
-      <p class="hero-eyebrow"><span class="dot"></span> Independent studio · Denmark</p>
-      <h1>Small apps, made&nbsp;with <span class="accent">care</span>.</h1>
-      <p class="hero-lede">Webspind builds focused iOS apps and games — the kind that do one thing well, work without a signal, and never ask for your data. Support and privacy policies for everything I ship live here.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#apps">See the apps <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
-        <a class="btn btn-secondary" href="/support.html">Get in touch</a>
+  <main>
+    <section class="hero">
+      <div class="hero-media" data-parallax="1">
+        <img class="moody" src="https://commons.wikimedia.org/wiki/Special:FilePath/Metskits%20-%20Roe%20deer%20-%20Capreolus%20capreolus%20%284%29.jpg?width=1800" alt="Rådyr på mark i morgenlys">
       </div>
-    </div>
-  </div>
-
-  <hr class="rule">
-
-  <section class="band" id="apps">
-    <div class="wrap">
-      <div class="section-head">
-        <h2>iOS Apps</h2>
-        <p>Built in SwiftUI for iOS 26 and up. Offline first, no accounts, no tracking.</p>
-      </div>
-      <div class="grid">
-
-        <a class="card" href="/privacy/jagtproven.html">
-          <div class="card-top">
-            <span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.6 5.4h2.8"/></svg></span>
-            <h3>Jagtprøven <span class="badge">In Development</span></h3>
+      <div class="hero-fade-top"></div>
+      <div class="hero-fade-side"></div>
+      <div class="hero-inner">
+        <h1>Gå til jagtprøven, når du er <span class="accent">helt sikker</span> i det.</h1>
+        <div class="hero-cols">
+          <p class="hero-lede">Hele teorien, fuglekendingen og jagttiderne i én app — med en forklaring på hvert svar, så du forstår reglen i stedet for at gætte. <span class="muted">Øv i bussen, i skoven, uden dækning.</span></p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#app">Se hvad appen kan</a>
+            <a class="btn btn-secondary" href="/support.html">Support</a>
           </div>
-          <p>Practice for the Danish hunting licence exam. The full question bank, your progress tracked on device, and nothing sent anywhere.</p>
-          <span class="card-foot">Privacy policy <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
-        </a>
-
+        </div>
+        <div class="stats">
+          <div><span class="v">280</span><span class="k">spørgsmål med forklaring</span></div>
+          <div><span class="v">35</span><span class="k">fuglearter med kendetegn</span></div>
+          <div><span class="v">31</span><span class="k">arters jagttider</span></div>
+          <div><span class="v">7</span><span class="k">emner + våbenprøven</span></div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="band" id="games">
-    <div class="wrap">
-      <div class="section-head">
-        <h2>Games</h2>
-        <p>Roblox and Unity projects.</p>
+    <section class="section">
+      <div class="disclaimer rv">
+        <strong>Uafhængig træningsapp</strong>
+        <span>Jagtprøven er ikke tilknyttet Naturstyrelsen eller Miljøministeriet. Spørgsmålene er skrevet til appen ud fra det offentlige pensum — det er ikke prøvens egne spørgsmål.</span>
       </div>
-      <div class="empty">
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="2.4" y="7" width="19.2" height="11" rx="4.6"/>
-          <path d="M7.6 11.2v3.6M5.8 13h3.6M15.6 12.1h.01M18 14.4h.01"/>
-        </svg>
-        <h3>Nothing published yet</h3>
-        <p>Projects are in progress. They'll appear here the moment the first one ships.</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <hr class="rule">
-
-  <section class="band">
-    <div class="wrap">
-      <div class="section-head">
-        <h2>Get in Touch</h2>
+    <section class="section">
+      <div class="highlights rv">
+        <div class="highlight-card">
+          <span class="headline">Hele teorien, ikke en stikprøve.</span>
+          <span class="body">280 spørgsmål fordelt på alle syv emner, og våbenprøven som sin egen test, du kan tage igen og igen.</span>
+        </div>
+        <div class="highlight-card tint">
+          <span class="headline">Fuglene, som prøven spørger til dem.</span>
+          <span class="body">35 arter med kendetegn, kald og de arter de forveksles med — jagtbare og fredede side om side.</span>
+        </div>
+        <div class="highlight-card">
+          <span class="headline">Du får at vide, hvor du er svag.</span>
+          <span class="body">Appen følger din statistik emne for emne og peger på det, du taber point på — så du øver det rigtige inden prøven.</span>
+        </div>
       </div>
-      <div class="grid">
-        <a class="card" href="/support.html">
-          <div class="card-top">
-            <span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.8" y="5" width="18.4" height="14" rx="3"/><path d="M4 7.5l8 5.2 8-5.2"/></svg></span>
-            <h3>Support</h3>
+    </section>
+
+    <section class="section rule-top" id="app">
+      <div class="section-inner rv" style="display:flex;flex-direction:column;gap:clamp(26px,5vh,54px)">
+        <div class="app-top">
+          <div class="app-copy-col" style="display:flex;flex-direction:column;gap:20px">
+            <div class="app-meta">
+              <div class="app-icon">appikon<br>kommer</div>
+              <div class="app-meta-text">
+                <span class="platform">Jagttegn · iPhone og iPad</span>
+                <span class="price">Ét engangskøb — ikke abonnement</span>
+              </div>
+            </div>
+            <h2 class="app-title">Jagtprøven</h2>
+            <p class="app-lede">280 spørgsmål, 35 fuglearter og 31 jagttider i én app — og en forklaring på hvert eneste svar.</p>
+            <p class="app-copy">Du lærer ikke facit udenad. Hvert spørgsmål fortæller hvorfor svaret er rigtigt, så reglen bag sidder fast, når prøven stiller den på en ny måde.</p>
+            <div class="app-actions">
+              <span class="btn-placeholder">App Store-link følger</span>
+              <a class="btn btn-outline" href="/privacy/">Privatliv</a>
+              <a class="btn btn-outline" href="/support.html">Support</a>
+            </div>
           </div>
-          <p>A bug, a feature request, or a question about one of the apps — write and I'll answer.</p>
-          <span class="card-foot">Contact <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
-        </a>
-        <a class="card" href="/privacy/">
-          <div class="card-top">
-            <span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8l7 2.9v5.6c0 4.4-2.9 8.3-7 9.9-4.1-1.6-7-5.5-7-9.9V5.7z"/><path d="M9.2 12.1l2 2 3.6-3.9"/></svg></span>
-            <h3>Privacy</h3>
+          <div class="app-shots">
+            <div class="app-shot">skærmbillede: quiz</div>
+            <div class="app-shot offset">skærmbillede: fuglekending</div>
           </div>
-          <p>One policy per app, exactly as linked from each App Store listing.</p>
-          <span class="card-foot">Read the policies <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
-        </a>
+        </div>
+        <div class="feature-grid">
+          <div><h3>280 spørgsmål med forklaring</h3><p>Hvert eneste spørgsmål fortæller, hvorfor svaret er rigtigt. Du forstår reglen bag i stedet for at lære facit udenad.</p></div>
+          <div><h3>Våbenprøven som egen test</h3><p>En selvstændig test du kan køre igen og igen, indtil kaliberkrav og våbenregler sidder fast.</p></div>
+          <div><h3>Ser dine svage emner</h3><p>Appen følger din statistik pr. emne og peger på, hvor du taber point — så du øver det rigtige.</p></div>
+          <div><h3>Øv hvor som helst</h3><p>Appen virker helt uden netforbindelse, så du kan tage en runde i bilen, i skjulet eller i pausen på arbejde.</p></div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <section class="section" style="background:linear-gradient(180deg, transparent, color-mix(in srgb, var(--card) 60%, transparent) 45%, transparent)">
+      <div class="section-inner rv">
+        <div class="topics-head">
+          <h2>De syv emner</h2>
+          <p>Appen holder øje med, hvilke emner du er svagest i, så du kan sætte ind præcis dér. Våbenprøven ligger derudover som en selvstændig test, du kan køre igen og igen.</p>
+        </div>
+        <div class="topics">
+          <div class="topic"><span class="name">Sikkerhed på jagt</span><span class="note">gratis</span></div>
+          <div class="topic"><span class="name">Våben og ammunition</span><span class="note">+ våbenprøve</span></div>
+          <div class="topic"><span class="name">Jagtret og lovgivning</span><span class="note"></span></div>
+          <div class="topic"><span class="name">Vildtpleje og naturforvaltning</span><span class="note"></span></div>
+          <div class="topic"><span class="name">Pattedyr</span><span class="note"></span></div>
+          <div class="topic"><span class="name">Fugle</span><span class="note">+ fuglekending</span></div>
+          <div class="topic"><span class="name">Jagtformer</span><span class="note"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section rule-top" style="margin-top:clamp(28px,5vh,60px);padding-top:clamp(40px,7vh,90px)">
+      <div class="section-inner">
+        <div class="split rv">
+          <div class="split-copy">
+            <span class="eyebrow">Den del, folk oftest dumper på</span>
+            <h2>Fuglekending, art for art</h2>
+            <p>35 arter med kendetegn, størrelse, levested og kald — og vigtigst: hvilke arter de forveksles med. Både de jagtbare og de fredede, for det er netop forskellen, prøven spørger til. Quizzen vender den om: du får kendetegnene og skal artsbestemme.</p>
+          </div>
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Anas%20platyrhynchos%20male%20female.jpg?width=1200" alt="Gråand, han og hun" loading="lazy">
+        </div>
+      </div>
+      <div class="bird-rail rv">
+            <div class="bird-card"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Anas%20platyrhynchos%20male%20female.jpg?width=800" alt="Gråand" loading="lazy"><div class="info"><span class="name">Gråand</span><span class="confuse">Forveksles med spidsand og krikand</span><span class="status">Jagtbar</span></div></div>
+            <div class="bird-card"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Pheasant.jpg?width=800" alt="Fasan" loading="lazy"><div class="info"><span class="name">Fasan</span><span class="confuse">Forveksles med agerhøne på afstand</span><span class="status">Jagtbar</span></div></div>
+            <div class="bird-card"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Common%20Wood%20Pigeon%20%28Columba%20palumbus%29.JPG?width=800" alt="Ringdue" loading="lazy"><div class="info"><span class="name">Ringdue</span><span class="confuse">Forveksles med tyrkerdue</span><span class="status">Jagtbar</span></div></div>
+            <div class="bird-card"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Grauwe%20gans%20-%20greylag%20goose%20-%20Anser%20anser.jpg?width=800" alt="Grågås" loading="lazy"><div class="info"><span class="name">Grågås</span><span class="confuse">Forveksles med blisgås og sædgås</span><span class="status">Jagtbar</span></div></div>
+            <div class="bird-more">+ 31 arter mere i appen, jagtbare og fredede</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner split rv">
+        <div class="split-copy">
+          <h2>Jagttider, filtreret efter i dag</h2>
+          <p>31 arter, som du kan filtrere efter, hvad der har åben jagttid lige nu, med noter om de lokale og regionale jagttider, der gælder for flere arter.</p>
+          <div class="season-note">Jagttiderne i appen er vejledende og kan ikke bruges som juridisk opslagsværk. Slå altid op i den gældende bekendtgørelse, før du går på jagt.</div>
+        </div>
+        <div class="season-card">
+          <div class="season-filters">
+            <span class="pill on">Åben nu</span>
+            <span class="pill off">Alle arter</span>
+            <span class="pill off">Lokale tider</span>
+          </div>
+            <div class="season-row"><span class="name">Gråand</span><span class="meta"><span class="period">1. sep – 31. dec</span><span class="dot" style="background:var(--ok)"></span></span></div>
+            <div class="season-row"><span class="name">Fasan</span><span class="meta"><span class="period">1. okt – 31. jan</span><span class="dot" style="background:var(--muted)"></span></span></div>
+            <div class="season-row"><span class="name">Ringdue</span><span class="meta"><span class="period">1. sep – 31. jan</span><span class="dot" style="background:var(--ok)"></span></span></div>
+            <div class="season-row"><span class="name">Grågås</span><span class="meta"><span class="period">1. sep – 31. dec</span><span class="dot" style="background:var(--ok)"></span></span></div>
+            <div class="season-row"><span class="name">Rådyr, buk</span><span class="meta"><span class="period">16. maj – 15. jul</span><span class="dot" style="background:var(--muted)"></span></span></div>
+          <div class="season-foot">Eksempel på visningen. Appen dækker 31 arter.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bleed rule-top">
+      <img class="moody" src="https://commons.wikimedia.org/wiki/Special:FilePath/Grauwe%20gans%20-%20greylag%20goose%20-%20Anser%20anser.jpg?width=1800" alt="Grågæs i flugt over åbent land" loading="lazy">
+      <div class="bleed-fade-top"></div>
+      <div class="bleed-fade-side"></div>
+      <div class="bleed-copy rv">
+        <h2>Kend forskellen, før du løfter geværet.</h2>
+        <p>Grågås, blisgås eller sædgås? Appen træner dig på kendetegnene, indtil du ser forskellen på afstand.</p>
+      </div>
+    </section>
+
+    <section class="section rule-top" style="background:linear-gradient(180deg, color-mix(in srgb, var(--card) 55%, transparent), transparent 65%)">
+      <div class="section-inner split rv">
+        <div class="split-copy">
+          <h2 style="font-size:clamp(28px,4.4vw,60px)">Prøv det gratis først</h2>
+          <p>Hele emnet “Sikkerhed på jagt” er frit tilgængeligt, sammen med fire fuglearter og fire jagttider. Kan du bruge appen, koster resten ét engangskøb — ikke et abonnement.</p>
+        </div>
+        <div class="free-grid">
+          <div><span class="v">Sikkerhed på jagt</span><span class="k">hele emnet gratis</span></div>
+          <div><span class="v">4 fuglearter</span><span class="k">med kendetegn og quiz</span></div>
+          <div><span class="v">4 jagttider</span><span class="k">til at prøve visningen</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section rule-top">
+      <div class="section-inner split rv" style="align-items:start">
+        <div class="about-photo">dit eget billede her — skrivebord, terræn eller dig selv</div>
+        <div class="about-copy" style="display:flex;flex-direction:column;gap:16px">
+          <h2>Hej — Webspind er mig alene.</h2>
+          <p class="serif">Jagtprøven er min første app. Jeg har bygget den, fordi pensum til jagttegnsprøven ligger spredt ud over hæfter, hjemmesider og bekendtgørelser — og fordi fuglekending er nærmest umulig at øve på papir.</p>
+          <p class="serif" style="color:var(--muted)">Jeg skriver spørgsmålene, tegner interfacet, retter fejlene og læser supportmailen. Derfor er support en rigtig side her og ikke en formular, der ender ingen steder — skriver du, får du mig.</p>
+          <div class="facts">
+            <div class="row"><span>Studie</span><span>Webspind, Danmark</span></div>
+            <div class="row"><span>Folk</span><span>Én</span></div>
+            <div class="row"><span>Udgivet</span><span>Jagtprøven, første app</span></div>
+            <div class="row"><span>Support</span><span>Mig, inden for 2 hverdage</span></div>
+            <a href="mailto:hej@webspind.com">hej@webspind.com</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-final rule-top">
+      <div class="cta-final-inner rv">
+        <h2>Start med at bestå sikkerhedsdelen.</h2>
+        <p>Emnet “Sikkerhed på jagt” er gratis i appen — tag det, og se om formen passer dig, før du køber resten.</p>
+        <div class="hero-actions">
+          <span class="btn-placeholder">App Store-link følger</span>
+          <a class="btn btn-outline" href="/support.html">Har du et spørgsmål?</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <footer class="site-footer">
     <div class="wrap">
-      <span>© 2026 Webspind</span>
-      <span class="footer-links">
-        <a href="/">Home</a>
-        <a href="/privacy/">Privacy</a>
-        <a href="/support.html">Support</a>
-      </span>
+      <div class="footer-top">
+        <span class="footer-brand"><img src="/favicon.svg" alt="">© 2026 Webspind · Danmark</span>
+        <span class="footer-links">
+          <a href="/">Appen</a>
+          <a href="/privacy/">Privatliv</a>
+          <a href="mailto:hej@webspind.com">E-mail</a>
+        </span>
+      </div>
+      <p class="footer-credit">Midlertidige fotos: <a href="https://commons.wikimedia.org/wiki/File:Metskits_-_Roe_deer_-_Capreolus_capreolus_(4).jpg">rådyr</a>, <a href="https://commons.wikimedia.org/wiki/File:Anas_platyrhynchos_male_female.jpg">gråand</a>, <a href="https://commons.wikimedia.org/wiki/File:Pheasant.jpg">fasan</a>, <a href="https://commons.wikimedia.org/wiki/File:Common_Wood_Pigeon_(Columba_palumbus).JPG">ringdue</a>, <a href="https://commons.wikimedia.org/wiki/File:Grauwe_gans_-_greylag_goose_-_Anser_anser.jpg">grågås</a> — Wikimedia Commons, CC BY / CC BY-SA. Husk at kreditere fotograferne korrekt, eller udskift dem med dine egne billeder inden lancering.</p>
     </div>
   </footer>
 
+  <script src="/site.js"></script>
 </body>
 </html>
