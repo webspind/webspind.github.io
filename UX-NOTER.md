@@ -143,6 +143,10 @@ Log over hvad der er lavet, så vi kan se hvad der virkede.
   formular der bygger en mailto-besked lokalt (intet sendes til en server).
   Apps/Games-portefølje-sektionerne er væk fra forsiden — se åbent punkt
   om Games ovenfor.
+- **1. sep. 2026** — App-sektionens pladsholdere erstattet med rigtigt
+  indhold: bygget Jagtprøven i iOS Simulator og hentet et quiz- og et
+  fuglekendings-skærmbillede derfra, plus det faktiske app-ikon fra
+  `Assets.xcassets`. Ligger i `assets/` i dette repo.
 
 ---
 

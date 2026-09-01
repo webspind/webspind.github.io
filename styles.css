@@ -303,9 +303,7 @@ main { position: relative; z-index: 1; }
 .app-meta { display: flex; align-items: center; gap: 16px; }
 .app-icon {
   width: 76px; height: 76px; border-radius: 20px; border: 2px solid var(--ink);
-  background: repeating-linear-gradient(135deg, var(--sunk) 0 7px, var(--card) 7px 14px);
-  display: flex; align-items: center; justify-content: center; text-align: center;
-  font-size: 11px; line-height: 1.2; color: var(--muted); padding: 6px;
+  object-fit: cover;
 }
 .app-meta-text { display: flex; flex-direction: column; gap: 3px; }
 .app-meta-text .platform { font-size: 15px; color: var(--muted); }
@@ -319,8 +317,7 @@ main { position: relative; z-index: 1; }
 .app-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .app-shot {
   width: 100%; aspect-ratio: 1/2; border-radius: 22px; border: 2px solid var(--ink);
-  background: repeating-linear-gradient(135deg, var(--sunk) 0 9px, var(--card) 9px 18px);
-  display: flex; align-items: flex-end; padding: 14px; font-size: 12.5px; color: var(--muted);
+  object-fit: cover; object-position: top center;
 }
 .app-shot.offset { margin-top: clamp(18px, 5vh, 54px); }
 

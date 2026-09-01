@@ -16,6 +16,7 @@ privacy/jagtproven.html Jagtprøven policy (use as App Store "Privacy Policy URL
 styles.css              The whole design
 site.js                 Scroll reveal, hero parallax, progress bar, mailto-builder for the support form
 favicon.svg             Web icon, also used as the header/footer logo mark
+assets/                 Real app icon + simulator screenshots from the Jagtprøven Xcode project
 CNAME                   Tells GitHub Pages the custom domain is webspind.com — do not delete
 .nojekyll               Stops GitHub from running Jekyll over the files
 robots.txt, sitemap.xml SEO basics — add new pages to the sitemap

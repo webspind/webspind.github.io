@@ -226,7 +226,7 @@ app_section = '''    <section class="section rule-top" id="app">
         <div class="app-top">
           <div class="app-copy-col" style="display:flex;flex-direction:column;gap:20px">
             <div class="app-meta">
-              <div class="app-icon">appikon<br>kommer</div>
+              <img class="app-icon" src="/assets/app-icon.png" alt="Jagtprøven app-ikon" width="76" height="76">
               <div class="app-meta-text">
                 <span class="platform">Jagttegn · iPhone og iPad</span>
                 <span class="price">Ét engangskøb — ikke abonnement</span>
@@ -242,8 +242,8 @@ app_section = '''    <section class="section rule-top" id="app">
             </div>
           </div>
           <div class="app-shots">
-            <div class="app-shot">skærmbillede: quiz</div>
-            <div class="app-shot offset">skærmbillede: fuglekending</div>
+            <img class="app-shot" src="/assets/screenshot-quiz.png" alt="Skærmbillede af et quizspørgsmål i Jagtprøven" loading="lazy">
+            <img class="app-shot offset" src="/assets/screenshot-fuglekending.png" alt="Skærmbillede af fuglekending-listen i Jagtprøven" loading="lazy">
           </div>
         </div>
         <div class="feature-grid">
