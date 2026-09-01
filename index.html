@@ -1,137 +1,167 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Webspind — apps and games</title>
-<meta name="description" content="Webspind builds small, focused iOS apps and games. Release notes, support and privacy policies live here.">
-<link rel="stylesheet" href="/styles.css">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta property="og:title" content="Webspind">
-<meta property="og:description" content="Small, focused iOS apps and games.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://webspind.com/">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Webspind — Small apps, made with care</title>
+  <meta name="description" content="Webspind builds focused iOS apps and games. Support and privacy policies for every app.">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/favicon.svg">
+  <meta name="theme-color" content="#faf8f3" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121714" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://webspind.com/">
+  <meta property="og:title" content="Webspind — Small apps, made with care">
+  <meta property="og:description" content="Webspind builds focused iOS apps and games. Support and privacy policies for every app.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://webspind.com/">
 </head>
 <body>
 
-<header class="site-header">
-  <div class="wrap">
-    <a class="brand" href="/">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d9a441" stroke-width="1.3" stroke-linecap="round">
-        <line x1="12" y1="12" x2="12" y2="2"/>
-        <line x1="12" y1="12" x2="20.7" y2="7"/>
-        <line x1="12" y1="12" x2="20.7" y2="17"/>
-        <line x1="12" y1="12" x2="12" y2="22"/>
-        <line x1="12" y1="12" x2="3.3" y2="17"/>
-        <line x1="12" y1="12" x2="3.3" y2="7"/>
-        <path d="M12 6.5 Q15.5 7.6 16.9 9.8 Q18.3 12 16.9 14.2 Q15.5 16.4 12 17.5 Q8.5 16.4 7.1 14.2 Q5.7 12 7.1 9.8 Q8.5 7.6 12 6.5"/>
-        <path d="M12 2.6 Q18 4.4 20.1 7.4 Q22.2 12 20.1 16.6 Q18 19.6 12 21.4 Q6 19.6 3.9 16.6 Q1.8 12 3.9 7.4 Q6 4.4 12 2.6"/>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" aria-hidden="true">
+        <g class="web-ring">
+          <line x1="12" y1="12" x2="12" y2="2.4"/><line x1="12" y1="12" x2="20.3" y2="7.2"/>
+          <line x1="12" y1="12" x2="20.3" y2="16.8"/><line x1="12" y1="12" x2="12" y2="21.6"/>
+          <line x1="12" y1="12" x2="3.7" y2="16.8"/><line x1="12" y1="12" x2="3.7" y2="7.2"/>
+          <path d="M12 6.6 Q15.4 7.7 16.8 9.85 Q18.1 12 16.8 14.15 Q15.4 16.3 12 17.4 Q8.6 16.3 7.2 14.15 Q5.9 12 7.2 9.85 Q8.6 7.7 12 6.6"/>
+          <path d="M12 2.9 Q17.8 4.6 19.9 7.5 Q21.9 12 19.9 16.5 Q17.8 19.4 12 21.1 Q6.2 19.4 4.1 16.5 Q2.1 12 4.1 7.5 Q6.2 4.6 12 2.9"/>
+        </g>
       </svg>
-      Webspind
-    </a>
-    <nav class="nav">
-      <a href="#apps">Apps</a>
-      <a href="#games">Games</a>
-      <a href="/privacy/">Privacy</a>
-      <a href="/support.html">Support</a>
-    </nav>
-  </div>
-</header>
-
-<div class="hero">
-  <svg class="hero-web" viewBox="0 0 720 720" fill="none" aria-hidden="true">
-    <defs><radialGradient id="webfade" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#d9a441" stop-opacity=".55"/>
-      <stop offset="55%" stop-color="#d9a441" stop-opacity=".22"/>
-      <stop offset="100%" stop-color="#d9a441" stop-opacity="0"/>
-    </radialGradient></defs>
-    <g stroke="url(#webfade)" stroke-width="1.1" stroke-linecap="round">
-      <line x1="360" y1="360" x2="360.0" y2="8.0"/>
-      <line x1="360" y1="360" x2="512.7" y2="42.9"/>
-      <line x1="360" y1="360" x2="635.2" y2="140.5"/>
-      <line x1="360" y1="360" x2="703.2" y2="281.7"/>
-      <line x1="360" y1="360" x2="703.2" y2="438.3"/>
-      <line x1="360" y1="360" x2="635.2" y2="579.5"/>
-      <line x1="360" y1="360" x2="512.7" y2="677.1"/>
-      <line x1="360" y1="360" x2="360.0" y2="712.0"/>
-      <line x1="360" y1="360" x2="207.3" y2="677.1"/>
-      <line x1="360" y1="360" x2="84.8" y2="579.5"/>
-      <line x1="360" y1="360" x2="16.8" y2="438.3"/>
-      <line x1="360" y1="360" x2="16.8" y2="281.7"/>
-      <line x1="360" y1="360" x2="84.8" y2="140.5"/>
-      <line x1="360" y1="360" x2="207.3" y2="42.9"/>
-      <path d="M 360.0 290.0 Q 374.5 296.5 390.4 296.9 Q 400.6 309.1 414.7 316.4 Q 418.7 331.8 428.2 344.4 Q 425.1 360.0 428.2 375.6 Q 418.7 388.2 414.7 403.6 Q 400.6 410.9 390.4 423.1 Q 374.5 423.5 360.0 430.0 Q 345.5 423.5 329.6 423.1 Q 319.4 410.9 305.3 403.6 Q 301.3 388.2 291.8 375.6 Q 294.9 360.0 291.8 344.4 Q 301.3 331.8 305.3 316.4 Q 319.4 309.1 329.6 296.9 Q 345.5 296.5 360.0 290.0"/>
-      <path d="M 360.0 240.0 Q 384.8 251.2 412.1 251.9 Q 429.6 272.7 453.8 285.2 Q 460.5 311.6 477.0 333.3 Q 471.6 360.0 477.0 386.7 Q 460.5 408.4 453.8 434.8 Q 429.6 447.3 412.1 468.1 Q 384.8 468.8 360.0 480.0 Q 335.2 468.8 307.9 468.1 Q 290.4 447.3 266.2 434.8 Q 259.5 408.4 243.0 386.7 Q 248.4 360.0 243.0 333.3 Q 259.5 311.6 266.2 285.2 Q 290.4 272.7 307.9 251.9 Q 335.2 251.2 360.0 240.0"/>
-      <path d="M 360.0 182.0 Q 396.8 198.6 437.2 199.6 Q 463.2 230.6 499.2 249.0 Q 509.1 288.2 533.5 320.4 Q 525.5 360.0 533.5 399.6 Q 509.1 431.8 499.2 471.0 Q 463.2 489.4 437.2 520.4 Q 396.8 521.4 360.0 538.0 Q 323.2 521.4 282.8 520.4 Q 256.8 489.4 220.8 471.0 Q 210.9 431.8 186.5 399.6 Q 194.5 360.0 186.5 320.4 Q 210.9 288.2 220.8 249.0 Q 256.8 230.6 282.8 199.6 Q 323.2 198.6 360.0 182.0"/>
-      <path d="M 360.0 118.0 Q 410.1 140.6 465.0 142.0 Q 500.3 184.0 549.2 209.1 Q 562.8 262.4 595.9 306.1 Q 585.1 360.0 595.9 413.9 Q 562.8 457.6 549.2 510.9 Q 500.3 536.0 465.0 578.0 Q 410.1 579.4 360.0 602.0 Q 309.9 579.4 255.0 578.0 Q 219.7 536.0 170.8 510.9 Q 157.2 457.6 124.1 413.9 Q 134.9 360.0 124.1 306.1 Q 157.2 262.4 170.8 209.1 Q 219.7 184.0 255.0 142.0 Q 309.9 140.6 360.0 118.0"/>
-      <path d="M 360.0 50.0 Q 424.2 78.9 494.5 80.7 Q 539.8 134.6 602.4 166.7 Q 619.7 234.9 662.2 291.0 Q 648.3 360.0 662.2 429.0 Q 619.7 485.1 602.4 553.3 Q 539.8 585.4 494.5 639.3 Q 424.2 641.1 360.0 670.0 Q 295.8 641.1 225.5 639.3 Q 180.2 585.4 117.6 553.3 Q 100.3 485.1 57.8 429.0 Q 71.7 360.0 57.8 291.0 Q 100.3 234.9 117.6 166.7 Q 180.2 134.6 225.5 80.7 Q 295.8 78.9 360.0 50.0"/>
-      <path d="M 360.0 8.0 Q 432.8 40.8 512.7 42.9 Q 564.1 104.1 635.2 140.5 Q 654.9 218.0 703.2 281.7 Q 687.4 360.0 703.2 438.3 Q 654.9 502.0 635.2 579.5 Q 564.1 615.9 512.7 677.1 Q 432.8 679.2 360.0 712.0 Q 287.2 679.2 207.3 677.1 Q 155.9 615.9 84.8 579.5 Q 65.1 502.0 16.8 438.3 Q 32.6 360.0 16.8 281.7 Q 65.1 218.0 84.8 140.5 Q 155.9 104.1 207.3 42.9 Q 287.2 40.8 360.0 8.0"/>
-    </g>
-  </svg>
-  <div class="wrap">
-    <p class="eyebrow">Independent studio</p>
-    <h1>Small apps.<br>Built properly.</h1>
-    <p>Webspind makes focused iOS apps and games — the kind that do one thing, work offline, and don't ask for your data. Support and privacy policies for everything I ship live on this site.</p>
-  </div>
-</div>
-
-<section class="band" id="apps">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>iOS apps</h2>
-      <p>Danish App Store</p>
-    </div>
-    <div class="grid">
-
-      <a class="card" href="/privacy/jagtproven.html">
-        <h3>Jagtprøven <span class="tag">In development</span></h3>
-        <p>Practice for the Danish hunting licence exam. Full question bank, offline, no account required.</p>
-        <span class="card-foot">Privacy policy →</span>
+        Webspind
       </a>
+      <nav class="nav" aria-label="Main">
+        <a href="/#apps">Apps</a>
+        <a href="/#games">Games</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/support.html">Support</a>
+      </nav>
+    </div>
+  </header>
 
+  <div class="hero">
+<svg class="hero-web" viewBox="0 0 720 720" fill="none" aria-hidden="true" focusable="false">
+  <defs><radialGradient id="wfade" cx="50%" cy="50%" r="50%">
+    <stop class="ws0" offset="0%"/>
+    <stop class="ws1" offset="48%"/>
+    <stop class="ws2" offset="100%"/>
+  </radialGradient></defs>
+  <g stroke="url(#wfade)" stroke-width="1.25" stroke-linecap="round">
+    <line x1="360" y1="360" x2="360.0" y2="26.0"/>
+    <line x1="360" y1="360" x2="487.8" y2="51.4"/>
+    <line x1="360" y1="360" x2="596.2" y2="123.8"/>
+    <line x1="360" y1="360" x2="668.6" y2="232.2"/>
+    <line x1="360" y1="360" x2="694.0" y2="360.0"/>
+    <line x1="360" y1="360" x2="668.6" y2="487.8"/>
+    <line x1="360" y1="360" x2="596.2" y2="596.2"/>
+    <line x1="360" y1="360" x2="487.8" y2="668.6"/>
+    <line x1="360" y1="360" x2="360.0" y2="694.0"/>
+    <line x1="360" y1="360" x2="232.2" y2="668.6"/>
+    <line x1="360" y1="360" x2="123.8" y2="596.2"/>
+    <line x1="360" y1="360" x2="51.4" y2="487.8"/>
+    <line x1="360" y1="360" x2="26.0" y2="360.0"/>
+    <line x1="360" y1="360" x2="51.4" y2="232.2"/>
+    <line x1="360" y1="360" x2="123.8" y2="123.8"/>
+    <line x1="360" y1="360" x2="232.2" y2="51.4"/>
+    <path d="M 360.0 296.0 Q 371.7 301.0 384.5 300.9 Q 393.4 310.0 405.3 314.7 Q 410.0 326.6 419.1 335.5 Q 419.0 348.3 424.0 360.0 Q 419.0 371.7 419.1 384.5 Q 410.0 393.4 405.3 405.3 Q 393.4 410.0 384.5 419.1 Q 371.7 419.0 360.0 424.0 Q 348.3 419.0 335.5 419.1 Q 326.6 410.0 314.7 405.3 Q 310.0 393.4 300.9 384.5 Q 301.0 371.7 296.0 360.0 Q 301.0 348.3 300.9 335.5 Q 310.0 326.6 314.7 314.7 Q 326.6 310.0 335.5 300.9 Q 348.3 301.0 360.0 296.0"/>
+    <path d="M 360.0 252.0 Q 379.8 260.4 401.3 260.2 Q 416.4 275.6 436.4 283.6 Q 444.4 303.6 459.8 318.7 Q 459.6 340.2 468.0 360.0 Q 459.6 379.8 459.8 401.3 Q 444.4 416.4 436.4 436.4 Q 416.4 444.4 401.3 459.8 Q 379.8 459.6 360.0 468.0 Q 340.2 459.6 318.7 459.8 Q 303.6 444.4 283.6 436.4 Q 275.6 416.4 260.2 401.3 Q 260.4 379.8 252.0 360.0 Q 260.4 340.2 260.2 318.7 Q 275.6 303.6 283.6 283.6 Q 303.6 275.6 318.7 260.2 Q 340.2 260.4 360.0 252.0"/>
+    <path d="M 360.0 202.0 Q 389.0 214.3 420.5 214.0 Q 442.5 236.5 471.7 248.3 Q 483.5 277.5 506.0 299.5 Q 505.7 331.0 518.0 360.0 Q 505.7 389.0 506.0 420.5 Q 483.5 442.5 471.7 471.7 Q 442.5 483.5 420.5 506.0 Q 389.0 505.7 360.0 518.0 Q 331.0 505.7 299.5 506.0 Q 277.5 483.5 248.3 471.7 Q 236.5 442.5 214.0 420.5 Q 214.3 389.0 202.0 360.0 Q 214.3 331.0 214.0 299.5 Q 236.5 277.5 248.3 248.3 Q 277.5 236.5 299.5 214.0 Q 331.0 214.3 360.0 202.0"/>
+    <path d="M 360.0 146.0 Q 399.2 162.7 441.9 162.3 Q 471.8 192.7 511.3 208.7 Q 527.3 248.2 557.7 278.1 Q 557.3 320.8 574.0 360.0 Q 557.3 399.2 557.7 441.9 Q 527.3 471.8 511.3 511.3 Q 471.8 527.3 441.9 557.7 Q 399.2 557.3 360.0 574.0 Q 320.8 557.3 278.1 557.7 Q 248.2 527.3 208.7 511.3 Q 192.7 471.8 162.3 441.9 Q 162.7 399.2 146.0 360.0 Q 162.7 320.8 162.3 278.1 Q 192.7 248.2 208.7 208.7 Q 248.2 192.7 278.1 162.3 Q 320.8 162.7 360.0 146.0"/>
+    <path d="M 360.0 84.0 Q 410.6 105.5 465.6 105.0 Q 504.1 144.3 555.2 164.8 Q 575.7 215.9 615.0 254.4 Q 614.5 309.4 636.0 360.0 Q 614.5 410.6 615.0 465.6 Q 575.7 504.1 555.2 555.2 Q 504.1 575.7 465.6 615.0 Q 410.6 614.5 360.0 636.0 Q 309.4 614.5 254.4 615.0 Q 215.9 575.7 164.8 555.2 Q 144.3 504.1 105.0 465.6 Q 105.5 410.6 84.0 360.0 Q 105.5 309.4 105.0 254.4 Q 144.3 215.9 164.8 164.8 Q 215.9 144.3 254.4 105.0 Q 309.4 105.5 360.0 84.0"/>
+    <path d="M 360.0 26.0 Q 421.3 52.1 487.8 51.4 Q 534.4 99.0 596.2 123.8 Q 621.0 185.6 668.6 232.2 Q 667.9 298.7 694.0 360.0 Q 667.9 421.3 668.6 487.8 Q 621.0 534.4 596.2 596.2 Q 534.4 621.0 487.8 668.6 Q 421.3 667.9 360.0 694.0 Q 298.7 667.9 232.2 668.6 Q 185.6 621.0 123.8 596.2 Q 99.0 534.4 51.4 487.8 Q 52.1 421.3 26.0 360.0 Q 52.1 298.7 51.4 232.2 Q 99.0 185.6 123.8 123.8 Q 185.6 99.0 232.2 51.4 Q 298.7 52.1 360.0 26.0"/>
+  </g>
+</svg>
+    <div class="wrap">
+      <p class="hero-eyebrow"><span class="dot"></span> Independent studio · Denmark</p>
+      <h1>Small apps, made&nbsp;with <span class="accent">care</span>.</h1>
+      <p class="hero-lede">Webspind builds focused iOS apps and games — the kind that do one thing well, work without a signal, and never ask for your data. Support and privacy policies for everything I ship live here.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#apps">See the apps <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        <a class="btn btn-secondary" href="/support.html">Get in touch</a>
+      </div>
     </div>
   </div>
-</section>
 
-<section class="band" id="games">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Games</h2>
-      <p>Roblox and Unity</p>
-    </div>
-    <div class="empty">Nothing published yet. Projects in progress will show up here as they ship.</div>
-  </div>
-</section>
+  <hr class="rule">
 
-<section class="band">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Get in touch</h2>
-    </div>
-    <div class="grid">
-      <a class="card" href="/support.html">
-        <h3>Support</h3>
-        <p>Bug reports, feature requests, or a question about one of the apps.</p>
-        <span class="card-foot">Contact →</span>
-      </a>
-      <a class="card" href="/privacy/">
-        <h3>Privacy policies</h3>
-        <p>Per-app policies, as linked from each App Store listing.</p>
-        <span class="card-foot">Read →</span>
-      </a>
-    </div>
-  </div>
-</section>
+  <section class="band" id="apps">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>iOS Apps</h2>
+        <p>Built in SwiftUI for iOS 26 and up. Offline first, no accounts, no tracking.</p>
+      </div>
+      <div class="grid">
 
-<footer class="site-footer">
-  <div class="wrap">
-    <span>© 2026 Webspind</span>
-    <span class="footer-links">
-      <a href="/privacy/">Privacy</a>
-      <a href="/support.html">Support</a>
-    </span>
-  </div>
-</footer>
+        <a class="card" href="/privacy/jagtproven.html">
+          <div class="card-top">
+            <span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.6 5.4h2.8"/></svg></span>
+            <h3>Jagtprøven <span class="badge">In Development</span></h3>
+          </div>
+          <p>Practice for the Danish hunting licence exam. The full question bank, your progress tracked on device, and nothing sent anywhere.</p>
+          <span class="card-foot">Privacy policy <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="games">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Games</h2>
+        <p>Roblox and Unity projects.</p>
+      </div>
+      <div class="empty">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2.4" y="7" width="19.2" height="11" rx="4.6"/>
+          <path d="M7.6 11.2v3.6M5.8 13h3.6M15.6 12.1h.01M18 14.4h.01"/>
+        </svg>
+        <h3>Nothing published yet</h3>
+        <p>Projects are in progress. They'll appear here the moment the first one ships.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section class="band">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Get in Touch</h2>
+      </div>
+      <div class="grid">
+        <a class="card" href="/support.html">
+          <div class="card-top">
+            <span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.8" y="5" width="18.4" height="14" rx="3"/><path d="M4 7.5l8 5.2 8-5.2"/></svg></span>
+            <h3>Support</h3>
+          </div>
+          <p>A bug, a feature request, or a question about one of the apps — write and I'll answer.</p>
+          <span class="card-foot">Contact <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+        <a class="card" href="/privacy/">
+          <div class="card-top">
+            <span class="tile" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8l7 2.9v5.6c0 4.4-2.9 8.3-7 9.9-4.1-1.6-7-5.5-7-9.9V5.7z"/><path d="M9.2 12.1l2 2 3.6-3.9"/></svg></span>
+            <h3>Privacy</h3>
+          </div>
+          <p>One policy per app, exactly as linked from each App Store listing.</p>
+          <span class="card-foot">Read the policies <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© 2026 Webspind</span>
+      <span class="footer-links">
+        <a href="/">Home</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/support.html">Support</a>
+      </span>
+    </div>
+  </footer>
 
 </body>
 </html>
