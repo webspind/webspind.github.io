@@ -81,44 +81,45 @@ LANG = {
   "app_icon_alt": "Jagtprøven app-ikon",
 
   "stats": [
-    ("280", "spørgsmål med forklaring"),
-    ("35", "fuglearter med kendetegn"),
-    ("31", "arters jagttider"),
-    ("7", "emner + våbenprøven"),
+    ("522", "spørgsmål med forklaring"),
+    ("100", "vildtarter med foto"),
+    ("41", "arters jagttider"),
+    ("40", "spørgsmål i et prøvesæt på tid"),
   ],
 
   "disclaimer_head": "Uafhængig træningsapp",
   "disclaimer_body": "Jagtprøven er ikke tilknyttet Naturstyrelsen eller Miljøministeriet. Spørgsmålene er skrevet til appen ud fra det offentlige pensum — det er ikke prøvens egne spørgsmål.",
 
   "highlights": [
-    ("Hele teorien, ikke en stikprøve.", "280 spørgsmål fordelt på alle syv emner, og våbenprøven som sin egen test, du kan tage igen og igen."),
-    ("Fuglene, som prøven spørger til dem.", "35 arter med kendetegn, kald og de arter de forveksles med — jagtbare og fredede side om side."),
+    ("Hele teorien, ikke en stikprøve.", "522 spørgsmål fordelt på alle otte emner og prøvens seks sektioner, og et prøvesæt på 40 spørgsmål og 30 minutter, som på dagen."),
+    ("Arterne, som prøven spørger til dem.", "100 vildtarter med foto, kendetegn og de arter, de forveksles med — og en fotoquiz med tre arter fra samme gruppe."),
     ("Du får at vide, hvor du er svag.", "Appen følger din statistik emne for emne og peger på det, du taber point på — så du øver det rigtige inden prøven."),
   ],
 
   "features_head": "Hvad du får",
   "features_sub": "Du lærer ikke facit udenad. Hvert spørgsmål fortæller hvorfor svaret er rigtigt, så reglen bag sidder fast, når prøven stiller den på en ny måde.",
   "features": [
-    ("280 spørgsmål med forklaring", "Hvert eneste spørgsmål fortæller, hvorfor svaret er rigtigt. Du forstår reglen bag i stedet for at lære facit udenad."),
-    ("Våbenprøven som egen test", "En selvstændig test du kan køre igen og igen, indtil kaliberkrav og våbenregler sidder fast."),
+    ("522 spørgsmål med forklaring", "Hvert eneste spørgsmål fortæller, hvorfor svaret er rigtigt. Du forstår reglen bag i stedet for at lære facit udenad."),
+    ("Prøvesæt under tid", "40 spørgsmål på 30 minutter, bestået ved 36 rigtige — nøjagtig som på dagen, med sektion for sektion bagefter."),
     ("Ser dine svage emner", "Appen følger din statistik pr. emne og peger på, hvor du taber point — så du øver det rigtige."),
     ("Øv hvor som helst", "Appen virker helt uden netforbindelse, så du kan tage en runde i bilen, i skjulet eller i pausen på arbejde."),
   ],
 
-  "topics_head": "De syv emner",
-  "topics_sub": "Appen holder øje med, hvilke emner du er svagest i, så du kan sætte ind præcis dér. Våbenprøven ligger derudover som en selvstændig test, du kan køre igen og igen.",
+  "topics_head": "De otte emner",
+  "topics_sub": "Appen holder øje med, hvilke emner du er svagest i, så du kan sætte ind præcis dér. Ét emne efter eget valg er gratis.",
   "topics": [
-    ("Sikkerhed på jagt", "gratis"),
-    ("Våben og ammunition", "+ våbenprøve"),
-    ("Jagtret og lovgivning", ""),
-    ("Vildtpleje og naturforvaltning", ""),
-    ("Pattedyr", ""),
-    ("Fugle", "+ fuglekending"),
-    ("Jagtformer", ""),
+    ("Artsbestemmelse og vildtbiologi", "+ fotoquiz"),
+    ("Vildtforvaltning", ""),
+    ("Jagtvåben og ammunition", ""),
+    ("Anden jagtlovgivning", ""),
+    ("Håndtering af nedlagt vildt", ""),
+    ("Jagtetik og etikette", ""),
+    ("Jagtteknik og ledelse", ""),
+    ("Sikkerhed og skudafgivelse", ""),
   ],
 
   "seasons_head": "Jagttider, filtreret efter i dag",
-  "seasons_sub": "31 arter, som du kan filtrere efter, hvad der har åben jagttid lige nu, med noter om de lokale og regionale jagttider, der gælder for flere arter.",
+  "seasons_sub": "41 arter, som du kan filtrere efter, hvad der har åben jagttid lige nu, med noter om de lokale og regionale jagttider, der gælder for flere arter.",
   "seasons_note": "Jagttiderne i appen er vejledende og kan ikke bruges som juridisk opslagsværk. Slå altid op i den gældende bekendtgørelse, før du går på jagt.",
   "seasons_pills": ("Åben nu", "Alle arter", "Lokale tider"),
   "seasons": [
@@ -128,14 +129,14 @@ LANG = {
     ("Grågås", "1. sep – 31. dec", True),
     ("Rådyr, buk", "16. maj – 15. jul", False),
   ],
-  "seasons_foot": "Eksempel på visningen. Appen dækker 31 arter.",
+  "seasons_foot": "Eksempel på visningen. Appen dækker 41 arter.",
 
   "free_head": "Prøv det gratis først",
-  "free_sub": "Hele emnet “Sikkerhed på jagt” er frit tilgængeligt, sammen med fire fuglearter og fire jagttider. Kan du bruge appen, koster resten ét engangskøb — ikke et abonnement.",
+  "free_sub": "Ét emne efter eget valg, ét fuldt prøvesæt, én dagens runde og otte vildtarter er gratis. Kan du bruge appen, koster resten ét engangskøb — ikke et abonnement.",
   "free_items": [
-    ("Sikkerhed på jagt", "hele emnet gratis"),
-    ("4 fuglearter", "med kendetegn og quiz"),
-    ("4 jagttider", "til at prøve visningen"),
+    ("Ét emne", "efter eget valg, så tit du vil"),
+    ("Ét prøvesæt", "40 spørgsmål på 30 minutter"),
+    ("8 vildtarter", "med foto og kendetegn"),
   ],
 
   "about_photo": "dit eget billede her — skrivebord, terræn eller dig selv",
@@ -149,8 +150,8 @@ LANG = {
     ("Support", "Mig, inden for 2 hverdage"),
   ],
 
-  "cta_head": "Start med at bestå sikkerhedsdelen.",
-  "cta_body": "Emnet “Sikkerhed på jagt” er gratis i appen — tag det, og se om formen passer dig, før du køber resten.",
+  "cta_head": "Prøv et helt prøvesæt gratis.",
+  "cta_body": "Et fuldt prøvesæt og ét emne efter eget valg er gratis i appen — tag dem, og se om formen passer dig, før du køber resten.",
   "cta_btn": "Har du et spørgsmål?",
 
   # ---- support
@@ -174,9 +175,9 @@ LANG = {
   "faqs": [
     ("Er det prøvens rigtige spørgsmål?", "Nej. Spørgsmålene er skrevet til appen ud fra det offentlige pensum til jagttegnsprøven. Appen er en uafhængig træningsapp og er ikke tilknyttet Naturstyrelsen eller Miljøministeriet."),
     ("Kan jeg bruge jagttiderne, når jeg er på jagt?", "Brug dem til at øve. Jagttiderne i appen er vejledende og er ikke et juridisk opslagsværk — slå altid op i den gældende bekendtgørelse, før du går ud. Flere arter har desuden lokale og regionale jagttider, som appen kun noterer."),
-    ("Hvad kan jeg prøve gratis?", "Hele emnet “Sikkerhed på jagt”, fire fuglearter og fire jagttider. Resten låses op med ét engangskøb, ikke et abonnement."),
+    ("Hvad kan jeg prøve gratis?", "Ét emne efter eget valg, ét fuldt prøvesæt, én dagens runde og otte vildtarter. Resten låses op med ét engangskøb, ikke et abonnement."),
     ("Hvordan får jeg mit køb tilbage på en ny telefon?", "Åbn appen, gå til Indstillinger og tryk Gendan køb. Købet hænger på din Apple-konto, så det er nok at være logget ind med den samme. Sker der intet, så skriv til mig med købsdatoen, så ordner jeg det."),
-    ("Gemmer appen mine besvarelser et sted?", "Kun på din egen telefon. Der er ingen brugerkonto og ingen server hos mig, så din statistik og dine favoritfugle forlader ikke enheden."),
+    ("Gemmer appen mine besvarelser et sted?", "På din telefon og i din egen private iCloud, så de følger med til en ny iPhone. Der er ingen brugerkonto og ingen server hos mig, og jeg kan ikke se dine svar."),
     ("Jeg mener, et svar er forkert", "Skriv hvilket spørgsmål det er, og hvad du mener er galt, gerne med henvisning. Pensum ændrer sig, og jeg retter hurtigt — det er mig selv, der læser mailen."),
   ],
   "urgent_head": "Noget der ikke kan vente?",
@@ -186,8 +187,8 @@ LANG = {
   "priv_title": "Privatliv — Webspind",
   "priv_desc": "Privatlivspolitikker for Webspinds apps.",
   "priv_head": "Privatliv",
-  "priv_lede": "Én politik pr. app, som Apple kræver det. Den korte version er den samme for dem alle: der indsamles ingenting.",
-  "priv_card_desc": "Ingen data indsamles. Ingen konti, ingen analyse, ingen netværkskald. Alt bliver på din enhed.",
+  "priv_lede": "Én politik pr. app, som Apple kræver det. Fælles for dem alle: ingen reklamer, ingen analyse og ingen server hos mig.",
+  "priv_card_desc": "Dine svar ligger på din enhed og i din egen iCloud. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat.",
   "priv_card_go": "Læs politikken →",
   "priv_card_note": "",
 
@@ -242,44 +243,45 @@ LANG = {
   "app_icon_alt": "Jagtprøven app icon",
 
   "stats": [
-    ("280", "questions, each explained"),
-    ("35", "bird species with field marks"),
-    ("31", "species' hunting seasons"),
-    ("7", "topics + the firearms test"),
+    ("522", "questions, each explained"),
+    ("100", "species with photos"),
+    ("41", "species' hunting seasons"),
+    ("40", "questions in a timed mock exam"),
   ],
 
   "disclaimer_head": "Independent practice app",
   "disclaimer_body": "Jagtprøven is not affiliated with the Danish Nature Agency or the Ministry of the Environment. The questions were written for the app from the public syllabus — they are not the exam's own questions.",
 
   "highlights": [
-    ("The whole syllabus, not a sample.", "280 questions across all seven topics, plus the firearms test as a test of its own that you can retake as often as you like."),
-    ("The birds, the way the exam asks about them.", "35 species with field marks, calls and the species they get confused with — game and protected side by side."),
+    ("The whole syllabus, not a sample.", "522 questions across all eight topics and the exam's six sections, plus a 40-question, 30-minute mock exam like the real day."),
+    ("The species, the way the exam asks about them.", "100 species with photos, field marks and the species they get confused with — plus a photo quiz with three species from the same group."),
     ("You find out where you are weak.", "The app tracks your stats topic by topic and points at what is costing you points — so you practise the right thing before the exam."),
   ],
 
   "features_head": "What you get",
   "features_sub": "You don't memorise the answer key. Every question tells you why the answer is right, so the rule behind it sticks when the exam asks it a different way.",
   "features": [
-    ("280 questions, each explained", "Every single question tells you why the answer is right. You understand the rule behind it instead of memorising the answer key."),
-    ("The firearms test on its own", "A standalone test you can run again and again until calibre requirements and firearms rules stick."),
+    ("522 questions, each explained", "Every single question tells you why the answer is right. You understand the rule behind it instead of memorising the answer key."),
+    ("Timed mock exam", "40 questions in 30 minutes, 36 to pass — exactly like the day, with a section-by-section breakdown afterwards."),
     ("Spots your weak topics", "The app tracks your stats per topic and points at where you are losing points — so you practise the right thing."),
     ("Practise anywhere", "The app works with no connection at all, so you can take a round in the car, in the hide or on your break at work."),
   ],
 
-  "topics_head": "The seven topics",
-  "topics_sub": "The app keeps track of which topics you are weakest in, so you can put the work exactly there. The firearms test sits alongside them as a standalone test you can run again and again.",
+  "topics_head": "The eight topics",
+  "topics_sub": "The app keeps track of which topics you are weakest in, so you can put the work exactly there. One topic of your choice is free.",
   "topics": [
-    ("Hunting safety", "free"),
-    ("Firearms and ammunition", "+ firearms test"),
-    ("Hunting rights and legislation", ""),
-    ("Game management and conservation", ""),
-    ("Mammals", ""),
-    ("Birds", "+ bird ID"),
-    ("Hunting methods", ""),
+    ("Species identification and wildlife biology", "+ photo quiz"),
+    ("Game management", ""),
+    ("Firearms and ammunition", ""),
+    ("Other hunting legislation", ""),
+    ("Handling shot game", ""),
+    ("Hunting ethics and etiquette", ""),
+    ("Hunting technique and leadership", ""),
+    ("Safety and shooting", ""),
   ],
 
   "seasons_head": "Hunting seasons, filtered by today",
-  "seasons_sub": "31 species you can filter by what is open right now, with notes on the local and regional seasons that apply to several of them.",
+  "seasons_sub": "41 species you can filter by what is open right now, with notes on the local and regional seasons that apply to several of them.",
   "seasons_note": "The seasons in the app are for guidance and cannot be used as a legal reference. Always check the current statutory order before you go hunting.",
   "seasons_pills": ("Open now", "All species", "Local seasons"),
   "seasons": [
@@ -289,14 +291,14 @@ LANG = {
     ("Greylag goose", "1 Sep – 31 Dec", True),
     ("Roe deer, buck", "16 May – 15 Jul", False),
   ],
-  "seasons_foot": "An example of the view. The app covers 31 species.",
+  "seasons_foot": "An example of the view. The app covers 41 species.",
 
   "free_head": "Try it free first",
-  "free_sub": "The whole “Hunting safety” topic is free, along with four bird species and four hunting seasons. If the app works for you, the rest is one purchase — not a subscription.",
+  "free_sub": "One topic of your choice, one full mock exam, one daily round and eight species are free. If the app works for you, the rest is one purchase — not a subscription.",
   "free_items": [
-    ("Hunting safety", "the whole topic, free"),
-    ("4 bird species", "with field marks and quiz"),
-    ("4 hunting seasons", "to try the view"),
+    ("One topic", "of your choice, as often as you like"),
+    ("One mock exam", "40 questions in 30 minutes"),
+    ("8 species", "with photos and field marks"),
   ],
 
   "about_photo": "your own photo here — desk, terrain or you",
@@ -310,8 +312,8 @@ LANG = {
     ("Support", "Me, within 2 working days"),
   ],
 
-  "cta_head": "Start by passing the safety part.",
-  "cta_body": "The “Hunting safety” topic is free in the app — take it and see whether the format suits you before you buy the rest.",
+  "cta_head": "Try a whole mock exam for free.",
+  "cta_body": "A full mock exam and one topic of your choice are free in the app — take them and see whether the format suits you before you buy the rest.",
   "cta_btn": "Got a question?",
 
   # ---- support
@@ -335,9 +337,9 @@ LANG = {
   "faqs": [
     ("Are these the real exam questions?", "No. The questions were written for the app from the public syllabus for the Danish hunting licence exam. The app is an independent practice app and is not affiliated with the Danish Nature Agency or the Ministry of the Environment."),
     ("Can I use the hunting seasons while I am out hunting?", "Use them to practise. The seasons in the app are for guidance and are not a legal reference — always check the current statutory order before you head out. Several species also have local and regional seasons, which the app only notes."),
-    ("What can I try for free?", "The whole “Hunting safety” topic, four bird species and four hunting seasons. The rest unlocks with a single one-time purchase, not a subscription."),
+    ("What can I try for free?", "One topic of your choice, one full mock exam, one daily round and eight species. The rest unlocks with a single one-time purchase, not a subscription."),
     ("How do I get my purchase back on a new phone?", "Open the app, go to Settings and tap Restore purchases. The purchase is tied to your Apple account, so being signed in with the same one is enough. If nothing happens, write to me with the purchase date and I will sort it out."),
-    ("Does the app store my answers anywhere?", "Only on your own phone. There is no user account and no server at my end, so your stats and your favourite birds never leave the device."),
+    ("Does the app store my answers anywhere?", "On your phone and in your own private iCloud, so they follow you to a new iPhone. There is no user account and no server at my end, and I cannot see your answers."),
     ("I think an answer is wrong", "Tell me which question it is and what you think is off, ideally with a reference. The syllabus changes and I fix things quickly — I am the one reading the mail."),
   ],
   "urgent_head": "Something that cannot wait?",
@@ -347,8 +349,8 @@ LANG = {
   "priv_title": "Privacy — Webspind",
   "priv_desc": "Privacy policies for Webspind's apps.",
   "priv_head": "Privacy",
-  "priv_lede": "One policy per app, the way Apple requires it. The short version is the same for all of them: nothing is collected.",
-  "priv_card_desc": "No data is collected. No accounts, no analytics, no network calls. Everything stays on your device.",
+  "priv_lede": "One policy per app, the way Apple requires it. Common to all of them: no ads, no analytics and no server of mine.",
+  "priv_card_desc": "Your answers stay on your device and in your own iCloud. No account, no analytics. Purchases are verified via RevenueCat.",
   "priv_card_go": "Read the policy →",
   "priv_card_note": "The policy itself is in Danish — Jagtprøven is a Danish-only app. Write to me if you need it in English.",
 
@@ -368,8 +370,8 @@ APPS = [
         "name": "Jagtprøven",
         "meta": {"da": "Jagttegn · iPhone og iPad", "en": "Hunting licence · iPhone and iPad"},
         "pitch": {
-            "da": "280 spørgsmål, 35 fuglearter og 31 jagttider i én app — med en forklaring på hvert eneste svar.",
-            "en": "280 questions, 35 bird species and 31 hunting seasons in one app — with an explanation behind every single answer.",
+            "da": "522 spørgsmål, 100 vildtarter og 41 jagttider i én app — med en forklaring på hvert eneste svar.",
+            "en": "522 questions, 100 species and 41 hunting seasons in one app — with an explanation behind every single answer.",
         },
         "badge": {"da": "App Store-link følger", "en": "Coming to the App Store"},
         "more": {"da": "Læs mere →", "en": "Read more →"},
@@ -383,12 +385,14 @@ GAMES = []
 # the legal text Apple links to. The English privacy index points at it with
 # a note (priv_card_note).
 POLICY_SECTIONS = [
-    ("Hvad indsamles", "Ingenting. Der er ingen brugerkonto, intet reklame-id, ingen fingerprinting og ingen tredjeparts analyseværktøjer i appen. Jeg ved ikke, hvem du er, eller at du har åbnet den."),
-    ("Hvor dine data ligger", "Din statistik, dine favoritfugle og dine besvarelser gemmes på din egen enhed. Webspind driver ingen server, og der findes ingen kopi hos mig. Tager du en backup via iCloud, ligger den i din egen konto, som kun du har adgang til."),
+    ("Hvad appen gemmer", "Dine besvarelser, prøvesæt, udmærkelser og streak. Hvis du selv oplyser det, også dit fornavn, din prøvedato, dit prøvested og det emne, du vil starte med. Der er ingen brugerkonto, intet login, intet reklame-id, ingen fingerprinting og ingen analyseværktøjer i appen."),
+    ("Hvor dine data ligger", "På din enhed og, hvis du bruger iCloud, i din egen private iCloud-database og iCloud-lager hos Apple, så de følger med til en ny iPhone. Kun du har adgang til dem. Webspind har ingen kopi og kan ikke læse dem."),
+    ("Hvor længe", "Dine data ligger, indtil du selv sletter dem i appen eller sletter appen og dens iCloud-data. Webspind opbevarer intet. RevenueCat opbevarer købsoplysningerne efter sin egen privatlivspolitik, så længe købet skal kunne gendannes."),
+    ("Køb", 'Køb håndteres af Apple. Til at bekræfte og gendanne dit køb bruger appen tjenesten <a href="https://www.revenuecat.com/privacy">RevenueCat</a>, som modtager et anonymt app-bruger-id, oplysninger om dine køb (produkt, pris, tidspunkt og kvittering fra App Store) og tekniske oplysninger som app-version og land. RevenueCat får ikke dit navn, din e-mail eller dine svar. Fra Apple får jeg salgstal og opgørelser på landeniveau — aldrig dine kortoplysninger, din adresse eller din e-mail.'),
+    ("Påmindelser", "Slår du den daglige påmindelse til, planlægges den lokalt på din iPhone. Der sendes intet til en server."),
     ("Nedbrudsrapporter", "Har du slået deling med udviklere til i enhedens indstillinger, kan Apple sende mig samlede nedbrudsrapporter med enhedsmodel, iOS-version og et stakspor. De indeholder hverken navn, e-mail, indhold eller et blivende id, og jeg kan ikke bruge dem til at kontakte dig."),
-    ("Køb", "Køb håndteres af Apple. Jeg får salgstal og opgørelser på landeniveau — aldrig dine kortoplysninger, din adresse eller din e-mail."),
-    ("Børn", "Appen er henvendt til voksne, der skal tage jagttegn, og den indsamler ingen personoplysninger fra nogen — heller ikke fra en yngre bruger."),
-    ("Dine rettigheder", "Da jeg ikke har personoplysninger om dig, er der normalt intet at udlevere eller slette. Har du skrevet til mig, ligger korrespondancen i min mailboks — sig til, og jeg sletter tråden. Du kan også klage til Datatilsynet."),
+    ("Børn", "Appen er henvendt til dem, der skal tage jagttegn, og er ikke rettet mod børn."),
+    ("Slet dine data", "I appen: Profil → tandhjulet → Slet alle data. Det sletter alt, appen har gemt, både på enheden og i din iCloud. Dit køb hører til dit Apple-ID og bevares. Vil du have dine købsoplysninger slettet hos RevenueCat, eller har du skrevet til mig og vil have tråden slettet, så sig til. Du kan også klage til Datatilsynet."),
     ("Ændringer", "Ændrer politikken sig på en måde, der betyder noget, ændres datoen øverst, og den tidligere ordlyd kan fås ved henvendelse. Væsentlige ændringer nævnes også i appens udgivelsesnoter."),
 ]
 
@@ -851,9 +855,9 @@ def priv_index_body(L, lang):
 policy_body = '''    <div class="policy">
       <div class="page-head" style="gap:12px">
         <h1>Privatlivspolitik — Jagtprøven</h1>
-        <p class="updated">Senest opdateret 1. september 2026 · gælder Jagtprøven til iOS</p>
+        <p class="updated">Senest opdateret 26. september 2026 · gælder Jagtprøven til iOS</p>
       </div>
-      <p class="intro">Jagtprøven indsamler ingen personoplysninger. Denne side findes, så du kan efterprøve den påstand i detaljer — og fordi Apple kræver et link til en privatlivspolitik for hver app i App Store.</p>
+      <p class="intro">Jagtprøven gemmer dine data på din enhed og i din egen iCloud. Webspind driver ingen server og kan ikke se dine svar, dit navn eller din prøvedato. Det eneste, der sendes videre, er oplysninger om køb. Denne side forklarer det i detaljer — og findes også, fordi Apple kræver et link til en privatlivspolitik for hver app i App Store.</p>
       <div class="policy-sections">
 %s
       </div>
