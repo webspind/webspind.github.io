@@ -191,6 +191,7 @@ LANG = {
   "priv_card_desc": "Dine svar ligger på din enhed og i din egen iCloud. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat.",
   "priv_card_go": "Læs politikken →",
   "priv_card_note": "",
+  "wb_card_desc": "Dine alarmer ligger kun på din iPhone. Ingen konto, ingen analyse. Købet bekræftes via RevenueCat.",
 
   # ---- 404
   "nf_body": "Den sti fører ikke nogen steder hen.",
@@ -353,6 +354,7 @@ LANG = {
   "priv_card_desc": "Your answers stay on your device and in your own iCloud. No account, no analytics. Purchases are verified via RevenueCat.",
   "priv_card_go": "Read the policy →",
   "priv_card_note": "The policy itself is in Danish — Jagtprøven is a Danish-only app. Write to me if you need it in English.",
+  "wb_card_desc": "Your alarms stay on your iPhone. No account, no analytics. The purchase is verified via RevenueCat.",
 
   # ---- 404
   "nf_body": "That path does not lead anywhere.",
@@ -848,8 +850,14 @@ def priv_index_body(L, lang):
           <span class="desc">%s</span>%s
           <span class="go">%s</span>
         </a>
+        <a class="priv-card" href="%s">
+          <span class="name">Wakebird</span>
+          <span class="desc">%s</span>
+          <span class="go">%s</span>
+        </a>
       </div>
-    </div>''' % (L["priv_head"], L["priv_lede"], L["priv_card_desc"], note, L["priv_card_go"])
+    </div>''' % (L["priv_head"], L["priv_lede"], L["priv_card_desc"], note, L["priv_card_go"],
+           P(lang, "/privacy/wakebird.html"), L["wb_card_desc"], L["priv_card_go"])
 
 
 policy_body = '''    <div class="policy">
