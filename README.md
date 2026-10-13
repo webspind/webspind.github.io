@@ -125,3 +125,6 @@ lives in the `LANG` dict at the top of that script, one entry per language;
 the builder functions below it only lay the strings out. Edit the content
 there, re-run the script, then commit. Editing the generated `.html`
 directly works too, but the next run overwrites it.
+
+## Warning: privacy index is hand-edited
+`privacy/index.html` and `en/privacy/index.html` contain hand-added cards (Friendloop, Longwalk, Supersub, Fortøy) that `build-pages.py` does not know about. Running it would erase them. Add the cards to `priv_index_body` first, or edit the HTML by hand.
