@@ -159,7 +159,7 @@ LANG = {
   "support_desc": "Support til Jagtprøven. Skriv direkte til mig, jeg svarer inden for to hverdage.",
   "support_head": "Support",
   "support_lede": "Skriv direkte til mig. Jeg læser alle beskeder og svarer inden for to hverdage, på dansk eller engelsk. Skriv hvilken iPhone og iOS-version du har, og hvad der skete — det sparer os begge en runde.",
-  "support_cards": [("E-mail", "support@webspind.com"), ("Svartid", "Inden for 2 hverdage"), ("Refusion", "Håndteres af Apple")],
+  "support_cards": [("E-mail", "webspind@gmail.com"), ("Svartid", "Inden for 2 hverdage"), ("Refusion", "Håndteres af Apple")],
   "form_head": "Send en besked",
   "form_subject_label": "Hvad handler det om",
   "form_subject_placeholder": "Vælg…",
@@ -322,7 +322,7 @@ LANG = {
   "support_desc": "Support for Jagtprøven. Write straight to me, I answer within two working days.",
   "support_head": "Support",
   "support_lede": "Write straight to me. I read every message and answer within two working days, in English or Danish. Tell me which iPhone and iOS version you have and what happened — it saves us both a round trip.",
-  "support_cards": [("Email", "support@webspind.com"), ("Response time", "Within 2 working days"), ("Refunds", "Handled by Apple")],
+  "support_cards": [("Email", "webspind@gmail.com"), ("Response time", "Within 2 working days"), ("Refunds", "Handled by Apple")],
   "form_head": "Send a message",
   "form_subject_label": "What is it about",
   "form_subject_placeholder": "Choose…",
@@ -425,7 +425,7 @@ def header(lang, current=None, switch=None):
         <span>Webspind</span>
       </a>
       <nav class="nav" aria-label="Main">%s%s
-        <a class="contact" href="mailto:hej@webspind.com">%s</a>
+        <a class="contact" href="mailto:webspind@gmail.com">%s</a>
       </nav>
     </div>
     <div class="progress-track"><div class="progress-bar" data-progress="1"></div></div>
@@ -441,7 +441,7 @@ def footer(lang):
         <span class="footer-links">
           <a href="%s">%s</a>
           <a href="%s">%s</a>
-          <a href="mailto:hej@webspind.com">%s</a>
+          <a href="mailto:webspind@gmail.com">%s</a>
         </span>
       </div>
     </div>
@@ -519,7 +519,7 @@ def hero_home(L, lang):
           <p class="hero-lede">%s</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#apps">%s</a>
-            <a class="btn btn-secondary" href="mailto:hej@webspind.com">%s</a>
+            <a class="btn btn-secondary" href="mailto:webspind@gmail.com">%s</a>
           </div>
         </div>
       </div>
@@ -740,7 +740,7 @@ def about_section(L, lang):
           <p class="serif" style="color:var(--muted)">%s</p>
           <div class="facts">
 %s
-            <a href="mailto:hej@webspind.com">hej@webspind.com</a>
+            <a href="mailto:webspind@gmail.com">webspind@gmail.com</a>
           </div>
         </div>
       </div>
@@ -869,7 +869,7 @@ policy_body = '''    <div class="policy">
       <div class="policy-sections">
 %s
       </div>
-      <div class="policy-contact">Spørgsmål til politikken, eller vil du have noget slettet? Skriv til <a href="mailto:privatliv@webspind.com">privatliv@webspind.com</a>, så svarer jeg inden for to hverdage.</div>
+      <div class="policy-contact">Spørgsmål til politikken, eller vil du have noget slettet? Skriv til <a href="mailto:webspind@gmail.com">webspind@gmail.com</a>, så svarer jeg inden for to hverdage.</div>
     </div>''' % "\n".join('        <div><h2>%s</h2><p>%s</p></div>' % s for s in POLICY_SECTIONS)
 
 
