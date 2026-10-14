@@ -3,124 +3,214 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Webspind — apps and games from Denmark</title>
-  <meta name="description" content="Webspind is an independent studio in Denmark. Apps and games that work offline, need no account and track nothing. First app: Jagtprøven for iPhone and iPad.">
+  <title>Webspind — apps by Jakob Munch-Brandt</title>
+  <meta name="description" content="Small iPhone apps, made with care by Jakob Munch-Brandt in Denmark. Wakebird, Friendloop, Supersub, Longwalk, Jagtprøven, Cookside and more.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/favicon.svg">
-  <meta name="theme-color" content="#f1eee4">
+  <meta name="theme-color" content="#f5f5f7">
   <link rel="canonical" href="https://webspind.com/en/">
   <link rel="alternate" hreflang="da" href="https://webspind.com/">
   <link rel="alternate" hreflang="en" href="https://webspind.com/en/">
   <link rel="alternate" hreflang="x-default" href="https://webspind.com/">
-  <meta property="og:title" content="Webspind — apps and games from Denmark">
-  <meta property="og:description" content="Webspind is an independent studio in Denmark. Apps and games that work offline, need no account and track nothing. First app: Jagtprøven for iPhone and iPad.">
+  <meta property="og:title" content="Webspind — apps by Jakob Munch-Brandt">
+  <meta property="og:description" content="Small iPhone apps, made with care by Jakob Munch-Brandt in Denmark. Wakebird, Friendloop, Supersub, Longwalk, Jagtprøven, Cookside and more.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="en">
   <meta property="og:url" content="https://webspind.com/en/">
 </head>
 <body>
-  <div class="ambience" aria-hidden="true"></div>
-  <div class="ambience-grid" aria-hidden="true"></div>
-
+  <a class="skip" href="#main">Skip to the apps</a>
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="/en/">
-        <img src="/favicon.svg" alt="" width="28" height="28">
-        <span>Webspind</span>
-      </a>
+      <a class="brand" href="/en/">Webspind</a>
       <nav class="nav" aria-label="Main">
         <a href="/en/#apps">Apps</a>
-        <a href="/en/#games">Games</a>
+        <a href="/en/#jakob">About</a>
         <a href="/en/support.html">Support</a>
         <a href="/en/privacy/">Privacy</a>
-        <span class="lang-switch"><a href="/" data-lang="da">DA</a><span aria-hidden="true">|</span><a href="/en/" data-lang="en" aria-current="true">EN</a></span>
-        <a class="contact" href="mailto:webspind@gmail.com">Get in touch</a>
+        <span class="lang-switch"><a href="/" data-lang="da" hreflang="da">DA</a><a href="/en/" data-lang="en" hreflang="en" aria-current="true">EN</a></span>
       </nav>
     </div>
-    <div class="progress-track"><div class="progress-bar" data-progress="1"></div></div>
   </header>
 
-  <main>
-    <section class="hero hero-plain">
-      <div class="hero-inner">
-        <span class="eyebrow">Independent studio · Denmark</span>
-        <h1>Apps and games from <span class="accent">Webspind</span>.</h1>
-        <div class="hero-cols">
-          <p class="hero-lede">I build apps and games that work offline, need no account and track nothing — made by one person in Denmark.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#apps">See the apps</a>
-            <a class="btn btn-secondary" href="mailto:webspind@gmail.com">Get in touch</a>
-          </div>
+  <main id="main">
+    <section class="hero">
+      <p class="eyebrow">Jakob Munch-Brandt · Denmark</p>
+      <h1 class="hero-h">Small apps.<br><span>Made with care.</span></h1>
+      <p class="hero-p">Ten iPhone apps and games, each with its own look, all designed and built by one person.</p>
+      <p class="hero-cta"><a class="btn" href="#apps">See the apps</a><a class="txt" href="mailto:webspind@gmail.com">Write to me ›</a></p>
+      <div class="hero-phones" aria-hidden="true"><div class="phone hp hp0"><div class="bezel"><img src="/assets/apps/screens/supersub-a.webp" width="600" height="1304" alt="Supersub screen" decoding="async"></div></div><div class="phone hp hp1"><div class="bezel"><img src="/assets/apps/screens/wakebird-a.webp" width="600" height="1304" alt="Wakebird screen" decoding="async"></div></div><div class="phone hp hp2"><div class="bezel"><img src="/assets/apps/screens/longwalk-a.webp" width="600" height="1304" alt="Longwalk screen" decoding="async"></div></div><div class="phone hp hp3"><div class="bezel"><img src="/assets/apps/screens/friendloop-a.webp" width="600" height="1304" alt="Friendloop screen" decoding="async"></div></div><div class="phone hp hp4"><div class="bezel"><img src="/assets/apps/screens/cookside-a.webp" width="600" height="1304" alt="Cookside screen" decoding="async"></div></div></div>
+    </section>
+
+    <section class="shelf-sec" id="apps" aria-label="All apps">
+      <div class="shelf"><a href="#wakebird"><img class="sh-ic" src="/assets/apps/icons/wakebird.webp" width="256" height="256" alt="" decoding="async"><span>Wakebird</span></a><a href="#friendloop"><img class="sh-ic" src="/assets/apps/icons/friendloop.webp" width="256" height="256" alt="" decoding="async"><span>Friendloop</span></a><a href="#supersub"><img class="sh-ic" src="/assets/apps/icons/supersub.webp" width="256" height="256" alt="" decoding="async"><span>Supersub</span></a><a href="#longwalk"><img class="sh-ic" src="/assets/apps/icons/longwalk.webp" width="256" height="256" alt="" decoding="async"><span>Longwalk</span></a><a href="#jagtproven"><img class="sh-ic" src="/assets/apps/icons/jagtproven.webp" width="256" height="256" alt="" decoding="async"><span>Jagtprøven</span></a><a href="#cookside"><img class="sh-ic" src="/assets/apps/icons/cookside.webp" width="256" height="256" alt="" decoding="async"><span>Cookside</span></a><a href="#handhold"><img class="sh-ic" src="/assets/apps/icons/handhold.webp" width="256" height="256" alt="" decoding="async"><span>Handhold</span></a><a href="#loftpass"><img class="sh-ic" src="/assets/apps/icons/loftpass.webp" width="256" height="256" alt="" decoding="async"><span>Loftpass</span></a><a href="#fortoy"><img class="sh-ic" src="/assets/apps/icons/fortoy.webp" width="256" height="256" alt="" decoding="async"><span>Fortøy</span></a><a href="#wendemarke"><img class="sh-ic" src="/assets/apps/icons/wendemarke.webp" width="256" height="256" alt="" decoding="async"><span>Wendemarke</span></a></div>
+    </section>
+
+    <section class="group">
+      <header class="g-head rv"><h2>On the App Store.</h2><p>Out now, on iPhone and iPad.</p></header>
+      <article class="tile t-wide rv" id="jagtproven" style="--c:#2b7334">
+        <div class="t-copy">
+          <img class="t-ic" src="/assets/apps/icons/jagtproven.webp" width="256" height="256" alt="Jagtprøven app icon" decoding="async">
+          <p class="chip st-live">On the App Store</p>
+          <h3 class="t-name">Jagtprøven</h3>
+          <p class="t-kind">Danish hunting exam · In Danish</p>
+          <p class="t-line">Pass the hunting exam the first time.</p>
+          <p class="t-desc">522 questions with a source behind every answer, all 100 species with photos, and the seasons that apply right now. iPhone and iPad.</p>
+          <p class="t-links"><a class="more" href="https://apps.apple.com/dk/app/id6811615877" target="_blank" rel="noopener">App Store</a><a class="more" href="/en/jagtproven/">About the app</a><a class="more" href="/privacy/jagtproven.html">Privacy</a><a class="more" href="/en/support.html">Support</a></p>
         </div>
+        <div class="t-dev"><div class="phone"><div class="bezel"><img src="/assets/apps/screens/jagtproven-a.webp" width="600" height="1304" alt="Jagtprøven screen" decoding="async" loading="lazy"></div></div><div class="phone ph2"><div class="bezel"><img src="/assets/apps/screens/jagtproven-b.webp" width="600" height="1304" alt="Jagtprøven screen" decoding="async" loading="lazy"></div></div></div>
+      </article>
+    </section>
+
+    <section class="group">
+      <header class="g-head rv"><h2>In review.</h2><p>Finished and submitted to Apple. Out as soon as they're approved.</p></header>
+      <div class="grid g2">
+      <article class="tile t-half rv" id="wakebird" style="--c:#c4421f">
+        <div class="t-copy">
+          <img class="t-ic" src="/assets/apps/icons/wakebird.webp" width="256" height="256" alt="Wakebird app icon" decoding="async">
+          <p class="chip st-review">In review</p>
+          <h3 class="t-name">Wakebird</h3>
+          <p class="t-kind">Birdsong alarm clock</p>
+          <p class="t-line">Wake to real birdsong.</p>
+          <p class="t-desc">Three dawn choruses from real wild birds. One bird starts softly, the others join in, and it rings even on silent.</p>
+          <p class="t-links"><a class="more" href="/en/privacy/wakebird.html">Privacy</a></p>
+        </div>
+        <div class="t-dev"><div class="phone"><div class="bezel"><img src="/assets/apps/screens/wakebird-a.webp" width="600" height="1304" alt="Wakebird screen" decoding="async" loading="lazy"></div></div></div>
+      </article>
+      <article class="tile t-half rv" id="friendloop" style="--c:#6a3cf0">
+        <div class="t-copy">
+          <img class="t-ic" src="/assets/apps/icons/friendloop.webp" width="256" height="256" alt="Friendloop app icon" decoding="async">
+          <p class="chip st-review">In review</p>
+          <h3 class="t-name">Friendloop</h3>
+          <p class="t-kind">Stay in touch</p>
+          <p class="t-line">See more of the friends who matter.</p>
+          <p class="t-desc">A good idea for every friend, with the message already written. Private, on your iPhone, no account.</p>
+          <p class="t-links"><a class="more" href="/en/privacy/friendloop.html">Privacy</a></p>
+        </div>
+        <div class="t-dev"><div class="phone"><div class="bezel"><img src="/assets/apps/screens/friendloop-a.webp" width="600" height="1304" alt="Friendloop screen" decoding="async" loading="lazy"></div></div></div>
+      </article>
+      <article class="tile t-half rv" id="supersub" style="--c:#1f3fd6">
+        <div class="t-copy">
+          <img class="t-ic" src="/assets/apps/icons/supersub.webp" width="256" height="256" alt="Supersub app icon" decoding="async">
+          <p class="chip st-review">In review</p>
+          <h3 class="t-name">Supersub</h3>
+          <p class="t-kind">Offline football game</p>
+          <p class="t-line">Pull a star. Take the shot.</p>
+          <p class="t-desc">Casual anime football with card packs. Every card you pull joins your club, and your club gets a story. No ads, no account.</p>
+          <p class="t-links"><a class="more" href="/en/privacy/supersub.html">Privacy</a></p>
+        </div>
+        <div class="t-dev"><div class="phone"><div class="bezel"><img src="/assets/apps/screens/supersub-a.webp" width="600" height="1304" alt="Supersub screen" decoding="async" loading="lazy"></div></div></div>
+      </article>
+      <article class="tile t-half rv" id="longwalk" style="--c:#c2402b">
+        <div class="t-copy">
+          <img class="t-ic" src="/assets/apps/icons/longwalk.webp" width="256" height="256" alt="Longwalk app icon" decoding="async">
+          <p class="chip st-review">In review</p>
+          <h3 class="t-name">Longwalk</h3>
+          <p class="t-kind">Walk famous trails</p>
+          <p class="t-line">Walk the Camino from home.</p>
+          <p class="t-desc">Your everyday steps carry you along ten famous trails, with a postcard at every stop. Pay once, no subscription.</p>
+          <p class="t-links"><a class="more" href="/en/privacy/longwalk.html">Privacy</a></p>
+        </div>
+        <div class="t-dev"><div class="phone"><div class="bezel"><img src="/assets/apps/screens/longwalk-a.webp" width="600" height="1304" alt="Longwalk screen" decoding="async" loading="lazy"></div></div></div>
+      </article>
       </div>
     </section>
 
-    <section class="section rule-top" id="apps">
-      <div class="section-inner rv">
-        <div class="section-head">
-          <h2>Apps</h2>
-          <p>For iPhone and iPad. Offline first, no accounts, no tracking.</p>
+    <section class="group">
+      <header class="g-head rv"><h2>Coming soon.</h2><p>Built and being polished now.</p></header>
+      <div class="grid g3">
+      <article class="tile t-third rv" id="cookside" style="--c:#f4b120">
+        <div class="t-copy">
+          <img class="t-ic" src="/assets/apps/icons/cookside.webp" width="256" height="256" alt="Cookside app icon" decoding="async">
+          <p class="chip st-soon">Coming soon</p>
+          <h3 class="t-name">Cookside</h3>
+          <p class="t-kind">Recipes, one step at a time</p>
+          <p class="t-line">Cook one step at a time.</p>
+          <p class="t-desc">Big steps you can read from the stove and timers that ring when they&#x27;re done. Save recipes from a link, by pasting, or by scanning a page.</p>
+          <p class="t-links"><a class="more" href="/en/privacy/cookside.html">Privacy</a><a class="more" href="/en/support/cookside.html">Support</a></p>
         </div>
-        <div class="card-grid">
-          <a class="app-card" href="/en/jagtproven/">
-            <span class="app-card-top">
-              <img class="tile" src="/assets/app-icon.png" alt="" width="60" height="60">
-              <span class="app-card-id">
-                <span class="name">Jagtprøven</span>
-                <span class="meta">Hunting licence · iPhone and iPad</span>
-              </span>
-            </span>
-            <span class="pitch">522 questions, 100 species and 41 hunting seasons in one app — with an explanation behind every single answer.</span>
-            <span class="badge">Coming to the App Store</span>
-            <span class="foot">Read more →</span>
-          </a>
+        <div class="t-dev"><div class="phone"><div class="bezel"><img src="/assets/apps/screens/cookside-a.webp" width="600" height="1304" alt="Cookside screen" decoding="async" loading="lazy"></div></div></div>
+      </article>
+      <article class="tile t-third rv" id="handhold" style="--c:#ab4a2b">
+        <div class="t-copy">
+          <img class="t-ic" src="/assets/apps/icons/handhold.webp" width="256" height="256" alt="Handhold app icon" decoding="async">
+          <p class="chip st-soon">Coming soon</p>
+          <h3 class="t-name">Handhold</h3>
+          <p class="t-kind">Daily habit coach</p>
+          <p class="t-line">For habits you keep dropping.</p>
+          <p class="t-desc">Start with two pages. Miss a day and nothing resets; the step just gets smaller. Pay once, no subscription.</p>
+          <p class="t-links"><a class="more" href="/en/privacy/handhold.html">Privacy</a><a class="more" href="/en/support/handhold.html">Support</a></p>
         </div>
+        <div class="t-dev"><div class="phone"><div class="bezel"><img src="/assets/apps/screens/handhold-a.webp" width="600" height="1304" alt="Handhold screen" decoding="async" loading="lazy"></div></div></div>
+      </article>
+      <article class="tile t-third rv" id="loftpass" style="--c:#a3134f">
+        <div class="t-copy">
+          <img class="t-ic" src="/assets/apps/icons/loftpass.webp" width="256" height="256" alt="Loftpass app icon" decoding="async">
+          <p class="chip st-soon">Coming soon</p>
+          <h3 class="t-name">Loftpass</h3>
+          <p class="t-kind">FAA Part 107 drone test</p>
+          <p class="t-line">Part 107 charts, finally clear.</p>
+          <p class="t-desc">461 questions with every answer explained, and drills on the real FAA chart figures.</p>
+          <p class="t-links"><a class="more" href="/en/privacy/loftpass.html">Privacy</a><a class="more" href="/en/support/loftpass.html">Support</a></p>
+        </div>
+        <div class="t-dev"><div class="phone"><div class="bezel"><img src="/assets/apps/screens/loftpass-a.webp" width="600" height="1304" alt="Loftpass screen" decoding="async" loading="lazy"></div></div></div>
+      </article>
+      <article class="tile t-third rv" id="fortoy" style="--c:#0b4db0">
+        <div class="t-copy">
+          <img class="t-ic" src="/assets/apps/icons/fortoy.webp" width="256" height="256" alt="Fortøy app icon" decoding="async">
+          <p class="chip st-soon">Coming soon</p>
+          <h3 class="t-name">Fortøy</h3>
+          <p class="t-kind">Norwegian boat licence · In Norwegian</p>
+          <p class="t-line">Båtførerprøven, without a subscription.</p>
+          <p class="t-desc">390 questions, each with an explanation and its source, and a 50-question mock exam like the real one.</p>
+          <p class="t-links"><a class="more" href="/no/privacy/fortoy.html">Privacy</a><a class="more" href="/no/support/fortoy.html">Support</a></p>
+        </div>
+        <div class="t-dev"><div class="phone"><div class="bezel"><img src="/assets/apps/screens/fortoy-a.webp" width="600" height="1304" alt="Fortøy screen" decoding="async" loading="lazy"></div></div></div>
+      </article>
+      <article class="tile t-third rv" id="wendemarke" style="--c:#d9061a">
+        <div class="t-copy">
+          <img class="t-ic" src="/assets/apps/icons/wendemarke.webp" width="256" height="256" alt="Wendemarke app icon" decoding="async">
+          <p class="chip st-soon">Coming soon</p>
+          <h3 class="t-name">Wendemarke</h3>
+          <p class="t-kind">Swiss boat licence · In German</p>
+          <p class="t-line">Every question explained.</p>
+          <p class="t-desc">354 practice questions in the exam&#x27;s true-or-false format, 284 of them with the BSV article behind the answer.</p>
+          <p class="t-links"><a class="more" href="/de/privacy/wendemarke.html">Privacy</a><a class="more" href="/de/support/wendemarke.html">Support</a></p>
+        </div>
+        <div class="t-dev"><div class="phone"><div class="bezel"><img src="/assets/apps/screens/wendemarke-a.webp" width="600" height="1304" alt="Wendemarke screen" decoding="async" loading="lazy"></div></div></div>
+      </article>
       </div>
     </section>
 
-    <section class="section" id="games">
-      <div class="section-inner rv">
-        <div class="section-head">
-          <h2>Games</h2>
-          <p>Unity and Roblox projects are in the works.</p>
-        </div>
-        <div class="empty">
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="2.4" y="7" width="19.2" height="11" rx="4.6"/>
-            <path d="M7.6 11.2v3.6M5.8 13h3.6M15.6 12.1h.01M18 14.4h.01"/>
-          </svg>
-          <h3>Nothing published yet</h3>
-          <p>Projects are in progress. They'll appear here the moment the first one ships.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta-final rule-top">
-      <div class="cta-final-inner rv">
-        <h2>Support and privacy, in one place.</h2>
-        <p>Everything I ship has a real support page and a privacy policy right here — written by me, not a form that goes nowhere.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="/en/support.html">Support</a>
-          <a class="btn btn-outline" href="/en/privacy/">Privacy</a>
-        </div>
+    <section class="jakob rv" id="jakob">
+      <div class="jakob-in">
+        <img class="jakob-photo" src="/assets/jakob.webp" width="360" height="360" alt="Jakob Munch-Brandt" loading="lazy" decoding="async">
+        <p class="eyebrow">The person behind Webspind</p>
+        <h2>Hi, I'm Jakob <span>Munch&#8209;Brandt.</span></h2>
+        <p>I make every app here on my own, from the first sketch to the support reply. No team and no agency, so each one gets the time it needs, and each one gets a design of its own.</p>
+        <p class="jakob-cta"><a class="btn btn-light" href="mailto:webspind@gmail.com">webspind@gmail.com</a><a class="btn btn-ghost" href="https://dk.linkedin.com/in/jakobmunchbrandt" rel="me noopener" target="_blank">LinkedIn ↗</a></p>
+        <p class="jakob-hi"><span lang="da">Hej fra Danmark.</span></p>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="wrap">
-      <div class="footer-top">
-        <span class="footer-brand"><img src="/favicon.svg" alt="">© 2026 Webspind · Denmark</span>
-        <span class="footer-links">
-          <a href="/en/">Home</a>
-          <a href="/en/privacy/">Privacy</a>
-          <a href="mailto:webspind@gmail.com">Email</a>
-        </span>
+      <div class="foot-cols">
+        <div>
+          <h2>Help</h2>
+          <p><a href="/en/support.html">Support</a><a href="/en/privacy/">All privacy policies</a><a href="mailto:webspind@gmail.com">webspind@gmail.com</a><a href="https://dk.linkedin.com/in/jakobmunchbrandt" rel="me noopener" target="_blank">LinkedIn</a><a href="/" data-lang="da" lang="da">Dansk</a></p>
+        </div>
+        <div class="foot-apps">
+          <h2>Privacy and support per app</h2>
+          <ul><li><span class="fl-name">Wakebird</span><a href="/en/privacy/wakebird.html">Privacy</a></li><li><span class="fl-name">Friendloop</span><a href="/en/privacy/friendloop.html">Privacy</a></li><li><span class="fl-name">Supersub</span><a href="/en/privacy/supersub.html">Privacy</a></li><li><span class="fl-name">Longwalk</span><a href="/en/privacy/longwalk.html">Privacy</a></li><li><span class="fl-name">Jagtprøven</span><a href="/en/jagtproven/">About the app</a><a href="/privacy/jagtproven.html">Privacy</a><a href="/en/support.html">Support</a></li><li><span class="fl-name">Cookside</span><a href="/en/privacy/cookside.html">Privacy</a><a href="/en/support/cookside.html">Support</a></li><li><span class="fl-name">Handhold</span><a href="/en/privacy/handhold.html">Privacy</a><a href="/en/support/handhold.html">Support</a></li><li><span class="fl-name">Loftpass</span><a href="/en/privacy/loftpass.html">Privacy</a><a href="/en/support/loftpass.html">Support</a></li><li><span class="fl-name">Fortøy</span><a href="/no/privacy/fortoy.html">Privacy</a><a href="/no/support/fortoy.html">Support</a></li><li><span class="fl-name">Wendemarke</span><a href="/de/privacy/wendemarke.html">Privacy</a><a href="/de/support/wendemarke.html">Support</a></li></ul>
+        </div>
       </div>
+      <p class="legal">© 2026 Jakob Munch-Brandt. Webspind is the name I publish under. Made in Denmark.</p>
     </div>
   </footer>
 

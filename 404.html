@@ -7,11 +7,11 @@
   <meta name="description" content="Siden findes ikke. / The page does not exist.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/favicon.svg">
-  <meta name="theme-color" content="#f1eee4">
+  <meta name="theme-color" content="#f5f5f7">
   <link rel="canonical" href="https://webspind.com/404.html">
   <meta property="og:title" content="Ikke fundet / Not found — Webspind">
   <meta property="og:description" content="Siden findes ikke. / The page does not exist.">
@@ -20,35 +20,27 @@
   <meta property="og:url" content="https://webspind.com/404.html">
 </head>
 <body>
-  <div class="ambience" aria-hidden="true"></div>
-  <div class="ambience-grid" aria-hidden="true"></div>
-
+  <a class="skip" href="#main">Spring til apps</a>
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="/">
-        <img src="/favicon.svg" alt="" width="28" height="28">
-        <span>Webspind</span>
-      </a>
+      <a class="brand" href="/">Webspind</a>
       <nav class="nav" aria-label="Main">
         <a href="/#apps">Apps</a>
-        <a href="/#games">Spil</a>
+        <a href="/#jakob">Om mig</a>
         <a href="/support.html">Support</a>
         <a href="/privacy/">Privatliv</a>
-        <span class="lang-switch"><a href="/" data-lang="da" aria-current="true">DA</a><span aria-hidden="true">|</span><a href="/en/" data-lang="en">EN</a></span>
-        <a class="contact" href="mailto:webspind@gmail.com">Skriv til mig</a>
+        <span class="lang-switch"><a href="/" data-lang="da" hreflang="da" aria-current="true">DA</a><a href="/en/" data-lang="en" hreflang="en">EN</a></span>
       </nav>
     </div>
-    <div class="progress-track"><div class="progress-bar" data-progress="1"></div></div>
   </header>
 
-  <main>
+  <main id="main">
     <div class="center-page">
-      <img src="/favicon.svg" alt="" width="52" height="52" style="opacity:.6">
       <h1>404</h1>
       <p lang="da">Den sti fører ikke nogen steder hen.</p>
       <p lang="en">That path does not lead anywhere.</p>
       <p class="hero-actions" style="justify-content:center">
-        <a class="btn btn-secondary" href="/" lang="da">Tilbage til Webspind</a>
+        <a class="btn" href="/" lang="da">Tilbage til Webspind</a>
         <a class="btn btn-secondary" href="/en/" lang="en">Back to Webspind</a>
       </p>
     </div>
@@ -56,14 +48,17 @@
 
   <footer class="site-footer">
     <div class="wrap">
-      <div class="footer-top">
-        <span class="footer-brand"><img src="/favicon.svg" alt="">© 2026 Webspind · Danmark</span>
-        <span class="footer-links">
-          <a href="/">Forsiden</a>
-          <a href="/privacy/">Privatliv</a>
-          <a href="mailto:webspind@gmail.com">E-mail</a>
-        </span>
+      <div class="foot-cols">
+        <div>
+          <h2>Hjælp</h2>
+          <p><a href="/support.html">Support</a><a href="/privacy/">Alle privatlivspolitikker</a><a href="mailto:webspind@gmail.com">webspind@gmail.com</a><a href="https://dk.linkedin.com/in/jakobmunchbrandt" rel="me noopener" target="_blank">LinkedIn</a><a href="/en/" data-lang="en" lang="en">English</a></p>
+        </div>
+        <div class="foot-apps">
+          <h2>Privatliv og support pr. app</h2>
+          <ul><li><span class="fl-name">Wakebird</span><a href="/privacy/wakebird.html">Privatliv</a></li><li><span class="fl-name">Friendloop</span><a href="/privacy/friendloop.html">Privatliv</a></li><li><span class="fl-name">Supersub</span><a href="/en/privacy/supersub.html">Privatliv</a></li><li><span class="fl-name">Longwalk</span><a href="/privacy/longwalk.html">Privatliv</a></li><li><span class="fl-name">Jagtprøven</span><a href="/jagtproven/">Om appen</a><a href="/privacy/jagtproven.html">Privatliv</a><a href="/support.html">Support</a></li><li><span class="fl-name">Cookside</span><a href="/privacy/cookside.html">Privatliv</a><a href="/support/cookside.html">Support</a></li><li><span class="fl-name">Handhold</span><a href="/en/privacy/handhold.html">Privatliv</a><a href="/en/support/handhold.html">Support</a></li><li><span class="fl-name">Loftpass</span><a href="/en/privacy/loftpass.html">Privatliv</a><a href="/en/support/loftpass.html">Support</a></li><li><span class="fl-name">Fortøy</span><a href="/no/privacy/fortoy.html">Privatliv</a><a href="/no/support/fortoy.html">Support</a></li><li><span class="fl-name">Wendemarke</span><a href="/de/privacy/wendemarke.html">Privatliv</a><a href="/de/support/wendemarke.html">Support</a></li></ul>
+        </div>
       </div>
+      <p class="legal">© 2026 Jakob Munch-Brandt. Webspind er navnet, jeg udgiver under. Lavet i Danmark.</p>
     </div>
   </footer>
 

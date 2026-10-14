@@ -1,4 +1,4 @@
-// Webspind v2 — small progressive-enhancement behaviours.
+// Webspind — small progressive-enhancement behaviours.
 // No framework, no build step: plain DOM APIs only.
 (function () {
   "use strict";
@@ -47,7 +47,8 @@
     if (a) storeLang(a.getAttribute("data-lang"));
   });
 
-  de.setAttribute("data-js-reveal", "");
+  var calm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!calm && "IntersectionObserver" in window) de.setAttribute("data-js-reveal", "");
 
   var io = null;
   function reveal(el) {
@@ -77,18 +78,15 @@
     document.querySelectorAll(".rv:not(.rv-in)").forEach(reveal);
   }, 2500);
 
-  function onScroll() {
-    var b = document.body;
-    var y = window.scrollY || de.scrollTop || b.scrollTop || 0;
-    var h = Math.max(de.scrollHeight, b.scrollHeight) - window.innerHeight;
-    var bar = document.querySelector("[data-progress]");
-    if (bar) bar.style.width = (h > 0 ? Math.min(100, Math.max(0, (y / h) * 100)) : 0) + "%";
+  // Home hero: the outer phones rise a little as you scroll.
+  var hp = document.querySelector(".hero-phones");
+  if (hp && !calm) {
+    window.addEventListener("scroll", function () {
+      hp.style.setProperty("--sy", Math.min(1, (window.scrollY || 0) / 700).toFixed(3));
+    }, { passive: true });
   }
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll);
 
-  observe();
-  onScroll();
+  if (de.hasAttribute("data-js-reveal")) observe();
 
   // Support page: build a mailto: link from the form fields instead of
   // sending anything — there is no server behind this site.
@@ -101,7 +99,7 @@
       var bodyEl = document.querySelector("[data-field-body]");
       // The placeholder option has an empty value, so this works in either
       // language without matching on the label text.
-      var subjectVal = subjectEl && subjectEl.value ? subjectEl.value : "Support — Jagtprøven";
+      var subjectVal = subjectEl && subjectEl.value ? subjectEl.value : "Support — Webspind";
       var replyLabel = isDa ? "\n\nSvar til: " : "\n\nReply to: ";
       var bodyVal = (bodyEl && bodyEl.value ? bodyEl.value : "") +
                     (emailEl && emailEl.value ? replyLabel + emailEl.value : "");

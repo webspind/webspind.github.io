@@ -8,21 +8,27 @@ that dict and only lay it out — so a copy change is a one-line edit in one
 place. Which tree a visitor lands in is decided by site.js from
 navigator.language, with the DA/EN switch in the header overriding it.
 
-Design: "Webspind v2" (claude.ai/design project) — Bricolage Grotesque +
-Instrument Sans + Newsreader, warm paper palette. See styles.css for the
-whole visual system."""
-import io, os
+Design: "Showcase" (concept C, Oct 2026) — Inter, Apple-like light page,
+real app screens in phone frames on tiles tinted with each app's colour.
+See styles.css for the whole visual system.
+
+Hand-written pages (the per-app policies and support pages under privacy/,
+support/, en/, no/ and de/) keep their own <main>; reshell() at the bottom
+re-wraps them in the current header and footer, so they never drift."""
+import io, os, re, glob
+from html import escape as esc
 
 LOGO = "/favicon.svg"
+LINKEDIN = "https://dk.linkedin.com/in/jakobmunchbrandt"
 
 # Nav is (path, key); the label comes from LANG[lang]["nav"][key]. The paths
 # are Danish-tree paths — P() prefixes them with /en for the English tree.
-NAV = [("/#apps", "apps"), ("/#games", "games"),
+NAV = [("/#apps", "apps"), ("/#jakob", "about"),
        ("/support.html", "support"), ("/privacy/", "privacy")]
 
 FONT_LINKS = '''<link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">'''
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">'''
 
 # Section tints are inline so they stay next to the section they belong to.
 # Kept as constants because the % signs would otherwise need escaping in
@@ -38,33 +44,38 @@ LANG = {
 "da": {
   "locale": "da_DK",
 
-  "nav": {"apps": "Apps", "games": "Spil", "support": "Support", "privacy": "Privatliv"},
-  "nav_contact": "Skriv til mig",
-  "footer_meta": "© 2026 Webspind · Danmark",
-  "footer_home": "Forsiden",
-  "footer_privacy": "Privatliv",
-  "footer_email": "E-mail",
+  "nav": {"apps": "Apps", "about": "Om mig", "support": "Support", "privacy": "Privatliv"},
+  "foot_help": "Hjælp",
+  "foot_privacy_all": "Alle privatlivspolitikker",
+  "foot_apps": "Privatliv og support pr. app",
+  "foot_other_lang": ("/en/", "en", "English"),
+  "legal": "© 2026 Jakob Munch-Brandt. Webspind er navnet, jeg udgiver under. Lavet i Danmark.",
+  "lbl_privacy": "Privatliv",
+  "lbl_support": "Support",
+  "lbl_about_app": "Om appen",
+  "lbl_store": "App Store",
 
   # ---- home
-  "home_title": "Webspind — apps og spil fra Danmark",
-  "home_desc": "Webspind er et uafhængigt studie i Danmark. Apps og spil der virker offline, ikke kræver en konto og ikke sporer dig. Første app: Jagtprøven til iPhone og iPad.",
-  "home_eyebrow": "Uafhængigt studie · Danmark",
-  "home_h1": 'Apps og spil fra <span class="accent">Webspind</span>.',
-  "home_lede": "Jeg bygger apps og spil, der virker offline, ikke kræver en konto og ikke sporer dig — lavet af én person i Danmark.",
+  "home_title": "Webspind — apps af Jakob Munch-Brandt",
+  "home_desc": "Små iPhone-apps, lavet med omhu af Jakob Munch-Brandt i Danmark. Wakebird, Friendloop, Supersub, Longwalk, Jagtprøven, Cookside og flere.",
+  "home_eyebrow": "Jakob Munch-Brandt · Danmark",
+  "home_h1": "Små apps.<br><span>Lavet med omhu.</span>",
+  "home_lede": "Ti iPhone-apps og spil, hver med sit eget udseende, alle designet og bygget af én person.",
   "home_btn_apps": "Se apps",
-  "home_btn_mail": "Skriv til mig",
-
-  "apps_head": "Apps",
-  "apps_sub": "Til iPhone og iPad. Offline-first, ingen konti, ingen sporing.",
-  "games_head": "Spil",
-  "games_sub": "Unity- og Roblox-projekter er undervejs.",
-  "empty_head": "Intet udgivet endnu",
-  "empty_body": "Projekterne er i gang. De dukker op her i samme øjeblik det første er klar.",
-
-  "contact_head": "Support og privatliv, ét sted.",
-  "contact_body": "Alt hvad jeg udgiver, har en rigtig supportside og en privatlivspolitik her — skrevet af mig, ikke en formular der ender ingen steder.",
-  "contact_btn_support": "Support",
-  "contact_btn_privacy": "Privatliv",
+  "home_btn_mail": "Skriv til mig ›",
+  "skip": "Spring til apps",
+  "shelf_label": "Alle apps",
+  "status": {"live": "I App Store", "review": "Til godkendelse", "soon": "Kommer snart"},
+  "group_live": ("I App Store.", "Ude nu, til iPhone og iPad."),
+  "group_review": ("På vej ud.", "Færdige og sendt til Apple. Ude, så snart de er godkendt."),
+  "group_soon": ("Kommer snart.", "Bygget og ved at blive finpudset."),
+  "screen_alt": "%s skærmbillede",
+  "icon_alt": "%s app-ikon",
+  "jakob_eyebrow": "Personen bag Webspind",
+  "jakob_h": "Hej, jeg er Jakob <span>Munch&#8209;Brandt.</span>",
+  "jakob_p": "Jeg laver hver eneste app her selv, fra første skitse til svaret på din supportmail. Intet team og intet bureau, så hver app får den tid, den skal bruge, og sit helt eget design.",
+  "jakob_hi": "Hej fra Danmark.",
+  "jakob_photo_alt": "Jakob Munch-Brandt",
 
   # ---- app page
   "app_title": "Jagtprøven — hele teorien, uden gætteri | Webspind",
@@ -72,7 +83,7 @@ LANG = {
   "breadcrumb": "← Alle apps",
   "app_platform": "Jagttegn · iPhone og iPad",
   "app_price": "Ét engangskøb — ikke abonnement",
-  "app_soon": "App Store-link følger",
+  "app_store": "Hent i App Store",
   "app_h1": 'Gå til jagtprøven, når du er <span class="accent">helt sikker</span> i det.',
   "app_lede": 'Hele teorien, fuglekendingen og jagttiderne i én app — med en forklaring på hvert svar, så du forstår reglen i stedet for at gætte. <span class="muted">Øv i bussen, i skoven, uden dækning.</span>',
   "app_btn_features": "Se hvad appen kan",
@@ -139,14 +150,13 @@ LANG = {
     ("8 vildtarter", "med foto og kendetegn"),
   ],
 
-  "about_photo": "dit eget billede her — skrivebord, terræn eller dig selv",
   "about_head": "Hej — Webspind er mig alene.",
   "about_p1": "Jagtprøven er min første app. Jeg har bygget den, fordi pensum til jagttegnsprøven ligger spredt ud over hæfter, hjemmesider og bekendtgørelser — og fordi fuglekending er nærmest umulig at øve på papir.",
   "about_p2": "Jeg skriver spørgsmålene, tegner interfacet, retter fejlene og læser supportmailen. Derfor er support en rigtig side her og ikke en formular, der ender ingen steder — skriver du, får du mig.",
   "facts": [
     ("Studie", "Webspind, Danmark"),
     ("Folk", "Én"),
-    ("Udgivet", "Jagtprøven, første app"),
+    ("Udgivet", "Jagtprøven, og ni apps på vej"),
     ("Support", "Mig, inden for 2 hverdage"),
   ],
 
@@ -156,7 +166,7 @@ LANG = {
 
   # ---- support
   "support_title": "Support — Webspind",
-  "support_desc": "Support til Jagtprøven. Skriv direkte til mig, jeg svarer inden for to hverdage.",
+  "support_desc": "Support til Webspinds apps. Skriv direkte til mig, jeg svarer inden for to hverdage.",
   "support_head": "Support",
   "support_lede": "Skriv direkte til mig. Jeg læser alle beskeder og svarer inden for to hverdage, på dansk eller engelsk. Skriv hvilken iPhone og iOS-version du har, og hvad der skete — det sparer os begge en runde.",
   "support_cards": [("E-mail", "webspind@gmail.com"), ("Svartid", "Inden for 2 hverdage"), ("Refusion", "Håndteres af Apple")],
@@ -171,7 +181,9 @@ LANG = {
   "form_body_ph": "Model og iOS-version, hvad du gjorde, og hvad du forventede.",
   "form_send": "Åbn i dit mailprogram",
   "form_note": "Intet gemmes her — den skriver bare mailen for dig.",
-  "faq_head": "Ofte stillede spørgsmål",
+  "faq_head": "Jagtprøven: ofte stillede spørgsmål",
+  "sup_apps_head": "Support pr. app",
+  "sup_other": "%s — andet",
   "faqs": [
     ("Er det prøvens rigtige spørgsmål?", "Nej. Spørgsmålene er skrevet til appen ud fra det offentlige pensum til jagttegnsprøven. Appen er en uafhængig træningsapp og er ikke tilknyttet Naturstyrelsen eller Miljøministeriet."),
     ("Kan jeg bruge jagttiderne, når jeg er på jagt?", "Brug dem til at øve. Jagttiderne i appen er vejledende og er ikke et juridisk opslagsværk — slå altid op i den gældende bekendtgørelse, før du går ud. Flere arter har desuden lokale og regionale jagttider, som appen kun noterer."),
@@ -188,10 +200,7 @@ LANG = {
   "priv_desc": "Privatlivspolitikker for Webspinds apps.",
   "priv_head": "Privatliv",
   "priv_lede": "Én politik pr. app, som Apple kræver det. Fælles for dem alle: ingen reklamer, ingen analyse og ingen server hos mig.",
-  "priv_card_desc": "Dine svar ligger på din enhed og i din egen iCloud. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat.",
   "priv_card_go": "Læs politikken →",
-  "priv_card_note": "",
-  "wb_card_desc": "Dine alarmer ligger kun på din iPhone. Ingen konto, ingen analyse. Købet bekræftes via RevenueCat.",
 
   # ---- 404
   "nf_body": "Den sti fører ikke nogen steder hen.",
@@ -201,33 +210,38 @@ LANG = {
 "en": {
   "locale": "en",
 
-  "nav": {"apps": "Apps", "games": "Games", "support": "Support", "privacy": "Privacy"},
-  "nav_contact": "Get in touch",
-  "footer_meta": "© 2026 Webspind · Denmark",
-  "footer_home": "Home",
-  "footer_privacy": "Privacy",
-  "footer_email": "Email",
+  "nav": {"apps": "Apps", "about": "About", "support": "Support", "privacy": "Privacy"},
+  "foot_help": "Help",
+  "foot_privacy_all": "All privacy policies",
+  "foot_apps": "Privacy and support per app",
+  "foot_other_lang": ("/", "da", "Dansk"),
+  "legal": "© 2026 Jakob Munch-Brandt. Webspind is the name I publish under. Made in Denmark.",
+  "lbl_privacy": "Privacy",
+  "lbl_support": "Support",
+  "lbl_about_app": "About the app",
+  "lbl_store": "App Store",
 
   # ---- home
-  "home_title": "Webspind — apps and games from Denmark",
-  "home_desc": "Webspind is an independent studio in Denmark. Apps and games that work offline, need no account and track nothing. First app: Jagtprøven for iPhone and iPad.",
-  "home_eyebrow": "Independent studio · Denmark",
-  "home_h1": 'Apps and games from <span class="accent">Webspind</span>.',
-  "home_lede": "I build apps and games that work offline, need no account and track nothing — made by one person in Denmark.",
+  "home_title": "Webspind — apps by Jakob Munch-Brandt",
+  "home_desc": "Small iPhone apps, made with care by Jakob Munch-Brandt in Denmark. Wakebird, Friendloop, Supersub, Longwalk, Jagtprøven, Cookside and more.",
+  "home_eyebrow": "Jakob Munch-Brandt · Denmark",
+  "home_h1": "Small apps.<br><span>Made with care.</span>",
+  "home_lede": "Ten iPhone apps and games, each with its own look, all designed and built by one person.",
   "home_btn_apps": "See the apps",
-  "home_btn_mail": "Get in touch",
-
-  "apps_head": "Apps",
-  "apps_sub": "For iPhone and iPad. Offline first, no accounts, no tracking.",
-  "games_head": "Games",
-  "games_sub": "Unity and Roblox projects are in the works.",
-  "empty_head": "Nothing published yet",
-  "empty_body": "Projects are in progress. They'll appear here the moment the first one ships.",
-
-  "contact_head": "Support and privacy, in one place.",
-  "contact_body": "Everything I ship has a real support page and a privacy policy right here — written by me, not a form that goes nowhere.",
-  "contact_btn_support": "Support",
-  "contact_btn_privacy": "Privacy",
+  "home_btn_mail": "Write to me ›",
+  "skip": "Skip to the apps",
+  "shelf_label": "All apps",
+  "status": {"live": "On the App Store", "review": "In review", "soon": "Coming soon"},
+  "group_live": ("On the App Store.", "Out now, on iPhone and iPad."),
+  "group_review": ("In review.", "Finished and submitted to Apple. Out as soon as they're approved."),
+  "group_soon": ("Coming soon.", "Built and being polished now."),
+  "screen_alt": "%s screen",
+  "icon_alt": "%s app icon",
+  "jakob_eyebrow": "The person behind Webspind",
+  "jakob_h": "Hi, I'm Jakob <span>Munch&#8209;Brandt.</span>",
+  "jakob_p": "I make every app here on my own, from the first sketch to the support reply. No team and no agency, so each one gets the time it needs, and each one gets a design of its own.",
+  "jakob_hi": '<span lang="da">Hej fra Danmark.</span>',
+  "jakob_photo_alt": "Jakob Munch-Brandt",
 
   # ---- app page
   "app_title": "Jagtprøven — the whole syllabus, no guesswork | Webspind",
@@ -235,7 +249,7 @@ LANG = {
   "breadcrumb": "← All apps",
   "app_platform": "Hunting licence · iPhone and iPad",
   "app_price": "One-time purchase, not a subscription",
-  "app_soon": "Coming to the App Store",
+  "app_store": "Download on the App Store",
   "app_h1": 'Walk into the exam <span class="accent">completely sure</span> of it.',
   "app_lede": 'The whole syllabus, the bird identification and the hunting seasons in one app — with an explanation behind every answer, so you understand the rule instead of guessing. <span class="muted">Practise on the bus, in the woods, with no signal.</span>',
   "app_btn_features": "See what the app does",
@@ -302,14 +316,13 @@ LANG = {
     ("8 species", "with photos and field marks"),
   ],
 
-  "about_photo": "your own photo here — desk, terrain or you",
   "about_head": "Hi — Webspind is just me.",
   "about_p1": "Jagtprøven is my first app. I built it because the syllabus for the Danish hunting licence exam is scattered across booklets, websites and statutory orders — and because bird identification is next to impossible to practise on paper.",
   "about_p2": "I write the questions, draw the interface, fix the bugs and read the support mail. That is why support here is a real page and not a form that goes nowhere — write, and you get me.",
   "facts": [
     ("Studio", "Webspind, Denmark"),
     ("People", "One"),
-    ("Shipped", "Jagtprøven, the first app"),
+    ("Shipped", "Jagtprøven, with nine more on the way"),
     ("Support", "Me, within 2 working days"),
   ],
 
@@ -319,7 +332,7 @@ LANG = {
 
   # ---- support
   "support_title": "Support — Webspind",
-  "support_desc": "Support for Jagtprøven. Write straight to me, I answer within two working days.",
+  "support_desc": "Support for Webspind's apps. Write straight to me, I answer within two working days.",
   "support_head": "Support",
   "support_lede": "Write straight to me. I read every message and answer within two working days, in English or Danish. Tell me which iPhone and iOS version you have and what happened — it saves us both a round trip.",
   "support_cards": [("Email", "webspind@gmail.com"), ("Response time", "Within 2 working days"), ("Refunds", "Handled by Apple")],
@@ -334,7 +347,9 @@ LANG = {
   "form_body_ph": "Your model and iOS version, what you did, and what you expected.",
   "form_send": "Open in your mail app",
   "form_note": "Nothing is stored here — it just writes the email for you.",
-  "faq_head": "Frequently asked questions",
+  "faq_head": "Jagtprøven: frequently asked questions",
+  "sup_apps_head": "Support per app",
+  "sup_other": "%s — something else",
   "faqs": [
     ("Are these the real exam questions?", "No. The questions were written for the app from the public syllabus for the Danish hunting licence exam. The app is an independent practice app and is not affiliated with the Danish Nature Agency or the Ministry of the Environment."),
     ("Can I use the hunting seasons while I am out hunting?", "Use them to practise. The seasons in the app are for guidance and are not a legal reference — always check the current statutory order before you head out. Several species also have local and regional seasons, which the app only notes."),
@@ -351,10 +366,7 @@ LANG = {
   "priv_desc": "Privacy policies for Webspind's apps.",
   "priv_head": "Privacy",
   "priv_lede": "One policy per app, the way Apple requires it. Common to all of them: no ads, no analytics and no server of mine.",
-  "priv_card_desc": "Your answers stay on your device and in your own iCloud. No account, no analytics. Purchases are verified via RevenueCat.",
   "priv_card_go": "Read the policy →",
-  "priv_card_note": "The policy itself is in Danish — Jagtprøven is a Danish-only app. Write to me if you need it in English.",
-  "wb_card_desc": "Your alarms stay on your iPhone. No account, no analytics. The purchase is verified via RevenueCat.",
 
   # ---- 404
   "nf_body": "That path does not lead anywhere.",
@@ -363,29 +375,111 @@ LANG = {
 
 }
 
-# One entry per app. A second app is a dict here plus a policy page — the
-# Apps section on the homepage is built from this list, not hand-written.
-APPS = [
-    {
-        "href": "/jagtproven/",
-        "icon": "/assets/app-icon.png",
-        "name": "Jagtprøven",
-        "meta": {"da": "Jagttegn · iPhone og iPad", "en": "Hunting licence · iPhone and iPad"},
-        "pitch": {
-            "da": "522 spørgsmål, 100 vildtarter og 41 jagttider i én app — med en forklaring på hvert eneste svar.",
-            "en": "522 questions, 100 species and 41 hunting seasons in one app — with an explanation behind every single answer.",
-        },
-        "badge": {"da": "App Store-link følger", "en": "Coming to the App Store"},
-        "more": {"da": "Læs mere →", "en": "Read more →"},
-    },
-]
+# Every app, in the order the homepage shows them. The homepage tiles, the
+# icon shelf, the footer, the privacy index and the support page are all built
+# from this list. To add an app: a dict here, its icon + two screens in
+# assets/apps/, its policy page — then re-run the script.
+#   status   live | review | soon (decides which homepage group it lands in)
+#   c        the app's own colour, tints its tile
+#   priv/sup per-tree URL of its policy / support page (None = none yet).
+#            These are the URLs App Store Connect points at — never move them.
+#   pdesc    one line for the privacy index card
+STORE_JAGTPROVEN = "https://apps.apple.com/dk/app/id6811615877"
 
-# No games published yet — an empty list renders the .empty state below.
-GAMES = []
+APPS = [
+    dict(id="wakebird", name="Wakebird", full="Wakebird: Birdsong Alarm Clock", status="review", c="#c4421f",
+         kind={"da": "Vækkeur med fuglesang", "en": "Birdsong alarm clock"},
+         line={"da": "Vågn til ægte fuglesang.", "en": "Wake to real birdsong."},
+         desc={"da": "Tre morgenkor fra rigtige vilde fugle. Én fugl begynder blidt, de andre stemmer i, og den ringer, også når telefonen er på lydløs.",
+               "en": "Three dawn choruses from real wild birds. One bird starts softly, the others join in, and it rings even on silent."},
+         priv={"da": "/privacy/wakebird.html", "en": "/en/privacy/wakebird.html"}, sup=None,
+         pdesc={"da": "Dine alarmer ligger kun på din iPhone. Ingen konto, ingen analyse. Købet bekræftes via RevenueCat.",
+                "en": "Your alarms stay on your iPhone. No account, no analytics. The purchase is verified via RevenueCat."}),
+    dict(id="friendloop", name="Friendloop", full="Friendloop: Stay in Touch", status="review", c="#6a3cf0",
+         kind={"da": "Hold kontakten", "en": "Stay in touch"},
+         line={"da": "Se mere til de venner, der betyder noget.", "en": "See more of the friends who matter."},
+         desc={"da": "En god idé til hver ven, med beskeden allerede skrevet. Privat, på din iPhone, uden konto.",
+               "en": "A good idea for every friend, with the message already written. Private, on your iPhone, no account."},
+         priv={"da": "/privacy/friendloop.html", "en": "/en/privacy/friendloop.html"}, sup=None,
+         pdesc={"da": "Dine venner, noter og påmindelser bliver på din iPhone. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat.",
+                "en": "Your friends, notes and reminders stay on your iPhone. No account, no analytics. Purchases are verified via RevenueCat."}),
+    dict(id="supersub", name="Supersub", full="Supersub: Offline Football", status="review", c="#1f3fd6",
+         kind={"da": "Offline fodboldspil", "en": "Offline football game"},
+         line={"da": "Træk en stjerne. Tag skuddet.", "en": "Pull a star. Take the shot."},
+         desc={"da": "Afslappet anime-fodbold med kortpakker. Hvert kort, du trækker, kommer på dit hold, og dit hold får en historie. Ingen reklamer, ingen konto.",
+               "en": "Casual anime football with card packs. Every card you pull joins your club, and your club gets a story. No ads, no account."},
+         priv={"da": "/en/privacy/supersub.html", "en": "/en/privacy/supersub.html"}, sup=None,
+         pdesc={"da": "Din klub bor på din iPhone. Ingen konto, ingen reklamer, ingen analyse. Køb bekræftes via RevenueCat. (Politikken er på engelsk.)",
+                "en": "Your club lives on your iPhone. No account, no ads, no analytics. Purchases are verified via RevenueCat."}),
+    dict(id="longwalk", name="Longwalk", full="Longwalk: Walk the Camino", status="review", c="#c2402b",
+         kind={"da": "Gå berømte ruter", "en": "Walk famous trails"},
+         line={"da": "Gå Caminoen hjemmefra.", "en": "Walk the Camino from home."},
+         desc={"da": "Dine daglige skridt fører dig ad ti berømte ruter, med et postkort ved hvert stop. Betal én gang, intet abonnement.",
+               "en": "Your everyday steps carry you along ten famous trails, with a postcard at every stop. Pay once, no subscription."},
+         priv={"da": "/privacy/longwalk.html", "en": "/en/privacy/longwalk.html"}, sup=None,
+         pdesc={"da": "Dine gåture bliver på din iPhone, og sundhedsdata forlader den aldrig. Kortfliser kommer fra OpenFreeMap; køb bekræftes via RevenueCat.",
+                "en": "Your walks stay on your iPhone. Health data never leaves it. Map tiles come from OpenFreeMap; purchases are verified via RevenueCat."}),
+    dict(id="jagtproven", name="Jagtprøven", full="Jagtprøven – Jagttegn & Teori", status="live", c="#2b7334",
+         kind={"da": "Jagttegnsprøven", "en": "Danish hunting exam · In Danish"},
+         line={"da": "Bestå jagtprøven første gang.", "en": "Pass the hunting exam the first time."},
+         desc={"da": "522 spørgsmål med en kilde bag hvert svar, alle 100 vildtarter med foto og de jagttider, der gælder lige nu. iPhone og iPad.",
+               "en": "522 questions with a source behind every answer, all 100 species with photos, and the seasons that apply right now. iPhone and iPad."},
+         store=STORE_JAGTPROVEN, page="/jagtproven/",
+         priv={"da": "/privacy/jagtproven.html", "en": "/privacy/jagtproven.html"},
+         sup={"da": "/support.html", "en": "/en/support.html"},
+         pdesc={"da": "Dine svar ligger på din enhed og i din egen iCloud. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat.",
+                "en": "Your answers stay on your device and in your own iCloud. No account, no analytics. Purchases are verified via RevenueCat. The policy is in Danish, like the app; write to me if you need it in English."}),
+    dict(id="cookside", name="Cookside", full="Cookside: Recipe Cook Mode", status="soon", c="#f4b120",
+         kind={"da": "Opskrifter, ét trin ad gangen", "en": "Recipes, one step at a time"},
+         line={"da": "Lav mad ét trin ad gangen.", "en": "Cook one step at a time."},
+         desc={"da": "Store trin, du kan læse fra komfuret, og timere der ringer, når de er færdige. Gem opskrifter fra et link, ved at indsætte dem eller ved at scanne en side.",
+               "en": "Big steps you can read from the stove and timers that ring when they're done. Save recipes from a link, by pasting, or by scanning a page."},
+         priv={"da": "/privacy/cookside.html", "en": "/en/privacy/cookside.html"},
+         sup={"da": "/support/cookside.html", "en": "/en/support/cookside.html"},
+         pdesc={"da": "Dine opskrifter ligger på din iPhone og i din egen iCloud. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat.",
+                "en": "Your recipes stay on your iPhone and in your own iCloud. No account, no analytics. Purchases confirmed via RevenueCat."}),
+    dict(id="handhold", name="Handhold", full="Handhold: Daily Habit Coach", status="soon", c="#ab4a2b",
+         kind={"da": "Daglig vanecoach · På engelsk", "en": "Daily habit coach"},
+         line={"da": "Til de vaner, du bliver ved med at droppe.", "en": "For habits you keep dropping."},
+         desc={"da": "Start med to sider. Springer du en dag over, nulstilles intet; trinnet bliver bare mindre. Betal én gang, intet abonnement.",
+               "en": "Start with two pages. Miss a day and nothing resets; the step just gets smaller. Pay once, no subscription."},
+         priv={"da": "/en/privacy/handhold.html", "en": "/en/privacy/handhold.html"},
+         sup={"da": "/en/support/handhold.html", "en": "/en/support/handhold.html"},
+         pdesc={"da": "Dine vaner ligger på din iPhone og i din egen iCloud. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat. (Engelsk)",
+                "en": "Your habits stay on your iPhone and in your own iCloud. No account, no analytics. Purchases confirmed via RevenueCat."}),
+    dict(id="loftpass", name="Loftpass", full="Loftpass: Part 107 Test Prep", status="soon", c="#a3134f",
+         kind={"da": "FAA Part 107-droneprøven · På engelsk", "en": "FAA Part 107 drone test"},
+         line={"da": "Part 107-kortene, endelig klare.", "en": "Part 107 charts, finally clear."},
+         desc={"da": "461 spørgsmål med forklaring på hvert svar, og øvelser i FAA's rigtige kortfigurer.",
+               "en": "461 questions with every answer explained, and drills on the real FAA chart figures."},
+         priv={"da": "/en/privacy/loftpass.html", "en": "/en/privacy/loftpass.html"},
+         sup={"da": "/en/support/loftpass.html", "en": "/en/support/loftpass.html"},
+         pdesc={"da": "Dine svar ligger på din iPhone og i din egen iCloud. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat. (Engelsk)",
+                "en": "Your answers stay on your iPhone and in your own iCloud. No account, no analytics. Purchases confirmed via RevenueCat."}),
+    dict(id="fortoy", name="Fortøy", full="Fortøy: Båtførerprøven", status="soon", c="#0b4db0",
+         kind={"da": "Norsk båtførerbevis · På norsk", "en": "Norwegian boat licence · In Norwegian"},
+         line={"da": "Båtførerprøven uden abonnement.", "en": "Båtførerprøven, without a subscription."},
+         desc={"da": "390 spørgsmål, hver med forklaring og kilde, og en prøve med 50 spørgsmål som den rigtige.",
+               "en": "390 questions, each with an explanation and its source, and a 50-question mock exam like the real one."},
+         priv={"da": "/no/privacy/fortoy.html", "en": "/no/privacy/fortoy.html"},
+         sup={"da": "/no/support/fortoy.html", "en": "/no/support/fortoy.html"},
+         pdesc={"da": "Svarene dine ligger på iPhonen og i din egen iCloud. Ingen konto, ingen analyse. Kjøp bekreftes via RevenueCat. (Norsk)",
+                "en": "Your answers stay on your iPhone and in your own iCloud. No account, no analytics. Purchases confirmed via RevenueCat. (Norwegian)"}),
+    dict(id="wendemarke", name="Wendemarke", full="Wendemarke: Bootsprüfung A+D", status="soon", c="#d9061a",
+         kind={"da": "Schweizisk bådførerbevis · På tysk", "en": "Swiss boat licence · In German"},
+         line={"da": "Hvert spørgsmål forklaret.", "en": "Every question explained."},
+         desc={"da": "354 øvespørgsmål i prøvens rigtigt/forkert-format, 284 af dem med BSV-artiklen bag svaret.",
+               "en": "354 practice questions in the exam's true-or-false format, 284 of them with the BSV article behind the answer."},
+         priv={"da": "/de/privacy/wendemarke.html", "en": "/de/privacy/wendemarke.html"},
+         sup={"da": "/de/support/wendemarke.html", "en": "/de/support/wendemarke.html"},
+         pdesc={"da": "Antworten bleiben auf dem iPhone und in deiner eigenen iCloud. Kein Konto, keine Analyse. Käufe via RevenueCat. (Tysk)",
+                "en": "Antworten bleiben auf dem iPhone und in deiner eigenen iCloud. Kein Konto, keine Analyse. Käufe via RevenueCat. (German)"}),
+]
+BY_ID = {a["id"]: a for a in APPS}
 
 # The Jagtprøven policy is Danish only: the app ships in Danish, and this is
 # the legal text Apple links to. The English privacy index points at it with
-# a note (priv_card_note).
+# a note in its card (pdesc).
 POLICY_SECTIONS = [
     ("Hvad appen gemmer", "Dine besvarelser, prøvesæt, udmærkelser og streak. Hvis du selv oplyser det, også dit fornavn, din prøvedato, dit prøvested og det emne, du vil starte med. Der er ingen brugerkonto, intet login, intet reklame-id, ingen fingerprinting og ingen analyseværktøjer i appen."),
     ("Hvor dine data ligger", "På din enhed og, hvis du bruger iCloud, i din egen private iCloud-database og iCloud-lager hos Apple, så de følger med til en ny iPhone. Kun du har adgang til dem. Webspind har ingen kopi og kan ikke læse dem."),
@@ -406,6 +500,10 @@ def P(lang, path):
     return path if lang == "da" else "/en" + path
 
 
+def ext(href):
+    return ' target="_blank" rel="noopener"' if href.startswith("http") else ""
+
+
 def header(lang, current=None, switch=None):
     L = LANG[lang]
     links = "".join(
@@ -413,50 +511,65 @@ def header(lang, current=None, switch=None):
         for h, k in NAV)
     da_href, en_href = switch or ("/", "/en/")
     switch = ('\n        <span class="lang-switch">'
-              '<a href="%s" data-lang="da"%s>DA</a>'
-              '<span aria-hidden="true">|</span>'
-              '<a href="%s" data-lang="en"%s>EN</a>'
+              '<a href="%s" data-lang="da" hreflang="da"%s>DA</a>'
+              '<a href="%s" data-lang="en" hreflang="en"%s>EN</a>'
               '</span>') % (da_href, ' aria-current="true"' if lang == "da" else "",
                             en_href, ' aria-current="true"' if lang == "en" else "")
-    return '''<header class="site-header">
+    return '''<a class="skip" href="#main">%s</a>
+  <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="%s">
-        <img src="%s" alt="" width="28" height="28">
-        <span>Webspind</span>
-      </a>
+      <a class="brand" href="%s">Webspind</a>
       <nav class="nav" aria-label="Main">%s%s
-        <a class="contact" href="mailto:webspind@gmail.com">%s</a>
       </nav>
     </div>
-    <div class="progress-track"><div class="progress-bar" data-progress="1"></div></div>
-  </header>''' % (P(lang, "/"), LOGO, links, switch, L["nav_contact"])
+  </header>''' % (L["skip"], P(lang, "/"), links, switch)
 
 
 def footer(lang):
     L = LANG[lang]
+    rows = []
+    for a in APPS:
+        bits = []
+        if a.get("page"):
+            bits.append((L["lbl_about_app"], P(lang, a["page"])))
+        bits.append((L["lbl_privacy"], a["priv"][lang]))
+        if a["sup"]:
+            bits.append((L["lbl_support"], a["sup"][lang]))
+        rows.append('<li><span class="fl-name">%s</span>%s</li>' % (
+            esc(a["name"]), "".join('<a href="%s">%s</a>' % (h, t) for t, h in bits)))
+    other_href, other_code, other_name = L["foot_other_lang"]
     return '''<footer class="site-footer">
     <div class="wrap">
-      <div class="footer-top">
-        <span class="footer-brand"><img src="%s" alt="">%s</span>
-        <span class="footer-links">
-          <a href="%s">%s</a>
-          <a href="%s">%s</a>
-          <a href="mailto:webspind@gmail.com">%s</a>
-        </span>
+      <div class="foot-cols">
+        <div>
+          <h2>%s</h2>
+          <p><a href="%s">%s</a><a href="%s">%s</a><a href="mailto:webspind@gmail.com">webspind@gmail.com</a><a href="%s" rel="me noopener" target="_blank">LinkedIn</a><a href="%s" data-lang="%s" lang="%s">%s</a></p>
+        </div>
+        <div class="foot-apps">
+          <h2>%s</h2>
+          <ul>%s</ul>
+        </div>
       </div>
+      <p class="legal">%s</p>
     </div>
-  </footer>''' % (LOGO, L["footer_meta"], P(lang, "/"), L["footer_home"],
-                  P(lang, "/privacy/"), L["footer_privacy"], L["footer_email"])
+  </footer>''' % (L["foot_help"], P(lang, "/support.html"), L["lbl_support"], P(lang, "/privacy/"),
+                  L["foot_privacy_all"], LINKEDIN, other_href, other_code, other_code, other_name,
+                  L["foot_apps"], "".join(rows), L["legal"])
+
+
+OG_LOCALE = {"da": "da_DK", "en": "en", "nb": "nb_NO", "de-CH": "de_CH"}
 
 
 def page(path, title, desc, body, lang="da", current=None, twin=None,
-         switch=None, redirect=True):
+         switch=None, redirect=True, html_lang=None):
     """Write one page. `twin` is the (danish, english) URL pair for the
-    hreflang alternates; pages with no twin (the Danish-only policy, the
-    bilingual 404) pass redirect=False so site.js leaves them alone.
+    hreflang alternates; pages with no twin (policies, the bilingual 404)
+    pass redirect=False so site.js leaves them alone.
     `switch` overrides where the DA | EN header links point when a page has
-    no real translation — the Danish policy sends EN readers to the English
-    privacy index, which is not the same thing as an hreflang alternate."""
+    no real translation. `html_lang` is the page's own language when it isn't
+    the shell's (the Norwegian and Swiss-German policies use the English
+    shell)."""
+    html_lang = html_lang or lang
     alts = ""
     if twin:
         alts = ('\n  <link rel="alternate" hreflang="da" href="https://webspind.com%s">'
@@ -474,7 +587,7 @@ def page(path, title, desc, body, lang="da", current=None, twin=None,
   <link rel="stylesheet" href="/styles.css">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/favicon.svg">
-  <meta name="theme-color" content="#f1eee4">
+  <meta name="theme-color" content="#f5f5f7">
   <link rel="canonical" href="https://webspind.com%s">%s
   <meta property="og:title" content="%s">
   <meta property="og:description" content="%s">
@@ -483,12 +596,9 @@ def page(path, title, desc, body, lang="da", current=None, twin=None,
   <meta property="og:url" content="https://webspind.com%s">
 </head>
 <body>
-  <div class="ambience" aria-hidden="true"></div>
-  <div class="ambience-grid" aria-hidden="true"></div>
-
   %s
 
-  <main>
+  <main id="main">
 %s
   </main>
 
@@ -497,101 +607,113 @@ def page(path, title, desc, body, lang="da", current=None, twin=None,
   <script src="/site.js"></script>
 </body>
 </html>
-''' % (lang, "" if redirect else " data-nolang", title, desc, FONT_LINKS, path, alts,
-       title, desc, LANG[lang]["locale"], path,
+''' % (html_lang, "" if redirect else " data-nolang", title, desc, FONT_LINKS, path, alts,
+       title, desc, OG_LOCALE.get(html_lang, "en"), path,
        header(lang, current, switch or twin), body, footer(lang))
     full = os.path.join(os.getcwd(), path.lstrip("/"))
     if path.endswith("/"):
         full = os.path.join(full, "index.html")
     os.makedirs(os.path.dirname(full), exist_ok=True)
     io.open(full, "w", encoding="utf-8").write(html)
-    print("  wrote %-28s %6d bytes" % (path, len(html.encode("utf-8"))))
+    print("  wrote %-34s %6d bytes" % (path, len(html.encode("utf-8"))))
 
 
 # ---------------------------------------------------------------- home
 
-def hero_home(L, lang):
-    return '''    <section class="hero hero-plain">
-      <div class="hero-inner">
-        <span class="eyebrow">%s</span>
-        <h1>%s</h1>
-        <div class="hero-cols">
-          <p class="hero-lede">%s</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#apps">%s</a>
-            <a class="btn btn-secondary" href="mailto:webspind@gmail.com">%s</a>
-          </div>
-        </div>
-      </div>
-    </section>''' % (L["home_eyebrow"], L["home_h1"], L["home_lede"],
-                     L["home_btn_apps"], L["home_btn_mail"])
+def icon(a, L, cls, alt=True):
+    return ('<img class="%s" src="/assets/apps/icons/%s.webp" width="256" height="256" alt="%s" decoding="async">'
+            % (cls, a["id"], esc(L["icon_alt"] % a["name"]) if alt else ""))
 
 
-def apps_section(L, lang):
-    cards = "\n".join('''          <a class="app-card" href="%s">
-            <span class="app-card-top">
-              <img class="tile" src="%s" alt="" width="60" height="60">
-              <span class="app-card-id">
-                <span class="name">%s</span>
-                <span class="meta">%s</span>
-              </span>
-            </span>
-            <span class="pitch">%s</span>
-            <span class="badge">%s</span>
-            <span class="foot">%s</span>
-          </a>''' % (P(lang, a["href"]), a["icon"], a["name"], a["meta"][lang],
-                     a["pitch"][lang], a["badge"][lang], a["more"][lang]) for a in APPS)
-    return '''    <section class="section rule-top" id="apps">
-      <div class="section-inner rv">
-        <div class="section-head">
-          <h2>%s</h2>
-          <p>%s</p>
+def phone(a, L, s, cls="phone", lazy=True):
+    return ('<div class="%s"><div class="bezel"><img src="/assets/apps/screens/%s-%s.webp" width="600" height="1304" '
+            'alt="%s" decoding="async"%s></div></div>'
+            % (cls, a["id"], s, esc(L["screen_alt"] % a["name"]), ' loading="lazy"' if lazy else ""))
+
+
+def app_links(a, L, lang):
+    out = []
+    if a.get("store"):
+        out.append((L["lbl_store"], a["store"]))
+    if a.get("page"):
+        out.append((L["lbl_about_app"], P(lang, a["page"])))
+    out.append((L["lbl_privacy"], a["priv"][lang]))
+    if a["sup"]:
+        out.append((L["lbl_support"], a["sup"][lang]))
+    return "".join('<a class="more" href="%s"%s>%s</a>' % (h, ext(h), t) for t, h in out)
+
+
+def tile(a, L, lang, size):
+    devs = phone(a, L, "a") + (phone(a, L, "b", "phone ph2") if size == "wide" else "")
+    return '''      <article class="tile t-%s rv" id="%s" style="--c:%s">
+        <div class="t-copy">
+          %s
+          <p class="chip st-%s">%s</p>
+          <h3 class="t-name">%s</h3>
+          <p class="t-kind">%s</p>
+          <p class="t-line">%s</p>
+          <p class="t-desc">%s</p>
+          <p class="t-links">%s</p>
         </div>
-        <div class="card-grid">
+        <div class="t-dev">%s</div>
+      </article>''' % (size, a["id"], a["c"], icon(a, L, "t-ic"), a["status"], L["status"][a["status"]],
+                       esc(a["name"]), esc(a["kind"][lang]), esc(a["line"][lang]), esc(a["desc"][lang]),
+                       app_links(a, L, lang), devs)
+
+
+def group(L, lang, status, size, grid):
+    apps = [a for a in APPS if a["status"] == status]
+    if not apps:
+        return ""
+    head, sub = L["group_" + status]
+    tiles = "\n".join(tile(a, L, lang, size) for a in apps)
+    if grid:
+        tiles = '      <div class="grid %s">\n%s\n      </div>' % (grid, tiles)
+    return '''    <section class="group">
+      <header class="g-head rv"><h2>%s</h2><p>%s</p></header>
 %s
-        </div>
-      </div>
-    </section>''' % (L["apps_head"], L["apps_sub"], cards)
+    </section>''' % (head, sub, tiles)
 
 
-def games_section(L, lang):
-    # No games yet: the empty state below is the v1 markup (git ded7cbc),
-    # retokenised for v2. When GAMES fills up it renders cards instead.
-    if GAMES:
-        body = '<div class="card-grid">\n%s\n        </div>' % ""
-    else:
-        body = '''<div class="empty">
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="2.4" y="7" width="19.2" height="11" rx="4.6"/>
-            <path d="M7.6 11.2v3.6M5.8 13h3.6M15.6 12.1h.01M18 14.4h.01"/>
-          </svg>
-          <h3>%s</h3>
-          <p>%s</p>
-        </div>''' % (L["empty_head"], L["empty_body"])
-    return '''    <section class="section" id="games">
-      <div class="section-inner rv">
-        <div class="section-head">
-          <h2>%s</h2>
-          <p>%s</p>
-        </div>
-        %s
-      </div>
-    </section>''' % (L["games_head"], L["games_sub"], body)
+HERO_APPS = ["supersub", "wakebird", "longwalk", "friendloop", "cookside"]
 
 
-def contact_strip(L, lang):
-    return '''    <section class="cta-final rule-top">
-      <div class="cta-final-inner rv">
+def home_body(L, lang):
+    hero = "".join(phone(BY_ID[k], L, "a", "phone hp hp%d" % i, lazy=False) for i, k in enumerate(HERO_APPS))
+    shelf = "".join('<a href="#%s">%s<span>%s</span></a>' % (a["id"], icon(a, L, "sh-ic", alt=False), esc(a["name"]))
+                    for a in APPS)
+    return '''    <section class="hero">
+      <p class="eyebrow">%s</p>
+      <h1 class="hero-h">%s</h1>
+      <p class="hero-p">%s</p>
+      <p class="hero-cta"><a class="btn" href="#apps">%s</a><a class="txt" href="mailto:webspind@gmail.com">%s</a></p>
+      <div class="hero-phones" aria-hidden="true">%s</div>
+    </section>
+
+    <section class="shelf-sec" id="apps" aria-label="%s">
+      <div class="shelf">%s</div>
+    </section>
+
+%s
+
+%s
+
+%s
+
+    <section class="jakob rv" id="jakob">
+      <div class="jakob-in">
+        <img class="jakob-photo" src="/assets/jakob.webp" width="360" height="360" alt="%s" loading="lazy" decoding="async">
+        <p class="eyebrow">%s</p>
         <h2>%s</h2>
         <p>%s</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="%s">%s</a>
-          <a class="btn btn-outline" href="%s">%s</a>
-        </div>
+        <p class="jakob-cta"><a class="btn btn-light" href="mailto:webspind@gmail.com">webspind@gmail.com</a><a class="btn btn-ghost" href="%s" rel="me noopener" target="_blank">LinkedIn ↗</a></p>
+        <p class="jakob-hi">%s</p>
       </div>
-    </section>''' % (L["contact_head"], L["contact_body"],
-                     P(lang, "/support.html"), L["contact_btn_support"],
-                     P(lang, "/privacy/"), L["contact_btn_privacy"])
+    </section>''' % (L["home_eyebrow"], L["home_h1"], L["home_lede"], L["home_btn_apps"], L["home_btn_mail"],
+                     hero, L["shelf_label"], shelf,
+                     group(L, lang, "live", "wide", ""), group(L, lang, "review", "half", "g2"),
+                     group(L, lang, "soon", "third", "g3"),
+                     L["jakob_photo_alt"], L["jakob_eyebrow"], L["jakob_h"], L["jakob_p"], LINKEDIN, L["jakob_hi"])
 
 
 # ---------------------------------------------------------------- app page
@@ -605,7 +727,7 @@ def hero_app(L, lang):
           <div class="app-copy-col">
             <a class="breadcrumb" href="%s">%s</a>
             <div class="app-meta">
-              <img class="app-icon" src="/assets/app-icon.png" alt="%s" width="76" height="76">
+              <img class="app-icon" src="/assets/apps/icons/jagtproven.webp" alt="%s" width="76" height="76">
               <div class="app-meta-text">
                 <span class="platform">%s</span>
                 <span class="price">%s</span>
@@ -614,13 +736,13 @@ def hero_app(L, lang):
             <h1>%s</h1>
             <p class="hero-lede">%s</p>
             <div class="hero-actions">
-              <span class="btn-placeholder">%s</span>
+              <a class="btn" href="%s" target="_blank" rel="noopener">%s</a>
               <a class="btn btn-secondary" href="#app">%s</a>
             </div>
           </div>
           <div class="app-shots">
-            <img class="app-shot" src="/assets/screenshot-quiz.png" alt="%s">
-            <img class="app-shot offset" src="/assets/screenshot-fuglekending.png" alt="%s">
+            <div class="phone"><div class="bezel"><img src="/assets/apps/screens/jagtproven-a.webp" width="600" height="1304" alt="%s"></div></div>
+            <div class="phone offset"><div class="bezel"><img src="/assets/apps/screens/jagtproven-b.webp" width="600" height="1304" alt="%s"></div></div>
           </div>
         </div>
         <div class="stats">
@@ -629,7 +751,7 @@ def hero_app(L, lang):
       </div>
     </section>''' % (P(lang, "/#apps"), L["breadcrumb"], L["app_icon_alt"],
                      L["app_platform"], L["app_price"], L["app_h1"], L["app_lede"],
-                     L["app_soon"], L["app_btn_features"],
+                     STORE_JAGTPROVEN, L["app_store"], L["app_btn_features"],
                      L["app_shot_quiz"], L["app_shot_birds"], stats)
 
 
@@ -733,18 +855,18 @@ def free_trial(L, lang):
 def about_section(L, lang):
     return '''    <section class="section rule-top">
       <div class="section-inner split rv" style="align-items:start">
-        <div class="about-photo">%s</div>
+        <img class="about-photo" src="/assets/jakob.webp" width="360" height="360" alt="%s" loading="lazy">
         <div class="about-copy" style="display:flex;flex-direction:column;gap:16px">
           <h2>%s</h2>
           <p class="serif">%s</p>
-          <p class="serif" style="color:var(--muted)">%s</p>
+          <p class="serif">%s</p>
           <div class="facts">
 %s
             <a href="mailto:webspind@gmail.com">webspind@gmail.com</a>
           </div>
         </div>
       </div>
-    </section>''' % (L["about_photo"], L["about_head"], L["about_p1"], L["about_p2"],
+    </section>''' % (L["jakob_photo_alt"], L["about_head"], L["about_p1"], L["about_p2"],
                      "\n".join('            <div class="row"><span>%s</span><span>%s</span></div>' % f
                                for f in L["facts"]))
 
@@ -755,11 +877,11 @@ def final_cta(L, lang):
         <h2>%s</h2>
         <p>%s</p>
         <div class="hero-actions">
-          <span class="btn-placeholder">%s</span>
+          <a class="btn" href="%s" target="_blank" rel="noopener">%s</a>
           <a class="btn btn-outline" href="%s">%s</a>
         </div>
       </div>
-    </section>''' % (L["cta_head"], L["cta_body"], L["app_soon"],
+    </section>''' % (L["cta_head"], L["cta_body"], STORE_JAGTPROVEN, L["app_store"],
                      P(lang, "/support.html"), L["cta_btn"])
 
 
@@ -785,7 +907,11 @@ def support_body(L, lang):
     # The placeholder option carries an empty value so site.js can test for
     # "nothing chosen" without knowing the language.
     options = '<option value="">%s</option>' % L["form_subject_placeholder"]
-    options += "".join("\n              <option>%s</option>" % o for o in L["form_subject_options"])
+    # Jagtprøven's three specific subjects, then one per other app, then the
+    # general ones (suggestion, something else).
+    subjects = (L["form_subject_options"][:3] + [L["sup_other"] % a["name"] for a in APPS if a["id"] != "jagtproven"]
+                + L["form_subject_options"][3:])
+    options += "".join("\n              <option>%s</option>" % esc(o) for o in subjects)
     form = '''      <div class="support-form rv">
         <h2>%s</h2>
         <div class="form-grid">
@@ -818,6 +944,13 @@ def support_body(L, lang):
                    "\n".join('          <details><summary>%s</summary><p class="answer">%s</p></details>' % f
                              for f in L["faqs"]))
 
+    per_app = '''      <div class="sup-apps rv">
+        <h2>%s</h2>
+        <ul>%s</ul>
+      </div>''' % (L["sup_apps_head"], "".join(
+        '<li><a href="%s">%s<span>%s</span></a></li>' % (a["sup"][lang], icon(a, L, "sa-ic", alt=False), esc(a["name"]))
+        for a in APPS if a["sup"] and a["id"] != "jagtproven"))
+
     urgent = '''      <div class="urgent rv">
         <span class="head">%s</span>
         <span class="body">%s</span>
@@ -832,32 +965,29 @@ def support_body(L, lang):
 %s
 %s
 %s
-    </div>''' % (L["support_head"], L["support_lede"], cards, form, faq, urgent)
+%s
+    </div>''' % (L["support_head"], L["support_lede"], cards, form, per_app, faq, urgent)
 
 
 # ---------------------------------------------------------------- privacy
 
 def priv_index_body(L, lang):
-    note = ('\n          <span class="desc">%s</span>' % L["priv_card_note"]) if L["priv_card_note"] else ""
+    cards = "\n".join('''        <a class="priv-card" href="%s">
+          %s
+          <span class="name">%s</span>
+          <span class="desc">%s</span>
+          <span class="go">%s</span>
+        </a>''' % (a["priv"][lang], icon(a, L, "pc-ic", alt=False), esc(a["full"]), esc(a["pdesc"][lang]),
+                     L["priv_card_go"]) for a in APPS)
     return '''    <div class="support-page">
       <div class="page-head">
         <h1>%s</h1>
         <p>%s</p>
       </div>
-      <div class="contact-grid rv">
-        <a class="priv-card" href="/privacy/jagtproven.html">
-          <span class="name">Jagtprøven</span>
-          <span class="desc">%s</span>%s
-          <span class="go">%s</span>
-        </a>
-        <a class="priv-card" href="%s">
-          <span class="name">Wakebird</span>
-          <span class="desc">%s</span>
-          <span class="go">%s</span>
-        </a>
+      <div class="priv-grid rv">
+%s
       </div>
-    </div>''' % (L["priv_head"], L["priv_lede"], L["priv_card_desc"], note, L["priv_card_go"],
-           P(lang, "/privacy/wakebird.html"), L["wb_card_desc"], L["priv_card_go"])
+    </div>''' % (L["priv_head"], L["priv_lede"], cards)
 
 
 policy_body = '''    <div class="policy">
@@ -878,15 +1008,14 @@ policy_body = '''    <div class="policy">
 # One page for both languages: GitHub Pages only ever serves /404.html, and
 # there is nothing here worth a redirect.
 nf_body = '''    <div class="center-page">
-      <img src="%s" alt="" width="52" height="52" style="opacity:.6">
       <h1>404</h1>
       <p lang="da">%s</p>
       <p lang="en">%s</p>
       <p class="hero-actions" style="justify-content:center">
-        <a class="btn btn-secondary" href="/" lang="da">%s</a>
+        <a class="btn" href="/" lang="da">%s</a>
         <a class="btn btn-secondary" href="/en/" lang="en">%s</a>
       </p>
-    </div>''' % (LOGO, LANG["da"]["nf_body"], LANG["en"]["nf_body"],
+    </div>''' % (LANG["da"]["nf_body"], LANG["en"]["nf_body"],
                  LANG["da"]["nf_btn"], LANG["en"]["nf_btn"])
 
 
@@ -897,12 +1026,17 @@ TWIN_APP     = ("/jagtproven/", "/en/jagtproven/")
 TWIN_SUPPORT = ("/support.html", "/en/support.html")
 TWIN_PRIVACY = ("/privacy/", "/en/privacy/")
 
+WRITTEN = []
+_page = page
+def page(path, *a, **k):
+    WRITTEN.append(path if not path.endswith("/") else path + "index.html")
+    _page(path, *a, **k)
+
+
 for lang in ("da", "en"):
     L = LANG[lang]
 
-    home = "\n\n".join([hero_home(L, lang), apps_section(L, lang),
-                        games_section(L, lang), contact_strip(L, lang)])
-    page(P(lang, "/"), L["home_title"], L["home_desc"], home, lang=lang, twin=TWIN_HOME)
+    page(P(lang, "/"), L["home_title"], L["home_desc"], home_body(L, lang), lang=lang, twin=TWIN_HOME)
 
     app = "\n\n".join([hero_app(L, lang), disclaimer(L, lang), highlights(L, lang),
                        app_section(L, lang), topics_section(L, lang), seasons_section(L, lang),
@@ -924,3 +1058,52 @@ page("/privacy/jagtproven.html", "Jagtprøven Privatlivspolitik — Webspind",
 
 page("/404.html", "Ikke fundet / Not found — Webspind",
      "Siden findes ikke. / The page does not exist.", nf_body, lang="da", redirect=False)
+
+
+# ---------------------------------------------------------------- hand-written pages
+
+def reshell(rel):
+    """Re-wrap a hand-written page in the current shell. Its URL, <title>,
+    description, language and <main> stay exactly as they are — App Store
+    Connect links to these, so the path must never change."""
+    src = io.open(rel, encoding="utf-8").read()
+    path = "/" + rel
+    html_lang = re.search(r'<html lang="([^"]+)"', src).group(1)
+    title = re.search(r"<title>(.*?)</title>", src, re.S).group(1)
+    desc = re.search(r'<meta name="description" content="([^"]*)"', src).group(1)
+    main = re.search(r"<main[^>]*>\n?(.*?)\n?\s*</main>", src, re.S).group(1)
+    shell = "da" if html_lang == "da" else "en"
+    section = "privacy" if "/privacy/" in path else "support"
+    index = {"privacy": "/privacy/", "support": "/support.html"}[section]
+    def exists(u):
+        return os.path.isfile(u.lstrip("/"))
+    if html_lang == "da":
+        twin_en = "/en" + path
+        switch = (path, twin_en if exists(twin_en) else "/en" + index)
+    elif html_lang == "en":
+        twin_da = path[3:]
+        switch = (twin_da if exists(twin_da) else index, path)
+    else:
+        switch = (index, "/en" + index)
+    _page(path, title, desc, main, lang=shell, current=section, switch=switch,
+          redirect=False, html_lang=html_lang)
+
+
+for rel in sorted(glob.glob("privacy/*.html") + glob.glob("support/*.html") + glob.glob("*/privacy/*.html")
+                  + glob.glob("*/support/*.html")):
+    if "/" + rel not in WRITTEN and not rel.startswith("concepts/"):
+        reshell(rel)
+
+
+# ---------------------------------------------------------------- sitemap
+
+def loc(p):
+    return p[:-len("index.html")] if p.endswith("index.html") else p
+
+urls = sorted({loc(p) for p in WRITTEN if p != "/404.html"} |
+              {"/" + r for r in glob.glob("privacy/*.html") + glob.glob("support/*.html")
+               + glob.glob("*/privacy/*.html") + glob.glob("*/support/*.html") if not r.startswith("concepts/")})
+io.open("sitemap.xml", "w", encoding="utf-8").write(
+    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    + "".join("  <url><loc>https://webspind.com%s</loc></url>\n" % u for u in urls) + "</urlset>\n")
+print("  wrote sitemap.xml (%d urls)" % len(urls))

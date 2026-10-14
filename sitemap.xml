@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://webspind.com/</loc></url>
-  <url><loc>https://webspind.com/jagtproven/</loc></url>
-  <url><loc>https://webspind.com/support.html</loc></url>
-  <url><loc>https://webspind.com/privacy/</loc></url>
-  <url><loc>https://webspind.com/privacy/jagtproven.html</loc></url>
-  <url><loc>https://webspind.com/privacy/wakebird.html</loc></url>
+  <url><loc>https://webspind.com/de/privacy/wendemarke.html</loc></url>
+  <url><loc>https://webspind.com/de/support/wendemarke.html</loc></url>
   <url><loc>https://webspind.com/en/</loc></url>
   <url><loc>https://webspind.com/en/jagtproven/</loc></url>
-  <url><loc>https://webspind.com/en/support.html</loc></url>
   <url><loc>https://webspind.com/en/privacy/</loc></url>
+  <url><loc>https://webspind.com/en/privacy/cookside.html</loc></url>
+  <url><loc>https://webspind.com/en/privacy/friendloop.html</loc></url>
+  <url><loc>https://webspind.com/en/privacy/handhold.html</loc></url>
+  <url><loc>https://webspind.com/en/privacy/index.html</loc></url>
+  <url><loc>https://webspind.com/en/privacy/loftpass.html</loc></url>
+  <url><loc>https://webspind.com/en/privacy/longwalk.html</loc></url>
+  <url><loc>https://webspind.com/en/privacy/supersub.html</loc></url>
   <url><loc>https://webspind.com/en/privacy/wakebird.html</loc></url>
+  <url><loc>https://webspind.com/en/support.html</loc></url>
+  <url><loc>https://webspind.com/en/support/cookside.html</loc></url>
+  <url><loc>https://webspind.com/en/support/handhold.html</loc></url>
+  <url><loc>https://webspind.com/en/support/loftpass.html</loc></url>
+  <url><loc>https://webspind.com/jagtproven/</loc></url>
+  <url><loc>https://webspind.com/no/privacy/fortoy.html</loc></url>
+  <url><loc>https://webspind.com/no/support/fortoy.html</loc></url>
+  <url><loc>https://webspind.com/privacy/</loc></url>
+  <url><loc>https://webspind.com/privacy/cookside.html</loc></url>
+  <url><loc>https://webspind.com/privacy/friendloop.html</loc></url>
+  <url><loc>https://webspind.com/privacy/index.html</loc></url>
+  <url><loc>https://webspind.com/privacy/jagtproven.html</loc></url>
+  <url><loc>https://webspind.com/privacy/longwalk.html</loc></url>
+  <url><loc>https://webspind.com/privacy/wakebird.html</loc></url>
+  <url><loc>https://webspind.com/support.html</loc></url>
+  <url><loc>https://webspind.com/support/cookside.html</loc></url>
 </urlset>

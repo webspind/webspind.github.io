@@ -7,11 +7,11 @@
   <meta name="description" content="Jagtprøven: hele teorien, fuglekending og jagttider i én app, med en forklaring på hvert svar. Uafhængig træningsapp til iPhone og iPad.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/favicon.svg">
-  <meta name="theme-color" content="#f1eee4">
+  <meta name="theme-color" content="#f5f5f7">
   <link rel="canonical" href="https://webspind.com/jagtproven/">
   <link rel="alternate" hreflang="da" href="https://webspind.com/jagtproven/">
   <link rel="alternate" hreflang="en" href="https://webspind.com/en/jagtproven/">
@@ -23,35 +23,28 @@
   <meta property="og:url" content="https://webspind.com/jagtproven/">
 </head>
 <body>
-  <div class="ambience" aria-hidden="true"></div>
-  <div class="ambience-grid" aria-hidden="true"></div>
-
+  <a class="skip" href="#main">Spring til apps</a>
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="/">
-        <img src="/favicon.svg" alt="" width="28" height="28">
-        <span>Webspind</span>
-      </a>
+      <a class="brand" href="/">Webspind</a>
       <nav class="nav" aria-label="Main">
         <a href="/#apps" aria-current="page">Apps</a>
-        <a href="/#games">Spil</a>
+        <a href="/#jakob">Om mig</a>
         <a href="/support.html">Support</a>
         <a href="/privacy/">Privatliv</a>
-        <span class="lang-switch"><a href="/jagtproven/" data-lang="da" aria-current="true">DA</a><span aria-hidden="true">|</span><a href="/en/jagtproven/" data-lang="en">EN</a></span>
-        <a class="contact" href="mailto:webspind@gmail.com">Skriv til mig</a>
+        <span class="lang-switch"><a href="/jagtproven/" data-lang="da" hreflang="da" aria-current="true">DA</a><a href="/en/jagtproven/" data-lang="en" hreflang="en">EN</a></span>
       </nav>
     </div>
-    <div class="progress-track"><div class="progress-bar" data-progress="1"></div></div>
   </header>
 
-  <main>
+  <main id="main">
     <section class="hero hero-plain">
       <div class="hero-inner">
         <div class="app-top">
           <div class="app-copy-col">
             <a class="breadcrumb" href="/#apps">← Alle apps</a>
             <div class="app-meta">
-              <img class="app-icon" src="/assets/app-icon.png" alt="Jagtprøven app-ikon" width="76" height="76">
+              <img class="app-icon" src="/assets/apps/icons/jagtproven.webp" alt="Jagtprøven app-ikon" width="76" height="76">
               <div class="app-meta-text">
                 <span class="platform">Jagttegn · iPhone og iPad</span>
                 <span class="price">Ét engangskøb — ikke abonnement</span>
@@ -60,13 +53,13 @@
             <h1>Gå til jagtprøven, når du er <span class="accent">helt sikker</span> i det.</h1>
             <p class="hero-lede">Hele teorien, fuglekendingen og jagttiderne i én app — med en forklaring på hvert svar, så du forstår reglen i stedet for at gætte. <span class="muted">Øv i bussen, i skoven, uden dækning.</span></p>
             <div class="hero-actions">
-              <span class="btn-placeholder">App Store-link følger</span>
+              <a class="btn" href="https://apps.apple.com/dk/app/id6811615877" target="_blank" rel="noopener">Hent i App Store</a>
               <a class="btn btn-secondary" href="#app">Se hvad appen kan</a>
             </div>
           </div>
           <div class="app-shots">
-            <img class="app-shot" src="/assets/screenshot-quiz.png" alt="Skærmbillede af et quizspørgsmål i Jagtprøven">
-            <img class="app-shot offset" src="/assets/screenshot-fuglekending.png" alt="Skærmbillede af fuglekending-listen i Jagtprøven">
+            <div class="phone"><div class="bezel"><img src="/assets/apps/screens/jagtproven-a.webp" width="600" height="1304" alt="Skærmbillede af et quizspørgsmål i Jagtprøven"></div></div>
+            <div class="phone offset"><div class="bezel"><img src="/assets/apps/screens/jagtproven-b.webp" width="600" height="1304" alt="Skærmbillede af fuglekending-listen i Jagtprøven"></div></div>
           </div>
         </div>
         <div class="stats">
@@ -175,15 +168,15 @@
 
     <section class="section rule-top">
       <div class="section-inner split rv" style="align-items:start">
-        <div class="about-photo">dit eget billede her — skrivebord, terræn eller dig selv</div>
+        <img class="about-photo" src="/assets/jakob.webp" width="360" height="360" alt="Jakob Munch-Brandt" loading="lazy">
         <div class="about-copy" style="display:flex;flex-direction:column;gap:16px">
           <h2>Hej — Webspind er mig alene.</h2>
           <p class="serif">Jagtprøven er min første app. Jeg har bygget den, fordi pensum til jagttegnsprøven ligger spredt ud over hæfter, hjemmesider og bekendtgørelser — og fordi fuglekending er nærmest umulig at øve på papir.</p>
-          <p class="serif" style="color:var(--muted)">Jeg skriver spørgsmålene, tegner interfacet, retter fejlene og læser supportmailen. Derfor er support en rigtig side her og ikke en formular, der ender ingen steder — skriver du, får du mig.</p>
+          <p class="serif">Jeg skriver spørgsmålene, tegner interfacet, retter fejlene og læser supportmailen. Derfor er support en rigtig side her og ikke en formular, der ender ingen steder — skriver du, får du mig.</p>
           <div class="facts">
             <div class="row"><span>Studie</span><span>Webspind, Danmark</span></div>
             <div class="row"><span>Folk</span><span>Én</span></div>
-            <div class="row"><span>Udgivet</span><span>Jagtprøven, første app</span></div>
+            <div class="row"><span>Udgivet</span><span>Jagtprøven, og ni apps på vej</span></div>
             <div class="row"><span>Support</span><span>Mig, inden for 2 hverdage</span></div>
             <a href="mailto:webspind@gmail.com">webspind@gmail.com</a>
           </div>
@@ -196,7 +189,7 @@
         <h2>Prøv et helt prøvesæt gratis.</h2>
         <p>Et fuldt prøvesæt og ét emne efter eget valg er gratis i appen — tag dem, og se om formen passer dig, før du køber resten.</p>
         <div class="hero-actions">
-          <span class="btn-placeholder">App Store-link følger</span>
+          <a class="btn" href="https://apps.apple.com/dk/app/id6811615877" target="_blank" rel="noopener">Hent i App Store</a>
           <a class="btn btn-outline" href="/support.html">Har du et spørgsmål?</a>
         </div>
       </div>
@@ -205,14 +198,17 @@
 
   <footer class="site-footer">
     <div class="wrap">
-      <div class="footer-top">
-        <span class="footer-brand"><img src="/favicon.svg" alt="">© 2026 Webspind · Danmark</span>
-        <span class="footer-links">
-          <a href="/">Forsiden</a>
-          <a href="/privacy/">Privatliv</a>
-          <a href="mailto:webspind@gmail.com">E-mail</a>
-        </span>
+      <div class="foot-cols">
+        <div>
+          <h2>Hjælp</h2>
+          <p><a href="/support.html">Support</a><a href="/privacy/">Alle privatlivspolitikker</a><a href="mailto:webspind@gmail.com">webspind@gmail.com</a><a href="https://dk.linkedin.com/in/jakobmunchbrandt" rel="me noopener" target="_blank">LinkedIn</a><a href="/en/" data-lang="en" lang="en">English</a></p>
+        </div>
+        <div class="foot-apps">
+          <h2>Privatliv og support pr. app</h2>
+          <ul><li><span class="fl-name">Wakebird</span><a href="/privacy/wakebird.html">Privatliv</a></li><li><span class="fl-name">Friendloop</span><a href="/privacy/friendloop.html">Privatliv</a></li><li><span class="fl-name">Supersub</span><a href="/en/privacy/supersub.html">Privatliv</a></li><li><span class="fl-name">Longwalk</span><a href="/privacy/longwalk.html">Privatliv</a></li><li><span class="fl-name">Jagtprøven</span><a href="/jagtproven/">Om appen</a><a href="/privacy/jagtproven.html">Privatliv</a><a href="/support.html">Support</a></li><li><span class="fl-name">Cookside</span><a href="/privacy/cookside.html">Privatliv</a><a href="/support/cookside.html">Support</a></li><li><span class="fl-name">Handhold</span><a href="/en/privacy/handhold.html">Privatliv</a><a href="/en/support/handhold.html">Support</a></li><li><span class="fl-name">Loftpass</span><a href="/en/privacy/loftpass.html">Privatliv</a><a href="/en/support/loftpass.html">Support</a></li><li><span class="fl-name">Fortøy</span><a href="/no/privacy/fortoy.html">Privatliv</a><a href="/no/support/fortoy.html">Support</a></li><li><span class="fl-name">Wendemarke</span><a href="/de/privacy/wendemarke.html">Privatliv</a><a href="/de/support/wendemarke.html">Support</a></li></ul>
+        </div>
       </div>
+      <p class="legal">© 2026 Jakob Munch-Brandt. Webspind er navnet, jeg udgiver under. Lavet i Danmark.</p>
     </div>
   </footer>
 

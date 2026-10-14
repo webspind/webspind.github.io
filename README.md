@@ -8,24 +8,26 @@ under `/en/`.
 ## Files
 
 ```
-index.html              Home (Danish): hero, Apps, Games, contact strip
+index.html              Home (Danish): hero, icon shelf, apps by status, About Jakob
 jagtproven/index.html   The Jagtprøven pitch (Danish)
-support.html            Support / contact page (use as App Store "Support URL")
-privacy/index.html      Index of all privacy policies
-privacy/jagtproven.html Jagtprøven policy — Danish only (App Store "Privacy Policy URL")
-en/                     The same tree in English: en/index.html,
-                        en/jagtproven/index.html, en/support.html,
-                        en/privacy/index.html
+support.html            Support / contact page (Jagtprøven's App Store "Support URL")
+privacy/index.html      Index of all privacy policies (built from APPS)
+privacy/jagtproven.html Jagtprøven policy — Danish only (generated)
+privacy/*, support/*    Hand-written per-app policies and support pages, also
+en/, no/, de/           under en/privacy, en/support, no/… and de/… — their
+                        <main> is hand-written, the shell around it is generated
+en/                     The generated pages again in English
 404.html                Not-found page — bilingual, both languages on one page
 styles.css              The whole design
 site.js                 Language redirect + DA/EN preference, scroll reveal,
-                        progress bar, mailto-builder for the support form
-build-pages.py          Generates every page above from one string table
-favicon.svg             Web icon, also used as the header/footer logo mark
-assets/                 Real app icon + simulator screenshots from the Jagtprøven Xcode project
+                        hero parallax, mailto-builder for the support form
+build-pages.py          Generates every page and sitemap.xml from one string table
+favicon.svg             Tab icon
+assets/apps/            App icons (256 px) and two screens per app (600 px), webp
+assets/jakob.webp       Portrait for the About block
 CNAME                   Tells GitHub Pages the custom domain is webspind.com — do not delete
 .nojekyll               Stops GitHub from running Jekyll over the files
-robots.txt, sitemap.xml SEO basics — add new pages to the sitemap
+robots.txt, sitemap.xml SEO basics (sitemap is generated)
 ```
 
 ## Preview locally
@@ -68,20 +70,19 @@ calls" stance. Browser language is the proxy instead:
 
 ## Add a new app
 
-The homepage Apps section is data-driven, so a second app is an entry in a
-list, not new markup:
+1. Add a dict to `APPS` in `build-pages.py` (name, status, colour, copy in
+   `da` and `en`, and the URLs of its policy and support pages).
+2. Put `assets/apps/icons/<id>.webp` (256 px) and
+   `assets/apps/screens/<id>-a.webp` + `-b.webp` (600 px wide) in place.
+3. Write its policy (and support page) as a plain HTML file under
+   `privacy/` or `<lang>/privacy/` with a `<main>` — any existing one is a
+   template. The build wraps it in the shared header and footer.
+4. Run `python3 build-pages.py`. The homepage tile, icon shelf, footer,
+   privacy index, support page and sitemap all pick it up.
 
-1. Add a dict to `APPS` in `build-pages.py` — `href`, `icon`, `name`, and
-   `meta` / `pitch` / `badge` / `more` with a `da` and an `en` string each.
-2. Add its copy to both language dicts in `LANG` if it gets its own page,
-   and build that page in the `for lang in ("da", "en"):` loop at the bottom.
-3. Copy the policy: duplicate the `page("/privacy/<app>.html", …)` call and
-   write the sections, then add a card to `priv_index_body`.
-4. Add every new URL to `sitemap.xml`.
-5. Re-run `python3 build-pages.py`.
+When an app goes live or into review, change its `status` and rebuild.
 
-Games work the same way: fill the `GAMES` list and the empty state on the
-homepage is replaced by cards.
+**Never move a policy or support URL** — App Store Connect points at them.
 
 ## UX-noter
 
@@ -91,25 +92,16 @@ changes get made from it.
 
 ## Design
 
-As of 1 September 2026 the site follows the **"Webspind v2"** Claude Design
-project (claude.ai/design), implemented from `Webspind v2.dc.html`:
+Since 14 October 2026 the site is **"Showcase"** (concept C of three):
+calm, product-first and Apple-like. Real app screens sit in phone frames on
+tiles tinted with each app's own colour (`--c` per tile).
 
-- **Palette** — warm paper `#f1eee4`, card `#fbfaf5`, forest `#1f5a35`,
-  rust `#8f4712`, ink `#15211a`. Light only, held regardless of the
-  visitor's system theme. The previous palette (from `Theme.swift`) and the
-  dark palette are both in git history if wanted back.
-- **Spacing** — the 8 pt grid (`--s1`…`--s12`), concentric card radii.
-- **Type** — Bricolage Grotesque for display, Instrument Sans for UI text,
-  Newsreader (serif) for long-form prose (the about section, policy body).
-  Loaded from Google Fonts.
-- **Motion** — scroll-reveal (`.rv`, driven by `site.js`) and a
-  scroll-progress bar under the header, both behind
-  `prefers-reduced-motion`.
-
-Contrast is 4.5:1 or better on every text pairing. Every image on the site
-is now a real asset from `assets/` — the temporary Wikimedia Commons
-hotlinks and their footer credit line are gone (they are in git history if
-the bird rail is ever wanted back).
+- **Palette** — background `#f5f5f7`, cards white, ink `#1d1d1f`, links
+  `#0062c4`. Light only. No grey text: secondary information is ink at a
+  lighter weight, or a real colour.
+- **Type** — Inter from Google Fonts, 800 for headlines with tight tracking.
+- **Motion** — scroll reveal (`.rv`) and a small hero parallax, both off
+  under `prefers-reduced-motion`.
 
 ### Regenerating the pages
 
@@ -125,6 +117,3 @@ lives in the `LANG` dict at the top of that script, one entry per language;
 the builder functions below it only lay the strings out. Edit the content
 there, re-run the script, then commit. Editing the generated `.html`
 directly works too, but the next run overwrites it.
-
-## Warning: privacy index is hand-edited
-`privacy/index.html` and `en/privacy/index.html` contain hand-added cards (Friendloop, Longwalk, Supersub, Fortøy, Loftpass, Wendemarke) that `build-pages.py` does not know about. Running it would erase them. Add the cards to `priv_index_body` first, or edit the HTML by hand.
