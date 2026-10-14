@@ -105,7 +105,7 @@
       var replyLabel = isDa ? "\n\nSvar til: " : "\n\nReply to: ";
       var bodyVal = (bodyEl && bodyEl.value ? bodyEl.value : "") +
                     (emailEl && emailEl.value ? replyLabel + emailEl.value : "");
-      window.location.href = "mailto:support@webspind.com?subject=" +
+      window.location.href = "mailto:webspind@gmail.com?subject=" +
         encodeURIComponent(subjectVal) + "&body=" + encodeURIComponent(bodyVal);
     });
   }
