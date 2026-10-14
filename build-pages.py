@@ -586,7 +586,7 @@ def page(path, title, desc, body, lang="da", current=None, twin=None,
   %s
   <link rel="stylesheet" href="/styles.css">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta name="theme-color" content="#f5f5f7">
   <link rel="canonical" href="https://webspind.com%s">%s
   <meta property="og:title" content="%s">

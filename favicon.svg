@@ -1,14 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Webspind">
-  <defs>
-    <clipPath id="sq"><rect x="0" y="0" width="64" height="64" rx="15"></rect></clipPath>
-  </defs>
-  <rect x="0" y="0" width="64" height="64" rx="15" fill="#2f6b3a"></rect>
-  <g clip-path="url(#sq)" fill="none" stroke="#f6f5f0" stroke-width="3.4" stroke-linecap="round">
-    <circle cx="4" cy="60" r="18"></circle>
-    <circle cx="4" cy="60" r="34"></circle>
-    <circle cx="4" cy="60" r="50"></circle>
-    <line x1="4" y1="60" x2="4" y2="4"></line>
-    <line x1="4" y1="60" x2="60" y2="60"></line>
-    <line x1="4" y1="60" x2="52" y2="12"></line>
-  </g>
-</svg>
+<svg role="img" aria-label="Webspind" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c4421f"/><stop offset=".4" stop-color="#b03a8c"/><stop offset=".7" stop-color="#6a3cf0"/><stop offset="1" stop-color="#1f3fd6"/></linearGradient></defs><rect width="64" height="64" rx="15" fill="url(#g)"/><path d="M13 19 L22.5 46 L32 25 L41.5 46 L51 19" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>

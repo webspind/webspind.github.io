@@ -22,7 +22,7 @@ styles.css              The whole design
 site.js                 Language redirect + DA/EN preference, scroll reveal,
                         hero parallax, mailto-builder for the support form
 build-pages.py          Generates every page and sitemap.xml from one string table
-favicon.svg             Tab icon
+favicon.svg             Tab icon (gradient W); apple-touch-icon.png is its 180 px square twin
 assets/apps/            App icons (256 px) and two screens per app (600 px), webp
 assets/jakob.webp       Portrait for the About block
 CNAME                   Tells GitHub Pages the custom domain is webspind.com — do not delete
