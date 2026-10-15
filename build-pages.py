@@ -429,6 +429,33 @@ APPS = [
          sup={"da": "/support.html", "en": "/en/support.html"},
          pdesc={"da": "Dine svar ligger på din enhed og i din egen iCloud. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat.",
                 "en": "Your answers stay on your device and in your own iCloud. No account, no analytics. Purchases are verified via RevenueCat. The policy is in Danish, like the app; write to me if you need it in English."}),
+    dict(id="loftpass", name="Loftpass", full="Loftpass: Part 107 Test Prep", status="review", c="#a3134f",
+         kind={"da": "FAA Part 107-droneprøven · På engelsk", "en": "FAA Part 107 drone test"},
+         line={"da": "Part 107-kortene, endelig klare.", "en": "Part 107 charts, finally clear."},
+         desc={"da": "461 spørgsmål med forklaring på hvert svar, og øvelser i FAA's rigtige kortfigurer.",
+               "en": "461 questions with every answer explained, and drills on the real FAA chart figures."},
+         priv={"da": "/en/privacy/loftpass.html", "en": "/en/privacy/loftpass.html"},
+         sup={"da": "/en/support/loftpass.html", "en": "/en/support/loftpass.html"},
+         pdesc={"da": "Dine svar ligger på din iPhone og i din egen iCloud. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat. (Engelsk)",
+                "en": "Your answers stay on your iPhone and in your own iCloud. No account, no analytics. Purchases confirmed via RevenueCat."}),
+    dict(id="fortoy", name="Fortøy", full="Fortøy: Båtførerbevis", status="review", c="#0b4db0",
+         kind={"da": "Norsk båtførerbevis · På norsk", "en": "Norwegian boat licence · In Norwegian"},
+         line={"da": "Båtførerprøven uden abonnement.", "en": "Båtførerprøven, without a subscription."},
+         desc={"da": "390 spørgsmål, hver med forklaring og kilde, og en prøve med 50 spørgsmål som den rigtige.",
+               "en": "390 questions, each with an explanation and its source, and a 50-question mock exam like the real one."},
+         priv={"da": "/no/privacy/fortoy.html", "en": "/no/privacy/fortoy.html"},
+         sup={"da": "/no/support/fortoy.html", "en": "/no/support/fortoy.html"},
+         pdesc={"da": "Svarene dine ligger på iPhonen og i din egen iCloud. Ingen konto, ingen analyse. Kjøp bekreftes via RevenueCat. (Norsk)",
+                "en": "Your answers stay on your iPhone and in your own iCloud. No account, no analytics. Purchases confirmed via RevenueCat. (Norwegian)"}),
+    dict(id="wendemarke", name="Wendemarke", full="Wendemarke: Bootsprüfung A+D", status="review", c="#d9061a",
+         kind={"da": "Schweizisk bådførerbevis · På tysk", "en": "Swiss boat licence · In German"},
+         line={"da": "Hvert spørgsmål forklaret.", "en": "Every question explained."},
+         desc={"da": "354 øvespørgsmål i prøvens rigtigt/forkert-format, 284 af dem med BSV-artiklen bag svaret.",
+               "en": "354 practice questions in the exam's true-or-false format, 284 of them with the BSV article behind the answer."},
+         priv={"da": "/de/privacy/wendemarke.html", "en": "/de/privacy/wendemarke.html"},
+         sup={"da": "/de/support/wendemarke.html", "en": "/de/support/wendemarke.html"},
+         pdesc={"da": "Antworten bleiben auf dem iPhone und in deiner eigenen iCloud. Kein Konto, keine Analyse. Käufe via RevenueCat. (Tysk)",
+                "en": "Antworten bleiben auf dem iPhone und in deiner eigenen iCloud. Kein Konto, keine Analyse. Käufe via RevenueCat. (German)"}),
     dict(id="cookside", name="Cookside", full="Cookside: Recipe Cook Mode", status="soon", c="#f4b120",
          kind={"da": "Opskrifter, ét trin ad gangen", "en": "Recipes, one step at a time"},
          line={"da": "Lav mad ét trin ad gangen.", "en": "Cook one step at a time."},
@@ -447,33 +474,6 @@ APPS = [
          sup={"da": "/en/support/handhold.html", "en": "/en/support/handhold.html"},
          pdesc={"da": "Dine vaner ligger på din iPhone og i din egen iCloud. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat. (Engelsk)",
                 "en": "Your habits stay on your iPhone and in your own iCloud. No account, no analytics. Purchases confirmed via RevenueCat."}),
-    dict(id="loftpass", name="Loftpass", full="Loftpass: Part 107 Test Prep", status="soon", c="#a3134f",
-         kind={"da": "FAA Part 107-droneprøven · På engelsk", "en": "FAA Part 107 drone test"},
-         line={"da": "Part 107-kortene, endelig klare.", "en": "Part 107 charts, finally clear."},
-         desc={"da": "461 spørgsmål med forklaring på hvert svar, og øvelser i FAA's rigtige kortfigurer.",
-               "en": "461 questions with every answer explained, and drills on the real FAA chart figures."},
-         priv={"da": "/en/privacy/loftpass.html", "en": "/en/privacy/loftpass.html"},
-         sup={"da": "/en/support/loftpass.html", "en": "/en/support/loftpass.html"},
-         pdesc={"da": "Dine svar ligger på din iPhone og i din egen iCloud. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat. (Engelsk)",
-                "en": "Your answers stay on your iPhone and in your own iCloud. No account, no analytics. Purchases confirmed via RevenueCat."}),
-    dict(id="fortoy", name="Fortøy", full="Fortøy: Båtførerprøven", status="soon", c="#0b4db0",
-         kind={"da": "Norsk båtførerbevis · På norsk", "en": "Norwegian boat licence · In Norwegian"},
-         line={"da": "Båtførerprøven uden abonnement.", "en": "Båtførerprøven, without a subscription."},
-         desc={"da": "390 spørgsmål, hver med forklaring og kilde, og en prøve med 50 spørgsmål som den rigtige.",
-               "en": "390 questions, each with an explanation and its source, and a 50-question mock exam like the real one."},
-         priv={"da": "/no/privacy/fortoy.html", "en": "/no/privacy/fortoy.html"},
-         sup={"da": "/no/support/fortoy.html", "en": "/no/support/fortoy.html"},
-         pdesc={"da": "Svarene dine ligger på iPhonen og i din egen iCloud. Ingen konto, ingen analyse. Kjøp bekreftes via RevenueCat. (Norsk)",
-                "en": "Your answers stay on your iPhone and in your own iCloud. No account, no analytics. Purchases confirmed via RevenueCat. (Norwegian)"}),
-    dict(id="wendemarke", name="Wendemarke", full="Wendemarke: Bootsprüfung A+D", status="soon", c="#d9061a",
-         kind={"da": "Schweizisk bådførerbevis · På tysk", "en": "Swiss boat licence · In German"},
-         line={"da": "Hvert spørgsmål forklaret.", "en": "Every question explained."},
-         desc={"da": "354 øvespørgsmål i prøvens rigtigt/forkert-format, 284 af dem med BSV-artiklen bag svaret.",
-               "en": "354 practice questions in the exam's true-or-false format, 284 of them with the BSV article behind the answer."},
-         priv={"da": "/de/privacy/wendemarke.html", "en": "/de/privacy/wendemarke.html"},
-         sup={"da": "/de/support/wendemarke.html", "en": "/de/support/wendemarke.html"},
-         pdesc={"da": "Antworten bleiben auf dem iPhone und in deiner eigenen iCloud. Kein Konto, keine Analyse. Käufe via RevenueCat. (Tysk)",
-                "en": "Antworten bleiben auf dem iPhone und in deiner eigenen iCloud. Kein Konto, keine Analyse. Käufe via RevenueCat. (German)"}),
 ]
 BY_ID = {a["id"]: a for a in APPS}
 
@@ -625,10 +625,16 @@ def icon(a, L, cls, alt=True):
             % (cls, a["id"], esc(L["icon_alt"] % a["name"]) if alt else ""))
 
 
+# Apps whose screenshots exist in Danish and English: <id>-a.webp is Danish,
+# <id>-a-en.webp is English. Every other app has one set, used on both trees.
+LOCALISED = {"wakebird", "longwalk", "cookside"}
+
+
 def phone(a, L, s, cls="phone", lazy=True):
-    return ('<div class="%s"><div class="bezel"><img src="/assets/apps/screens/%s-%s.webp" width="600" height="1304" '
+    suffix = "-en" if a["id"] in LOCALISED and L["locale"] != "da_DK" else ""
+    return ('<div class="%s"><div class="bezel"><img src="/assets/apps/screens/%s-%s%s.webp" width="600" height="1304" '
             'alt="%s" decoding="async"%s></div></div>'
-            % (cls, a["id"], s, esc(L["screen_alt"] % a["name"]), ' loading="lazy"' if lazy else ""))
+            % (cls, a["id"], s, suffix, esc(L["screen_alt"] % a["name"]), ' loading="lazy"' if lazy else ""))
 
 
 def app_links(a, L, lang):
@@ -711,8 +717,8 @@ def home_body(L, lang):
       </div>
     </section>''' % (L["home_eyebrow"], L["home_h1"], L["home_lede"], L["home_btn_apps"], L["home_btn_mail"],
                      hero, L["shelf_label"], shelf,
-                     group(L, lang, "live", "wide", ""), group(L, lang, "review", "half", "g2"),
-                     group(L, lang, "soon", "third", "g3"),
+                     group(L, lang, "live", "wide", ""), group(L, lang, "review", "third", "g3"),
+                     group(L, lang, "soon", "half", "g2"),
                      L["jakob_photo_alt"], L["jakob_eyebrow"], L["jakob_h"], L["jakob_p"], LINKEDIN, L["jakob_hi"])
 
 

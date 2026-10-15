@@ -24,6 +24,8 @@ site.js                 Language redirect + DA/EN preference, scroll reveal,
 build-pages.py          Generates every page and sitemap.xml from one string table
 favicon.svg             Tab icon (gradient W); apple-touch-icon.png is its 180 px square twin
 assets/apps/            App icons (256 px) and two screens per app (600 px), webp
+                        (wakebird, longwalk, cookside also have <id>-a-en / -b-en: English
+                        screens for the /en/ tree; the plain files are Danish)
 assets/jakob.webp       Portrait for the About block
 CNAME                   Tells GitHub Pages the custom domain is webspind.com — do not delete
 .nojekyll               Stops GitHub from running Jekyll over the files
