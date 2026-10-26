@@ -67,8 +67,8 @@ LANG = {
   "shelf_label": "Alle apps",
   "status": {"live": "I App Store", "review": "Til godkendelse", "soon": "Kommer snart"},
   "group_live": ("I App Store.", "Ude nu, til iPhone og iPad."),
-  "group_review": ("På vej ud.", "Færdige og sendt til Apple. Ude, så snart de er godkendt."),
-  "group_soon": ("Kommer snart.", "Bygget og ved at blive finpudset."),
+  "group_review": ("På vej ud.", "Sendt til Apple. Ude, så snart den er godkendt."),
+  "group_soon": ("Kommer snart.", "Bygget og ved at blive gjort endnu bedre. De kommer ud én ad gangen."),
   "screen_alt": "%s skærmbillede",
   "icon_alt": "%s app-ikon",
   "jakob_eyebrow": "Personen bag Webspind",
@@ -233,8 +233,8 @@ LANG = {
   "shelf_label": "All apps",
   "status": {"live": "On the App Store", "review": "In review", "soon": "Coming soon"},
   "group_live": ("On the App Store.", "Out now, on iPhone and iPad."),
-  "group_review": ("In review.", "Finished and submitted to Apple. Out as soon as they're approved."),
-  "group_soon": ("Coming soon.", "Built and being polished now."),
+  "group_review": ("In review.", "Submitted to Apple. Out as soon as it's approved."),
+  "group_soon": ("Coming soon.", "Built and being made even better. They come out one at a time."),
   "screen_alt": "%s screen",
   "icon_alt": "%s app icon",
   "jakob_eyebrow": "The person behind Webspind",
@@ -390,12 +390,12 @@ APPS = [
     dict(id="wakebird", name="Wakebird", full="Wakebird: Birdsong Alarm Clock", status="review", c="#c4421f",
          kind={"da": "Vækkeur med fuglesang", "en": "Birdsong alarm clock"},
          line={"da": "Vågn til ægte fuglesang.", "en": "Wake to real birdsong."},
-         desc={"da": "Tre morgenkor fra rigtige vilde fugle. Én fugl begynder blidt, de andre stemmer i, og den ringer, også når telefonen er på lydløs.",
-               "en": "Three dawn choruses from real wild birds. One bird starts softly, the others join in, and it rings even on silent."},
+         desc={"da": "Syv morgenkor fra rigtige vilde fugle. Én fugl begynder blidt, de andre stemmer i, og bagefter ser du, hvem der vækkede dig. Kan også ringe ved solopgang, og den ringer, selv når telefonen er på lydløs.",
+               "en": "Seven dawn choruses from real wild birds. One bird starts softly, the others join in, and afterwards you see who woke you. It can ring at sunrise too, and it rings even on silent."},
          priv={"da": "/privacy/wakebird.html", "en": "/en/privacy/wakebird.html"}, sup=None,
-         pdesc={"da": "Dine alarmer ligger kun på din iPhone. Ingen konto, ingen analyse. Købet bekræftes via RevenueCat.",
-                "en": "Your alarms stay on your iPhone. No account, no analytics. The purchase is verified via RevenueCat."}),
-    dict(id="friendloop", name="Friendloop", full="Friendloop: Stay in Touch", status="review", c="#6a3cf0",
+         pdesc={"da": "Dine alarmer og din fuglebog ligger kun på din iPhone. Solopgangsalarmen bruger dit omtrentlige sted, kun på telefonen. Ingen konto, ingen analyse. Købet bekræftes via RevenueCat.",
+                "en": "Your alarms and bird book stay on your iPhone. The sunrise alarm uses your approximate location, on the phone only. No account, no analytics. The purchase is verified via RevenueCat."}),
+    dict(id="friendloop", name="Friendloop", full="Friendloop: Stay in Touch", status="soon", c="#6a3cf0",
          kind={"da": "Hold kontakten", "en": "Stay in touch"},
          line={"da": "Se mere til de venner, der betyder noget.", "en": "See more of the friends who matter."},
          desc={"da": "En god idé til hver ven, med beskeden allerede skrevet. Privat, på din iPhone, uden konto.",
@@ -403,15 +403,15 @@ APPS = [
          priv={"da": "/privacy/friendloop.html", "en": "/en/privacy/friendloop.html"}, sup=None,
          pdesc={"da": "Dine venner, noter og påmindelser bliver på din iPhone. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat.",
                 "en": "Your friends, notes and reminders stay on your iPhone. No account, no analytics. Purchases are verified via RevenueCat."}),
-    dict(id="supersub", name="Supersub", full="Supersub: Offline Football", status="review", c="#1f3fd6",
+    dict(id="supersub", name="Supersub", full="Supersub: Offline Football", status="soon", c="#1f3fd6",
          kind={"da": "Offline fodboldspil", "en": "Offline football game"},
-         line={"da": "Træk en stjerne. Tag skuddet.", "en": "Pull a star. Take the shot."},
-         desc={"da": "Afslappet anime-fodbold med kortpakker. Hvert kort, du trækker, kommer på dit hold, og dit hold får en historie. Ingen reklamer, ingen konto.",
-               "en": "Casual anime football with card packs. Every card you pull joins your club, and your club gets a story. No ads, no account."},
+         line={"da": "Tag skuddet.", "en": "Take the shot."},
+         desc={"da": "Arkadefodbold i 3D, bygget fra bunden igen. Korte kampe, store mål, og den virker uden net.",
+               "en": "Arcade football in 3D, rebuilt from the ground up. Short matches, big goals, and it works without a connection."},
          priv={"da": "/en/privacy/supersub.html", "en": "/en/privacy/supersub.html"}, sup=None,
          pdesc={"da": "Din klub bor på din iPhone. Ingen konto, ingen reklamer, ingen analyse. Køb bekræftes via RevenueCat. (Politikken er på engelsk.)",
                 "en": "Your club lives on your iPhone. No account, no ads, no analytics. Purchases are verified via RevenueCat."}),
-    dict(id="longwalk", name="Longwalk", full="Longwalk: Walk the Camino", status="review", c="#c2402b",
+    dict(id="longwalk", name="Longwalk", full="Longwalk: Walk the Camino", status="soon", c="#c2402b",
          kind={"da": "Gå berømte ruter", "en": "Walk famous trails"},
          line={"da": "Gå Caminoen hjemmefra.", "en": "Walk the Camino from home."},
          desc={"da": "Dine daglige skridt fører dig ad ti berømte ruter, med et postkort ved hvert stop. Betal én gang, intet abonnement.",
@@ -429,7 +429,7 @@ APPS = [
          sup={"da": "/support.html", "en": "/en/support.html"},
          pdesc={"da": "Dine svar ligger på din enhed og i din egen iCloud. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat.",
                 "en": "Your answers stay on your device and in your own iCloud. No account, no analytics. Purchases are verified via RevenueCat. The policy is in Danish, like the app; write to me if you need it in English."}),
-    dict(id="loftpass", name="Loftpass", full="Loftpass: Part 107 Test Prep", status="review", c="#a3134f",
+    dict(id="loftpass", name="Loftpass", full="Loftpass: Part 107 Test Prep", status="soon", c="#a3134f",
          kind={"da": "FAA Part 107-droneprøven · På engelsk", "en": "FAA Part 107 drone test"},
          line={"da": "Part 107-kortene, endelig klare.", "en": "Part 107 charts, finally clear."},
          desc={"da": "461 spørgsmål med forklaring på hvert svar, og øvelser i FAA's rigtige kortfigurer.",
@@ -438,7 +438,7 @@ APPS = [
          sup={"da": "/en/support/loftpass.html", "en": "/en/support/loftpass.html"},
          pdesc={"da": "Dine svar ligger på din iPhone og i din egen iCloud. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat. (Engelsk)",
                 "en": "Your answers stay on your iPhone and in your own iCloud. No account, no analytics. Purchases confirmed via RevenueCat."}),
-    dict(id="fortoy", name="Fortøy", full="Fortøy: Båtførerbevis", status="review", c="#0b4db0",
+    dict(id="fortoy", name="Fortøy", full="Fortøy: Båtførerbevis", status="soon", c="#0b4db0",
          kind={"da": "Norsk båtførerbevis · På norsk", "en": "Norwegian boat licence · In Norwegian"},
          line={"da": "Båtførerprøven uden abonnement.", "en": "Båtførerprøven, without a subscription."},
          desc={"da": "390 spørgsmål, hver med forklaring og kilde, og en prøve med 50 spørgsmål som den rigtige.",
@@ -447,7 +447,7 @@ APPS = [
          sup={"da": "/no/support/fortoy.html", "en": "/no/support/fortoy.html"},
          pdesc={"da": "Svarene dine ligger på iPhonen og i din egen iCloud. Ingen konto, ingen analyse. Kjøp bekreftes via RevenueCat. (Norsk)",
                 "en": "Your answers stay on your iPhone and in your own iCloud. No account, no analytics. Purchases confirmed via RevenueCat. (Norwegian)"}),
-    dict(id="wendemarke", name="Wendemarke", full="Wendemarke: Bootsprüfung A+D", status="review", c="#d9061a",
+    dict(id="wendemarke", name="Wendemarke", full="Wendemarke: Bootsprüfung A+D", status="soon", c="#d9061a",
          kind={"da": "Schweizisk bådførerbevis · På tysk", "en": "Swiss boat licence · In German"},
          line={"da": "Hvert spørgsmål forklaret.", "en": "Every question explained."},
          desc={"da": "354 øvespørgsmål i prøvens rigtigt/forkert-format, 284 af dem med BSV-artiklen bag svaret.",
@@ -681,7 +681,7 @@ def group(L, lang, status, size, grid):
     </section>''' % (head, sub, tiles)
 
 
-HERO_APPS = ["supersub", "wakebird", "longwalk", "friendloop", "cookside"]
+HERO_APPS = ["jagtproven", "wakebird", "longwalk", "friendloop", "cookside"]
 
 
 def home_body(L, lang):
@@ -1097,7 +1097,9 @@ def reshell(rel):
 
 for rel in sorted(glob.glob("privacy/*.html") + glob.glob("support/*.html") + glob.glob("*/privacy/*.html")
                   + glob.glob("*/support/*.html")):
-    if "/" + rel not in WRITTEN and not rel.startswith("concepts/"):
+    # privacy/jakob-channels.html is a standalone policy for a private API tool
+    # (Google's review reads it as is), so it keeps its own page.
+    if "/" + rel not in WRITTEN and not rel.startswith("concepts/") and rel != "privacy/jakob-channels.html":
         reshell(rel)
 
 
