@@ -329,8 +329,13 @@ a.contact-card:hover { text-decoration: none; box-shadow: 0 10px 30px -18px rgba
   .t-dev .phone, .t-third .t-dev .phone, .g3 > :nth-child(n+4) .t-dev .phone { --pw: 210px; }
   .foot-apps ul { grid-template-columns: minmax(0, 1fr); }
 }
-@media (max-width: 380px) {
+/* the PDF tools link (Nov 2026) made the bar wider: privacy and support stay in the footer on phones */
+.nav a { white-space: nowrap; }
+@media (max-width: 600px) {
   .nav a[href$="privacy/"] { display: none; }
+}
+@media (max-width: 440px) {
+  .nav a[href$="support.html"] { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

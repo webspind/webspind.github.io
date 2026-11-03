@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://webspind.com/sitemap.xml
+Sitemap: https://webspind.com/pdf/sitemap.xml

@@ -19,12 +19,17 @@ import io, os, re, glob
 from html import escape as esc
 
 LOGO = "/favicon.svg"
+# Webspind PDF lives in its own tree (/pdf/, built from ~/Projects/halfmil/products/pdfsite).
+# English is /pdf/ and Danish is /pdf/da/, so its links do not go through P().
+PDF_HOME = "PDF"
+def pdf_href(lang):
+    return "/pdf/da/" if lang == "da" else "/pdf/"
 LINKEDIN = "https://dk.linkedin.com/in/jakobmunchbrandt"
 
 # Nav is (path, key); the label comes from LANG[lang]["nav"][key]. The paths
 # are Danish-tree paths — P() prefixes them with /en for the English tree.
 NAV = [("/#apps", "apps"), ("/#jakob", "about"),
-       ("/support.html", "support"), ("/privacy/", "privacy")]
+       ("/support.html", "support"), ("/privacy/", "privacy"), (PDF_HOME, "pdf")]
 
 FONT_LINKS = '''<link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,7 +49,7 @@ LANG = {
 "da": {
   "locale": "da_DK",
 
-  "nav": {"apps": "Apps", "about": "Om mig", "support": "Support", "privacy": "Privatliv"},
+  "nav": {"apps": "Apps", "about": "Om mig", "support": "Support", "privacy": "Privatliv", "pdf": "PDF-værktøjer"},
   "foot_help": "Hjælp",
   "foot_privacy_all": "Alle privatlivspolitikker",
   "foot_apps": "Privatliv og support pr. app",
@@ -210,7 +215,7 @@ LANG = {
 "en": {
   "locale": "en",
 
-  "nav": {"apps": "Apps", "about": "About", "support": "Support", "privacy": "Privacy"},
+  "nav": {"apps": "Apps", "about": "About", "support": "Support", "privacy": "Privacy", "pdf": "PDF tools"},
   "foot_help": "Help",
   "foot_privacy_all": "All privacy policies",
   "foot_apps": "Privacy and support per app",
@@ -507,7 +512,7 @@ def ext(href):
 def header(lang, current=None, switch=None):
     L = LANG[lang]
     links = "".join(
-        '\n        <a href="%s"%s>%s</a>' % (P(lang, h), ' aria-current="page"' if k == current else "", L["nav"][k])
+        '\n        <a href="%s"%s>%s</a>' % (pdf_href(lang) if h == PDF_HOME else P(lang, h), ' aria-current="page"' if k == current else "", L["nav"][k])
         for h, k in NAV)
     da_href, en_href = switch or ("/", "/en/")
     switch = ('\n        <span class="lang-switch">'
@@ -543,7 +548,7 @@ def footer(lang):
       <div class="foot-cols">
         <div>
           <h2>%s</h2>
-          <p><a href="%s">%s</a><a href="%s">%s</a><a href="mailto:webspind@gmail.com">webspind@gmail.com</a><a href="%s" rel="me noopener" target="_blank">LinkedIn</a><a href="%s" data-lang="%s" lang="%s">%s</a></p>
+          <p><a href="%s">%s</a><a href="%s">%s</a><a href="%s">%s</a><a href="mailto:webspind@gmail.com">webspind@gmail.com</a><a href="%s" rel="me noopener" target="_blank">LinkedIn</a><a href="%s" data-lang="%s" lang="%s">%s</a></p>
         </div>
         <div class="foot-apps">
           <h2>%s</h2>
@@ -553,7 +558,7 @@ def footer(lang):
       <p class="legal">%s</p>
     </div>
   </footer>''' % (L["foot_help"], P(lang, "/support.html"), L["lbl_support"], P(lang, "/privacy/"),
-                  L["foot_privacy_all"], LINKEDIN, other_href, other_code, other_code, other_name,
+                  L["foot_privacy_all"], pdf_href(lang), L["nav"]["pdf"], LINKEDIN, other_href, other_code, other_code, other_name,
                   L["foot_apps"], "".join(rows), L["legal"])
 
 
