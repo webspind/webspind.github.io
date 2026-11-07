@@ -15,7 +15,7 @@ See styles.css for the whole visual system.
 Hand-written pages (the per-app policies and support pages under privacy/,
 support/, en/, no/ and de/) keep their own <main>; reshell() at the bottom
 re-wraps them in the current header and footer, so they never drift."""
-import io, os, re, glob
+import io, os, re, glob, json
 from html import escape as esc
 
 LOGO = "/favicon.svg"
@@ -28,7 +28,10 @@ LINKEDIN = "https://dk.linkedin.com/in/jakobmunchbrandt"
 
 # Nav is (path, key); the label comes from LANG[lang]["nav"][key]. The paths
 # are Danish-tree paths — P() prefixes them with /en for the English tree.
-NAV = [("/#apps", "apps"), ("/#jakob", "about"),
+ARTICLES_HOME = "ARTICLES"
+def articles_href(lang):
+    return "/artikler/" if lang == "da" else "/en/articles/"
+NAV = [("/#apps", "apps"), (ARTICLES_HOME, "articles"), ("/#jakob", "about"),
        ("/support.html", "support"), ("/privacy/", "privacy"), (PDF_HOME, "pdf")]
 
 FONT_LINKS = '''<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,7 +52,7 @@ LANG = {
 "da": {
   "locale": "da_DK",
 
-  "nav": {"apps": "Apps", "about": "Om mig", "support": "Support", "privacy": "Privatliv", "pdf": "PDF-værktøjer"},
+  "nav": {"apps": "Apps", "articles": "Artikler", "about": "Om mig", "support": "Support", "privacy": "Privatliv", "pdf": "PDF-værktøjer"},
   "foot_help": "Hjælp",
   "foot_privacy_all": "Alle privatlivspolitikker",
   "foot_apps": "Privatliv og support pr. app",
@@ -215,7 +218,7 @@ LANG = {
 "en": {
   "locale": "en",
 
-  "nav": {"apps": "Apps", "about": "About", "support": "Support", "privacy": "Privacy", "pdf": "PDF tools"},
+  "nav": {"apps": "Apps", "articles": "Articles", "about": "About", "support": "Support", "privacy": "Privacy", "pdf": "PDF tools"},
   "foot_help": "Help",
   "foot_privacy_all": "All privacy policies",
   "foot_apps": "Privacy and support per app",
@@ -390,9 +393,10 @@ LANG = {
 #            These are the URLs App Store Connect points at — never move them.
 #   pdesc    one line for the privacy index card
 STORE_JAGTPROVEN = "https://apps.apple.com/dk/app/id6811615877"
+STORE_WAKEBIRD = "https://apps.apple.com/dk/app/id6820910324"
 
 APPS = [
-    dict(id="wakebird", name="Wakebird", full="Wakebird: Birdsong Alarm Clock", status="review", c="#c4421f",
+    dict(id="wakebird", name="Wakebird", full="Wakebird: Birdsong Alarm Clock", status="live", c="#c4421f", store=STORE_WAKEBIRD,
          kind={"da": "Vækkeur med fuglesang", "en": "Birdsong alarm clock"},
          line={"da": "Vågn til ægte fuglesang.", "en": "Wake to real birdsong."},
          desc={"da": "Syv morgenkor fra rigtige vilde fugle. Én fugl begynder blidt, de andre stemmer i, og bagefter ser du, hvem der vækkede dig. Kan også ringe ved solopgang, og den ringer, selv når telefonen er på lydløs.",
@@ -512,7 +516,7 @@ def ext(href):
 def header(lang, current=None, switch=None):
     L = LANG[lang]
     links = "".join(
-        '\n        <a href="%s"%s>%s</a>' % (pdf_href(lang) if h == PDF_HOME else P(lang, h), ' aria-current="page"' if k == current else "", L["nav"][k])
+        '\n        <a href="%s"%s>%s</a>' % (pdf_href(lang) if h == PDF_HOME else articles_href(lang) if h == ARTICLES_HOME else P(lang, h), ' aria-current="page"' if k == current else "", L["nav"][k])
         for h, k in NAV)
     da_href, en_href = switch or ("/", "/en/")
     switch = ('\n        <span class="lang-switch">'
@@ -1043,6 +1047,177 @@ def page(path, *a, **k):
     WRITTEN.append(path if not path.endswith("/") else path + "index.html")
     _page(path, *a, **k)
 
+
+
+# ---------------------------------------------------------------- articles
+# Source: Viden/site-articles/*.md in the factory repo (front matter + a small
+# Markdown subset). Danish pieces go to /artikler/, English to /en/articles/.
+
+ARTICLE_SRC = os.path.join("..", "..", "Viden", "site-articles")
+ARTICLE_APPS = {
+    "jagtproven": dict(lang="da", name="Jagtprøven", store=STORE_JAGTPROVEN,
+                       line="Øv til jagtprøven på iPhone og iPad. Appen er ikke officiel.", btn="Hent i App Store"),
+    "wakebird": dict(lang="en", name="Wakebird", store=STORE_WAKEBIRD,
+                     line="An iPhone alarm clock that rings with real birdsong. One purchase, no subscription.", btn="Get it on the App Store"),
+}
+ARTICLE_TXT = {
+    "da": dict(title="Artikler om jagtprøven — Webspind", h="Artikler",
+               desc="Artikler om jagtprøven, vildtarter og jagttider af Jakob Munch-Brandt.",
+               lede="Om jagtprøven, vildtarterne og jagttiderne. Mine egne vurderinger, med links til reglerne.",
+               by="Af Jakob Munch-Brandt", back="Alle artikler", other="Articles in English"),
+    "en": dict(title="Articles on waking up — Webspind", h="Articles",
+               desc="Articles on birdsong, alarm sounds and waking up on iPhone by Jakob Munch-Brandt.",
+               lede="On birdsong, alarm sounds and waking up. My own opinions, and I say where the evidence stops.",
+               by="By Jakob Munch-Brandt", back="All articles", other="Artikler på dansk"),
+}
+
+def md_inline(t):
+    t = esc(t)
+    t = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)", lambda m: '<a href="%s"%s>%s</a>' % (
+        m.group(2), ' target="_blank" rel="noopener"' if m.group(2).startswith("http") else "", m.group(1)), t)
+    t = re.sub(r"(?<![\"=>])(https?://[^\s<]+)", r'<a href="\1" target="_blank" rel="noopener">\1</a>', t)
+    t = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
+    return re.sub(r"(?<!\*)\*([^*\n]+)\*(?!\*)", r"<em>\1</em>", t)
+
+def md_block(head, rows):
+    cells = [[c.strip() for c in r.split(" | ")] for r in rows]
+    if head in ("answer", "note"):
+        return '<div class="art-%s"><p>%s</p></div>' % (head, md_inline(" ".join(rows)))
+    if head == "stats":
+        return '<div class="art-stats">%s</div>' % "".join(
+            '<div><b>%s</b><span>%s</span></div>' % (esc(c[0]), md_inline(c[1])) for c in cells)
+    if head == "steps":
+        return '<ol class="art-steps">%s</ol>' % "".join(
+            '<li><strong>%s</strong><span>%s</span></li>' % (md_inline(c[0]), md_inline(c[1])) for c in cells)
+    if head == "cards":
+        return '<div class="art-cards">%s</div>' % "".join(
+            '<div><strong>%s</strong><p>%s</p></div>' % (md_inline(c[0]), md_inline(c[1])) for c in cells)
+    if head == "chips":
+        return '<ul class="art-chips">%s</ul>' % "".join("<li>%s</li>" % md_inline(r) for r in rows)
+    if head == "gantt":
+        axis = [(p.split(":")[0].strip(), int(p.split(":")[1])) for p in rows[0].split(",")]
+        total = float(sum(n for _, n in axis))
+        ticks = "".join('<span style="width:%.3f%%">%s</span>' % (n / total * 100, esc(t)) for t, n in axis)
+        grid = "".join('<i style="left:%.3f%%"></i>' % (sum(n for _, n in axis[:k]) / total * 100) for k in range(1, len(axis)))
+        out = []
+        for c in cells[1:]:
+            a, b = int(c[1]), int(c[2])
+            out.append('<div class="art-row"><div class="art-row-l"><strong>%s</strong><span>%s</span></div>'
+                       '<div class="art-track">%s<em class="art-bar-%s" style="left:%.3f%%;width:%.3f%%"></em></div></div>'
+                       % (esc(c[0]), esc(c[4]), grid, c[3], a / total * 100, (b - a) / total * 100))
+        return ('<div class="art-gantt"><div class="art-row art-axis"><div class="art-row-l"></div><div class="art-ticks">%s</div></div>%s</div>'
+                % (ticks, "".join(out)))
+    if head.startswith("phone "):
+        img, alt, link = [x.strip() for x in head[6:].split(" | ")]
+        m = re.match(r"\[(.*)\]\((.*)\)", link)
+        return ('<a class="art-phone" href="%s" target="_blank" rel="noopener"><span class="art-phone-in"><img src="/assets/apps/screens/%s.webp" width="600" height="1304" alt="%s" loading="lazy"></span>'
+                '<span class="art-phone-link">%s</span></a>' % (m.group(2), img, esc(alt), esc(m.group(1))))
+    raise ValueError(head)
+
+def md_html(md):
+    out, lines, i = [], md.split("\n"), 0
+    while i < len(lines):
+        ln = lines[i].rstrip()
+        if not ln:
+            i += 1
+        elif ln.startswith(":::"):
+            head = ln[3:].strip()
+            i += 1
+            inner = []
+            while not lines[i].startswith(":::"):
+                inner.append(lines[i].rstrip()); i += 1
+            i += 1
+            out.append(md_block(head, [x for x in inner if x]))
+        elif ln.startswith("## "):
+            out.append("<h2>%s</h2>" % md_inline(ln[3:])); i += 1
+        elif ln.startswith("|"):
+            rows = []
+            while i < len(lines) and lines[i].startswith("|"):
+                rows.append([c.strip() for c in lines[i].strip().strip("|").split("|")]); i += 1
+            head = "".join("<th>%s</th>" % md_inline(c) for c in rows[0])
+            body = "".join("<tr>%s</tr>" % "".join("<td>%s</td>" % md_inline(c) for c in r) for r in rows[2:])
+            out.append('<div class="article-table"><table><thead><tr>%s</tr></thead><tbody>%s</tbody></table></div>' % (head, body))
+        elif re.match(r"(- |\d+\. )", ln):
+            tag = "ul" if ln.startswith("- ") else "ol"
+            items = []
+            while i < len(lines) and re.match(r"(- |\d+\. )", lines[i]):
+                items.append("<li>%s</li>" % md_inline(re.sub(r"^(- |\d+\. )", "", lines[i].rstrip()))); i += 1
+            out.append("<%s>%s</%s>" % (tag, "".join(items), tag))
+        else:
+            para = []
+            while i < len(lines) and lines[i].strip() and not re.match(r"(## |\||- |\d+\. )", lines[i]):
+                para.append(lines[i].strip()); i += 1
+            out.append("<p>%s</p>" % md_inline(" ".join(para)))
+    return "\n        ".join(out)
+
+def load_articles():
+    arts = []
+    for f in sorted(glob.glob(os.path.join(ARTICLE_SRC, "*.md"))):
+        raw = io.open(f, encoding="utf-8").read()
+        _, front, md = raw.split("---\n", 2)
+        title = re.search(r'^title: "(.*)"$', front, re.M).group(1)
+        desc = re.search(r'^(?:meta_)?description: "(.*)"$', front, re.M).group(1)
+        md = re.sub(r"^# .*\n", "", md.strip() + "\n", count=1)
+        stem = os.path.basename(f)[:-3]
+        app = ARTICLE_APPS[stem.split("-")[0]]
+        slug = stem[len("wakebird-"):] if stem.startswith("wakebird-") else stem
+        parts = re.split(r"^## (?:Sources|Kilder)\s*$", md, flags=re.M)
+        arts.append(dict(title=title, desc=desc, body=parts[0], sources=parts[1] if len(parts) > 1 else "",
+                         app=app, lang=app["lang"], slug=slug, key=stem.split("-")[0],
+                         path="%s%s/" % (articles_href(app["lang"]), slug)))
+    return arts
+
+def article_page(a):
+    T, app = ARTICLE_TXT[a["lang"]], a["app"]
+    cta = ('<div class="article-cta"><img src="/assets/apps/icons/%s.webp" width="64" height="64" alt="" loading="lazy">'
+           '<div><strong>%s</strong><p>%s</p></div><a class="btn" href="%s" target="_blank" rel="noopener">%s</a></div>'
+           % (a["key"], esc(app["name"]), esc(app["line"]), app["store"], app["btn"]))
+    src = ""
+    if a["sources"].strip():
+        src = '<details class="article-sources"><summary>%s</summary>%s</details>' % (
+            "Kilder" if a["lang"] == "da" else "Sources", md_html(a["sources"].strip()))
+    ld = json.dumps({"@context": "https://schema.org", "@type": "Article", "headline": a["title"],
+                     "description": a["desc"], "inLanguage": a["lang"],
+                     "url": "https://webspind.com" + a["path"],
+                     "author": {"@type": "Person", "name": "Jakob Munch-Brandt"}}, ensure_ascii=False)
+    body = """    <article class="policy article">
+      <div class="page-head" style="gap:12px">
+        <a class="breadcrumb" href="%s">%s</a>
+        <h1>%s</h1>
+        <p class="updated">%s · %d min</p>
+      </div>
+      <div class="article-body">
+        %s
+      </div>
+      %s
+      %s
+    </article>
+    <script type="application/ld+json">%s</script>""" % (
+        articles_href(a["lang"]), T["back"], esc(a["title"]), T["by"], max(2, round(len(re.findall(r"\w+", a["body"])) / 200)), md_html(a["body"]), cta, src, ld)
+    page(a["path"], esc(a["title"]), esc(a["desc"]), body, lang=a["lang"], redirect=False,
+         switch=("/artikler/", "/en/articles/"))
+
+def article_index(lang, arts):
+    T = ARTICLE_TXT[lang]
+    other = articles_href("en" if lang == "da" else "da")
+    rows = "\n".join('        <a class="article-row" href="%s"><img src="/assets/apps/icons/%s.webp" width="56" height="56" alt="" loading="lazy">'
+                     '<span><strong>%s</strong><span>%s</span></span></a>' % (a["path"], a["key"], esc(a["title"]), esc(a["desc"]))
+                     for a in arts if a["lang"] == lang)
+    body = """    <div class="policy article">
+      <div class="page-head"><h1>%s</h1><p>%s</p></div>
+      <div class="article-list">
+%s
+      </div>
+      <p><a href="%s">%s</a></p>
+    </div>""" % (T["h"], T["lede"], rows, other, T["other"])
+    page(articles_href(lang), T["title"], T["desc"], body, lang=lang, current="articles", redirect=False,
+         switch=("/artikler/", "/en/articles/"))
+
+_arts = load_articles()
+for _a in _arts:
+    article_page(_a)
+for _l in ("da", "en"):
+    article_index(_l, _arts)
 
 for lang in ("da", "en"):
     L = LANG[lang]

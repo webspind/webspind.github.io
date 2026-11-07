@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://webspind.com/</loc></url>
+  <url><loc>https://webspind.com/artikler/</loc></url>
+  <url><loc>https://webspind.com/artikler/jagtproven-jagttider/</loc></url>
+  <url><loc>https://webspind.com/artikler/jagtproven-laer-vildtarterne/</loc></url>
+  <url><loc>https://webspind.com/artikler/jagtproven-saadan-foregaar-den/</loc></url>
   <url><loc>https://webspind.com/de/privacy/wendemarke.html</loc></url>
   <url><loc>https://webspind.com/de/support/wendemarke.html</loc></url>
   <url><loc>https://webspind.com/en/</loc></url>
+  <url><loc>https://webspind.com/en/articles/</loc></url>
+  <url><loc>https://webspind.com/en/articles/alarm-sounds/</loc></url>
+  <url><loc>https://webspind.com/en/articles/dawn-chorus/</loc></url>
+  <url><loc>https://webspind.com/en/articles/gentle-iphone-alarm/</loc></url>
   <url><loc>https://webspind.com/en/jagtproven/</loc></url>
   <url><loc>https://webspind.com/en/privacy/</loc></url>
   <url><loc>https://webspind.com/en/privacy/cookside.html</loc></url>
@@ -21,6 +29,7 @@
   <url><loc>https://webspind.com/jagtproven/</loc></url>
   <url><loc>https://webspind.com/no/privacy/fortoy.html</loc></url>
   <url><loc>https://webspind.com/no/support/fortoy.html</loc></url>
+  <url><loc>https://webspind.com/pdf/privacy/index.html</loc></url>
   <url><loc>https://webspind.com/privacy/</loc></url>
   <url><loc>https://webspind.com/privacy/cookside.html</loc></url>
   <url><loc>https://webspind.com/privacy/friendloop.html</loc></url>

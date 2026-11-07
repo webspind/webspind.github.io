@@ -221,6 +221,67 @@ a.contact-card:hover { text-decoration: none; box-shadow: 0 10px 30px -18px rgba
 .policy-sections ul { margin: 8px 0 0; padding-left: 20px; line-height: 1.6; }
 .policy-contact { border-radius: 22px; background: var(--card); padding: 22px; line-height: 1.6; }
 
+/* ---------- articles */
+.article .breadcrumb { font-size: 15px; font-weight: 600; }
+.article-body { display: flex; flex-direction: column; gap: 16px; font-size: 18px; line-height: 1.65; }
+.article-body h2 { font-size: clamp(24px, 3vw, 30px); line-height: 1.15; letter-spacing: -.025em; margin-top: 18px; }
+.article-body ul, .article-body ol { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 6px; }
+.article-body a, .article-sources a { color: var(--link); text-decoration: underline; text-underline-offset: 2px; overflow-wrap: anywhere; }
+.article-table { overflow-x: auto; border-radius: 16px; background: var(--card); }
+.article-table table { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.4; }
+.article-table th, .article-table td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); }
+.article-table tr:last-child td { border-bottom: 0; }
+.article-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; border-radius: 22px; background: var(--card); padding: 22px; }
+.article-cta img { border-radius: 14px; flex: none; }
+.article-cta div { flex: 1 1 220px; }
+.article-cta p { line-height: 1.45; margin-top: 2px; }
+.article-sources { font-size: 15px; line-height: 1.55; }
+.article-sources summary { font-weight: 600; cursor: pointer; }
+.article-sources ul { margin: 10px 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.article-list { display: flex; flex-direction: column; gap: 12px; }
+.article-row { display: flex; gap: 16px; align-items: flex-start; border-radius: 20px; background: var(--card); padding: 18px; color: inherit; text-decoration: none; }
+.article-row img { border-radius: 12px; flex: none; }
+.article-row > span { display: flex; flex-direction: column; gap: 4px; line-height: 1.4; }
+.article-row strong { font-size: 19px; line-height: 1.2; letter-spacing: -.015em; }
+
+.art-answer { background: var(--card); border-radius: 18px; padding: 18px 20px; font-size: 19px; line-height: 1.5; font-weight: 500; }
+.art-note { border-radius: 18px; padding: 16px 18px; background: rgba(176, 57, 31, .08); font-size: 17px; line-height: 1.55; }
+.art-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 10px; }
+.art-stats > div { background: var(--card); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 4px; }
+.art-stats b { font-size: 30px; line-height: 1.05; letter-spacing: -.03em; color: var(--accent); font-variant-numeric: tabular-nums; }
+.art-stats span { font-size: 14px; line-height: 1.35; }
+.article-body .art-steps { list-style: none; padding: 0; margin: 0; counter-reset: st; display: flex; flex-direction: column; gap: 0; }
+.art-steps li { counter-increment: st; position: relative; padding: 0 0 18px 46px; display: flex; flex-direction: column; line-height: 1.45; }
+.art-steps li::before { content: counter(st); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: var(--bg); display: grid; place-items: center; font-size: 14px; font-weight: 700; }
+.art-steps li::after { content: ""; position: absolute; left: 14px; top: 34px; bottom: 4px; width: 2px; background: var(--line); }
+.art-steps li:last-child { padding-bottom: 0; }
+.art-steps li:last-child::after { display: none; }
+.art-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+.art-cards > div { background: var(--card); border-radius: 18px; padding: 16px 18px; line-height: 1.45; }
+.art-cards p { margin-top: 4px; font-size: 16px; }
+.article-body .art-chips { list-style: none; padding: 0; flex-direction: row; flex-wrap: wrap; gap: 8px; }
+.art-chips li { background: var(--card); border-radius: 999px; padding: 6px 13px; font-size: 15px; line-height: 1.3; }
+.art-gantt { background: var(--card); border-radius: 18px; padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+.art-row { display: grid; grid-template-columns: minmax(0, 11em) minmax(0, 1fr); gap: 12px; align-items: center; }
+.art-row-l { display: flex; flex-direction: column; line-height: 1.25; font-size: 15px; }
+.art-row-l span { font-size: 13px; opacity: .7; }
+.art-ticks { display: flex; font-size: 12px; font-weight: 600; }
+.art-ticks span { white-space: nowrap; overflow: hidden; }
+.art-track { position: relative; height: 18px; border-radius: 9px; background: rgba(0, 0, 0, .06); overflow: hidden; }
+.art-track i { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--card); }
+.art-track em { position: absolute; top: 0; bottom: 0; border-radius: 9px; }
+.art-bar-a { background: #b0391f; } .art-bar-b { background: #2b7334; } .art-bar-c { background: #8a6a2f; } .art-bar-d { background: #3d6fa8; }
+.art-phone { align-self: center; display: flex; flex-direction: column; align-items: center; gap: 12px; margin: 10px 0; }
+.article-body .art-phone { text-decoration: none; }
+.art-phone-in { width: min(250px, 66vw); border-radius: 34px; padding: 8px; background: #1d1d1f; display: block; }
+.art-phone-in img { display: block; width: 100%; height: auto; border-radius: 27px; }
+.art-phone-link { font-weight: 600; text-decoration: underline; text-underline-offset: 2px; text-align: center; }
+@media (max-width: 600px) {
+  .art-row { grid-template-columns: minmax(0, 1fr); gap: 5px; }
+  .art-axis .art-row-l { display: none; }
+  .art-answer { font-size: 18px; }
+}
+
 /* ---------- Jagtprøven page */
 .hero-plain { text-align: left; padding: clamp(40px, 6vw, 80px) var(--g) 0; overflow: visible; }
 .hero-inner { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: clamp(28px, 4vw, 48px); }
@@ -336,6 +397,7 @@ a.contact-card:hover { text-decoration: none; box-shadow: 0 10px 30px -18px rgba
 }
 @media (max-width: 440px) {
   .nav a[href$="support.html"] { display: none; }
+  .nav a[href^="/pdf/"] { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
