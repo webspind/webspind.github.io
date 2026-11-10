@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="da" data-nolang>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Feriepenge beregner: ferie med løn, feriegodtgørelse og feriedage | Webspind</title>
+  <meta name="description" content="Feriepenge beregner: se hvor mange feriedage du optjener efter samtidighedsferie, og hvad ferie med løn og feriegodtgørelse på 12,5 % giver dig.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/beregnere/beregnere.css">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#f5f5f7">
+  <link rel="canonical" href="https://webspind.com/beregnere/feriepenge/">
+  <meta property="og:title" content="Feriepenge beregner: ferie med løn, feriegodtgørelse og feriedage | Webspind">
+  <meta property="og:description" content="Feriepenge beregner: se hvor mange feriedage du optjener efter samtidighedsferie, og hvad ferie med løn og feriegodtgørelse på 12,5 % giver dig.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="da_DK">
+  <meta property="og:url" content="https://webspind.com/beregnere/feriepenge/">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Feriepenge beregner", "url": "https://webspind.com/beregnere/feriepenge/", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "browserRequirements": "Kræver JavaScript", "inLanguage": "da", "isAccessibleForFree": true, "description": "Feriepenge beregner: se hvor mange feriedage du optjener efter samtidighedsferie, og hvad ferie med løn og feriegodtgørelse på 12,5 % giver dig.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "DKK"}, "author": {"@type": "Person", "name": "Jakob Munch-Brandt"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Hvor mange feriedage optjener jeg om måneden?", "acceptedAnswer": {"@type": "Answer", "text": "2,08 feriedage for hver måned, du er ansat. Det gælder uanset arbejdstid. Et helt ferieår giver 24,96 dage, altså de 5 ugers ferie."}}, {"@type": "Question", "name": "Hvor meget er feriepenge i procent?", "acceptedAnswer": {"@type": "Answer", "text": "Feriegodtgørelse er 12,5 % af din løn før AM-bidrag og A-skat. Har du ferie med løn, får du et ferietillæg på 1 % af lønnen."}}, {"@type": "Question", "name": "Hvornår kan jeg holde min ferie?", "acceptedAnswer": {"@type": "Answer", "text": "Du kan holde ferie, efterhånden som du optjener den. Ferieåret går fra 1. september til 31. august, og ferien skal holdes senest 31. december året efter."}}, {"@type": "Question", "name": "Hvornår får jeg 12 % i stedet for 12,5 %?", "acceptedAnswer": {"@type": "Answer", "text": "Hvis du har ret til løn under ferie, kan du før ferieårets begyndelse vælge feriegodtgørelse i stedet. Så er satsen 12 % af lønnen."}}]}</script>
+</head>
+<body>
+  <a class="skip" href="#main">Spring til apps</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Webspind</a>
+      <nav class="nav" aria-label="Main">
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><span></span></button>
+        <div class="nav-panel" id="site-menu"><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-apps">Apps</button><div class="nav-drop" id="nd-apps"><div class="nav-drop-in"><a href="/#wakebird">Wakebird</a><a href="/jagtproven/">Jagtprøven</a><a href="/#dronecamp">DroneCamp</a></div></div></div><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-tools">Værktøjer</button><div class="nav-drop" id="nd-tools"><div class="nav-drop-in"><a href="/pdf/da/">PDF-værktøjer</a><a href="/tools/da/">Filer på din enhed</a><a href="/beregnere/">Beregnere</a><p class="nav-group">Prøver</p><a href="/jagtproeve-quiz/">Jagtprøve-quiz</a><a href="/jagttider-i-dag/">Jagttider i dag</a></div></div></div><a href="/artikler/">Artikler</a><a href="/#jakob">Om mig</a><a href="/support.html">Support</a></div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="b-page" style="--c:#b0391f">
+      <p class="breadcrumb"><a href="/beregnere/">Beregnere</a> / Feriepenge beregner</p>
+      <h1>Feriepenge beregner</h1>
+      <p class="b-lede">Se dine optjente feriedage, og sammenlign ferie med løn med feriegodtgørelse på 12,5 %.</p>
+      <section class="b-calc" aria-label="Beregner">
+        <form class="b-in" id="ferie-form" onsubmit="return false" novalidate>
+          <label class="field">Månedsløn før skat (kr.)<span class="b-hint">Før AM-bidrag og A-skat</span>
+            <input id="f-loen" inputmode="decimal" autocomplete="off" value="35.000" data-kr>
+          </label>
+          <label class="field">Hele måneder ansat i ferieåret (0 til 12)<span class="b-hint">Ferieåret går fra 1. september til 31. august</span>
+            <input id="f-maaneder" inputmode="numeric" autocomplete="off" value="12">
+          </label>
+          <label class="field">Ekstra dage ansat (kortere end en hel måned)<span class="b-hint">Regnes som 0,07 feriedag pr. kalenderdag</span>
+            <input id="f-dage" inputmode="numeric" autocomplete="off" value="0">
+          </label>
+        </form>
+        <div class="b-out" aria-live="polite">
+          <p class="b-big-lbl" id="f-lbl">Optjente feriedage</p>
+          <p class="b-big" id="f-dagene">–</p>
+          <dl class="b-rows">
+              <div class="b-row"><dt>Løn i perioden</dt><dd id="f-lonper">–</dd></div>
+              <div class="b-row"><dt>Feriegodtgørelse, 12,5 %</dt><dd id="f-godt">–</dd></div>
+              <div class="b-row"><dt>Ferietillæg, 1 %</dt><dd id="f-tillaeg">–</dd></div>
+              <div class="b-row"><dt>Løn under ferie, anslået <span class="b-note">(optjente dage x dagsløn)</span></dt><dd id="f-loen-ferie">–</dd></div>
+              <div class="b-row"><dt>I alt med ferie med løn</dt><dd id="f-medlon">–</dd></div>
+          </dl>
+          <p class="b-res-note">Vælger du feriegodtgørelse i stedet for løn under ferie før ferieåret, er satsen 12 %: <strong id="f-godt12">–</strong></p><p class="b-res-note" id="f-note"></p>
+        </div>
+      </section>
+      <p class="b-meta">Regler fra ferieloven, som de gælder i 2026. Sidst tjekket 10. november 2026. Det her er et skøn. Din ansættelse og ferieloven afgør dine feriepenge, og Skattestyrelsens forskudsopgørelse afgør skatten af dem.</p>
+
+      <section class="b-sec"><h2>Sådan fungerer samtidighedsferie</h2>
+        <p>Du optjener ferie, mens du arbejder, og du kan holde den, efterhånden som du optjener den. Ferieåret løber fra 1. september til 31. august, og du har frem til 31. december året efter til at holde ferien.</p>
+        <p>Du optjener <strong>2,08 feriedage for hver hele måned</strong> du er ansat, uanset om du er på fuld tid eller deltid. Et helt år giver 24,96 dage, som svarer til de 5 ugers ferie, ferieloven giver dig. Er du ansat i kortere tid end en hel måned, optjener du 0,07 feriedag pr. kalenderdag.</p>
+      </section>
+      <section class="b-sec"><h2>Ferie med løn eller feriegodtgørelse?</h2>
+        <p>Er du ansat med månedsløn og har løn på helligdage og under sygdom, får du som regel <strong>ferie med løn</strong>: din sædvanlige løn mens du holder fri, plus et ferietillæg på 1 % af lønnen. Alle andre lønmodtagere får <strong>feriegodtgørelse</strong> på 12,5 % af lønnen før AM-bidrag og A-skat.</p>
+        <div class="b-ex"><strong>Eksempel.</strong> Med 35.000 kr. om måneden i et helt ferieår er din løn 420.000 kr. Feriegodtgørelsen er 12,5 % = 52.500 kr. Har du ferie med løn, får du 4.200 kr. i ferietillæg, og lønnen under de 24,96 dage er anslået til 40.320 kr., i alt cirka 44.520 kr.</div>
+        <p>Løn under ferie er her anslået ud fra 260 arbejdsdage om året (5 dage x 52 uger), kun for at gøre tallene sammenlignelige. Med feriegodtgørelse får du normalt ikke løn på de dage, du holder ferie; feriepengene træder i stedet.</p>
+        <p>Siger du op, får du feriegodtgørelse for den ferie, du ikke har holdt. Har du løn under ferie, kan du selv vælge feriegodtgørelse før ferieåret begynder. Så er satsen 12 % af lønnen.</p>
+      </section>
+      <section class="b-sec"><h2>Spørgsmål og svar</h2>
+        <div class="b-faq">
+          <div class="b-q"><h3>Hvor mange feriedage optjener jeg om måneden?</h3><p>2,08 feriedage for hver måned, du er ansat. Det gælder uanset arbejdstid. Et helt ferieår giver 24,96 dage, altså de 5 ugers ferie.</p></div>
+          <div class="b-q"><h3>Hvor meget er feriepenge i procent?</h3><p>Feriegodtgørelse er 12,5 % af din løn før AM-bidrag og A-skat. Har du ferie med løn, får du et ferietillæg på 1 % af lønnen.</p></div>
+          <div class="b-q"><h3>Hvornår kan jeg holde min ferie?</h3><p>Du kan holde ferie, efterhånden som du optjener den. Ferieåret går fra 1. september til 31. august, og ferien skal holdes senest 31. december året efter.</p></div>
+          <div class="b-q"><h3>Hvornår får jeg 12 % i stedet for 12,5 %?</h3><p>Hvis du har ret til løn under ferie, kan du før ferieårets begyndelse vælge feriegodtgørelse i stedet. Så er satsen 12 % af lønnen.</p></div>
+        </div>
+      </section>
+      <section class="b-sec b-sources"><h2>Kilder</h2><ul><li><a href="https://www.retsinformation.dk/eli/lta/2024/152" rel="noopener" target="_blank">Ferieloven (LBK nr. 152 af 20. februar 2024)</a></li><li><a href="https://www.borger.dk/arbejde-dagpenge-ferie/Oversigt-ferie/loenmodtager-og-ferie" rel="noopener" target="_blank">borger.dk: Lønmodtager og ferie</a></li></ul></section>
+      <nav class="b-other" aria-label="Andre beregnere"><h2>Andre beregnere</h2><div class="b-links"><a href="/beregnere/momsberegner/"><strong>Momsberegner</strong><span>Læg 25 % moms til, eller træk momsen ud af en pris.</span></a><a href="/beregnere/loen-efter-skat/"><strong>Løn efter skat</strong><span>Fra bruttoløn til det, du får udbetalt, i din kommune.</span></a><a href="/beregnere/koerselsfradrag/"><strong>Kørselsfradrag</strong><span>Dit befordringsfradrag fra de aktuelle kilometersatser.</span></a></div></nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="foot-cols">
+        <div>
+          <h2>Hjælp</h2>
+          <p><a href="/support.html">Support</a><a href="/privacy/">Alle privatlivspolitikker</a><a href="/pdf/da/">PDF-værktøjer</a><a href="mailto:webspind@gmail.com">webspind@gmail.com</a><a href="https://dk.linkedin.com/in/jakobmunchbrandt" rel="me noopener" target="_blank">LinkedIn</a><a href="/en/" data-lang="en" lang="en">English</a></p>
+        </div>
+        <div class="foot-apps">
+          <h2>Privatliv og support pr. app</h2>
+          <ul><li><span class="fl-name">Wakebird</span><a href="/privacy/wakebird.html">Privatliv</a></li><li><span class="fl-name">Jagtprøven</span><a href="/jagtproven/">Om appen</a><a href="/privacy/jagtproven.html">Privatliv</a><a href="/support.html">Support</a></li><li><span class="fl-name">DroneCamp</span><a href="/privacy/dronecamp.html">Privatliv</a><a href="/support/dronecamp.html">Support</a></li></ul>
+        </div>
+      </div>
+      <p class="legal">© 2026 Jakob Munch-Brandt. Webspind er navnet, jeg udgiver under. Lavet i Danmark.</p>
+    </div>
+  </footer>
+
+  <script src="/site.js"></script>
+  <script src="/beregnere/satser-2026.js"></script>
+  <script src="/beregnere/satser-2027.js"></script>
+  <script src="/beregnere/beregn.js"></script>
+  <script src="/beregnere/ui.js"></script>
+  <script src="/nav.js"></script>
+</body>
+</html>

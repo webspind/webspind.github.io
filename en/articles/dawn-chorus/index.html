@@ -25,12 +25,8 @@
     <div class="wrap">
       <a class="brand" href="/en/">Webspind</a>
       <nav class="nav" aria-label="Main">
-        <a href="/en/#apps">Apps</a>
-        <a href="/en/articles/">Articles</a>
-        <a href="/en/#jakob">About</a>
-        <a href="/en/support.html">Support</a>
-        <a href="/en/privacy/">Privacy</a>
-        <a href="/pdf/">PDF tools</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><span></span></button>
+        <div class="nav-panel" id="site-menu"><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-apps">Apps</button><div class="nav-drop" id="nd-apps"><div class="nav-drop-in"><a href="/en/#wakebird">Wakebird</a><a href="/en/jagtproven/">Jagtprøven</a><a href="/en/#dronecamp">DroneCamp</a></div></div></div><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-tools">Tools</button><div class="nav-drop" id="nd-tools"><div class="nav-drop-in"><a href="/pdf/">PDF tools</a><a href="/tools/">Files on your device</a><p class="nav-group">Practice tests</p><a href="/part-107-practice-test/">Part 107 practice test</a></div></div></div><a href="/en/articles/">Articles</a><a href="/en/#jakob">About</a><a href="/en/support.html">Support</a></div>
         <span class="lang-switch"><a href="/artikler/" data-lang="da" hreflang="da">DA</a><a href="/en/articles/" data-lang="en" hreflang="en" aria-current="true">EN</a></span>
       </nav>
     </div>
@@ -66,6 +62,7 @@
         <ol class="art-steps"><li><strong>0 seconds</strong><span>One bird starts softly.</span></li><li><strong>Over 29 seconds</strong><span>The others join in.</span></li><li><strong>2 minutes later</strong><span>A second chorus starts, if you sleep on.</span></li><li><strong>Afterwards</strong><span>The app shows which birds woke you.</span></li></ol>
         <a class="art-phone" href="https://apps.apple.com/app/id6820910324" target="_blank" rel="noopener"><span class="art-phone-in"><img src="/assets/apps/screens/wakebird-a-en.webp" width="600" height="1304" alt="Wakebird on iPhone" loading="lazy"></span><span class="art-phone-link">Get Wakebird on the App Store</span></a>
         <p>It rings through iOS&#x27;s own alarm system, so it still sounds on silent or in a Focus. It is a one-time purchase with no subscription. And if you would rather not install anything, go outside at first light in May and listen.</p>
+        
       </div>
       <div class="article-cta"><img src="/assets/apps/icons/wakebird.webp" width="64" height="64" alt="" loading="lazy"><div><strong>Wakebird</strong><p>An iPhone alarm clock that rings with real birdsong. One purchase, no subscription.</p></div><a class="btn" href="https://apps.apple.com/dk/app/id6820910324" target="_blank" rel="noopener">Get it on the App Store</a></div>
       <details class="article-sources"><summary>Sources</summary><ul><li>RSPB, &quot;The Dawn Chorus&quot;: <a href="https://www.rspb.org.uk/whats-happening/news/the-dawn-chorus-all-you-need-to-know-about-natures-big-show" target="_blank" rel="noopener">https://www.rspb.org.uk/whats-happening/news/the-dawn-chorus-all-you-need-to-know-about-natures-big-show</a></li><li>Woodland Trust, &quot;Dawn Chorus: Why Birds Sing in the Morning&quot;: <a href="https://www.woodlandtrust.org.uk/blog/2019/04/dawn-chorus/" target="_blank" rel="noopener">https://www.woodlandtrust.org.uk/blog/2019/04/dawn-chorus/</a></li></ul></details>
@@ -82,13 +79,15 @@
         </div>
         <div class="foot-apps">
           <h2>Privacy and support per app</h2>
-          <ul><li><span class="fl-name">Wakebird</span><a href="/en/privacy/wakebird.html">Privacy</a></li><li><span class="fl-name">Friendloop</span><a href="/en/privacy/friendloop.html">Privacy</a></li><li><span class="fl-name">Supersub</span><a href="/en/privacy/supersub.html">Privacy</a></li><li><span class="fl-name">Longwalk</span><a href="/en/privacy/longwalk.html">Privacy</a></li><li><span class="fl-name">Jagtprøven</span><a href="/en/jagtproven/">About the app</a><a href="/privacy/jagtproven.html">Privacy</a><a href="/en/support.html">Support</a></li><li><span class="fl-name">DroneCamp</span><a href="/privacy/dronecamp.html">Privacy</a><a href="/support/dronecamp.html">Support</a></li><li><span class="fl-name">Fortøy</span><a href="/no/privacy/fortoy.html">Privacy</a><a href="/no/support/fortoy.html">Support</a></li><li><span class="fl-name">Wendemarke</span><a href="/de/privacy/wendemarke.html">Privacy</a><a href="/de/support/wendemarke.html">Support</a></li><li><span class="fl-name">Cookside</span><a href="/en/privacy/cookside.html">Privacy</a><a href="/en/support/cookside.html">Support</a></li><li><span class="fl-name">Handhold</span><a href="/en/privacy/handhold.html">Privacy</a><a href="/en/support/handhold.html">Support</a></li></ul>
+          <ul><li><span class="fl-name">Wakebird</span><a href="/en/privacy/wakebird.html">Privacy</a></li><li><span class="fl-name">Jagtprøven</span><a href="/en/jagtproven/">About the app</a><a href="/privacy/jagtproven.html">Privacy</a><a href="/en/support.html">Support</a></li><li><span class="fl-name">DroneCamp</span><a href="/privacy/dronecamp.html">Privacy</a><a href="/support/dronecamp.html">Support</a></li></ul>
         </div>
       </div>
       <p class="legal">© 2026 Jakob Munch-Brandt. Webspind is the name I publish under. Made in Denmark.</p>
     </div>
   </footer>
 
+  <script src="/lang-keep.js"></script>
   <script src="/site.js"></script>
+  <script src="/nav.js"></script>
 </body>
 </html>

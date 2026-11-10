@@ -48,7 +48,8 @@
   });
 
   var calm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!calm && "IntersectionObserver" in window) de.setAttribute("data-js-reveal", "");
+  // After a language switch (lang-keep.js) the page must simply be there, without a fade.
+  if (!calm && "IntersectionObserver" in window && !de.hasAttribute("data-lang-keep")) de.setAttribute("data-js-reveal", "");
 
   var io = null;
   function reveal(el) {

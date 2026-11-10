@@ -3,3 +3,5 @@ Allow: /
 
 Sitemap: https://webspind.com/sitemap.xml
 Sitemap: https://webspind.com/pdf/sitemap.xml
+Sitemap: https://webspind.com/beregnere/sitemap.xml
+Sitemap: https://webspind.com/tools/sitemap.xml

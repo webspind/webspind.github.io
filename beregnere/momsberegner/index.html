@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="da" data-nolang>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Momsberegner: læg 25 % moms til eller træk den fra | Webspind</title>
+  <meta name="description" content="Gratis momsberegner: læg 25 % moms til en pris, eller træk momsen ud af en pris med moms. Regner mens du skriver, og forklarer hvordan.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/beregnere/beregnere.css">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#f5f5f7">
+  <link rel="canonical" href="https://webspind.com/beregnere/momsberegner/">
+  <meta property="og:title" content="Momsberegner: læg 25 % moms til eller træk den fra | Webspind">
+  <meta property="og:description" content="Gratis momsberegner: læg 25 % moms til en pris, eller træk momsen ud af en pris med moms. Regner mens du skriver, og forklarer hvordan.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="da_DK">
+  <meta property="og:url" content="https://webspind.com/beregnere/momsberegner/">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Momsberegner", "url": "https://webspind.com/beregnere/momsberegner/", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "browserRequirements": "Kræver JavaScript", "inLanguage": "da", "isAccessibleForFree": true, "description": "Gratis momsberegner: læg 25 % moms til en pris, eller træk momsen ud af en pris med moms. Regner mens du skriver, og forklarer hvordan.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "DKK"}, "author": {"@type": "Person", "name": "Jakob Munch-Brandt"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Hvor meget er momsen i Danmark?", "acceptedAnswer": {"@type": "Answer", "text": "Den almindelige moms er 25 % af prisen uden moms, jf. momslovens § 33."}}, {"@type": "Question", "name": "Hvordan trækker jeg moms fra en pris?", "acceptedAnswer": {"@type": "Answer", "text": "Divider prisen med moms med 1,25. For eksempel er 1.250 kr. med moms det samme som 1.000 kr. uden moms."}}, {"@type": "Question", "name": "Hvordan finder jeg momsbeløbet i en pris med moms?", "acceptedAnswer": {"@type": "Answer", "text": "Gang prisen med moms med 0,2. Af 1.250 kr. er momsen 250 kr. De 25 % gælder prisen uden moms, og det svarer til 20 % af prisen med moms."}}]}</script>
+</head>
+<body>
+  <a class="skip" href="#main">Spring til apps</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Webspind</a>
+      <nav class="nav" aria-label="Main">
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><span></span></button>
+        <div class="nav-panel" id="site-menu"><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-apps">Apps</button><div class="nav-drop" id="nd-apps"><div class="nav-drop-in"><a href="/#wakebird">Wakebird</a><a href="/jagtproven/">Jagtprøven</a><a href="/#dronecamp">DroneCamp</a></div></div></div><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-tools">Værktøjer</button><div class="nav-drop" id="nd-tools"><div class="nav-drop-in"><a href="/pdf/da/">PDF-værktøjer</a><a href="/tools/da/">Filer på din enhed</a><a href="/beregnere/">Beregnere</a><p class="nav-group">Prøver</p><a href="/jagtproeve-quiz/">Jagtprøve-quiz</a><a href="/jagttider-i-dag/">Jagttider i dag</a></div></div></div><a href="/artikler/">Artikler</a><a href="/#jakob">Om mig</a><a href="/support.html">Support</a></div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="b-page" style="--c:#0062c4">
+      <p class="breadcrumb"><a href="/beregnere/">Beregnere</a> / Momsberegner</p>
+      <h1>Momsberegner</h1>
+      <p class="b-lede">Læg 25 % moms oven i en pris, eller træk momsen ud af en pris. Resultatet står, mens du skriver.</p>
+      <section class="b-calc" aria-label="Beregner">
+        <form class="b-in" id="moms-form" onsubmit="return false" novalidate>
+          <label class="field">Beløb i kr.
+            <input id="moms-belob" inputmode="decimal" autocomplete="off" value="1.000,00" data-kr>
+          </label>
+          <fieldset class="b-seg"><legend>Hvad vil du?</legend>
+            <label><input type="radio" name="mode" value="til" checked> <span>Lægge moms til</span></label>
+            <label><input type="radio" name="mode" value="fra"> <span>Trække moms fra</span></label>
+          </fieldset>
+          <p class="b-err" id="moms-fejl" role="alert" hidden></p>
+        </form>
+        <div class="b-out" aria-live="polite">
+          <p class="b-big-lbl" id="moms-res-lbl">Pris med moms</p>
+          <p class="b-big" id="moms-res">–</p>
+          <dl class="b-rows">
+              <div class="b-row"><dt>Pris uden moms</dt><dd id="moms-ex">–</dd></div>
+              <div class="b-row"><dt>Moms, 25 %</dt><dd id="moms-moms">–</dd></div>
+              <div class="b-row"><dt>Pris med moms</dt><dd id="moms-inkl">–</dd></div>
+          </dl>
+          
+        </div>
+      </section>
+      <p class="b-meta">Gælder i 2026. Sidst tjekket 10. november 2026. Det her er et skøn til hverdagsbrug. For moms i din virksomhed er det momslovens regler, der afgør det, og for din egen skat Skattestyrelsens forskudsopgørelse.</p>
+
+      <section class="b-sec"><h2>Sådan regner du moms ud</h2>
+        <p>Dansk moms er 25 % af prisen uden moms. Det står i momslovens § 33. Du skal kun kende to regnestykker:</p>
+        <ul>
+          <li><strong>Læg moms til:</strong> gang prisen uden moms med 1,25.</li>
+          <li><strong>Træk moms fra:</strong> divider prisen med moms med 1,25. Det samme som at gange med 0,8.</li>
+        </ul>
+        <div class="b-ex"><strong>Eksempel.</strong> En faktura står til 800,00 kr. uden moms. Momsen er 800,00 kr. x 0,25 = 200,00 kr., og kunden betaler 1.000,00 kr. Har du omvendt 1.000,00 kr. med moms, så er prisen uden moms 1.000,00 kr. / 1,25 = 800,00 kr.</div>
+      </section>
+      <section class="b-sec"><h2>Hvorfor er momsen 20 %, når den hedder 25 %?</h2>
+        <p>De 25 % regnes af prisen <em>uden</em> moms. Af prisen <em>med</em> moms svarer det til 20 %. Har du en pris med moms og vil finde momsbeløbet, skal du altså tage 20 % af den. Tager du 25 %, kommer du til at trække for meget fra.</p>
+        <p>Nogle varer og ydelser er fritaget for moms, eller har momssats på 0. Reglerne står i momsloven, og Skattestyrelsen kan svare på dit konkrete tilfælde.</p>
+        <p>Der er indgået en politisk rammeaftale om <a href="https://fm.dk/media/1ezp3tpo/aftale-om-ramme-til-nedsaettelse-af-moms-paa-foedevarer-eller-frugt-og-groent.pdf" rel="noopener" target="_blank">lavere moms på fødevarer fra 2028</a>, men modellen er ikke lovgivet endnu. Beregneren bruger derfor 25 %.</p>
+      </section>
+      <section class="b-sec"><h2>Spørgsmål og svar</h2>
+        <div class="b-faq">
+          <div class="b-q"><h3>Hvor meget er momsen i Danmark?</h3><p>Den almindelige moms er 25 % af prisen uden moms, jf. momslovens § 33.</p></div>
+          <div class="b-q"><h3>Hvordan trækker jeg moms fra en pris?</h3><p>Divider prisen med moms med 1,25. For eksempel er 1.250 kr. med moms det samme som 1.000 kr. uden moms.</p></div>
+          <div class="b-q"><h3>Hvordan finder jeg momsbeløbet i en pris med moms?</h3><p>Gang prisen med moms med 0,2. Af 1.250 kr. er momsen 250 kr. De 25 % gælder prisen uden moms, og det svarer til 20 % af prisen med moms.</p></div>
+        </div>
+      </section>
+      <section class="b-sec b-sources"><h2>Kilder</h2><ul><li><a href="https://info.skat.dk/data.aspx?oid=1921136" rel="noopener" target="_blank">Den juridiske vejledning D.A.9, Momssatsen (ML § 33)</a></li><li><a href="https://fm.dk/media/1ezp3tpo/aftale-om-ramme-til-nedsaettelse-af-moms-paa-foedevarer-eller-frugt-og-groent.pdf" rel="noopener" target="_blank">Finansministeriet: rammeaftale om moms på fødevarer</a></li></ul></section>
+      <nav class="b-other" aria-label="Andre beregnere"><h2>Andre beregnere</h2><div class="b-links"><a href="/beregnere/loen-efter-skat/"><strong>Løn efter skat</strong><span>Fra bruttoløn til det, du får udbetalt, i din kommune.</span></a><a href="/beregnere/feriepenge/"><strong>Feriepenge</strong><span>Ferie med løn eller feriegodtgørelse, og dine feriedage.</span></a><a href="/beregnere/koerselsfradrag/"><strong>Kørselsfradrag</strong><span>Dit befordringsfradrag fra de aktuelle kilometersatser.</span></a></div></nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="foot-cols">
+        <div>
+          <h2>Hjælp</h2>
+          <p><a href="/support.html">Support</a><a href="/privacy/">Alle privatlivspolitikker</a><a href="/pdf/da/">PDF-værktøjer</a><a href="mailto:webspind@gmail.com">webspind@gmail.com</a><a href="https://dk.linkedin.com/in/jakobmunchbrandt" rel="me noopener" target="_blank">LinkedIn</a><a href="/en/" data-lang="en" lang="en">English</a></p>
+        </div>
+        <div class="foot-apps">
+          <h2>Privatliv og support pr. app</h2>
+          <ul><li><span class="fl-name">Wakebird</span><a href="/privacy/wakebird.html">Privatliv</a></li><li><span class="fl-name">Jagtprøven</span><a href="/jagtproven/">Om appen</a><a href="/privacy/jagtproven.html">Privatliv</a><a href="/support.html">Support</a></li><li><span class="fl-name">DroneCamp</span><a href="/privacy/dronecamp.html">Privatliv</a><a href="/support/dronecamp.html">Support</a></li></ul>
+        </div>
+      </div>
+      <p class="legal">© 2026 Jakob Munch-Brandt. Webspind er navnet, jeg udgiver under. Lavet i Danmark.</p>
+    </div>
+  </footer>
+
+  <script src="/site.js"></script>
+  <script src="/beregnere/satser-2026.js"></script>
+  <script src="/beregnere/satser-2027.js"></script>
+  <script src="/beregnere/beregn.js"></script>
+  <script src="/beregnere/ui.js"></script>
+  <script src="/nav.js"></script>
+</body>
+</html>

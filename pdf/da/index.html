@@ -39,8 +39,8 @@
     <div class="wrap">
       <a class="brand" href="/">Webspind</a>
       <nav class="nav" aria-label="Main">
-        <a href="/pdf/da/" aria-current="page">PDF-værktøjer</a>
-        <a href="/#apps">Apps</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><span></span></button>
+        <div class="nav-panel" id="site-menu"><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-apps">Apps</button><div class="nav-drop" id="nd-apps"><div class="nav-drop-in"><a href="/#wakebird">Wakebird</a><a href="/jagtproven/">Jagtprøven</a><a href="/#dronecamp">DroneCamp</a></div></div></div><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-tools">Værktøjer</button><div class="nav-drop" id="nd-tools"><div class="nav-drop-in"><a href="/pdf/da/">PDF-værktøjer</a><a href="/tools/da/">Filer på din enhed</a><a href="/beregnere/">Beregnere</a><p class="nav-group">Prøver</p><a href="/jagtproeve-quiz/">Jagtprøve-quiz</a><a href="/jagttider-i-dag/">Jagttider i dag</a></div></div></div><a href="/artikler/">Artikler</a><a href="/#jakob">Om mig</a><a href="/support.html">Support</a></div>
         <label class="lang-pick"><span class="sr">Sprog</span><select onchange="location.href=this.value"><option value="/pdf/">English</option><option value="/pdf/da/" selected>Dansk</option><option value="/pdf/de/">Deutsch</option><option value="/pdf/es/">Español</option><option value="/pdf/fr/">Français</option><option value="/pdf/it/">Italiano</option><option value="/pdf/nl/">Nederlands</option><option value="/pdf/no/">Norsk</option><option value="/pdf/pl/">Polski</option><option value="/pdf/pt/">Português</option><option value="/pdf/sv/">Svenska</option></select></label>
       </nav>
     </div>
@@ -68,5 +68,7 @@
       <p class="legal">Lavet af Webspind, et enkeltmandsstudie i Danmark. © 2026</p>
     </div>
   </footer>
+  <script src="/lang-keep.js"></script>
+  <script src="/nav.js"></script>
 </body>
 </html>

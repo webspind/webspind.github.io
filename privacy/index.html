@@ -28,13 +28,9 @@
     <div class="wrap">
       <a class="brand" href="/">Webspind</a>
       <nav class="nav" aria-label="Main">
-        <a href="/#apps">Apps</a>
-        <a href="/artikler/">Artikler</a>
-        <a href="/#jakob">Om mig</a>
-        <a href="/support.html">Support</a>
-        <a href="/privacy/" aria-current="page">Privatliv</a>
-        <a href="/pdf/da/">PDF-værktøjer</a>
-        <span class="lang-switch"><a href="/privacy/" data-lang="da" hreflang="da" aria-current="true">DA</a><a href="/en/privacy/" data-lang="en" hreflang="en">EN</a></span>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><span></span></button>
+        <div class="nav-panel" id="site-menu"><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-apps">Apps</button><div class="nav-drop" id="nd-apps"><div class="nav-drop-in"><a href="/#wakebird">Wakebird</a><a href="/jagtproven/">Jagtprøven</a><a href="/#dronecamp">DroneCamp</a></div></div></div><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-tools">Værktøjer</button><div class="nav-drop" id="nd-tools"><div class="nav-drop-in"><a href="/pdf/da/">PDF-værktøjer</a><a href="/tools/da/">Filer på din enhed</a><a href="/beregnere/">Beregnere</a><p class="nav-group">Prøver</p><a href="/jagtproeve-quiz/">Jagtprøve-quiz</a><a href="/jagttider-i-dag/">Jagttider i dag</a></div></div></div><a href="/artikler/">Artikler</a><a href="/#jakob">Om mig</a><a href="/support.html">Support</a></div>
+        <span class="lang-switch"><a href="/privacy/" data-lang="da" hreflang="da" aria-current="true" data-keep>DA</a><a href="/en/privacy/" data-lang="en" hreflang="en" data-keep>EN</a></span>
       </nav>
     </div>
   </header>
@@ -46,61 +42,61 @@
         <p>Én politik pr. app, som Apple kræver det. Fælles for dem alle: ingen reklamer, ingen analyse og ingen server hos mig.</p>
       </div>
       <div class="priv-grid rv">
-        <a class="priv-card" href="/privacy/wakebird.html">
+        <a class="priv-card" id="priv-wakebird" href="/privacy/wakebird.html">
           <img class="pc-ic" src="/assets/apps/icons/wakebird.webp" width="256" height="256" alt="" decoding="async">
           <span class="name">Wakebird: Birdsong Alarm Clock</span>
           <span class="desc">Dine alarmer og din fuglebog ligger kun på din iPhone. Solopgangsalarmen bruger dit omtrentlige sted, kun på telefonen. Ingen konto, ingen analyse. Købet bekræftes via RevenueCat.</span>
           <span class="go">Læs politikken →</span>
         </a>
-        <a class="priv-card" href="/privacy/friendloop.html">
+        <a class="priv-card" id="priv-friendloop" href="/privacy/friendloop.html">
           <img class="pc-ic" src="/assets/apps/icons/friendloop.webp" width="256" height="256" alt="" decoding="async">
           <span class="name">Friendloop: Stay in Touch</span>
           <span class="desc">Dine venner, noter og påmindelser bliver på din iPhone. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat.</span>
           <span class="go">Læs politikken →</span>
         </a>
-        <a class="priv-card" href="/en/privacy/supersub.html">
+        <a class="priv-card" id="priv-supersub" href="/en/privacy/supersub.html">
           <img class="pc-ic" src="/assets/apps/icons/supersub.webp" width="256" height="256" alt="" decoding="async">
           <span class="name">Supersub: Offline Football</span>
           <span class="desc">Din klub bor på din iPhone. Ingen konto, ingen reklamer, ingen analyse. Køb bekræftes via RevenueCat. (Politikken er på engelsk.)</span>
           <span class="go">Læs politikken →</span>
         </a>
-        <a class="priv-card" href="/privacy/longwalk.html">
+        <a class="priv-card" id="priv-longwalk" href="/privacy/longwalk.html">
           <img class="pc-ic" src="/assets/apps/icons/longwalk.webp" width="256" height="256" alt="" decoding="async">
           <span class="name">Longwalk: Walk the Camino</span>
           <span class="desc">Dine gåture bliver på din iPhone, og sundhedsdata forlader den aldrig. Kortfliser kommer fra OpenFreeMap; køb bekræftes via RevenueCat.</span>
           <span class="go">Læs politikken →</span>
         </a>
-        <a class="priv-card" href="/privacy/jagtproven.html">
+        <a class="priv-card" id="priv-jagtproven" href="/privacy/jagtproven.html">
           <img class="pc-ic" src="/assets/apps/icons/jagtproven.webp" width="256" height="256" alt="" decoding="async">
           <span class="name">Jagtprøven – Jagttegn &amp; Teori</span>
           <span class="desc">Dine svar ligger på din enhed og i din egen iCloud. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat.</span>
           <span class="go">Læs politikken →</span>
         </a>
-        <a class="priv-card" href="/privacy/dronecamp.html">
+        <a class="priv-card" id="priv-dronecamp" href="/privacy/dronecamp.html">
           <img class="pc-ic" src="/assets/apps/icons/dronecamp.webp" width="256" height="256" alt="" decoding="async">
           <span class="name">DroneCamp: Part 107 Drone Test</span>
           <span class="desc">Dine svar ligger på din iPhone. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat. (Engelsk)</span>
           <span class="go">Læs politikken →</span>
         </a>
-        <a class="priv-card" href="/no/privacy/fortoy.html">
+        <a class="priv-card" id="priv-fortoy" href="/no/privacy/fortoy.html">
           <img class="pc-ic" src="/assets/apps/icons/fortoy.webp" width="256" height="256" alt="" decoding="async">
           <span class="name">Fortøy: Båtførerbevis</span>
           <span class="desc">Svarene dine ligger på iPhonen og i din egen iCloud. Ingen konto, ingen analyse. Kjøp bekreftes via RevenueCat. (Norsk)</span>
           <span class="go">Læs politikken →</span>
         </a>
-        <a class="priv-card" href="/de/privacy/wendemarke.html">
+        <a class="priv-card" id="priv-wendemarke" href="/de/privacy/wendemarke.html">
           <img class="pc-ic" src="/assets/apps/icons/wendemarke.webp" width="256" height="256" alt="" decoding="async">
           <span class="name">Wendemarke: Bootsprüfung A+D</span>
           <span class="desc">Antworten bleiben auf dem iPhone und in deiner eigenen iCloud. Kein Konto, keine Analyse. Käufe via RevenueCat. (Tysk)</span>
           <span class="go">Læs politikken →</span>
         </a>
-        <a class="priv-card" href="/privacy/cookside.html">
+        <a class="priv-card" id="priv-cookside" href="/privacy/cookside.html">
           <img class="pc-ic" src="/assets/apps/icons/cookside.webp" width="256" height="256" alt="" decoding="async">
           <span class="name">Cookside: Recipe Cook Mode</span>
           <span class="desc">Dine opskrifter ligger på din iPhone og i din egen iCloud. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat.</span>
           <span class="go">Læs politikken →</span>
         </a>
-        <a class="priv-card" href="/en/privacy/handhold.html">
+        <a class="priv-card" id="priv-handhold" href="/en/privacy/handhold.html">
           <img class="pc-ic" src="/assets/apps/icons/handhold.webp" width="256" height="256" alt="" decoding="async">
           <span class="name">Handhold: Daily Habit Coach</span>
           <span class="desc">Dine vaner ligger på din iPhone og i din egen iCloud. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat. (Engelsk)</span>
@@ -119,13 +115,15 @@
         </div>
         <div class="foot-apps">
           <h2>Privatliv og support pr. app</h2>
-          <ul><li><span class="fl-name">Wakebird</span><a href="/privacy/wakebird.html">Privatliv</a></li><li><span class="fl-name">Friendloop</span><a href="/privacy/friendloop.html">Privatliv</a></li><li><span class="fl-name">Supersub</span><a href="/en/privacy/supersub.html">Privatliv</a></li><li><span class="fl-name">Longwalk</span><a href="/privacy/longwalk.html">Privatliv</a></li><li><span class="fl-name">Jagtprøven</span><a href="/jagtproven/">Om appen</a><a href="/privacy/jagtproven.html">Privatliv</a><a href="/support.html">Support</a></li><li><span class="fl-name">DroneCamp</span><a href="/privacy/dronecamp.html">Privatliv</a><a href="/support/dronecamp.html">Support</a></li><li><span class="fl-name">Fortøy</span><a href="/no/privacy/fortoy.html">Privatliv</a><a href="/no/support/fortoy.html">Support</a></li><li><span class="fl-name">Wendemarke</span><a href="/de/privacy/wendemarke.html">Privatliv</a><a href="/de/support/wendemarke.html">Support</a></li><li><span class="fl-name">Cookside</span><a href="/privacy/cookside.html">Privatliv</a><a href="/support/cookside.html">Support</a></li><li><span class="fl-name">Handhold</span><a href="/en/privacy/handhold.html">Privatliv</a><a href="/en/support/handhold.html">Support</a></li></ul>
+          <ul><li><span class="fl-name">Wakebird</span><a href="/privacy/wakebird.html">Privatliv</a></li><li><span class="fl-name">Jagtprøven</span><a href="/jagtproven/">Om appen</a><a href="/privacy/jagtproven.html">Privatliv</a><a href="/support.html">Support</a></li><li><span class="fl-name">DroneCamp</span><a href="/privacy/dronecamp.html">Privatliv</a><a href="/support/dronecamp.html">Support</a></li></ul>
         </div>
       </div>
       <p class="legal">© 2026 Jakob Munch-Brandt. Webspind er navnet, jeg udgiver under. Lavet i Danmark.</p>
     </div>
   </footer>
 
+  <script src="/lang-keep.js"></script>
   <script src="/site.js"></script>
+  <script src="/nav.js"></script>
 </body>
 </html>

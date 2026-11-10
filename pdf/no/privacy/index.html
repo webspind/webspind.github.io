@@ -36,10 +36,10 @@
   <a class="skip" href="#main">Gå til verktøyet</a>
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="/no/">Webspind</a>
+      <a class="brand" href="/en/">Webspind</a>
       <nav class="nav" aria-label="Main">
-        <a href="/pdf/no/">PDF-verktøy</a>
-        <a href="/no/#apps">Apper</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><span></span></button>
+        <div class="nav-panel" id="site-menu"><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-apps">Apper</button><div class="nav-drop" id="nd-apps"><div class="nav-drop-in"><a href="/en/#wakebird">Wakebird</a><a href="/en/jagtproven/">Jagtprøven</a><a href="/en/#dronecamp">DroneCamp</a></div></div></div><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-tools">Tools</button><div class="nav-drop" id="nd-tools"><div class="nav-drop-in"><a href="/pdf/no/">PDF-verktøy</a><a href="/tools/">Files on your device</a><p class="nav-group">Practice tests</p><a href="/part-107-practice-test/">Part 107 practice test</a></div></div></div><a href="/en/articles/">Articles</a><a href="/en/#jakob">About</a><a href="/en/support.html">Support</a></div>
         <label class="lang-pick"><span class="sr">Språk</span><select onchange="location.href=this.value"><option value="/pdf/privacy/">English</option><option value="/pdf/da/privacy/">Dansk</option><option value="/pdf/de/privacy/">Deutsch</option><option value="/pdf/es/privacy/">Español</option><option value="/pdf/fr/privacy/">Français</option><option value="/pdf/it/privacy/">Italiano</option><option value="/pdf/nl/privacy/">Nederlands</option><option value="/pdf/no/privacy/" selected>Norsk</option><option value="/pdf/pl/privacy/">Polski</option><option value="/pdf/pt/privacy/">Português</option><option value="/pdf/sv/privacy/">Svenska</option></select></label>
       </nav>
     </div>
@@ -56,5 +56,7 @@
       <p class="legal">Laget av Webspind, et enmannsstudio i Danmark. © 2026</p>
     </div>
   </footer>
+  <script src="/lang-keep.js"></script>
+  <script src="/nav.js"></script>
 </body>
 </html>

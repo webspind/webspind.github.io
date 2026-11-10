@@ -39,8 +39,8 @@
     <div class="wrap">
       <a class="brand" href="/en/">Webspind</a>
       <nav class="nav" aria-label="Main">
-        <a href="/pdf/pl/" aria-current="page">Narzędzia PDF</a>
-        <a href="/en/#apps">Aplikacje</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><span></span></button>
+        <div class="nav-panel" id="site-menu"><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-apps">Aplikacje</button><div class="nav-drop" id="nd-apps"><div class="nav-drop-in"><a href="/en/#wakebird">Wakebird</a><a href="/en/jagtproven/">Jagtprøven</a><a href="/en/#dronecamp">DroneCamp</a></div></div></div><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-tools">Tools</button><div class="nav-drop" id="nd-tools"><div class="nav-drop-in"><a href="/pdf/pl/">Narzędzia PDF</a><a href="/tools/">Files on your device</a><p class="nav-group">Practice tests</p><a href="/part-107-practice-test/">Part 107 practice test</a></div></div></div><a href="/en/articles/">Articles</a><a href="/en/#jakob">About</a><a href="/en/support.html">Support</a></div>
         <label class="lang-pick"><span class="sr">Język</span><select onchange="location.href=this.value"><option value="/pdf/">English</option><option value="/pdf/da/">Dansk</option><option value="/pdf/de/">Deutsch</option><option value="/pdf/es/">Español</option><option value="/pdf/fr/">Français</option><option value="/pdf/it/">Italiano</option><option value="/pdf/nl/">Nederlands</option><option value="/pdf/no/">Norsk</option><option value="/pdf/pl/" selected>Polski</option><option value="/pdf/pt/">Português</option><option value="/pdf/sv/">Svenska</option></select></label>
       </nav>
     </div>
@@ -68,5 +68,7 @@
       <p class="legal">Stworzone przez Webspind, jednoosobowe studio z Danii. © 2026</p>
     </div>
   </footer>
+  <script src="/lang-keep.js"></script>
+  <script src="/nav.js"></script>
 </body>
 </html>

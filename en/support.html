@@ -28,13 +28,9 @@
     <div class="wrap">
       <a class="brand" href="/en/">Webspind</a>
       <nav class="nav" aria-label="Main">
-        <a href="/en/#apps">Apps</a>
-        <a href="/en/articles/">Articles</a>
-        <a href="/en/#jakob">About</a>
-        <a href="/en/support.html" aria-current="page">Support</a>
-        <a href="/en/privacy/">Privacy</a>
-        <a href="/pdf/">PDF tools</a>
-        <span class="lang-switch"><a href="/support.html" data-lang="da" hreflang="da">DA</a><a href="/en/support.html" data-lang="en" hreflang="en" aria-current="true">EN</a></span>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><span></span></button>
+        <div class="nav-panel" id="site-menu"><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-apps">Apps</button><div class="nav-drop" id="nd-apps"><div class="nav-drop-in"><a href="/en/#wakebird">Wakebird</a><a href="/en/jagtproven/">Jagtprøven</a><a href="/en/#dronecamp">DroneCamp</a></div></div></div><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-tools">Tools</button><div class="nav-drop" id="nd-tools"><div class="nav-drop-in"><a href="/pdf/">PDF tools</a><a href="/tools/">Files on your device</a><p class="nav-group">Practice tests</p><a href="/part-107-practice-test/">Part 107 practice test</a></div></div></div><a href="/en/articles/">Articles</a><a href="/en/#jakob">About</a><a href="/en/support.html" aria-current="page">Support</a></div>
+        <span class="lang-switch"><a href="/support.html" data-lang="da" hreflang="da" data-keep>DA</a><a href="/en/support.html" data-lang="en" hreflang="en" aria-current="true" data-keep>EN</a></span>
       </nav>
     </div>
   </header>
@@ -45,7 +41,7 @@
         <h1>Support</h1>
         <p>Write straight to me. I read every message and answer within two working days, in English or Danish. Tell me which iPhone and iOS version you have and what happened — it saves us both a round trip.</p>
       </div>
-      <div class="contact-grid rv">
+      <div class="contact-grid rv" id="contact">
         <a class="contact-card" href="mailto:webspind@gmail.com">
           <span class="label">Email</span>
           <span class="value link">webspind@gmail.com</span>
@@ -59,7 +55,7 @@
           <span class="value">Handled by Apple</span>
         </div>
       </div>
-      <div class="support-form rv">
+      <div class="support-form rv" id="message">
         <h2>Send a message</h2>
         <div class="form-grid">
           <label class="field">What is it about
@@ -93,11 +89,11 @@
           <span class="note">Nothing is stored here — it just writes the email for you.</span>
         </div>
       </div>
-      <div class="sup-apps rv">
+      <div class="sup-apps rv" id="per-app">
         <h2>Support per app</h2>
         <ul><li><a href="/support/dronecamp.html"><img class="sa-ic" src="/assets/apps/icons/dronecamp.webp" width="256" height="256" alt="" decoding="async"><span>DroneCamp</span></a></li><li><a href="/no/support/fortoy.html"><img class="sa-ic" src="/assets/apps/icons/fortoy.webp" width="256" height="256" alt="" decoding="async"><span>Fortøy</span></a></li><li><a href="/de/support/wendemarke.html"><img class="sa-ic" src="/assets/apps/icons/wendemarke.webp" width="256" height="256" alt="" decoding="async"><span>Wendemarke</span></a></li><li><a href="/en/support/cookside.html"><img class="sa-ic" src="/assets/apps/icons/cookside.webp" width="256" height="256" alt="" decoding="async"><span>Cookside</span></a></li><li><a href="/en/support/handhold.html"><img class="sa-ic" src="/assets/apps/icons/handhold.webp" width="256" height="256" alt="" decoding="async"><span>Handhold</span></a></li></ul>
       </div>
-      <div style="display:flex;flex-direction:column;gap:12px">
+      <div id="faq" style="display:flex;flex-direction:column;gap:12px">
         <h2 style="font-size:clamp(22px,2.8vw,30px)">Jagtprøven: frequently asked questions</h2>
         <div class="faq rv">
           <details><summary>Are these the real exam questions?</summary><p class="answer">No. The questions were written for the app from the public syllabus for the Danish hunting licence exam. The app is an independent practice app and is not affiliated with the Danish Nature Agency or the Ministry of the Environment.</p></details>
@@ -108,7 +104,7 @@
           <details><summary>I think an answer is wrong</summary><p class="answer">Tell me which question it is and what you think is off, ideally with a reference. The syllabus changes and I fix things quickly — I am the one reading the mail.</p></details>
         </div>
       </div>
-      <div class="urgent rv">
+      <div class="urgent rv" id="urgent">
         <span class="head">Something that cannot wait?</span>
         <span class="body">Exam tomorrow, or the app lost your data? Put “urgent” in the subject field. I answer those the same day, when I am not on the road.</span>
       </div>
@@ -124,13 +120,15 @@
         </div>
         <div class="foot-apps">
           <h2>Privacy and support per app</h2>
-          <ul><li><span class="fl-name">Wakebird</span><a href="/en/privacy/wakebird.html">Privacy</a></li><li><span class="fl-name">Friendloop</span><a href="/en/privacy/friendloop.html">Privacy</a></li><li><span class="fl-name">Supersub</span><a href="/en/privacy/supersub.html">Privacy</a></li><li><span class="fl-name">Longwalk</span><a href="/en/privacy/longwalk.html">Privacy</a></li><li><span class="fl-name">Jagtprøven</span><a href="/en/jagtproven/">About the app</a><a href="/privacy/jagtproven.html">Privacy</a><a href="/en/support.html">Support</a></li><li><span class="fl-name">DroneCamp</span><a href="/privacy/dronecamp.html">Privacy</a><a href="/support/dronecamp.html">Support</a></li><li><span class="fl-name">Fortøy</span><a href="/no/privacy/fortoy.html">Privacy</a><a href="/no/support/fortoy.html">Support</a></li><li><span class="fl-name">Wendemarke</span><a href="/de/privacy/wendemarke.html">Privacy</a><a href="/de/support/wendemarke.html">Support</a></li><li><span class="fl-name">Cookside</span><a href="/en/privacy/cookside.html">Privacy</a><a href="/en/support/cookside.html">Support</a></li><li><span class="fl-name">Handhold</span><a href="/en/privacy/handhold.html">Privacy</a><a href="/en/support/handhold.html">Support</a></li></ul>
+          <ul><li><span class="fl-name">Wakebird</span><a href="/en/privacy/wakebird.html">Privacy</a></li><li><span class="fl-name">Jagtprøven</span><a href="/en/jagtproven/">About the app</a><a href="/privacy/jagtproven.html">Privacy</a><a href="/en/support.html">Support</a></li><li><span class="fl-name">DroneCamp</span><a href="/privacy/dronecamp.html">Privacy</a><a href="/support/dronecamp.html">Support</a></li></ul>
         </div>
       </div>
       <p class="legal">© 2026 Jakob Munch-Brandt. Webspind is the name I publish under. Made in Denmark.</p>
     </div>
   </footer>
 
+  <script src="/lang-keep.js"></script>
   <script src="/site.js"></script>
+  <script src="/nav.js"></script>
 </body>
 </html>

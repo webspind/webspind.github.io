@@ -25,12 +25,8 @@
     <div class="wrap">
       <a class="brand" href="/">Webspind</a>
       <nav class="nav" aria-label="Main">
-        <a href="/#apps">Apps</a>
-        <a href="/artikler/">Artikler</a>
-        <a href="/#jakob">Om mig</a>
-        <a href="/support.html">Support</a>
-        <a href="/privacy/">Privatliv</a>
-        <a href="/pdf/da/">PDF-værktøjer</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><span></span></button>
+        <div class="nav-panel" id="site-menu"><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-apps">Apps</button><div class="nav-drop" id="nd-apps"><div class="nav-drop-in"><a href="/#wakebird">Wakebird</a><a href="/jagtproven/">Jagtprøven</a><a href="/#dronecamp">DroneCamp</a></div></div></div><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-tools">Værktøjer</button><div class="nav-drop" id="nd-tools"><div class="nav-drop-in"><a href="/pdf/da/">PDF-værktøjer</a><a href="/tools/da/">Filer på din enhed</a><a href="/beregnere/">Beregnere</a><p class="nav-group">Prøver</p><a href="/jagtproeve-quiz/">Jagtprøve-quiz</a><a href="/jagttider-i-dag/">Jagttider i dag</a></div></div></div><a href="/artikler/">Artikler</a><a href="/#jakob">Om mig</a><a href="/support.html">Support</a></div>
         <span class="lang-switch"><a href="/artikler/" data-lang="da" hreflang="da" aria-current="true">DA</a><a href="/en/articles/" data-lang="en" hreflang="en">EN</a></span>
       </nav>
     </div>
@@ -65,6 +61,7 @@
         <h2>Hvis du vil øve i lommen</h2>
         <div class="art-stats"><div><b>100</b><span>vildtarter med foto i appen</span></div><div><b>522</b><span>spørgsmål med en kilde bag hvert svar</span></div></div>
         <p>Jeg har lavet <a href="https://apps.apple.com/dk/app/id6811615877" target="_blank" rel="noopener">Jagtprøven</a> til netop det her, til iPhone og iPad. Du kan øve gruppe for gruppe i toget eller på sofaen. Appen er ikke officiel og lover ikke, at du består.</p>
+        <div class="art-note"><p>Vil du øve resten af teorien også? Tag den gratis <a href="/jagtproeve-quiz/">jagtprøve-quiz</a>.</p></div>
       </div>
       <div class="article-cta"><img src="/assets/apps/icons/jagtproven.webp" width="64" height="64" alt="" loading="lazy"><div><strong>Jagtprøven</strong><p>Øv til jagtprøven på iPhone og iPad. Appen er ikke officiel.</p></div><a class="btn" href="https://apps.apple.com/dk/app/id6811615877" target="_blank" rel="noopener">Hent i App Store</a></div>
       <details class="article-sources"><summary>Kilder</summary><ul><li><a href="https://sgavmst.dk/media/vkffhaxl/2025_retningslinjer-for-hvilke-spoergsmaal-der-stilles-i-den-skriftlige-jagtproeve.pdf" target="_blank" rel="noopener">Retningslinjer for spørgsmål i den skriftlige jagtprøve, SGAV (revideret 3. april 2025)</a></li><li><a href="https://www.retsinformation.dk/eli/lta/2025/238/pdf" target="_blank" rel="noopener">Bekendtgørelse nr. 238 af 27. februar 2025 om jagttegn, § 7, retsinformation.dk</a></li><li><a href="https://lex.dk/bjergand" target="_blank" rel="noopener">Bjergand, lex.dk</a></li><li><a href="https://www.naturhistoriskmuseum.dk/viden-forskning/naturlex/fugle/kortnæbbet-gås" target="_blank" rel="noopener">Kortnæbbet gås, Naturhistorisk Museum</a></li><li><a href="https://naturhistoriskmuseum.dk/viden-forskning/naturlex/fugle/gr%C3%A5g%C3%A5s" target="_blank" rel="noopener">Grågås, Naturhistorisk Museum</a></li></ul></details>
@@ -81,13 +78,15 @@
         </div>
         <div class="foot-apps">
           <h2>Privatliv og support pr. app</h2>
-          <ul><li><span class="fl-name">Wakebird</span><a href="/privacy/wakebird.html">Privatliv</a></li><li><span class="fl-name">Friendloop</span><a href="/privacy/friendloop.html">Privatliv</a></li><li><span class="fl-name">Supersub</span><a href="/en/privacy/supersub.html">Privatliv</a></li><li><span class="fl-name">Longwalk</span><a href="/privacy/longwalk.html">Privatliv</a></li><li><span class="fl-name">Jagtprøven</span><a href="/jagtproven/">Om appen</a><a href="/privacy/jagtproven.html">Privatliv</a><a href="/support.html">Support</a></li><li><span class="fl-name">DroneCamp</span><a href="/privacy/dronecamp.html">Privatliv</a><a href="/support/dronecamp.html">Support</a></li><li><span class="fl-name">Fortøy</span><a href="/no/privacy/fortoy.html">Privatliv</a><a href="/no/support/fortoy.html">Support</a></li><li><span class="fl-name">Wendemarke</span><a href="/de/privacy/wendemarke.html">Privatliv</a><a href="/de/support/wendemarke.html">Support</a></li><li><span class="fl-name">Cookside</span><a href="/privacy/cookside.html">Privatliv</a><a href="/support/cookside.html">Support</a></li><li><span class="fl-name">Handhold</span><a href="/en/privacy/handhold.html">Privatliv</a><a href="/en/support/handhold.html">Support</a></li></ul>
+          <ul><li><span class="fl-name">Wakebird</span><a href="/privacy/wakebird.html">Privatliv</a></li><li><span class="fl-name">Jagtprøven</span><a href="/jagtproven/">Om appen</a><a href="/privacy/jagtproven.html">Privatliv</a><a href="/support.html">Support</a></li><li><span class="fl-name">DroneCamp</span><a href="/privacy/dronecamp.html">Privatliv</a><a href="/support/dronecamp.html">Support</a></li></ul>
         </div>
       </div>
       <p class="legal">© 2026 Jakob Munch-Brandt. Webspind er navnet, jeg udgiver under. Lavet i Danmark.</p>
     </div>
   </footer>
 
+  <script src="/lang-keep.js"></script>
   <script src="/site.js"></script>
+  <script src="/nav.js"></script>
 </body>
 </html>

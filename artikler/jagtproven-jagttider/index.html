@@ -25,12 +25,8 @@
     <div class="wrap">
       <a class="brand" href="/">Webspind</a>
       <nav class="nav" aria-label="Main">
-        <a href="/#apps">Apps</a>
-        <a href="/artikler/">Artikler</a>
-        <a href="/#jakob">Om mig</a>
-        <a href="/support.html">Support</a>
-        <a href="/privacy/">Privatliv</a>
-        <a href="/pdf/da/">PDF-værktøjer</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><span></span></button>
+        <div class="nav-panel" id="site-menu"><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-apps">Apps</button><div class="nav-drop" id="nd-apps"><div class="nav-drop-in"><a href="/#wakebird">Wakebird</a><a href="/jagtproven/">Jagtprøven</a><a href="/#dronecamp">DroneCamp</a></div></div></div><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-tools">Værktøjer</button><div class="nav-drop" id="nd-tools"><div class="nav-drop-in"><a href="/pdf/da/">PDF-værktøjer</a><a href="/tools/da/">Filer på din enhed</a><a href="/beregnere/">Beregnere</a><p class="nav-group">Prøver</p><a href="/jagtproeve-quiz/">Jagtprøve-quiz</a><a href="/jagttider-i-dag/">Jagttider i dag</a></div></div></div><a href="/artikler/">Artikler</a><a href="/#jakob">Om mig</a><a href="/support.html">Support</a></div>
         <span class="lang-switch"><a href="/artikler/" data-lang="da" hreflang="da" aria-current="true">DA</a><a href="/en/articles/" data-lang="en" hreflang="en">EN</a></span>
       </nav>
     </div>
@@ -67,6 +63,7 @@
         <h2>Øv dem på telefonen</h2>
         <a class="art-phone" href="https://apps.apple.com/dk/app/id6811615877" target="_blank" rel="noopener"><span class="art-phone-in"><img src="/assets/apps/screens/jagtproven-a.webp" width="600" height="1304" alt="Jagtprøven på iPhone" loading="lazy"></span><span class="art-phone-link">Hent Jagtprøven til iPhone og iPad</span></a>
         <p>Jagtprøven viser de jagttider, der gælder nu, og har 522 spørgsmål med en kilde bag hvert svar. Jeg har selv lavet den. Den er ikke officiel og lover ikke, at du består.</p>
+        <div class="art-note"><p>Slå dagens jagttider op, også for dit område: <a href="/jagttider-i-dag/">Hvad må jeg jage i dag?</a> Og øv dem i <a href="/jagtproeve-quiz/">jagtprøve-quizzen</a>.</p></div>
       </div>
       <div class="article-cta"><img src="/assets/apps/icons/jagtproven.webp" width="64" height="64" alt="" loading="lazy"><div><strong>Jagtprøven</strong><p>Øv til jagtprøven på iPhone og iPad. Appen er ikke officiel.</p></div><a class="btn" href="https://apps.apple.com/dk/app/id6811615877" target="_blank" rel="noopener">Hent i App Store</a></div>
       <details class="article-sources"><summary>Kilder</summary><ul><li><a href="https://www.retsinformation.dk/eli/lta/2024/470/pdf" target="_blank" rel="noopener">Bekendtgørelse nr. 470 af 17. maj 2024 om jagttid for visse pattedyr og fugle m.v., retsinformation.dk</a></li><li><a href="https://hoeringsportalen.dk/Hearing/Details/71772" target="_blank" rel="noopener">Høring af bekendtgørelse om jagttid for visse pattedyr og fugle m.v., Høringsportalen</a></li><li><a href="https://prodstoragehoeringspo.blob.core.windows.net/00147c2d-7c0a-4e53-81a6-30362a24fdfa/H%C3%B8ringsbrev.pdf" target="_blank" rel="noopener">Høringsbrev af 5. november 2026, SGAV</a></li><li><a href="https://sgavmst.dk/media/vkffhaxl/2025_retningslinjer-for-hvilke-spoergsmaal-der-stilles-i-den-skriftlige-jagtproeve.pdf" target="_blank" rel="noopener">Retningslinjer for spørgsmål i den skriftlige jagtprøve, SGAV (revideret 3. april 2025)</a></li></ul></details>
@@ -83,13 +80,15 @@
         </div>
         <div class="foot-apps">
           <h2>Privatliv og support pr. app</h2>
-          <ul><li><span class="fl-name">Wakebird</span><a href="/privacy/wakebird.html">Privatliv</a></li><li><span class="fl-name">Friendloop</span><a href="/privacy/friendloop.html">Privatliv</a></li><li><span class="fl-name">Supersub</span><a href="/en/privacy/supersub.html">Privatliv</a></li><li><span class="fl-name">Longwalk</span><a href="/privacy/longwalk.html">Privatliv</a></li><li><span class="fl-name">Jagtprøven</span><a href="/jagtproven/">Om appen</a><a href="/privacy/jagtproven.html">Privatliv</a><a href="/support.html">Support</a></li><li><span class="fl-name">DroneCamp</span><a href="/privacy/dronecamp.html">Privatliv</a><a href="/support/dronecamp.html">Support</a></li><li><span class="fl-name">Fortøy</span><a href="/no/privacy/fortoy.html">Privatliv</a><a href="/no/support/fortoy.html">Support</a></li><li><span class="fl-name">Wendemarke</span><a href="/de/privacy/wendemarke.html">Privatliv</a><a href="/de/support/wendemarke.html">Support</a></li><li><span class="fl-name">Cookside</span><a href="/privacy/cookside.html">Privatliv</a><a href="/support/cookside.html">Support</a></li><li><span class="fl-name">Handhold</span><a href="/en/privacy/handhold.html">Privatliv</a><a href="/en/support/handhold.html">Support</a></li></ul>
+          <ul><li><span class="fl-name">Wakebird</span><a href="/privacy/wakebird.html">Privatliv</a></li><li><span class="fl-name">Jagtprøven</span><a href="/jagtproven/">Om appen</a><a href="/privacy/jagtproven.html">Privatliv</a><a href="/support.html">Support</a></li><li><span class="fl-name">DroneCamp</span><a href="/privacy/dronecamp.html">Privatliv</a><a href="/support/dronecamp.html">Support</a></li></ul>
         </div>
       </div>
       <p class="legal">© 2026 Jakob Munch-Brandt. Webspind er navnet, jeg udgiver under. Lavet i Danmark.</p>
     </div>
   </footer>
 
+  <script src="/lang-keep.js"></script>
   <script src="/site.js"></script>
+  <script src="/nav.js"></script>
 </body>
 </html>

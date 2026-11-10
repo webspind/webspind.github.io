@@ -28,19 +28,15 @@
     <div class="wrap">
       <a class="brand" href="/">Webspind</a>
       <nav class="nav" aria-label="Main">
-        <a href="/#apps" aria-current="page">Apps</a>
-        <a href="/artikler/">Artikler</a>
-        <a href="/#jakob">Om mig</a>
-        <a href="/support.html">Support</a>
-        <a href="/privacy/">Privatliv</a>
-        <a href="/pdf/da/">PDF-værktøjer</a>
-        <span class="lang-switch"><a href="/jagtproven/" data-lang="da" hreflang="da" aria-current="true">DA</a><a href="/en/jagtproven/" data-lang="en" hreflang="en">EN</a></span>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><span></span></button>
+        <div class="nav-panel" id="site-menu"><div class="nav-dd"><button type="button" class="nav-btn is-current" aria-expanded="false" aria-controls="nd-apps">Apps</button><div class="nav-drop" id="nd-apps"><div class="nav-drop-in"><a href="/#wakebird">Wakebird</a><a href="/jagtproven/">Jagtprøven</a><a href="/#dronecamp">DroneCamp</a></div></div></div><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-tools">Værktøjer</button><div class="nav-drop" id="nd-tools"><div class="nav-drop-in"><a href="/pdf/da/">PDF-værktøjer</a><a href="/tools/da/">Filer på din enhed</a><a href="/beregnere/">Beregnere</a><p class="nav-group">Prøver</p><a href="/jagtproeve-quiz/">Jagtprøve-quiz</a><a href="/jagttider-i-dag/">Jagttider i dag</a></div></div></div><a href="/artikler/">Artikler</a><a href="/#jakob">Om mig</a><a href="/support.html">Support</a></div>
+        <span class="lang-switch"><a href="/jagtproven/" data-lang="da" hreflang="da" aria-current="true" data-keep>DA</a><a href="/en/jagtproven/" data-lang="en" hreflang="en" data-keep>EN</a></span>
       </nav>
     </div>
   </header>
 
   <main id="main">
-    <section class="hero hero-plain">
+    <section class="hero hero-plain" id="top">
       <div class="hero-inner">
         <div class="app-top">
           <div class="app-copy-col">
@@ -73,14 +69,14 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="independent">
       <div class="disclaimer rv">
         <strong>Uafhængig træningsapp</strong>
         <span>Jagtprøven er ikke tilknyttet Naturstyrelsen eller Miljøministeriet. Spørgsmålene er skrevet til appen ud fra det offentlige pensum — det er ikke prøvens egne spørgsmål.</span>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="highlights">
       <div class="highlights rv">
         <div class="highlight-card">
           <span class="headline">Hele teorien, ikke en stikprøve.</span>
@@ -112,7 +108,7 @@
       </div>
     </section>
 
-    <section class="section" style="background:linear-gradient(180deg, transparent, color-mix(in srgb, var(--card) 60%, transparent) 45%, transparent)">
+    <section class="section" id="topics" style="background:linear-gradient(180deg, transparent, color-mix(in srgb, var(--card) 60%, transparent) 45%, transparent)">
       <div class="section-inner rv">
         <div class="topics-head">
           <h2>De otte emner</h2>
@@ -131,7 +127,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="seasons">
       <div class="section-inner split rv">
         <div class="split-copy">
           <h2>Jagttider, filtreret efter i dag</h2>
@@ -154,7 +150,20 @@
       </div>
     </section>
 
-    <section class="section rule-top" style="background:linear-gradient(180deg, color-mix(in srgb, var(--card) 55%, transparent), transparent 65%)">
+    <section class="section" id="tools">
+      <div class="section-inner rv">
+        <div class="section-head">
+          <h2>Prøv uden at hente noget</h2>
+          <p>To gratis værktøjer her på siden, direkte i browseren.</p>
+        </div>
+        <div class="priv-grid">
+          <a class="priv-card" href="/jagtproeve-quiz/"><span class="name">Jagtprøve-quiz</span><span class="desc">Øvespørgsmål med forklaring på hvert svar.</span></a>
+          <a class="priv-card" href="/jagttider-i-dag/"><span class="name">Hvad må jeg jage i dag?</span><span class="desc">Se hvilke arter der har jagttid på en dato, også lokalt.</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section rule-top" id="free" style="background:linear-gradient(180deg, color-mix(in srgb, var(--card) 55%, transparent), transparent 65%)">
       <div class="section-inner split rv">
         <div class="split-copy">
           <h2 style="font-size:clamp(28px,4.4vw,60px)">Prøv det gratis først</h2>
@@ -168,7 +177,7 @@
       </div>
     </section>
 
-    <section class="section rule-top">
+    <section class="section rule-top" id="about">
       <div class="section-inner split rv" style="align-items:start">
         <img class="about-photo" src="/assets/jakob.webp" width="360" height="360" alt="Jakob Munch-Brandt" loading="lazy">
         <div class="about-copy" style="display:flex;flex-direction:column;gap:16px">
@@ -178,7 +187,7 @@
           <div class="facts">
             <div class="row"><span>Studie</span><span>Webspind, Danmark</span></div>
             <div class="row"><span>Folk</span><span>Én</span></div>
-            <div class="row"><span>Udgivet</span><span>Jagtprøven, og ni apps på vej</span></div>
+            <div class="row"><span>Udgivet</span><span>Jagtprøven og Wakebird</span></div>
             <div class="row"><span>Support</span><span>Mig, inden for 2 hverdage</span></div>
             <a href="mailto:webspind@gmail.com">webspind@gmail.com</a>
           </div>
@@ -186,7 +195,7 @@
       </div>
     </section>
 
-    <section class="cta-final rule-top">
+    <section class="cta-final rule-top" id="cta">
       <div class="cta-final-inner rv">
         <h2>Prøv et helt prøvesæt gratis.</h2>
         <p>Et fuldt prøvesæt og ét emne efter eget valg er gratis i appen — tag dem, og se om formen passer dig, før du køber resten.</p>
@@ -207,13 +216,15 @@
         </div>
         <div class="foot-apps">
           <h2>Privatliv og support pr. app</h2>
-          <ul><li><span class="fl-name">Wakebird</span><a href="/privacy/wakebird.html">Privatliv</a></li><li><span class="fl-name">Friendloop</span><a href="/privacy/friendloop.html">Privatliv</a></li><li><span class="fl-name">Supersub</span><a href="/en/privacy/supersub.html">Privatliv</a></li><li><span class="fl-name">Longwalk</span><a href="/privacy/longwalk.html">Privatliv</a></li><li><span class="fl-name">Jagtprøven</span><a href="/jagtproven/">Om appen</a><a href="/privacy/jagtproven.html">Privatliv</a><a href="/support.html">Support</a></li><li><span class="fl-name">DroneCamp</span><a href="/privacy/dronecamp.html">Privatliv</a><a href="/support/dronecamp.html">Support</a></li><li><span class="fl-name">Fortøy</span><a href="/no/privacy/fortoy.html">Privatliv</a><a href="/no/support/fortoy.html">Support</a></li><li><span class="fl-name">Wendemarke</span><a href="/de/privacy/wendemarke.html">Privatliv</a><a href="/de/support/wendemarke.html">Support</a></li><li><span class="fl-name">Cookside</span><a href="/privacy/cookside.html">Privatliv</a><a href="/support/cookside.html">Support</a></li><li><span class="fl-name">Handhold</span><a href="/en/privacy/handhold.html">Privatliv</a><a href="/en/support/handhold.html">Support</a></li></ul>
+          <ul><li><span class="fl-name">Wakebird</span><a href="/privacy/wakebird.html">Privatliv</a></li><li><span class="fl-name">Jagtprøven</span><a href="/jagtproven/">Om appen</a><a href="/privacy/jagtproven.html">Privatliv</a><a href="/support.html">Support</a></li><li><span class="fl-name">DroneCamp</span><a href="/privacy/dronecamp.html">Privatliv</a><a href="/support/dronecamp.html">Support</a></li></ul>
         </div>
       </div>
       <p class="legal">© 2026 Jakob Munch-Brandt. Webspind er navnet, jeg udgiver under. Lavet i Danmark.</p>
     </div>
   </footer>
 
+  <script src="/lang-keep.js"></script>
   <script src="/site.js"></script>
+  <script src="/nav.js"></script>
 </body>
 </html>

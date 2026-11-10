@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="da" data-nolang>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Løn efter skat beregner 2026: se din udbetalte løn i din kommune | Webspind</title>
+  <meta name="description" content="Løn efter skat beregner for 2026 og 2027: fra bruttoløn til udbetalt løn med AM-bidrag, bundskat, kommuneskat, mellemskat og topskat i din kommune.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/beregnere/beregnere.css">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#f5f5f7">
+  <link rel="canonical" href="https://webspind.com/beregnere/loen-efter-skat/">
+  <meta property="og:title" content="Løn efter skat beregner 2026: se din udbetalte løn i din kommune | Webspind">
+  <meta property="og:description" content="Løn efter skat beregner for 2026 og 2027: fra bruttoløn til udbetalt løn med AM-bidrag, bundskat, kommuneskat, mellemskat og topskat i din kommune.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="da_DK">
+  <meta property="og:url" content="https://webspind.com/beregnere/loen-efter-skat/">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Løn efter skat beregner", "url": "https://webspind.com/beregnere/loen-efter-skat/", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "browserRequirements": "Kræver JavaScript", "inLanguage": "da", "isAccessibleForFree": true, "description": "Løn efter skat beregner for 2026 og 2027: fra bruttoløn til udbetalt løn med AM-bidrag, bundskat, kommuneskat, mellemskat og topskat i din kommune.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "DKK"}, "author": {"@type": "Person", "name": "Jakob Munch-Brandt"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Hvor meget får jeg udbetalt af 40.000 kr. om måneden?", "acceptedAnswer": {"@type": "Answer", "text": "I København i 2026, uden kirkeskat og uden pension, får du cirka 26.622 kr. om måneden. Det varierer med kommunen og dine fradrag."}}, {"@type": "Question", "name": "Hvornår betaler jeg mellemskat og topskat?", "acceptedAnswer": {"@type": "Answer", "text": "I 2026 betaler du mellemskat af det, der efter AM-bidrag er over 641.200 kr. om året, topskat over 777.900 kr. og toptopskat over 2.592.700 kr."}}, {"@type": "Question", "name": "Hvad er AM-bidrag?", "acceptedAnswer": {"@type": "Answer", "text": "Arbejdsmarkedsbidrag på 8 % af lønnen. Det trækkes før den øvrige skat."}}, {"@type": "Question", "name": "Hvad er forskellen på bundskat og kommuneskat?", "acceptedAnswer": {"@type": "Answer", "text": "Bundskat er 12,01 % af din personlige indkomst efter personfradrag og går til staten. Kommuneskat regnes af den skattepligtige indkomst efter fradrag og følger din kommunes procent, fx 23,39 % i København i 2026."}}]}</script>
+</head>
+<body>
+  <a class="skip" href="#main">Spring til apps</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Webspind</a>
+      <nav class="nav" aria-label="Main">
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu"><span></span></button>
+        <div class="nav-panel" id="site-menu"><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-apps">Apps</button><div class="nav-drop" id="nd-apps"><div class="nav-drop-in"><a href="/#wakebird">Wakebird</a><a href="/jagtproven/">Jagtprøven</a><a href="/#dronecamp">DroneCamp</a></div></div></div><div class="nav-dd"><button type="button" class="nav-btn" aria-expanded="false" aria-controls="nd-tools">Værktøjer</button><div class="nav-drop" id="nd-tools"><div class="nav-drop-in"><a href="/pdf/da/">PDF-værktøjer</a><a href="/tools/da/">Filer på din enhed</a><a href="/beregnere/">Beregnere</a><p class="nav-group">Prøver</p><a href="/jagtproeve-quiz/">Jagtprøve-quiz</a><a href="/jagttider-i-dag/">Jagttider i dag</a></div></div></div><a href="/artikler/">Artikler</a><a href="/#jakob">Om mig</a><a href="/support.html">Support</a></div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="b-page" style="--c:#6a3cf0">
+      <p class="breadcrumb"><a href="/beregnere/">Beregnere</a> / Løn efter skat beregner</p>
+      <h1>Løn efter skat beregner</h1>
+      <p class="b-lede">Skriv din månedsløn og vælg kommune. Så ser du, hvad du cirka får udbetalt.</p>
+      <section class="b-calc" aria-label="Beregner">
+        <form class="b-in" id="loen-form" onsubmit="return false" novalidate>
+          <label class="field">Månedsløn før skat (kr.)
+            <input id="l-loen" inputmode="decimal" autocomplete="off" value="40.000" data-kr>
+          </label>
+          <label class="field">Kommune
+            <select id="l-kommune"></select>
+          </label>
+          <label class="field">Indkomstår
+            <select id="l-aar"><option value="2026" selected>2026</option><option value="2027">2027</option></select>
+          </label>
+          <label class="b-check"><input type="checkbox" id="l-kirke"> <span>Medlem af folkekirken (kirkeskat)</span></label>
+          <label class="b-check"><input type="checkbox" id="l-enlig"> <span>Enlig forsørger (ekstra beskæftigelsesfradrag)</span></label>
+          <label class="field">Eget pensionsbidrag og ATP pr. måned (kr.)<span class="b-hint">Trækkes før skat. Står på din lønseddel</span>
+            <input id="l-pension" inputmode="decimal" autocomplete="off" value="0" data-kr>
+          </label>
+          <label class="field">Andre fradrag pr. år (kr.)<span class="b-hint">Fx kørsel, a-kasse og fagforening</span>
+            <input id="l-andre" inputmode="decimal" autocomplete="off" value="0" data-kr>
+          </label>
+        </form>
+        <div class="b-out" aria-live="polite">
+          <p class="b-big-lbl" id="l-res-lbl">Udbetalt om måneden</p>
+          <p class="b-big" id="l-res">–</p>
+          <dl class="b-rows">
+              <div class="b-row" id="l-pensionvis-row"><dt>Eget pensionsbidrag og ATP</dt><dd id="l-pensionvis">–</dd></div>
+              <div class="b-row"><dt>AM-bidrag, 8 %</dt><dd id="l-am">–</dd></div>
+              <div class="b-row"><dt>Bundskat, 12,01 %</dt><dd id="l-bund">–</dd></div>
+              <div class="b-row"><dt>Kommuneskat <span class="b-note" id="l-kommune-pct"></span></dt><dd id="l-kom">–</dd></div>
+              <div class="b-row" id="l-kir-row"><dt>Kirkeskat <span class="b-note" id="l-kirke-pct"></span></dt><dd id="l-kir">–</dd></div>
+              <div class="b-row" id="l-mellem-row"><dt>Mellemskat <span class="b-note" id="l-mellem-sats"></span></dt><dd id="l-mellem">–</dd></div>
+              <div class="b-row" id="l-top-row"><dt>Topskat, 7,5 %</dt><dd id="l-top">–</dd></div>
+              <div class="b-row" id="l-tt-row"><dt>Toptopskat, 5 %</dt><dd id="l-tt">–</dd></div>
+          </dl>
+          <p class="b-res-note">Du betaler i alt <strong id="l-skatpct">–</strong> af bruttolønnen i AM-bidrag og skat. Det giver <strong id="l-netaar">–</strong> om året.</p>
+          <p class="b-note-27" id="l-2027-note" hidden>2027-tallene er offentliggjort af Skatte- og Vækstministeriet 27. august 2026 og kan ændres, hvis Folketinget vedtager noget nyt.</p>
+          <details class="b-details"><summary>Fradrag i beregningen (pr. år)</summary>
+            <dl class="b-rows b-rows-s">
+              <div class="b-row"><dt>Personfradrag</dt><dd id="l-pf">–</dd></div>
+              <div class="b-row"><dt>Beskæftigelsesfradrag</dt><dd id="l-besk">–</dd></div>
+              <div class="b-row"><dt>Jobfradrag</dt><dd id="l-job">–</dd></div>
+              <div class="b-row" id="l-enlig-row"><dt>Ekstra beskæftigelsesfradrag</dt><dd id="l-enligv">–</dd></div>
+              <div class="b-row" id="l-andre-row"><dt>Andre fradrag</dt><dd id="l-andre-v">–</dd></div>
+              <div class="b-row"><dt>Skattepligtig indkomst</dt><dd id="l-sk">–</dd></div>
+            </dl>
+          </details>
+        </div>
+      </section>
+      <p class="b-meta">Indkomstår 2026 og 2027. Sidst tjekket 10. november 2026. Det her er et skøn. Skattestyrelsens forskudsopgørelse afgør, hvad du faktisk skal betale.</p>
+
+      <section class="b-sec"><h2>Sådan regner vi din løn efter skat ud</h2>
+        <p>Beregneren regner et helt år igennem og deler med 12. Den går frem i denne rækkefølge:</p>
+        <ol>
+          <li><strong>AM-bidrag</strong> på 8 % af lønnen (efter eget pensionsbidrag og ATP, som du selv skriver ind).</li>
+          <li><strong>Bundskat</strong> på 12,01 % af resten, efter personfradraget på 54.100 kr. i 2026.</li>
+          <li><strong>Kommuneskat og kirkeskat</strong> efter din kommunes procent af den skattepligtige indkomst, efter personfradrag. Den skattepligtige indkomst er efter beskæftigelsesfradrag og andre fradrag.</li>
+          <li><strong>Mellemskat</strong> på 7,5 % af det, der efter AM-bidrag er over 641.200 kr.</li>
+          <li><strong>Topskat</strong> på 7,5 % af det, der er over 777.900 kr., og <strong>toptopskat</strong> på 5 % af det, der er over 2.592.700 kr.</li>
+        </ol>
+        <p>Beskæftigelsesfradraget er 12,75 % af lønnen, højst 63.300 kr. i 2026. Jobfradraget er 4,5 % af lønnen over 235.200 kr., højst 3.100 kr. Er du enlig forsørger, får du et ekstra beskæftigelsesfradrag på 11,5 %, højst 50.600 kr.</p>
+        <p>Skatteloftet på 44,57 % sænker mellemskatten for dem, der bor i en kommune med høj skat: er din kommuneskat + 12,01 % + 7,5 % over 44,57 %, sættes satsen på mellemskatten ned med forskellen. Kirkeskat tæller ikke med i skatteloftet.</p>
+      </section>
+      <section class="b-sec"><h2>Regneeksempel</h2>
+        <div class="b-ex"><strong>40.000 kr. om måneden i København i 2026, uden kirkeskat.</strong> Årsløn 480.000 kr. AM-bidrag 8 % = 38.400 kr. Personlig indkomst 441.600 kr. Bundskat 12,01 % af (441.600 kr. minus 54.100 kr.) = 46.539 kr. Beskæftigelsesfradrag 61.200 kr. og jobfradrag 3.100 kr. giver skattepligtig indkomst på 377.300 kr. Kommuneskat 23,39 % af (377.300 kr. minus 54.100 kr.) = 75.596 kr. Du får 319.465 kr. om året, altså <strong>26.622 kr. om måneden</strong>.</div>
+      </section>
+      <section class="b-sec"><h2>Det ligger ikke i beregningen</h2>
+        <ul>
+          <li>Kapitalindkomst og aktieindkomst. Renter og udbytte kan ændre bundskat og mellemskat.</li>
+          <li>Ekstra beskæftigelsesfradrag til seniorer, befordring og andre fradrag, ud over det du selv skriver i "Andre fradrag".</li>
+          <li>Udnyttelse af ægtefælles personfradrag.</li>
+          <li>Personer under 18 år: personfradraget og AM-bidraget følger andre regler.</li>
+        </ul>
+        <p>Hvis du vil have det præcise tal for dig, så se din forskudsopgørelse på skat.dk.</p>
+      </section>
+      <section class="b-sec"><h2>Spørgsmål og svar</h2>
+        <div class="b-faq">
+          <div class="b-q"><h3>Hvor meget får jeg udbetalt af 40.000 kr. om måneden?</h3><p>I København i 2026, uden kirkeskat og uden pension, får du cirka 26.622 kr. om måneden. Det varierer med kommunen og dine fradrag.</p></div>
+          <div class="b-q"><h3>Hvornår betaler jeg mellemskat og topskat?</h3><p>I 2026 betaler du mellemskat af det, der efter AM-bidrag er over 641.200 kr. om året, topskat over 777.900 kr. og toptopskat over 2.592.700 kr.</p></div>
+          <div class="b-q"><h3>Hvad er AM-bidrag?</h3><p>Arbejdsmarkedsbidrag på 8 % af lønnen. Det trækkes før den øvrige skat.</p></div>
+          <div class="b-q"><h3>Hvad er forskellen på bundskat og kommuneskat?</h3><p>Bundskat er 12,01 % af din personlige indkomst efter personfradrag og går til staten. Kommuneskat regnes af den skattepligtige indkomst efter fradrag og følger din kommunes procent, fx 23,39 % i København i 2026.</p></div>
+        </div>
+      </section>
+      <section class="b-sec b-sources"><h2>Kilder</h2><ul><li><a href="https://skat.dk/hjaelp/bundskat-mellemskat-topskat-og-toptopskat" rel="noopener" target="_blank">Skat.dk: Bundskat, mellemskat, topskat og toptopskat</a></li><li><a href="https://svmn.dk/tal-og-metode/satser/satser-og-beloebsgraenser-i-lovgivningen/personskatteloven" rel="noopener" target="_blank">Skatte- og Vækstministeriet: personskatteloven</a></li><li><a href="https://svmn.dk/tal-og-metode/satser/satser-og-beloebsgraenser-i-lovgivningen/ligningsloven" rel="noopener" target="_blank">Skatte- og Vækstministeriet: ligningsloven</a></li><li><a href="https://svmn.dk/tal-og-metode/satser/satser-og-beloebsgraenser-i-lovgivningen/arbejdsmarkedsbidragsloven" rel="noopener" target="_blank">Skatte- og Vækstministeriet: arbejdsmarkedsbidrag</a></li><li><a href="https://svmn.dk/tal-og-metode/satser/regulering-af-beloebsgraenser/beloebsgraenser-i-skattelovgivningen-der-reguleres-efter-personskattelovens-20-2026-2027" rel="noopener" target="_blank">Skatte- og Vækstministeriet: beløbsgrænser 2026-2027</a></li><li><a href="https://www.statistikbanken.dk/PSKAT" rel="noopener" target="_blank">Danmarks Statistik: kommuneskat og kirkeskat 2026 (PSKAT)</a></li><li><a href="https://svmn.dk/tal-og-metode/satser/oversigt-over-kommuneskatter" rel="noopener" target="_blank">Skatte- og Vækstministeriet: kommuneskatter 2027</a></li><li><a href="https://info.skat.dk/data.aspx?oid=2273718" rel="noopener" target="_blank">Den juridiske vejledning: beskæftigelsesfradrag</a></li><li><a href="https://info.skat.dk/data.aspx?oid=2273725" rel="noopener" target="_blank">Den juridiske vejledning: jobfradrag</a></li><li><a href="https://www.retsinformation.dk/eli/lta/2024/482" rel="noopener" target="_blank">Lov nr. 482 af 22. maj 2024 (mellemskat, topskat, skatteloft)</a></li><li><a href="https://info.skat.dk/data.aspx?oid=2233519" rel="noopener" target="_blank">Skattestyrelsen: indberetning af løn og pension (AM-grundlag)</a></li></ul></section>
+      <nav class="b-other" aria-label="Andre beregnere"><h2>Andre beregnere</h2><div class="b-links"><a href="/beregnere/momsberegner/"><strong>Momsberegner</strong><span>Læg 25 % moms til, eller træk momsen ud af en pris.</span></a><a href="/beregnere/feriepenge/"><strong>Feriepenge</strong><span>Ferie med løn eller feriegodtgørelse, og dine feriedage.</span></a><a href="/beregnere/koerselsfradrag/"><strong>Kørselsfradrag</strong><span>Dit befordringsfradrag fra de aktuelle kilometersatser.</span></a></div></nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="foot-cols">
+        <div>
+          <h2>Hjælp</h2>
+          <p><a href="/support.html">Support</a><a href="/privacy/">Alle privatlivspolitikker</a><a href="/pdf/da/">PDF-værktøjer</a><a href="mailto:webspind@gmail.com">webspind@gmail.com</a><a href="https://dk.linkedin.com/in/jakobmunchbrandt" rel="me noopener" target="_blank">LinkedIn</a><a href="/en/" data-lang="en" lang="en">English</a></p>
+        </div>
+        <div class="foot-apps">
+          <h2>Privatliv og support pr. app</h2>
+          <ul><li><span class="fl-name">Wakebird</span><a href="/privacy/wakebird.html">Privatliv</a></li><li><span class="fl-name">Jagtprøven</span><a href="/jagtproven/">Om appen</a><a href="/privacy/jagtproven.html">Privatliv</a><a href="/support.html">Support</a></li><li><span class="fl-name">DroneCamp</span><a href="/privacy/dronecamp.html">Privatliv</a><a href="/support/dronecamp.html">Support</a></li></ul>
+        </div>
+      </div>
+      <p class="legal">© 2026 Jakob Munch-Brandt. Webspind er navnet, jeg udgiver under. Lavet i Danmark.</p>
+    </div>
+  </footer>
+
+  <script src="/site.js"></script>
+  <script src="/beregnere/satser-2026.js"></script>
+  <script src="/beregnere/satser-2027.js"></script>
+  <script src="/beregnere/beregn.js"></script>
+  <script src="/beregnere/ui.js"></script>
+  <script src="/nav.js"></script>
+</body>
+</html>

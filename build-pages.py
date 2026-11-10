@@ -21,18 +21,12 @@ from html import escape as esc
 LOGO = "/favicon.svg"
 # Webspind PDF lives in its own tree (/pdf/, built from ~/Projects/halfmil/products/pdfsite).
 # English is /pdf/ and Danish is /pdf/da/, so its links do not go through P().
-PDF_HOME = "PDF"
 def pdf_href(lang):
     return "/pdf/da/" if lang == "da" else "/pdf/"
 LINKEDIN = "https://dk.linkedin.com/in/jakobmunchbrandt"
 
-# Nav is (path, key); the label comes from LANG[lang]["nav"][key]. The paths
-# are Danish-tree paths — P() prefixes them with /en for the English tree.
-ARTICLES_HOME = "ARTICLES"
 def articles_href(lang):
     return "/artikler/" if lang == "da" else "/en/articles/"
-NAV = [("/#apps", "apps"), (ARTICLES_HOME, "articles"), ("/#jakob", "about"),
-       ("/support.html", "support"), ("/privacy/", "privacy"), (PDF_HOME, "pdf")]
 
 FONT_LINKS = '''<link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,7 +46,8 @@ LANG = {
 "da": {
   "locale": "da_DK",
 
-  "nav": {"apps": "Apps", "articles": "Artikler", "about": "Om mig", "support": "Support", "privacy": "Privatliv", "pdf": "PDF-værktøjer"},
+  "nav": {"apps": "Apps", "tools": "Værktøjer", "articles": "Artikler", "about": "Om mig", "support": "Support", "privacy": "Privatliv", "pdf": "PDF-værktøjer",
+          "files": "Filer på din enhed", "calc": "Beregnere", "tests": "Prøver", "quiz": "Jagtprøve-quiz", "seasons": "Jagttider i dag", "part107": "Part 107-prøvetest", "menu": "Menu"},
   "foot_help": "Hjælp",
   "foot_privacy_all": "Alle privatlivspolitikker",
   "foot_apps": "Privatliv og support pr. app",
@@ -65,18 +60,18 @@ LANG = {
 
   # ---- home
   "home_title": "Webspind — apps af Jakob Munch-Brandt",
-  "home_desc": "Små iPhone-apps, lavet med omhu af Jakob Munch-Brandt i Danmark. Wakebird, Friendloop, Supersub, Longwalk, Jagtprøven, Cookside og flere.",
+  "home_desc": "Små iPhone-apps, lavet med omhu af Jakob Munch-Brandt i Danmark: vækkeuret Wakebird og Jagtprøven til jagttegnet. Næste app er DroneCamp.",
   "home_eyebrow": "Jakob Munch-Brandt · Danmark",
   "home_h1": "Små apps.<br><span>Lavet med omhu.</span>",
-  "home_lede": "Ti iPhone-apps og spil, hver med sit eget udseende, alle designet og bygget af én person.",
+  "home_lede": "iPhone-apps med hvert sit udseende, alle designet og bygget af én person.",
   "home_btn_apps": "Se apps",
   "home_btn_mail": "Skriv til mig ›",
   "skip": "Spring til apps",
-  "shelf_label": "Alle apps",
+  "shelf_label": "Apps",
   "status": {"live": "I App Store", "review": "Til godkendelse", "soon": "Kommer snart"},
   "group_live": ("I App Store.", "Ude nu, til iPhone og iPad."),
   "group_review": ("På vej ud.", "Sendt til Apple. Ude, så snart den er godkendt."),
-  "group_soon": ("Kommer snart.", "Bygget og ved at blive gjort endnu bedre. De kommer ud én ad gangen."),
+  "group_soon": ("Den næste.", "Den app, jeg gør færdig lige nu. Den er ikke ude endnu."),
   "screen_alt": "%s skærmbillede",
   "icon_alt": "%s app-ikon",
   "jakob_eyebrow": "Personen bag Webspind",
@@ -150,6 +145,11 @@ LANG = {
   ],
   "seasons_foot": "Eksempel på visningen. Appen dækker 41 arter.",
 
+  "tools_head": "Prøv uden at hente noget",
+  "tools_sub": "To gratis værktøjer her på siden, direkte i browseren.",
+  "tools_items": [("Jagtprøve-quiz", "Øvespørgsmål med forklaring på hvert svar.", "/jagtproeve-quiz/"),
+                  ("Hvad må jeg jage i dag?", "Se hvilke arter der har jagttid på en dato, også lokalt.", "/jagttider-i-dag/")],
+
   "free_head": "Prøv det gratis først",
   "free_sub": "Ét emne efter eget valg, ét fuldt prøvesæt, én dagens runde og otte vildtarter er gratis. Kan du bruge appen, koster resten ét engangskøb — ikke et abonnement.",
   "free_items": [
@@ -164,7 +164,7 @@ LANG = {
   "facts": [
     ("Studie", "Webspind, Danmark"),
     ("Folk", "Én"),
-    ("Udgivet", "Jagtprøven, og ni apps på vej"),
+    ("Udgivet", "Jagtprøven og Wakebird"),
     ("Support", "Mig, inden for 2 hverdage"),
   ],
 
@@ -218,7 +218,8 @@ LANG = {
 "en": {
   "locale": "en",
 
-  "nav": {"apps": "Apps", "articles": "Articles", "about": "About", "support": "Support", "privacy": "Privacy", "pdf": "PDF tools"},
+  "nav": {"apps": "Apps", "tools": "Tools", "articles": "Articles", "about": "About", "support": "Support", "privacy": "Privacy", "pdf": "PDF tools",
+          "files": "Files on your device", "calc": "Calculators", "tests": "Practice tests", "quiz": "Jagtprøve-quiz", "seasons": "Jagttider i dag", "part107": "Part 107 practice test", "menu": "Menu"},
   "foot_help": "Help",
   "foot_privacy_all": "All privacy policies",
   "foot_apps": "Privacy and support per app",
@@ -231,18 +232,18 @@ LANG = {
 
   # ---- home
   "home_title": "Webspind — apps by Jakob Munch-Brandt",
-  "home_desc": "Small iPhone apps, made with care by Jakob Munch-Brandt in Denmark. Wakebird, Friendloop, Supersub, Longwalk, Jagtprøven, Cookside and more.",
+  "home_desc": "Small iPhone apps, made with care by Jakob Munch-Brandt in Denmark: the Wakebird alarm clock and Jagtprøven for the Danish hunting exam. DroneCamp is next.",
   "home_eyebrow": "Jakob Munch-Brandt · Denmark",
   "home_h1": "Small apps.<br><span>Made with care.</span>",
-  "home_lede": "Ten iPhone apps and games, each with its own look, all designed and built by one person.",
+  "home_lede": "iPhone apps, each with its own look, all designed and built by one person.",
   "home_btn_apps": "See the apps",
   "home_btn_mail": "Write to me ›",
   "skip": "Skip to the apps",
-  "shelf_label": "All apps",
+  "shelf_label": "Apps",
   "status": {"live": "On the App Store", "review": "In review", "soon": "Coming soon"},
   "group_live": ("On the App Store.", "Out now, on iPhone and iPad."),
   "group_review": ("In review.", "Submitted to Apple. Out as soon as it's approved."),
-  "group_soon": ("Coming soon.", "Built and being made even better. They come out one at a time."),
+  "group_soon": ("Up next.", "The app I'm finishing right now. It isn't out yet."),
   "screen_alt": "%s screen",
   "icon_alt": "%s app icon",
   "jakob_eyebrow": "The person behind Webspind",
@@ -316,6 +317,11 @@ LANG = {
   ],
   "seasons_foot": "An example of the view. The app covers 41 species.",
 
+  "tools_head": "Try it without installing anything",
+  "tools_sub": "Two free tools on this site, right in your browser. Both are in Danish, like the app.",
+  "tools_items": [("Jagtprøve-quiz", "Practice questions, with every answer explained.", "/jagtproeve-quiz/"),
+                  ("Hvad må jeg jage i dag?", "See which species are in season on a date.", "/jagttider-i-dag/")],
+
   "free_head": "Try it free first",
   "free_sub": "One topic of your choice, one full mock exam, one daily round and eight species are free. If the app works for you, the rest is one purchase — not a subscription.",
   "free_items": [
@@ -330,7 +336,7 @@ LANG = {
   "facts": [
     ("Studio", "Webspind, Denmark"),
     ("People", "One"),
-    ("Shipped", "Jagtprøven, with nine more on the way"),
+    ("Shipped", "Jagtprøven and Wakebird"),
     ("Support", "Me, within 2 working days"),
   ],
 
@@ -388,6 +394,10 @@ LANG = {
 # from this list. To add an app: a dict here, its icon + two screens in
 # assets/apps/, its policy page — then re-run the script.
 #   status   live | review | soon (decides which homepage group it lands in)
+#   home     True = shown on the homepage and in the footer. Only released apps and the
+#            single next one. False keeps the app's privacy and support pages (and the
+#            privacy and support indexes), which App Store Connect links to.
+#   tools    optional (label, url) per language for the app's free web tools
 #   c        the app's own colour, tints its tile
 #   priv/sup per-tree URL of its policy / support page (None = none yet).
 #            These are the URLs App Store Connect points at — never move them.
@@ -396,7 +406,7 @@ STORE_JAGTPROVEN = "https://apps.apple.com/dk/app/id6811615877"
 STORE_WAKEBIRD = "https://apps.apple.com/dk/app/id6820910324"
 
 APPS = [
-    dict(id="wakebird", name="Wakebird", full="Wakebird: Birdsong Alarm Clock", status="live", c="#c4421f", store=STORE_WAKEBIRD,
+    dict(id="wakebird", name="Wakebird", full="Wakebird: Birdsong Alarm Clock", status="live", c="#c4421f", store=STORE_WAKEBIRD, home=True,
          kind={"da": "Vækkeur med fuglesang", "en": "Birdsong alarm clock"},
          line={"da": "Vågn til ægte fuglesang.", "en": "Wake to real birdsong."},
          desc={"da": "Elleve morgenkor fra rigtige vilde fugle. Én fugl begynder blidt, de andre stemmer i, og bagefter ser du, hvem der vækkede dig. Kan også ringe ved solopgang, og den ringer, selv når telefonen er på lydløs.",
@@ -404,7 +414,7 @@ APPS = [
          priv={"da": "/privacy/wakebird.html", "en": "/en/privacy/wakebird.html"}, sup=None,
          pdesc={"da": "Dine alarmer og din fuglebog ligger kun på din iPhone. Solopgangsalarmen bruger dit omtrentlige sted, kun på telefonen. Ingen konto, ingen analyse. Købet bekræftes via RevenueCat.",
                 "en": "Your alarms and bird book stay on your iPhone. The sunrise alarm uses your approximate location, on the phone only. No account, no analytics. The purchase is verified via RevenueCat."}),
-    dict(id="friendloop", name="Friendloop", full="Friendloop: Stay in Touch", status="soon", c="#6a3cf0",
+    dict(id="friendloop", name="Friendloop", full="Friendloop: Stay in Touch", status="soon", c="#6a3cf0", home=False,
          kind={"da": "Hold kontakten", "en": "Stay in touch"},
          line={"da": "Se mere til de venner, der betyder noget.", "en": "See more of the friends who matter."},
          desc={"da": "En god idé til hver ven, med beskeden allerede skrevet. Privat, på din iPhone, uden konto.",
@@ -412,7 +422,7 @@ APPS = [
          priv={"da": "/privacy/friendloop.html", "en": "/en/privacy/friendloop.html"}, sup=None,
          pdesc={"da": "Dine venner, noter og påmindelser bliver på din iPhone. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat.",
                 "en": "Your friends, notes and reminders stay on your iPhone. No account, no analytics. Purchases are verified via RevenueCat."}),
-    dict(id="supersub", name="Supersub", full="Supersub: Offline Football", status="soon", c="#1f3fd6",
+    dict(id="supersub", name="Supersub", full="Supersub: Offline Football", status="soon", c="#1f3fd6", home=False,
          kind={"da": "Offline fodboldspil", "en": "Offline football game"},
          line={"da": "Tag skuddet.", "en": "Take the shot."},
          desc={"da": "Arkadefodbold i 3D, bygget fra bunden igen. Korte kampe, store mål, og den virker uden net.",
@@ -420,7 +430,7 @@ APPS = [
          priv={"da": "/en/privacy/supersub.html", "en": "/en/privacy/supersub.html"}, sup=None,
          pdesc={"da": "Din klub bor på din iPhone. Ingen konto, ingen reklamer, ingen analyse. Køb bekræftes via RevenueCat. (Politikken er på engelsk.)",
                 "en": "Your club lives on your iPhone. No account, no ads, no analytics. Purchases are verified via RevenueCat."}),
-    dict(id="longwalk", name="Longwalk", full="Longwalk: Walk the Camino", status="soon", c="#c2402b",
+    dict(id="longwalk", name="Longwalk", full="Longwalk: Walk the Camino", status="soon", c="#c2402b", home=False,
          kind={"da": "Gå berømte ruter", "en": "Walk famous trails"},
          line={"da": "Gå Caminoen hjemmefra.", "en": "Walk the Camino from home."},
          desc={"da": "Dine daglige skridt fører dig ad ti berømte ruter, med et postkort ved hvert stop. Betal én gang, intet abonnement.",
@@ -428,7 +438,8 @@ APPS = [
          priv={"da": "/privacy/longwalk.html", "en": "/en/privacy/longwalk.html"}, sup=None,
          pdesc={"da": "Dine gåture bliver på din iPhone, og sundhedsdata forlader den aldrig. Kortfliser kommer fra OpenFreeMap; køb bekræftes via RevenueCat.",
                 "en": "Your walks stay on your iPhone. Health data never leaves it. Map tiles come from OpenFreeMap; purchases are verified via RevenueCat."}),
-    dict(id="jagtproven", name="Jagtprøven", full="Jagtprøven – Jagttegn & Teori", status="live", c="#2b7334",
+    dict(id="jagtproven", name="Jagtprøven", full="Jagtprøven – Jagttegn & Teori", status="live", c="#2b7334", home=True,
+         tools={"da": [("Gratis quiz", "/jagtproeve-quiz/"), ("Hvad må jeg jage i dag?", "/jagttider-i-dag/")], "en": [("Free quiz (in Danish)", "/jagtproeve-quiz/"), ("Seasons today (in Danish)", "/jagttider-i-dag/")]},
          kind={"da": "Jagttegnsprøven", "en": "Danish hunting exam · In Danish"},
          line={"da": "Bestå jagtprøven første gang.", "en": "Pass the hunting exam the first time."},
          desc={"da": "522 spørgsmål med en kilde bag hvert svar, alle 100 vildtarter med foto og de jagttider, der gælder lige nu. iPhone og iPad.",
@@ -438,16 +449,17 @@ APPS = [
          sup={"da": "/support.html", "en": "/en/support.html"},
          pdesc={"da": "Dine svar ligger på din enhed og i din egen iCloud. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat.",
                 "en": "Your answers stay on your device and in your own iCloud. No account, no analytics. Purchases are verified via RevenueCat. The policy is in Danish, like the app; write to me if you need it in English."}),
-    dict(id="dronecamp", name="DroneCamp", full="DroneCamp: Part 107 Drone Test", status="soon", c="#c8440e",
+    dict(id="dronecamp", name="DroneCamp", full="DroneCamp: Part 107 Drone Test", status="soon", c="#1254E8", home=True,
+         tools={"da": [("Gratis prøvetest", "/part-107-practice-test/")], "en": [("Free practice test", "/part-107-practice-test/")]},
          kind={"da": "FAA Part 107-droneprøven · På engelsk", "en": "FAA Part 107 drone test"},
-         line={"da": "Flyv dig til Part 107-prøven.", "en": "Fly your way to the Part 107 test."},
-         desc={"da": "558 spørgsmål med forklaring på hvert svar, 34 øvelser på rigtige FAA-kort og prøver på tid som den rigtige.",
+         line={"da": "Bliv klar til Part 107-prøven.", "en": "Get ready for the FAA Part 107 test."},
+         desc={"da": "558 spørgsmål med forklaring på hvert svar, 34 øvelser på rigtige FAA-luftfartskort og prøver på tid som den rigtige.",
                "en": "558 questions with every answer explained, 34 drills on real FAA charts and mock tests on the clock."},
          priv={"da": "/privacy/dronecamp.html", "en": "/privacy/dronecamp.html"},
          sup={"da": "/support/dronecamp.html", "en": "/support/dronecamp.html"},
          pdesc={"da": "Dine svar ligger på din iPhone. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat. (Engelsk)",
                 "en": "Your answers stay on your iPhone. No account, no analytics. Purchases are verified via RevenueCat."}),
-    dict(id="fortoy", name="Fortøy", full="Fortøy: Båtførerbevis", status="soon", c="#0b4db0",
+    dict(id="fortoy", name="Fortøy", full="Fortøy: Båtførerbevis", status="soon", c="#0b4db0", home=False,
          kind={"da": "Norsk båtførerbevis · På norsk", "en": "Norwegian boat licence · In Norwegian"},
          line={"da": "Båtførerprøven uden abonnement.", "en": "Båtførerprøven, without a subscription."},
          desc={"da": "390 spørgsmål, hver med forklaring og kilde, og en prøve med 50 spørgsmål som den rigtige.",
@@ -456,7 +468,7 @@ APPS = [
          sup={"da": "/no/support/fortoy.html", "en": "/no/support/fortoy.html"},
          pdesc={"da": "Svarene dine ligger på iPhonen og i din egen iCloud. Ingen konto, ingen analyse. Kjøp bekreftes via RevenueCat. (Norsk)",
                 "en": "Your answers stay on your iPhone and in your own iCloud. No account, no analytics. Purchases confirmed via RevenueCat. (Norwegian)"}),
-    dict(id="wendemarke", name="Wendemarke", full="Wendemarke: Bootsprüfung A+D", status="soon", c="#d9061a",
+    dict(id="wendemarke", name="Wendemarke", full="Wendemarke: Bootsprüfung A+D", status="soon", c="#d9061a", home=False,
          kind={"da": "Schweizisk bådførerbevis · På tysk", "en": "Swiss boat licence · In German"},
          line={"da": "Hvert spørgsmål forklaret.", "en": "Every question explained."},
          desc={"da": "354 øvespørgsmål i prøvens rigtigt/forkert-format, 284 af dem med BSV-artiklen bag svaret.",
@@ -465,7 +477,7 @@ APPS = [
          sup={"da": "/de/support/wendemarke.html", "en": "/de/support/wendemarke.html"},
          pdesc={"da": "Antworten bleiben auf dem iPhone und in deiner eigenen iCloud. Kein Konto, keine Analyse. Käufe via RevenueCat. (Tysk)",
                 "en": "Antworten bleiben auf dem iPhone und in deiner eigenen iCloud. Kein Konto, keine Analyse. Käufe via RevenueCat. (German)"}),
-    dict(id="cookside", name="Cookside", full="Cookside: Recipe Cook Mode", status="soon", c="#f4b120",
+    dict(id="cookside", name="Cookside", full="Cookside: Recipe Cook Mode", status="soon", c="#f4b120", home=False,
          kind={"da": "Opskrifter, ét trin ad gangen", "en": "Recipes, one step at a time"},
          line={"da": "Lav mad ét trin ad gangen.", "en": "Cook one step at a time."},
          desc={"da": "Store trin, du kan læse fra komfuret, og timere der ringer, når de er færdige. Gem opskrifter fra et link, ved at indsætte dem eller ved at scanne en side.",
@@ -474,7 +486,7 @@ APPS = [
          sup={"da": "/support/cookside.html", "en": "/en/support/cookside.html"},
          pdesc={"da": "Dine opskrifter ligger på din iPhone og i din egen iCloud. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat.",
                 "en": "Your recipes stay on your iPhone and in your own iCloud. No account, no analytics. Purchases confirmed via RevenueCat."}),
-    dict(id="handhold", name="Handhold", full="Handhold: Daily Habit Coach", status="soon", c="#ab4a2b",
+    dict(id="handhold", name="Handhold", full="Handhold: Daily Habit Coach", status="soon", c="#ab4a2b", home=False,
          kind={"da": "Daglig vanecoach · På engelsk", "en": "Daily habit coach"},
          line={"da": "Til de vaner, du bliver ved med at droppe.", "en": "For habits you keep dropping."},
          desc={"da": "Start med to sider. Springer du en dag over, nulstilles intet; trinnet bliver bare mindre. Betal én gang, intet abonnement.",
@@ -485,6 +497,7 @@ APPS = [
                 "en": "Your habits stay on your iPhone and in your own iCloud. No account, no analytics. Purchases confirmed via RevenueCat."}),
 ]
 BY_ID = {a["id"]: a for a in APPS}
+HOME_APPS = [a for a in APPS if a["home"]]
 
 # The Jagtprøven policy is Danish only: the app ships in Danish, and this is
 # the legal text Apple links to. The English privacy index points at it with
@@ -513,31 +526,52 @@ def ext(href):
     return ' target="_blank" rel="noopener"' if href.startswith("http") else ""
 
 
-def header(lang, current=None, switch=None):
-    L = LANG[lang]
-    links = "".join(
-        '\n        <a href="%s"%s>%s</a>' % (pdf_href(lang) if h == PDF_HOME else articles_href(lang) if h == ARTICLES_HOME else P(lang, h), ' aria-current="page"' if k == current else "", L["nav"][k])
-        for h, k in NAV)
+def header(lang, current=None, switch=None, keep=False):
+    L, N = LANG[lang], LANG[lang]["nav"]
+    keep_attr = " data-keep" if keep else ""
     da_href, en_href = switch or ("/", "/en/")
-    switch = ('\n        <span class="lang-switch">'
-              '<a href="%s" data-lang="da" hreflang="da"%s>DA</a>'
-              '<a href="%s" data-lang="en" hreflang="en"%s>EN</a>'
-              '</span>') % (da_href, ' aria-current="true"' if lang == "da" else "",
-                            en_href, ' aria-current="true"' if lang == "en" else "")
+    lang_switch = ('<span class="lang-switch">'
+                   '<a href="%s" data-lang="da" hreflang="da"%s%s>DA</a>'
+                   '<a href="%s" data-lang="en" hreflang="en"%s%s>EN</a>'
+                   '</span>') % (da_href, ' aria-current="true"' if lang == "da" else "", keep_attr,
+                                 en_href, ' aria-current="true"' if lang == "en" else "", keep_attr)
+
+    def link(href, label):
+        return '<a href="%s">%s</a>' % (href, esc(label))
+
+    def drop(key, inner, is_current=False):
+        return ('<div class="nav-dd"><button type="button" class="nav-btn%s" aria-expanded="false" aria-controls="nd-%s">%s</button>'
+                '<div class="nav-drop" id="nd-%s"><div class="nav-drop-in">%s</div></div></div>'
+                % (" is-current" if is_current else "", key, esc(N[key]), key, inner))
+
+    apps = "".join(link(P(lang, a["page"]) if a.get("page") else P(lang, "/#" + a["id"]), a["name"]) for a in HOME_APPS)
+    tests = [(N["quiz"], "/jagtproeve-quiz/"), (N["seasons"], "/jagttider-i-dag/")] if lang == "da" \
+        else [(N["part107"], "/part-107-practice-test/")]
+    tools = link(pdf_href(lang), N["pdf"]) + link("/tools/da/" if lang == "da" else "/tools/", N["files"])
+    if lang == "da":
+        tools += link("/beregnere/", N["calc"])
+    tools += '<p class="nav-group">%s</p>' % esc(N["tests"]) + "".join(link(h, t) for t, h in tests)
+
+    flat = "".join('<a href="%s"%s>%s</a>' % (h, ' aria-current="page"' if k == current else "", esc(N[k]))
+                   for k, h in (("articles", articles_href(lang)), ("about", P(lang, "/#jakob")), ("support", P(lang, "/support.html"))))
     return '''<a class="skip" href="#main">%s</a>
   <header class="site-header">
     <div class="wrap">
       <a class="brand" href="%s">Webspind</a>
-      <nav class="nav" aria-label="Main">%s%s
+      <nav class="nav" aria-label="Main">
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="%s"><span></span></button>
+        <div class="nav-panel" id="site-menu">%s%s%s</div>
+        %s
       </nav>
     </div>
-  </header>''' % (L["skip"], P(lang, "/"), links, switch)
+  </header>''' % (L["skip"], P(lang, "/"), esc(N["menu"]), drop("apps", apps, current == "apps"), drop("tools", tools),
+                     flat, lang_switch)
 
 
 def footer(lang):
     L = LANG[lang]
     rows = []
-    for a in APPS:
+    for a in HOME_APPS:
         bits = []
         if a.get("page"):
             bits.append((L["lbl_about_app"], P(lang, a["page"])))
@@ -570,14 +604,15 @@ OG_LOCALE = {"da": "da_DK", "en": "en", "nb": "nb_NO", "de-CH": "de_CH"}
 
 
 def page(path, title, desc, body, lang="da", current=None, twin=None,
-         switch=None, redirect=True, html_lang=None):
+         switch=None, redirect=True, html_lang=None, pair=None):
     """Write one page. `twin` is the (danish, english) URL pair for the
     hreflang alternates; pages with no twin (policies, the bilingual 404)
     pass redirect=False so site.js leaves them alone.
     `switch` overrides where the DA | EN header links point when a page has
     no real translation. `html_lang` is the page's own language when it isn't
     the shell's (the Norwegian and Swiss-German policies use the English
-    shell)."""
+    shell). `pair` says the DA | EN links lead to a real translation of this
+    page, so lang-keep.js may keep the visitor's place on them (default: twin)."""
     html_lang = html_lang or lang
     alts = ""
     if twin:
@@ -613,12 +648,14 @@ def page(path, title, desc, body, lang="da", current=None, twin=None,
 
   %s
 
+  <script src="/lang-keep.js"></script>
   <script src="/site.js"></script>
+  <script src="/nav.js"></script>
 </body>
 </html>
 ''' % (html_lang, "" if redirect else " data-nolang", title, desc, FONT_LINKS, path, alts,
        title, desc, OG_LOCALE.get(html_lang, "en"), path,
-       header(lang, current, switch or twin), body, footer(lang))
+       header(lang, current, switch or twin, bool(twin) if pair is None else pair), body, footer(lang))
     full = os.path.join(os.getcwd(), path.lstrip("/"))
     if path.endswith("/"):
         full = os.path.join(full, "index.html")
@@ -650,6 +687,7 @@ def app_links(a, L, lang):
     out = []
     if a.get("store"):
         out.append((L["lbl_store"], a["store"]))
+    out.extend(a.get("tools", {}).get(lang, []))
     if a.get("page"):
         out.append((L["lbl_about_app"], P(lang, a["page"])))
     out.append((L["lbl_privacy"], a["priv"][lang]))
@@ -677,27 +715,27 @@ def tile(a, L, lang, size):
 
 
 def group(L, lang, status, size, grid):
-    apps = [a for a in APPS if a["status"] == status]
+    apps = [a for a in HOME_APPS if a["status"] == status]
     if not apps:
         return ""
     head, sub = L["group_" + status]
     tiles = "\n".join(tile(a, L, lang, size) for a in apps)
     if grid:
         tiles = '      <div class="grid %s">\n%s\n      </div>' % (grid, tiles)
-    return '''    <section class="group">
+    return '''    <section class="group" id="g-%s">
       <header class="g-head rv"><h2>%s</h2><p>%s</p></header>
 %s
-    </section>''' % (head, sub, tiles)
+    </section>''' % (status, head, sub, tiles)
 
 
-HERO_APPS = ["jagtproven", "wakebird", "longwalk", "friendloop", "cookside"]
+HERO_SHOTS = [("jagtproven", "b"), ("wakebird", "a"), ("jagtproven", "a"), ("dronecamp", "a"), ("wakebird", "b")]
 
 
 def home_body(L, lang):
-    hero = "".join(phone(BY_ID[k], L, "a", "phone hp hp%d" % i, lazy=False) for i, k in enumerate(HERO_APPS))
+    hero = "".join(phone(BY_ID[k], L, shot, "phone hp hp%d" % i, lazy=False) for i, (k, shot) in enumerate(HERO_SHOTS))
     shelf = "".join('<a href="#%s">%s<span>%s</span></a>' % (a["id"], icon(a, L, "sh-ic", alt=False), esc(a["name"]))
-                    for a in APPS)
-    return '''    <section class="hero">
+                    for a in HOME_APPS)
+    return '''    <section class="hero" id="top">
       <p class="eyebrow">%s</p>
       <h1 class="hero-h">%s</h1>
       <p class="hero-p">%s</p>
@@ -727,7 +765,7 @@ def home_body(L, lang):
     </section>''' % (L["home_eyebrow"], L["home_h1"], L["home_lede"], L["home_btn_apps"], L["home_btn_mail"],
                      hero, L["shelf_label"], shelf,
                      group(L, lang, "live", "wide", ""), group(L, lang, "review", "third", "g3"),
-                     group(L, lang, "soon", "half", "g2"),
+                     group(L, lang, "soon", "wide", ""),
                      L["jakob_photo_alt"], L["jakob_eyebrow"], L["jakob_h"], L["jakob_p"], LINKEDIN, L["jakob_hi"])
 
 
@@ -736,7 +774,7 @@ def home_body(L, lang):
 def hero_app(L, lang):
     stats = "\n".join('          <div><span class="v">%s</span><span class="k">%s</span></div>' % s
                       for s in L["stats"])
-    return '''    <section class="hero hero-plain">
+    return '''    <section class="hero hero-plain" id="top">
       <div class="hero-inner">
         <div class="app-top">
           <div class="app-copy-col">
@@ -771,7 +809,7 @@ def hero_app(L, lang):
 
 
 def disclaimer(L, lang):
-    return '''    <section class="section">
+    return '''    <section class="section" id="independent">
       <div class="disclaimer rv">
         <strong>%s</strong>
         <span>%s</span>
@@ -785,7 +823,7 @@ def highlights(L, lang):
         cls = "highlight-card tint" if i == 1 else "highlight-card"
         cards.append('        <div class="%s">\n          <span class="headline">%s</span>\n'
                      '          <span class="body">%s</span>\n        </div>' % (cls, headline, body))
-    return '''    <section class="section">
+    return '''    <section class="section" id="highlights">
       <div class="highlights rv">
 %s
       </div>
@@ -810,7 +848,7 @@ def app_section(L, lang):
 
 
 def topics_section(L, lang):
-    return '''    <section class="section" %s>
+    return '''    <section class="section" id="topics" %s>
       <div class="section-inner rv">
         <div class="topics-head">
           <h2>%s</h2>
@@ -830,7 +868,7 @@ def seasons_section(L, lang):
         '            <div class="season-row"><span class="name">%s</span><span class="meta"><span class="period">%s</span><span class="dot" style="background:%s"></span></span></div>'
         % (name, period, "var(--ok)" if open_ else "var(--muted)") for name, period, open_ in L["seasons"])
     p1, p2, p3 = L["seasons_pills"]
-    return '''    <section class="section">
+    return '''    <section class="section" id="seasons">
       <div class="section-inner split rv">
         <div class="split-copy">
           <h2>%s</h2>
@@ -851,8 +889,24 @@ def seasons_section(L, lang):
                      p1, p2, p3, rows, L["seasons_foot"])
 
 
+def tools_section(L, lang):
+    items = "\n".join('          <a class="priv-card" href="%s"><span class="name">%s</span><span class="desc">%s</span></a>' % (h, t, d)
+                       for t, d, h in L["tools_items"])
+    return '''    <section class="section" id="tools">
+      <div class="section-inner rv">
+        <div class="section-head">
+          <h2>%s</h2>
+          <p>%s</p>
+        </div>
+        <div class="priv-grid">
+%s
+        </div>
+      </div>
+    </section>''' % (L["tools_head"], L["tools_sub"], items)
+
+
 def free_trial(L, lang):
-    return '''    <section class="section rule-top" %s>
+    return '''    <section class="section rule-top" id="free" %s>
       <div class="section-inner split rv">
         <div class="split-copy">
           <h2 style="font-size:clamp(28px,4.4vw,60px)">%s</h2>
@@ -868,7 +922,7 @@ def free_trial(L, lang):
 
 
 def about_section(L, lang):
-    return '''    <section class="section rule-top">
+    return '''    <section class="section rule-top" id="about">
       <div class="section-inner split rv" style="align-items:start">
         <img class="about-photo" src="/assets/jakob.webp" width="360" height="360" alt="%s" loading="lazy">
         <div class="about-copy" style="display:flex;flex-direction:column;gap:16px">
@@ -887,7 +941,7 @@ def about_section(L, lang):
 
 
 def final_cta(L, lang):
-    return '''    <section class="cta-final rule-top">
+    return '''    <section class="cta-final rule-top" id="cta">
       <div class="cta-final-inner rv">
         <h2>%s</h2>
         <p>%s</p>
@@ -904,7 +958,7 @@ def final_cta(L, lang):
 
 def support_body(L, lang):
     email, resp, refund = L["support_cards"]
-    cards = '''      <div class="contact-grid rv">
+    cards = '''      <div class="contact-grid rv" id="contact">
         <a class="contact-card" href="mailto:%s">
           <span class="label">%s</span>
           <span class="value link">%s</span>
@@ -927,7 +981,7 @@ def support_body(L, lang):
     subjects = (L["form_subject_options"][:3] + [L["sup_other"] % a["name"] for a in APPS if a["id"] != "jagtproven"]
                 + L["form_subject_options"][3:])
     options += "".join("\n              <option>%s</option>" % esc(o) for o in subjects)
-    form = '''      <div class="support-form rv">
+    form = '''      <div class="support-form rv" id="message">
         <h2>%s</h2>
         <div class="form-grid">
           <label class="field">%s
@@ -950,7 +1004,7 @@ def support_body(L, lang):
                    L["form_email_ph"], L["form_body_label"], L["form_body_ph"],
                    L["form_send"], L["form_note"])
 
-    faq = '''      <div style="display:flex;flex-direction:column;gap:12px">
+    faq = '''      <div id="faq" style="display:flex;flex-direction:column;gap:12px">
         <h2 style="font-size:clamp(22px,2.8vw,30px)">%s</h2>
         <div class="faq rv">
 %s
@@ -959,14 +1013,14 @@ def support_body(L, lang):
                    "\n".join('          <details><summary>%s</summary><p class="answer">%s</p></details>' % f
                              for f in L["faqs"]))
 
-    per_app = '''      <div class="sup-apps rv">
+    per_app = '''      <div class="sup-apps rv" id="per-app">
         <h2>%s</h2>
         <ul>%s</ul>
       </div>''' % (L["sup_apps_head"], "".join(
         '<li><a href="%s">%s<span>%s</span></a></li>' % (a["sup"][lang], icon(a, L, "sa-ic", alt=False), esc(a["name"]))
         for a in APPS if a["sup"] and a["id"] != "jagtproven"))
 
-    urgent = '''      <div class="urgent rv">
+    urgent = '''      <div class="urgent rv" id="urgent">
         <span class="head">%s</span>
         <span class="body">%s</span>
       </div>''' % (L["urgent_head"], L["urgent_body"])
@@ -987,12 +1041,12 @@ def support_body(L, lang):
 # ---------------------------------------------------------------- privacy
 
 def priv_index_body(L, lang):
-    cards = "\n".join('''        <a class="priv-card" href="%s">
+    cards = "\n".join('''        <a class="priv-card" id="priv-%s" href="%s">
           %s
           <span class="name">%s</span>
           <span class="desc">%s</span>
           <span class="go">%s</span>
-        </a>''' % (a["priv"][lang], icon(a, L, "pc-ic", alt=False), esc(a["full"]), esc(a["pdesc"][lang]),
+        </a>''' % (a["id"], a["priv"][lang], icon(a, L, "pc-ic", alt=False), esc(a["full"]), esc(a["pdesc"][lang]),
                      L["priv_card_go"]) for a in APPS)
     return '''    <div class="support-page">
       <div class="page-head">
@@ -1069,6 +1123,13 @@ ARTICLE_TXT = {
                desc="Articles on birdsong, alarm sounds and waking up on iPhone by Jakob Munch-Brandt.",
                lede="On birdsong, alarm sounds and waking up. My own opinions, and I say where the evidence stops.",
                by="By Jakob Munch-Brandt", back="All articles", other="Artikler på dansk"),
+}
+
+# A pointer from an article to the free tool that fits it.
+ARTICLE_TOOLS = {
+    "jagtproven-jagttider": '<div class="art-note"><p>Slå dagens jagttider op, også for dit område: <a href="/jagttider-i-dag/">Hvad må jeg jage i dag?</a> Og øv dem i <a href="/jagtproeve-quiz/">jagtprøve-quizzen</a>.</p></div>',
+    "jagtproven-saadan-foregaar-den": '<div class="art-note"><p>Vil du teste dig selv med det samme? Tag den gratis <a href="/jagtproeve-quiz/">jagtprøve-quiz</a> med forklaring på hvert svar.</p></div>',
+    "jagtproven-laer-vildtarterne": '<div class="art-note"><p>Vil du øve resten af teorien også? Tag den gratis <a href="/jagtproeve-quiz/">jagtprøve-quiz</a>.</p></div>',
 }
 
 def md_inline(t):
@@ -1172,6 +1233,7 @@ def article_page(a):
     cta = ('<div class="article-cta"><img src="/assets/apps/icons/%s.webp" width="64" height="64" alt="" loading="lazy">'
            '<div><strong>%s</strong><p>%s</p></div><a class="btn" href="%s" target="_blank" rel="noopener">%s</a></div>'
            % (a["key"], esc(app["name"]), esc(app["line"]), app["store"], app["btn"]))
+    tool = ARTICLE_TOOLS.get(a["slug"], "")
     src = ""
     if a["sources"].strip():
         src = '<details class="article-sources"><summary>%s</summary>%s</details>' % (
@@ -1188,12 +1250,13 @@ def article_page(a):
       </div>
       <div class="article-body">
         %s
+        %s
       </div>
       %s
       %s
     </article>
     <script type="application/ld+json">%s</script>""" % (
-        articles_href(a["lang"]), T["back"], esc(a["title"]), T["by"], max(2, round(len(re.findall(r"\w+", a["body"])) / 200)), md_html(a["body"]), cta, src, ld)
+        articles_href(a["lang"]), T["back"], esc(a["title"]), T["by"], max(2, round(len(re.findall(r"\w+", a["body"])) / 200)), md_html(a["body"]), tool, cta, src, ld)
     page(a["path"], esc(a["title"]), esc(a["desc"]), body, lang=a["lang"], redirect=False,
          switch=("/artikler/", "/en/articles/"))
 
@@ -1211,7 +1274,7 @@ def article_index(lang, arts):
       <p><a href="%s">%s</a></p>
     </div>""" % (T["h"], T["lede"], rows, other, T["other"])
     page(articles_href(lang), T["title"], T["desc"], body, lang=lang, current="articles", redirect=False,
-         switch=("/artikler/", "/en/articles/"))
+         switch=("/artikler/", "/en/articles/"), pair=True)
 
 _arts = load_articles()
 for _a in _arts:
@@ -1219,13 +1282,256 @@ for _a in _arts:
 for _l in ("da", "en"):
     article_index(_l, _arts)
 
+# ---------------------------------------------------------------- free exam tools
+# Three client-side tools. Their data is frozen in assets/exam/ by build-exam-data.py
+# and inlined here, so a page needs no network call and paid questions never ship.
+# Each page exists in one language, so it is exempt from the language redirect.
+
+EXAM_CHECKED = "10. november 2026"
+BEK470_URL = "https://www.retsinformation.dk/eli/lta/2024/470"
+HEARING_URL = "https://hoeringsportalen.dk/Hearing/Details/71772"
+HEARING_LETTER = "https://prodstoragehoeringspo.blob.core.windows.net/00147c2d-7c0a-4e53-81a6-30362a24fdfa/H%C3%B8ringsbrev.pdf"
+FAA_MATRIX = "https://www.faa.gov/training_testing/testing/testing_matrix"
+FAA_ACS = "https://www.faa.gov/training_testing/testing/acs/uas_acs.pdf"
+JP_INSTRUKS = "https://sgavmst.dk/media/ttndlsbs/instruks-for-jagtproeven-2026.pdf"
+JP_ARTICLE = "/artikler/jagtproven-saadan-foregaar-den/"
+JP_SEASON_ARTICLE = "/artikler/jagtproven-jagttider/"
+
+
+def exam_data(name):
+    return json.load(io.open(os.path.join("assets", "exam", name), encoding="utf-8"))
+
+
+def inline_json(id_, data):
+    return '<script type="application/json" id="%s">%s</script>' % (
+        id_, json.dumps(data, ensure_ascii=False).replace("</", "<\\/"))
+
+
+def ld(*objs):
+    return "\n    ".join('<script type="application/ld+json">%s</script>' % json.dumps(o, ensure_ascii=False) for o in objs)
+
+
+def faq_ld(faq):
+    return {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": re.sub(r"<[^>]+>", "", a)}} for q, a in faq]}
+
+
+def quiz_ld(url, name, desc, lang, about):
+    return {"@context": "https://schema.org", "@type": "Quiz", "name": name, "description": desc, "url": url,
+            "inLanguage": lang, "isAccessibleForFree": True, "about": {"@type": "Thing", "name": about},
+            "educationalUse": "practice", "author": {"@type": "Person", "name": "Jakob Munch-Brandt"}}
+
+
+def faq_html(head, faq):
+    return """      <section class="xt-text">
+        <h2>%s</h2>
+        <div class="faq">
+%s
+        </div>
+      </section>""" % (head, "\n".join('          <details><summary>%s</summary><p class="answer">%s</p></details>' % f for f in faq))
+
+
+def tool_page(path, title, desc, lang, h1, lede, tool, sections, cta, ldjson, switch, extra_script=""):
+    body = """    <div class="support-page xt-page">
+      <div class="page-head">
+        <h1>%s</h1>
+        <p>%s</p>
+      </div>
+      %s
+%s
+%s
+    </div>
+    %s
+    <script src="/exam-tools.js" defer></script>%s""" % (h1, lede, tool, "\n".join(sections), cta, ldjson, extra_script)
+    page(path, title, desc, body, lang=lang, redirect=False, switch=switch)
+
+
+def quiz_widget(config, noscript):
+    return """<div class="xt-card" id="quiz" data-quiz></div>
+      <noscript><p class="xt-note">%s</p></noscript>
+      %s""" % (noscript, inline_json("quiz-data", config))
+
+
+# ---- Part 107 (English, DroneCamp's 40 free questions)
+
+P107_FAQ = [
+    ("Are these the real FAA test questions?", "No. They were written for the DroneCamp app from the FAA's Airman Certification Standards and the regulations, and each answer cites its source. DroneCamp and Webspind are not affiliated with the FAA."),
+    ("How many questions are on the real Part 107 test?", "The FAA's testing matrix lists the Unmanned Aircraft General test (UAG) at 60 questions, 2 hours and a passing score of 70."),
+    ("Does a good score here mean I will pass?", "No. These 40 questions are a sample, so your score tells you what to study next, not how the real test will go."),
+    ("Do you keep my answers?", "No. The test runs in your browser. Nothing is sent anywhere or saved, and the page has no tracking, cookies or ads."),
+]
+
+
+def part107_page():
+    data = exam_data("part107-free.json")
+    n = len(data["questions"])
+    cfg = {"lang": "en", "lengths": [10, 20, n], "questions": data["questions"],
+           "ui": dict(start="How many questions?", startSub="%d free questions from all five test areas, in a new order every time." % n,
+                      go="%d questions", all="All %d", progress="Question %d of %d", check="Check answer",
+                      next="Next question", finish="See my score", right="Right.", wrong="Not quite. The right answer is:",
+                      source="Source", topic="Topic", score="%d of %d right", again="Take it again", change="Choose another length",
+                      review="Review your answers", youSaid="You answered", noAnswer="No answer",
+                      note="This is a practice score from a sample, so it can't predict the real test. On the real test the FAA's passing score is 70.",
+                      keyHint="Tip: press 1, 2 or 3 to answer, and Enter to go on.")}
+    url = "https://webspind.com/part-107-practice-test/"
+    title = "Free FAA Part 107 Practice Test, With Every Answer Explained | Webspind"
+    desc = "Take a free FAA Part 107 practice test: %d questions across all five test areas, each answer explained with its source. No sign-up, right in your browser." % n
+    tool = quiz_widget(cfg, "This practice test needs JavaScript. Everything else on this page works without it.")
+    sections = ["""      <section class="xt-text">
+        <h2>What the real test looks like</h2>
+        <p>The Part 107 knowledge test is the FAA's <strong>Unmanned Aircraft General (UAG)</strong> test: <strong>60 questions, 2 hours, and a passing score of 70</strong>, according to the <a href="%s" target="_blank" rel="noopener">FAA Airman Knowledge Testing Matrix</a> of 25 September 2026. The same document says you need an FAA Tracking Number from IACRA before you test.</p>
+        <p>The questions here follow the five areas of the FAA's <a href="%s" target="_blank" rel="noopener">Airman Certification Standards for small UAS</a> (FAA-S-ACS-10B): regulations, airspace, weather, loading and performance, and operations. The regulations were last checked on 7 November 2026.</p>
+      </section>""" % (FAA_MATRIX, FAA_ACS),
+    """      <section class="xt-text">
+        <h2>How to use it</h2>
+        <p>Answer first, then read the explanation, even when you got it right. The reason behind an answer is what carries over when the real test asks the same rule a different way. Every answer names the regulation or FAA handbook it comes from, so you can look it up.</p>
+        <p>Wrong on a question? Good: that is the topic to read next. Run the test again later and see whether it stuck.</p>
+      </section>""",
+    faq_html("Questions people ask", P107_FAQ)]
+    cta = """      <div class="article-cta">
+        <img src="/assets/apps/icons/dronecamp.webp" width="64" height="64" alt="" loading="lazy">
+        <div><strong>DroneCamp is on its way</strong><p>This test uses the 40 free questions from DroneCamp, my iPhone app for the Part 107 test. It isn't out yet. The full app has 558 explained questions, 34 chart drills and timed mock tests.</p></div>
+        <a class="btn" href="/en/#dronecamp">See DroneCamp</a>
+      </div>"""
+    tool_page("/part-107-practice-test/", title, desc, "en", "Free FAA Part 107 practice test",
+              "Pick a length and answer. You see why each answer is right as you go, with its source. No sign-up.",
+              tool, sections, cta,
+              ld(quiz_ld(url, "Free FAA Part 107 practice test", desc, "en", "FAA Part 107 remote pilot knowledge test"), faq_ld(P107_FAQ)),
+              ("/", "/part-107-practice-test/"))
+
+
+# ---- jagtprøve-quiz (Danish, a sample from Jagtprøven)
+
+JP_FAQ = [
+    ("Er det prøvens rigtige spørgsmål?", "Nej. Spørgsmålene er skrevet til appen Jagtprøven ud fra det offentlige pensum. Quizzen er en øvelse og ikke prøvens egne spørgsmål, og den er ikke tilknyttet myndighederne."),
+    ("Hvor mange spørgsmål er der til den rigtige prøve?", "Den skriftlige prøve har 40 spørgsmål. Du skal have mindst 36 rigtige, og du har 30 minutter."),
+    ("Hvorfor er der ingen billeder af vildtarter?", "Prøvens afsnit om artskendskab bygger på billeder. Dem øver du i appen, så denne quiz nøjes med de øvrige afsnit."),
+    ("Gemmer I mine svar?", "Nej. Quizzen kører i din browser. Intet sendes, intet gemmes, og siden har hverken cookies, reklamer eller måling."),
+]
+
+
+def jagtquiz_page():
+    data = exam_data("jagtquiz.json")
+    n = len(data["questions"])
+    cfg = {"lang": "da", "lengths": [10, 20, n], "questions": data["questions"],
+           "ui": dict(start="Hvor mange spørgsmål?", startSub="%d gratis spørgsmål, i en ny rækkefølge hver gang." % n,
+                      go="%d spørgsmål", all="Alle %d", progress="Spørgsmål %d af %d", next="Næste spørgsmål", finish="Se mit resultat",
+                      right="Rigtigt.", wrong="Ikke helt. Det rigtige svar er:", source="Kilde", topic="Emne",
+                      score="%d af %d rigtige", again="Tag den igen", change="Vælg en anden længde",
+                      review="Se dine svar", youSaid="Du svarede", noAnswer="Intet svar",
+                      note="Det her er en øvelse med et udsnit af spørgsmålene, så det siger ikke, hvordan prøven går. Til den rigtige skriftlige prøve skal du have mindst 36 af 40 rigtige.",
+                      keyHint="Tip: tryk 1, 2, 3 eller 4 for at svare og Enter for at gå videre.")}
+    url = "https://webspind.com/jagtproeve-quiz/"
+    title = "Jagtprøve-quiz: %d gratis spørgsmål med forklaring | Webspind" % n
+    desc = "Øv til jagtprøven gratis: %d spørgsmål med forklaring og kilde på hvert svar, om lovgivning, vildt, våben, etik og sikkerhed. Uden login, direkte i browseren." % n
+    tool = quiz_widget(cfg, "Quizzen kræver JavaScript. Resten af siden virker uden.")
+    sections = ["""      <section class="xt-text">
+        <h2>Sådan er den rigtige prøve</h2>
+        <p>Den skriftlige jagtprøve har <strong>40 spørgsmål, og du skal have mindst 36 rigtige</strong>. Du har 30 minutter. Det står i <a href="%s" target="_blank" rel="noopener">Instruks for jagtprøven 2026</a> fra Styrelsen for Grøn Arealomlægning og Vandmiljø.</p>
+        <p>Vil du vide, hvordan hele dagen foregår, også den praktiske del, så læs <a href="%s">sådan foregår jagtprøven</a>. Tjek altid jagttegn.dk for de aktuelle regler, før du melder dig til.</p>
+      </section>""" % (JP_INSTRUKS, JP_ARTICLE),
+    """      <section class="xt-text">
+        <h2>Sådan får du mest ud af det</h2>
+        <p>Svar først, og læs så forklaringen, også når du havde ret. Det er grunden bag svaret, du skal bruge, når prøven stiller det samme spørgsmål på en ny måde. Under hvert svar står kilden, så du kan slå reglen op.</p>
+        <p>Quizzen dækker lovgivning, vildtbiologi, våben, etik og sikkerhed. Jagttiderne kan du slå op dag for dag i <a href="/jagttider-i-dag/">Hvad må jeg jage i dag?</a>.</p>
+      </section>""",
+    faq_html("Det spørger folk om", JP_FAQ)]
+    cta = """      <div class="article-cta">
+        <img src="/assets/apps/icons/jagtproven.webp" width="64" height="64" alt="" loading="lazy">
+        <div><strong>Hele teorien i Jagtprøven</strong><p>Quizzen er et udsnit fra min app. Appen har 522 spørgsmål med en forklaring på hvert svar, prøvesæt på tid og alle 100 vildtarter med foto. Den er uafhængig af myndighederne.</p></div>
+        <a class="btn" href="%s" target="_blank" rel="noopener">Hent i App Store</a>
+      </div>""" % STORE_JAGTPROVEN
+    tool_page("/jagtproeve-quiz/", title, desc, "da", "Jagtprøve-quiz: øv gratis her",
+              "Vælg en længde, og svar løs. Du ser forklaringen og kilden, så snart du har svaret. Intet login.",
+              tool, sections, cta,
+              ld(quiz_ld(url, "Jagtprøve-quiz", desc, "da", "Den skriftlige jagtprøve i Danmark"), faq_ld(JP_FAQ)),
+              ("/jagtproeve-quiz/", "/en/"))
+
+
+# ---- Hvad må jeg jage i dag? (Danish, BEK 470/2024)
+
+JT_FAQ = [
+    ("Hvor kommer jagttiderne fra?", "Fra bekendtgørelse nr. 470 af 17. maj 2024 om jagttid for visse pattedyr og fugle m.v., bilag 1 til 4, som jeg har sammenholdt med den offentliggjorte tekst på Retsinformation."),
+    ("Må jeg stole på listen?", "Brug den som en hjælp til at komme i gang. Du har selv ansvaret for at tjekke de lokale regler og den gældende bekendtgørelse, før du går på jagt."),
+    ("Hvad med lokale jagttider?", "Vælg dit område, så lægger siden de lokale jagttider i bilag 2, 3 og 4 oven på de generelle. Områderne i bilag 3 og 4 er afgrænset af veje og vandløb, så du skal selv vælge det rigtige. Siden gætter ikke på, hvor du er."),
+    ("Er nye jagttider på vej?", "Et udkast til nye jagttider er sendt i høring, med forventet ikrafttræden den 1. februar 2027. Det er ikke vedtaget. Vælger du en dato efter den dag, gør siden opmærksom på det."),
+]
+
+
+def jagttider_page():
+    data = exam_data("jagttider.json")
+    tool = """<div class="xt-card" id="seasons" data-seasons>
+        <div class="xt-form">
+          <label class="xt-field">Dato
+            <input type="date" id="st-date" required>
+          </label>
+          <label class="xt-field">Område, valgfrit
+            <select id="st-small"><option value="">Hele landet (kun de generelle jagttider)</option></select>
+          </label>
+          <details class="xt-more">
+            <summary>Kronvildt og dåvildt: vælg område</summary>
+            <p>Bilag 3 og 4 har egne områder, der følger veje og vandløb. Vælg dem, der passer på din jagt. Kortene er bilag 5 til 28 i bekendtgørelsen.</p>
+            <label class="xt-field">Kronvildt<select id="st-kron"><option value="">Ikke valgt</option></select></label>
+            <p class="xt-detail" id="st-kron-detail"></p>
+            <label class="xt-field">Dåvildt<select id="st-daa"><option value="">Ikke valgt</option></select></label>
+            <p class="xt-detail" id="st-daa-detail"></p>
+          </details>
+        </div>
+        <div id="st-banner"></div>
+        <h2 class="xt-summary" id="st-summary" aria-live="polite"></h2>
+        <div id="st-results"></div>
+        <p class="xt-source"><strong>Kilde:</strong> <a href="%s" target="_blank" rel="noopener">bekendtgørelse nr. 470 af 17. maj 2024</a>, bilag 1 til 4. <strong>Sidst tjekket:</strong> %s. Tjek altid de lokale regler og den gældende bekendtgørelse, før du går på jagt.</p>
+      </div>
+      <noscript><p class="xt-note">Opslaget kræver JavaScript. Du finder de samme jagttider i <a href="%s">bekendtgørelsen på Retsinformation</a>.</p></noscript>
+      %s""" % (BEK470_URL, EXAM_CHECKED, BEK470_URL, inline_json("season-data", data))
+    desc = "Se hvilke arter der har jagttid i dag eller på en anden dato, med de lokale jagttider for dit område. Efter bekendtgørelse nr. 470 af 2024."
+    title = "Hvad må jeg jage i dag? Jagttider dato for dato | Webspind"
+    url = "https://webspind.com/jagttider-i-dag/"
+    sections = ["""      <section class="xt-text">
+        <h2>Hvornår på døgnet må du jage?</h2>
+        <p>Dagens liste siger, hvilke arter der har jagttid på datoen. Tidspunktet på dagen har sine egne regler i bekendtgørelsens § 3:</p>
+        <ul>
+          <li>Som hovedregel må du jage fra solopgang til solnedgang.</li>
+          <li>Ænder og gæs må jages fra 1½ time før solopgang til 1½ time efter solnedgang.</li>
+          <li>Husskade, gråkrage og sortkrage må jages fra 1 time før solopgang til solnedgang.</li>
+          <li>For kronvildt gælder andre tider nogle steder, efter bilag 3. Vælger du et område ovenfor, står det ved arten.</li>
+        </ul>
+      </section>""",
+    """      <section class="xt-text">
+        <h2>Nye jagttider er sendt i høring</h2>
+        <p>Styrelsen for Grøn Arealomlægning og Vandmiljø sendte <a href="%s" target="_blank" rel="noopener">et udkast til ny jagttidsbekendtgørelse i høring</a> den 5. november 2026, med høringsfrist den 3. december og forventet ikrafttræden den 1. februar 2027. Det er ikke vedtaget, så siden viser de regler, der gælder nu.</p>
+        <p>Ifølge <a href="%s" target="_blank" rel="noopener">høringsbrevet</a> foreslås det blandt andet, at jagttiden på hare slutter 15. januar i hele landet, at canadagås også får jagttid i februar, at ringdue får jagttid fra 1. oktober med krav om jagt på flokke i oktober og november, og at jagttiden på edderfugl indstilles. Lokale jagttider for hjortevildt ændres også.</p>
+        <p>Vil du lære mønsteret bag datoerne, så læs <a href="%s">jagttider til jagtprøven</a>, og øv dig i <a href="/jagtproeve-quiz/">jagtprøve-quizzen</a>.</p>
+      </section>""" % (HEARING_URL, HEARING_LETTER, JP_SEASON_ARTICLE),
+    faq_html("Det spørger folk om", JT_FAQ)]
+    cta = """      <div class="article-cta">
+        <img src="/assets/apps/icons/jagtproven.webp" width="64" height="64" alt="" loading="lazy">
+        <div><strong>Jagttiderne på telefonen</strong><p>Jagtprøven er min app til jagttegnet. Den har alle arters jagttider med noter om de lokale regler og 522 spørgsmål med forklaring. Den er uafhængig af myndighederne.</p></div>
+        <a class="btn" href="%s" target="_blank" rel="noopener">Hent i App Store</a>
+      </div>""" % STORE_JAGTPROVEN
+    webapp = {"@context": "https://schema.org", "@type": "WebApplication", "name": "Hvad må jeg jage i dag?", "url": url,
+              "description": desc, "inLanguage": "da", "applicationCategory": "ReferenceApplication",
+              "operatingSystem": "Alle med en browser", "isAccessibleForFree": True,
+              "offers": {"@type": "Offer", "price": "0", "priceCurrency": "DKK"},
+              "author": {"@type": "Person", "name": "Jakob Munch-Brandt"}}
+    tool_page("/jagttider-i-dag/", title, desc, "da", "Hvad må jeg jage i dag?",
+              "Vælg en dato og eventuelt dit område, så ser du, hvilke arter der har jagttid.",
+              tool, sections, cta, ld(webapp, faq_ld(JT_FAQ)), ("/jagttider-i-dag/", "/en/"))
+
+
+part107_page()
+jagtquiz_page()
+jagttider_page()
+
+
+
 for lang in ("da", "en"):
     L = LANG[lang]
 
     page(P(lang, "/"), L["home_title"], L["home_desc"], home_body(L, lang), lang=lang, twin=TWIN_HOME)
 
     app = "\n\n".join([hero_app(L, lang), disclaimer(L, lang), highlights(L, lang),
-                       app_section(L, lang), topics_section(L, lang), seasons_section(L, lang),
+                       app_section(L, lang), topics_section(L, lang), seasons_section(L, lang), tools_section(L, lang),
                        free_trial(L, lang), about_section(L, lang), final_cta(L, lang)])
     page(P(lang, "/jagtproven/"), L["app_title"], L["app_desc"], app,
          lang=lang, current="apps", twin=TWIN_APP)
@@ -1263,20 +1569,28 @@ def reshell(rel):
     index = {"privacy": "/privacy/", "support": "/support.html"}[section]
     def exists(u):
         return os.path.isfile(u.lstrip("/"))
+    pair = False
     if html_lang == "da":
         twin_en = "/en" + path
-        switch = (path, twin_en if exists(twin_en) else "/en" + index)
+        pair = exists(twin_en)
+        switch = (path, twin_en if pair else "/en" + index)
     elif html_lang == "en":
         twin_da = path[3:]
-        switch = (twin_da if exists(twin_da) else index, path)
+        pair = exists(twin_da)
+        switch = (twin_da if pair else index, path)
     else:
         switch = (index, "/en" + index)
     _page(path, title, desc, main, lang=shell, current=section, switch=switch,
-          redirect=False, html_lang=html_lang)
+          redirect=False, html_lang=html_lang, pair=pair)
 
+
+# Folders with their own generator are never rewritten or listed here.
+OWN_BUILD = ("tools/", "beregnere/")
 
 for rel in sorted(glob.glob("privacy/*.html") + glob.glob("support/*.html") + glob.glob("*/privacy/*.html")
                   + glob.glob("*/support/*.html")):
+    if rel.startswith(OWN_BUILD):
+        continue
     # privacy/jakob-channels.html is a standalone policy for a private API tool
     # (Google's review reads it as is), so it keeps its own page.
     if "/" + rel not in WRITTEN and not rel.startswith("concepts/") and rel != "privacy/jakob-channels.html":
@@ -1290,7 +1604,8 @@ def loc(p):
 
 urls = sorted({loc(p) for p in WRITTEN if p != "/404.html"} |
               {"/" + r for r in glob.glob("privacy/*.html") + glob.glob("support/*.html")
-               + glob.glob("*/privacy/*.html") + glob.glob("*/support/*.html") if not r.startswith("concepts/")})
+               + glob.glob("*/privacy/*.html") + glob.glob("*/support/*.html")
+               if not r.startswith("concepts/") and not r.startswith(OWN_BUILD)})
 io.open("sitemap.xml", "w", encoding="utf-8").write(
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     + "".join("  <url><loc>https://webspind.com%s</loc></url>\n" % u for u in urls) + "</urlset>\n")
