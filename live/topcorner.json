@@ -33,5 +33,5 @@
   "news": null,
   "events": [],
   "sales": [],
-  "flags": { "paidPacks": true, "world": false }
+  "flags": { "paidPacks": true }
 }
