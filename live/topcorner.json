@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "minVersion": "0.1",
+  "updateUrl": "",
+  "money": {
+    "version": 1,
+    "paidRandomElsewhere": false,
+    "adultProof": "confirmed",
+    "countries": [
+      {"iso3": "BEL", "iso2": "BE", "paidRandom": false, "note": "Paid loot boxes are illegal gambling (2018)"},
+      {"iso3": "BRA", "iso2": "BR", "paidRandom": false, "note": "ECA Digital: banned in games minors can reach (17 Mar 2026)"},
+      {"iso3": "DNK", "iso2": "DK", "paidRandom": true, "note": "Legal; under-18s never see them"},
+      {"iso3": "SWE", "iso2": "SE", "paidRandom": true},
+      {"iso3": "NOR", "iso2": "NO", "paidRandom": true},
+      {"iso3": "FIN", "iso2": "FI", "paidRandom": true},
+      {"iso3": "DEU", "iso2": "DE", "paidRandom": true},
+      {"iso3": "AUT", "iso2": "AT", "paidRandom": true},
+      {"iso3": "CHE", "iso2": "CH", "paidRandom": true},
+      {"iso3": "NLD", "iso2": "NL", "paidRandom": true, "note": "Not gambling if not transferable (2022); consumer law strict"},
+      {"iso3": "FRA", "iso2": "FR", "paidRandom": true},
+      {"iso3": "ESP", "iso2": "ES", "paidRandom": true},
+      {"iso3": "ITA", "iso2": "IT", "paidRandom": true},
+      {"iso3": "PRT", "iso2": "PT", "paidRandom": true},
+      {"iso3": "IRL", "iso2": "IE", "paidRandom": true},
+      {"iso3": "POL", "iso2": "PL", "paidRandom": true},
+      {"iso3": "GBR", "iso2": "GB", "paidRandom": true},
+      {"iso3": "USA", "iso2": "US", "paidRandom": true},
+      {"iso3": "CAN", "iso2": "CA", "paidRandom": true},
+      {"iso3": "AUS", "iso2": "AU", "paidRandom": true, "note": "App Store rates the game 16+ there"},
+      {"iso3": "NZL", "iso2": "NZ", "paidRandom": true}
+    ]
+  },
+  "news": null,
+  "events": [],
+  "sales": [],
+  "flags": { "paidPacks": true, "world": false }
+}
