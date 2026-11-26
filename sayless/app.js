@@ -24,6 +24,7 @@ const svgIcon = d => { const s = document.createElementNS('http://www.w3.org/200
 const I_SHUFFLE = 'M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5';
 const store = { get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const popDay = b => { if (RM || !b) return; b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop'); };
 
 /* ---------- api ---------- */
 async function rpc(fn, body) {
@@ -31,8 +32,19 @@ async function rpc(fn, body) {
   try { r = await fetch(API + fn, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), referrerPolicy: 'no-referrer', cache: 'no-store' }); }
   catch (e) { throw new Error('No connection. Try again in a moment.'); }
   const j = await r.json().catch(() => null);
-  if (!r.ok) throw new Error((j && j.message) || 'Something went wrong. Try again.');
+  if (!r.ok) throw new Error(nice((j && j.message) || ''));
   return j;
+}
+// server text -> words people understand (QoL 26/11)
+function nice(m) {
+  const t = String(m).toLowerCase();
+  if (/slow down|busy|too many|rate/.test(t)) return 'Lots of taps at once. Wait a minute and try again.';
+  if (/called off|cancel/.test(t)) return 'The host called this plan off.';
+  if (/locked/.test(t)) return 'plan is locked';
+  if (/not found|no plan/.test(t)) return 'This plan is gone. The link may be mistyped.';
+  if (/name/.test(t)) return 'Write your name first.';
+  if (/key|not allowed|forbidden/.test(t)) return 'This browser can no longer change that. Use your edit link.';
+  return m || 'Something went wrong. Try again.';
 }
 // Read-only calls go as GET so the CDN and browser can cache them (photos never change).
 async function rpcGet(fn, args, cache) {
@@ -89,19 +101,36 @@ const setPlanColor = c => document.documentElement.style.setProperty('--plan', s
 
 /* ---------- small ui ---------- */
 let toastT;
-function toast(msg) { $$('.toast').forEach(t => t.remove()); const t = h('div', { class: 'toast', role: 'status', text: msg }); document.body.append(t); clearTimeout(toastT); toastT = setTimeout(() => t.remove(), 2600); }
+function toast(msg, act) {
+  $$('.toast').forEach(t => t.remove()); clearTimeout(toastT);
+  const t = h('div', { class: 'toast' }, h('span', { text: msg }), act ? h('button', { class: 'tact', text: act.label, onclick: () => { t.remove(); act.run(); } }) : null);
+  document.body.append(t);
+  let lr = $('#live-region'); if (!lr) { lr = h('div', { id: 'live-region', class: 'vh', role: 'status', 'aria-live': 'polite' }); document.body.append(lr); }
+  lr.textContent = ''; setTimeout(() => { lr.textContent = msg; }, 30);
+  const long = act || /again|wait|gone|could|can no|didn|failed|first/i.test(msg);
+  toastT = setTimeout(() => t.remove(), act ? 6000 : long ? 5000 : 2600);
+}
+const buzz = ms => { try { if (navigator.vibrate && matchMedia('(pointer: coarse)').matches) navigator.vibrate(ms || 6); } catch (e) {} };
 function sheet(title, ...body) {
-  const close = () => { s.remove(); document.removeEventListener('keydown', esc); };
-  const esc = e => { if (e.key === 'Escape') close(); };
+  const opener = document.activeElement;
+  const close = () => { s.remove(); document.removeEventListener('keydown', esc); if (opener && opener.isConnected && opener.focus) opener.focus({ preventScroll: true }); };
+  const esc = e => {
+    if (e.key === 'Escape') return close();
+    if (e.key === 'Tab') { const f = $$('button:not([disabled]), a[href], input, [tabindex="0"]', s.firstChild); if (!f.length) return; const a = f[0], z = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); } else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); } }
+  };
   const s = h('div', { class: 'scrim', onclick: e => { if (e.target === s) close(); } },
-    h('div', { class: 'sheet', role: 'dialog', 'aria-modal': 'true', 'aria-label': title }, h('h2', { text: title }), ...body));
+    h('div', { class: 'sheet', role: 'dialog', 'aria-modal': 'true', 'aria-label': title }, h('button', { class: 'close', 'aria-label': 'Close', text: '×', onclick: () => close() }), h('h2', { text: title }), ...body));
   document.body.append(s); document.addEventListener('keydown', esc);
-  setTimeout(() => { const f = $('button, input', s.firstChild); if (f) f.focus(); }, 30);
+  setTimeout(() => { const f = $$('button, input', s.firstChild).find(x => !x.classList.contains('close')); if (f) f.focus(); }, 30);
   s.close = close; return s;
 }
 async function copy(text, btn, label) {
-  try { await navigator.clipboard.writeText(text); } catch (e) { const t = h('textarea', { value: text }); document.body.append(t); t.select(); try { document.execCommand('copy'); } catch (er) {} t.remove(); }
+  let ok = false;
+  try { await navigator.clipboard.writeText(text); ok = true; } catch (e) { const t = h('textarea', { value: text }); document.body.append(t); t.select(); try { ok = document.execCommand('copy'); } catch (er) {} t.remove(); }
+  if (!ok) { if (btn) toast('Could not copy here. Press and hold the link to copy it.'); return false; }
   if (btn) { const old = btn.textContent, w = btn.offsetWidth; btn.style.minWidth = w + 'px'; btn.classList.add('ok'); btn.textContent = label || 'Copied'; setTimeout(() => { btn.classList.remove('ok'); btn.textContent = old; }, 1800); }
+  return true;
 }
 function confetti(from) {
   if (RM) return; const r = from.getBoundingClientRect();
@@ -210,18 +239,24 @@ function renderCreate() {
   const canGo = i => (i >= 1 ? C.title.trim().length > 0 : true) && (i >= 2 ? C.days.size > 0 : true);
   const shuffle = () => { const ks = Object.keys(KINDS); if (C.photo) { C.color = COLS[(COLS.indexOf(cCol()) + 1) % COLS.length]; } else { const cur = cKind(); const nk = ks[(ks.indexOf(cur) + 1 + Math.floor(Math.random() * (ks.length - 1))) % ks.length]; C.kind = nk; C.color = null; } draw(); };
 
+  // Empty name: "Or start from one" fills a whole plan. Once you write: "Pick its object" only changes the card, never your words.
+  function starts() {
+    const empty = !C.title.trim();
+    return h('div', { class: 'stack', id: 'starts' }, h('span', { class: 'micro', text: empty ? 'Or start from one' : 'Pick its object' }),
+      h('div', { class: 'presets' }, Object.entries(KINDS).map(([k, v]) => h('button', { class: 'tile' + ((empty ? C.preset === k : cKind() === k && !C.photo) ? ' on' : ''), 'aria-pressed': empty ? null : String(cKind() === k && !C.photo),
+        onclick: () => { if (empty) { C.preset = k; C.title = v.name; C.subtitle = v.desc; C.kind = k; C.color = null; C.photo = null; C.opts = v.ideas.slice(); draw(); } else { C.kind = k; C.photo = null; C.color = null; buzz(); draw(); } } },
+        h('img', { src: `${BASE}a/${v.obj}.webp`, alt: '' }), empty ? v.label : (v.label.split(' ')[0])))));
+  }
   function stepWhat() {
     const title = h('input', { class: 'field big', id: 'title', maxLength: 60, placeholder: 'One drink, cabin trip, pasta night...', value: C.title, 'aria-label': 'Plan name', autocomplete: 'off',
-      oninput: e => { C.title = e.target.value; if (C.preset && C.title !== KINDS[C.preset].name) C.preset = null; draw2(); } });
+      oninput: e => { const was = !!C.title.trim(); C.title = e.target.value; if (C.preset && C.title !== KINDS[C.preset].name) C.preset = null; if (was !== !!C.title.trim()) { const st = $('#starts'); if (st) st.replaceWith(starts()); } draw2(); } });
     const sub = h('input', { class: 'field', maxLength: 80, placeholder: 'One line for your friends (optional)', value: C.subtitle, 'aria-label': 'Subtitle', autocomplete: 'off', oninput: e => { C.subtitle = e.target.value; draw2(); } });
     const draw2 = () => { const card = $('.stage .card'); const n = cardEl(cPlan()); tilt(n); card.replaceWith(n); setPlanColor(cCol()); $$('.swatches button').forEach(b => b.classList.toggle('on', b.getAttribute('aria-label') === 'Colour ' + cCol())); $('.foot .btn').disabled = !C.title.trim(); };
     setTimeout(() => title.focus(), 50);
     const mine = (store.get('sl.mine') || []).slice(0, 8);
     return h('div', {}, h('p', { class: 'micro', style: { marginBottom: '10px' }, text: 'Pick a night with friends in ten seconds. No app, no account.' }), h('h1', { text: "What's the plan?" }), h('p', { class: 'lead', text: 'Name it. The card picks a look from the words, or pick one yourself.' }),
       h('div', { class: 'stack' }, title, sub),
-      h('div', { class: 'stack' }, h('span', { class: 'micro', text: 'Or start from one' }),
-        h('div', { class: 'presets' }, Object.entries(KINDS).map(([k, v]) => h('button', { class: 'tile' + (C.preset === k ? ' on' : ''), onclick: () => { C.preset = k; C.title = v.name; C.subtitle = v.desc; C.kind = k; C.color = null; C.photo = null; C.opts = v.ideas.slice(); draw(); } },
-          h('img', { src: `${BASE}a/${v.obj}.webp`, alt: '' }), v.label)))),
+      starts(),
       h('p', { class: 'meta', style: { marginTop: '24px' }, text: 'Free while Say Less is new. Friends never pay.' }),
       mine.length ? h('div', { class: 'stack shelf' }, h('span', { class: 'micro', text: 'Your plans' }), h('div', { class: 'presets' }, mine.map(m => h('a', { class: 'tile', href: `${BASE}?p=${m.id}` },
         m.obj ? h('img', { src: `${BASE}a/${m.obj}.webp`, alt: '' }) : h('span', { class: 'lt', style: { width: '64px', height: '64px', display: 'grid', placeItems: 'center', font: '900 30px/1 var(--head)', color: safeCol(m.col) }, text: (m.t || 'S').charAt(0).toUpperCase() }), m.t)))) : null);
@@ -236,7 +271,7 @@ function renderCreate() {
     let drag = null;
     const refresh = () => { $$('.d[data-d]', wrap).forEach(b => b.classList.toggle('on', C.days.has(b.dataset.d))); const card = $('.stage .card'); const n = cardEl(cPlan()); tilt(n); card.replaceWith(n); $('.foot .btn').disabled = !C.days.size; $('.foot .cnt').textContent = C.days.size ? (C.a != null && C.b == null && C.days.size === 1 ? 'Now tap the last day' : `${C.days.size} ${C.days.size === 1 ? 'day' : 'days'} picked`) : 'Tap the first day'; };
     for (let k = 0; k < 2; k++) {
-      const m = new Date(m0.getFullYear(), m0.getMonth() + k, 1), g = h('div', { class: 'mgrid', role: 'grid' });
+      const m = new Date(m0.getFullYear(), m0.getMonth() + k, 1), g = h('div', { class: 'mgrid', role: 'group', 'aria-label': `${MON[m.getMonth()]} ${m.getFullYear()}` });
       ['M', 'T', 'W', 'T', 'F', 'S', 'S'].forEach(w => g.append(h('span', { class: 'micro wd', text: w })));
       const lead = (m.getDay() + 6) % 7; for (let i = 0; i < lead; i++) g.append(h('span', { class: 'd blank' }));
       for (let d = new Date(m); d.getMonth() === m.getMonth(); d = add(d, 1)) {
@@ -247,8 +282,8 @@ function renderCreate() {
     }
     const at = e => { const el = document.elementFromPoint(e.clientX, e.clientY); return el && el.matches && el.matches('.d[data-d]:not([disabled])') ? el : null; };
     wrap.addEventListener('pointerdown', e => { const b = at(e); if (!b) return; e.preventDefault(); drag = { from: b.dataset.d, moved: false }; if (e.pointerType !== 'mouse') wrap.setPointerCapture(e.pointerId); });
-    wrap.addEventListener('pointermove', e => { if (!drag) return; const b = at(e); if (!b || (b.dataset.d === drag.from && !drag.moved)) return; drag.moved = true; C.a = drag.from; C.b = b.dataset.d; span(drag.from, b.dataset.d); refresh(); });
-    const end = () => { if (drag && !drag.moved) { tapDay(drag.from); refresh(); } drag = null; };
+    wrap.addEventListener('pointermove', e => { if (!drag) return; const b = at(e); if (!b || (b.dataset.d === drag.from && !drag.moved) || b.dataset.d === drag.last) return; drag.moved = true; drag.last = b.dataset.d; C.a = drag.from; C.b = b.dataset.d; const n0 = C.days.size; span(drag.from, b.dataset.d); refresh(); if (C.days.size !== n0) { buzz(); popDay(b); } });
+    const end = () => { if (drag && !drag.moved) { tapDay(drag.from); refresh(); buzz(); const b = $(`.d[data-d="${drag.from}"]`, wrap); if (b) popDay(b); } drag = null; };
     wrap.addEventListener('pointerup', end); wrap.addEventListener('pointercancel', () => { drag = null; });
     wrap.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.dataset.d) { e.preventDefault(); tapDay(e.target.dataset.d); refresh(); } });
     const quick = (label, f) => h('button', { class: 'btn out sm', text: label, onclick: () => {
@@ -311,9 +346,9 @@ function renderCreate() {
   }
   const foot = () => {
     const nxt = C.step < 2;
-    const btn = h('button', { class: 'btn', text: nxt ? 'Next' : 'Make the link', disabled: (C.step === 0 && !C.title.trim()) || (C.step === 1 && !C.days.size) || C.busy, onclick: () => nxt ? (C.step++, draw(), scrollTo(0, 0)) : make(btn) });
-    return h('div', { class: 'foot' }, C.step ? h('button', { class: 'link', text: 'Back', onclick: () => { C.step--; draw(); } }) : null,
-      h('span', { class: 'meta cnt hide-phone', text: C.step === 1 ? (C.days.size ? `${C.days.size} ${C.days.size === 1 ? 'day' : 'days'} picked` : 'Pick at least one day') : 'Friends never pay.' }), h('span', { class: 'sp' }), btn);
+    const btn = h('button', { class: 'btn', text: nxt ? 'Next' : 'Make the link', disabled: (C.step === 0 && !C.title.trim()) || (C.step === 1 && !C.days.size) || C.busy, onclick: () => nxt ? (C.step++, history.pushState({ step: C.step }, '', location.pathname + location.search + '#s' + C.step), draw(), scrollTo(0, 0)) : make(btn) });
+    return h('div', { class: 'foot' }, C.step ? h('button', { class: 'link', text: 'Back', onclick: () => { if (history.state && history.state.step != null) history.back(); else { C.step--; draw(); } } }) : null,
+      h('span', { class: 'meta cnt' + (C.step === 1 ? '' : ' hide-phone'), text: C.step === 1 ? (C.days.size ? `${C.days.size} ${C.days.size === 1 ? 'day' : 'days'} picked` : 'Tap the first day') : 'Friends never pay.' }), h('span', { class: 'sp' }), btn);
   };
   async function make(btn) {
     C.busy = true; btn.disabled = true; btn.textContent = 'Making it...';
@@ -322,11 +357,12 @@ function renderCreate() {
       const r = await rpc('sl_create', { p: body });
       store.set('sl.h.' + r.id, r.host_key);
       const mine = store.get('sl.mine') || []; mine.unshift({ id: r.id, t: body.title, at: Date.now(), obj: KINDS[body.look.kind] ? KINDS[body.look.kind].obj : null, col: body.look.color }); store.set('sl.mine', mine.slice(0, 30));
-      const link = friendLink(r.id); copy(link);
-      const card = $('.stage .card'); const tk = cardEl(cPlan(), { stub: 'Link copied' }); card.replaceWith(tk); tk.classList.add('ticket'); confetti(tk);
+      const link = friendLink(r.id); const copied = await copy(link);
+      const card = $('.stage .card'); const tk = cardEl(cPlan(), { stub: copied ? 'Link copied' : 'Link ready' }); card.replaceWith(tk); tk.classList.add('ticket'); confetti(tk);
       setTimeout(() => { Object.assign(C, { step: 0, title: '', subtitle: '', kind: null, color: null, photo: null, preset: null, days: new Set(), time: '', timeOn: false, by: undefined, optsOn: false, opts: [], namesOpen: false, names: [], busy: false }); go(`?p=${r.id}&v=share`); }, RM ? 300 : 1500);
     } catch (e) { C.busy = false; btn.disabled = false; btn.textContent = 'Make the link'; toast(e.message); }
   }
+  window.CREATE_STEP = n => { C.step = Math.max(0, Math.min(n, C.title.trim() ? (C.days.size ? 2 : 1) : 0)); draw(); scrollTo(0, 0); };
   draw(); return root;
 }
 function shrink(file) {
@@ -344,10 +380,11 @@ const friendLink = id => `${location.origin}${BASE}?p=${id}`;
    ================================================================ */
 let P = null, POLL = null, VIEW = '', WATCH = { lead: null, ids: null };
 const hostKey = id => store.get('sl.h.' + id);
+const editLink = (id, a) => `${friendLink(id)}#a=${a.answer}.${a.key}`;
 const myAns = id => store.get('sl.a.' + id);
 function stats(p) {
   const A = p.answers || [];
-  const rows = p.days.map(d => { const y = A.filter(a => a.days[d] === 'yes'), m = A.filter(a => a.days[d] === 'maybe'); return { d, y, m, s: y.length * 2 + m.length }; });
+  const t0s = iso(today()); const rows = p.days.filter(d => d >= t0s || p.days.every(x => x < t0s)).map(d => { const y = A.filter(a => a.days[d] === 'yes'), m = A.filter(a => a.days[d] === 'maybe'); return { d, y, m, s: y.length * 2 + m.length }; });
   rows.sort((a, b) => b.s - a.s || b.y.length - a.y.length || (a.d < b.d ? -1 : 1));
   const answered = A.length, low = new Set(A.map(a => a.name.trim().toLowerCase()));
   const pending = (p.names || []).filter(n => !low.has(n.trim().toLowerCase()));
@@ -365,8 +402,11 @@ async function loadPlan(id) {
   const p = await rpc('sl_get', { p_id: id });
   if (!p) throw new Error('nf');
   if (p.look && p.look.photo === true) {
-    if (!(p.id in PHOTOS)) PHOTOS[p.id] = await rpcGet('sl_photo', { p_id: p.id }, 'force-cache').catch(() => null);
-    if (PHOTOS[p.id]) p.look = { ...p.look, photo: PHOTOS[p.id] }; else p.look = { ...p.look, kind: 'letters', photo: undefined };
+    if (PHOTOS[p.id]) p.look = { ...p.look, photo: PHOTOS[p.id] };
+    else {
+      p.look = { ...p.look, kind: 'letters', photo: undefined, photoLater: true };
+      if (!(p.id in PHOTOS)) { PHOTOS[p.id] = null; rpcGet('sl_photo', { p_id: p.id }, 'force-cache').then(u => { if (!u) return; PHOTOS[p.id] = u; if (P && P.id === p.id) { P.look = { ...P.look, kind: 'photo', photo: u, photoLater: false }; $$('.card').forEach(c => { const n = cardEl(P); if (c.classList.contains('tilt')) tilt(n); c.replaceWith(n); }); } }).catch(() => {}); }
+    }
   }
   p.answers = (p.answers || []).map(a => ({ ...a, days: a.days || {}, picks: Array.isArray(a.picks) ? a.picks : [] }));
   return p;
@@ -444,7 +484,8 @@ function qrSheet(text) {
 
 /* ---------- friend answer ---------- */
 function viewAnswer() {
-  const mine = myAns(P.id);
+  let mine = myAns(P.id);
+  if (mine && !mine.name) { const a = P.answers.find(x => x.id === mine.answer); if (a) { mine = { ...mine, name: a.name }; store.set('sl.a.' + P.id, mine); } else { try { localStorage.removeItem('sl.a.' + P.id); } catch (e) {} mine = null; } }
   const st = stats(P);
   const A = { name: mine ? mine.name : null, votes: {}, picks: [] };
   if (mine) { const a = P.answers.find(x => x.id === mine.answer); if (a) { A.votes = { ...a.days }; A.picks = a.picks.slice(); A.name = a.name; } }
@@ -458,8 +499,11 @@ function viewAnswer() {
     const taken = new Set(P.answers.map(a => a.name.trim().toLowerCase()));
     const names = [...new Set([...(P.names || []), ...P.answers.map(a => a.name)])];
     const join = h('input', { class: 'field', maxLength: 40, placeholder: 'Not on the list? Your name', 'aria-label': 'Your name', autocomplete: 'given-name', onkeydown: e => { if (e.key === 'Enter') joinGo(); } });
+    const me0 = store.get('sl.me'), meHit = me0 && names.find(n => n.trim().toLowerCase() === String(me0).trim().toLowerCase() && !taken.has(n.trim().toLowerCase()));
+    if (me0 && !meHit && !join.value) join.value = me0;
     const joinGo = () => { const v = join.value.trim(); if (!v) return join.focus(); if (taken.has(v.toLowerCase())) { toast(`${v} already answered. Add a last letter, like ${v} B.`); return; } A.name = v; vote(); };
-    main.replaceChildren(h('h1', { text: 'Who are you?' }), names.length ? h('div', { class: 'who' }, names.map(n => { const done = taken.has(n.trim().toLowerCase()); return h('button', { class: 'tile', disabled: done, onclick: () => { A.name = n; vote(); } }, face(n), h('b', { text: n }), h('span', { class: 'meta', text: done ? '✓ Answered' : 'Tap to answer' })); })) : h('p', { class: 'lead', text: 'Write your name and tap the days you are free.' }),
+    main.replaceChildren(h('h1', { text: 'Who are you?', tabindex: '-1' }), meHit ? h('button', { class: 'btn wide', text: `Answer as ${meHit}`, onclick: () => { A.name = meHit; vote(); } }) : null,
+      names.length ? h('div', { class: 'who' }, names.map(n => { const done = taken.has(n.trim().toLowerCase()); return h('button', { class: 'tile' + (done ? ' done' : ''), 'aria-disabled': done ? 'true' : null, onclick: () => { if (done) return toast(`${n} answered already. To change it, open ${n}'s edit link.`); A.name = n; vote(); } }, face(n), h('b', { text: n }), h('span', { class: 'meta', text: done ? '✓ Answered' : 'Tap to answer' })); })) : h('p', { class: 'lead', text: 'Write your name and tap the days you are free.' }),
       h('div', { class: 'opt' }, join, h('button', { class: 'btn', text: 'Join', onclick: joinGo })));
   };
   const vote = () => {
@@ -470,7 +514,7 @@ function viewAnswer() {
     const first = pd(P.days[0]), last = pd(P.days[P.days.length - 1]);
     const wrap = h('div', { class: 'months ans' });
     for (let m = new Date(first.getFullYear(), first.getMonth(), 1); m <= last; m = new Date(m.getFullYear(), m.getMonth() + 1, 1)) {
-      const g = h('div', { class: 'mgrid', role: 'grid' });
+      const g = h('div', { class: 'mgrid', role: 'group', 'aria-label': `${MON[m.getMonth()]} ${m.getFullYear()}` });
       ['M', 'T', 'W', 'T', 'F', 'S', 'S'].forEach(w => g.append(h('span', { class: 'micro wd', text: w })));
       // only the weeks that hold a day of the span, like the old wall calendar
       const lead = (m.getDay() + 6) % 7, mdays = [];
@@ -496,8 +540,8 @@ function viewAnswer() {
     let start = null, mode = null, moved = false;
     const at = e => { const el = document.elementFromPoint(e.clientX, e.clientY); return el && el.closest ? el.closest('.d[data-d]') : null; };
     wrap.addEventListener('pointerdown', e => { const b = at(e); if (!b) return; e.preventDefault(); start = b; moved = false; mode = A.votes[b.dataset.d] ? null : 'yes'; if (e.pointerType !== 'mouse') wrap.setPointerCapture(e.pointerId); });
-    wrap.addEventListener('pointermove', e => { if (!start) return; const b = at(e); if (!b || (b === start && !moved)) return; if (!moved) { moved = true; setV(start.dataset.d, mode); } if ((A.votes[b.dataset.d] || null) !== mode) setV(b.dataset.d, mode); });
-    const end = () => { if (start && !moved) { cycle(start.dataset.d); start.focus({ preventScroll: true }); } start = null; };
+    wrap.addEventListener('pointermove', e => { if (!start) return; const b = at(e); if (!b || (b === start && !moved)) return; if (!moved) { moved = true; setV(start.dataset.d, mode); } if ((A.votes[b.dataset.d] || null) !== mode) { setV(b.dataset.d, mode); buzz(); popDay(b); } });
+    const end = () => { if (start && !moved) { cycle(start.dataset.d); buzz(); popDay(start); start.focus({ preventScroll: true }); } start = null; };
     wrap.addEventListener('pointerup', end); wrap.addEventListener('pointercancel', () => { start = null; });
     wrap.addEventListener('click', e => { const b = e.target.closest && e.target.closest('.d[data-d]'); if (b && e.detail === 0) cycle(b.dataset.d); }); // keyboard Enter/Space
     const cnt = h('span', { class: 'meta tab' });
@@ -508,10 +552,15 @@ function viewAnswer() {
     const legend = h('div', { class: 'legend' }, h('span', {}, h('i', { class: 'd on' }), 'Free'), h('span', {}, h('i', { class: 'd mb' }), 'If I have to (tap twice)'), h('span', {}, face('A'), 'Friends who can'));
     main.replaceChildren(
       h('div', { class: 'idbar' }, face(A.name), h('span', { class: 'grow' }, mine ? 'Welcome back, ' : 'Answering as ', h('b', { text: A.name }), mine ? '. Change your answers?' : ''),
-        h('button', { class: 'link', text: mine ? `Not ${A.name}? Switch` : 'Switch', onclick: () => { if (mine) { try { localStorage.removeItem('sl.a.' + P.id); } catch (e) {} renderPlan(P.id, 'answer'); } else who(); } })),
+        h('button', { class: 'link', text: mine ? `Not ${A.name}? Switch` : 'Switch', onclick: () => { if (!mine) return who();
+          const s = sheet('Switch name?', h('p', { class: 'meta', text: `You can only change ${A.name}'s answer from this browser or ${A.name}'s edit link. Copy it first if it is yours.` }),
+            h('button', { class: 'btn out wide', text: 'Copy the edit link', onclick: e => copy(editLink(P.id, mine), e.currentTarget) }),
+            h('button', { class: 'btn wide', text: 'Switch name', onclick: () => { s.close(); try { localStorage.removeItem('sl.a.' + P.id); } catch (e) {} renderPlan(P.id, 'answer'); } })); } })),
       h('div', {}, h('h1', { text: 'When are you free?' }), h('p', { class: 'lead', text: 'Tap the days you can. Tap twice for “if I have to”. Drag to mark many.' }), h('p', { class: 'meta hide-phone', text: 'Keys: arrows to move, Y free, M maybe, N clear.' }), tzNote()),
       wrap, legend, picks,
-      h('div', { class: 'foot', style: { padding: '18px 0', margin: '0' } }, cnt, h('button', { class: 'link', text: "Can't make any", onclick: () => { P.days.forEach(d => { A.votes[d] = undefined; }); cells().forEach(paintCell); send(true); } }), h('span', { class: 'sp' }), save));
+      h('div', { class: 'foot', style: { padding: '18px 0', margin: '0' } }, cnt, h('button', { class: 'link', text: "Can't make any", onclick: () => { const prev = { ...A.votes }, had = P.days.some(d => prev[d]); P.days.forEach(d => { A.votes[d] = undefined; }); cells().forEach(paintCell); upd();
+          if (!had) return send(true);
+          toast('All days cleared.', { label: 'Undo', run: () => { Object.assign(A.votes, prev); cells().forEach(paintCell); upd(); } }); setTimeout(() => { if (!P.days.some(d => A.votes[d])) send(true); }, 6000); } }), h('span', { class: 'sp' }), save));
     $('.idbar .grow', main).style.flex = '1';
     cells().forEach(paintCell); upd();
     // keyboard: move by day or week across the plan's days
@@ -529,7 +578,7 @@ function viewAnswer() {
       save.disabled = true; save.textContent = 'Saving...';
       try {
         const r = await rpc('sl_answer', { p_id: P.id, p_name: A.name, p_days: out, p_picks: A.picks, p_answer: mine ? mine.answer : null, p_key: mine ? mine.key : null });
-        store.set('sl.a.' + P.id, { answer: r.answer, key: r.key, name: A.name });
+        store.set('sl.a.' + P.id, { answer: r.answer, key: r.key, name: A.name }); store.set('sl.me', A.name);
         P = await loadPlan(P.id); JUST = true; go(`?p=${P.id}&v=wait`, true);
       } catch (e) { save.disabled = false; save.textContent = 'Try again'; toast(e.message === 'plan is locked' ? 'The host just locked the date.' : e.message); }
     }
@@ -568,13 +617,14 @@ function viewWait(host) {
     ...stats(P).pending.map(n => h('button', { class: 'person', 'data-n': n, 'aria-label': `${n} has not answered. Poke them`, onclick: () => poke(n) }, h('span', { class: 'qface', text: '?' }), n)));
   drawRoster();
   const nudgeText = () => { const s = stats(P); return `${s.pending.length ? listNames(s.pending) + ', ' : ''}${P.title}: which days work? Tap your name, takes ten seconds. ${friendLink(P.id)}`; };
-  const controls = host ? h('div', { class: 'stack' }, h('button', { class: 'btn wide', text: 'Nudge everyone', onclick: e => { copy(nudgeText(), e.currentTarget, 'Copied, paste it in the chat'); } }),
+  const controls = host ? h('div', { class: 'stack' }, h('button', { class: 'btn wide', text: 'Nudge everyone', onclick: async e => { const b = e.currentTarget; if (navigator.share && matchMedia('(pointer: coarse)').matches) { try { await navigator.share({ text: nudgeText() }); return; } catch (er) { if (er.name === 'AbortError') return; } } copy(nudgeText(), b, 'Copied, paste it in the chat'); } }),
     h('button', { class: 'btn out wide', text: 'Copy link', onclick: e => copy(friendLink(P.id), e.currentTarget) }),
     h('div', { class: 'opt' }, h('button', { class: 'link', text: 'Share page', onclick: () => go(`?p=${P.id}&v=share`) }), h('span', { class: 'sp', style: { flex: 1 } }), h('button', { class: 'link', text: me ? 'Change my answer' : 'Add my own answer', onclick: () => go(`?p=${P.id}&v=answer`) })))
     : h('div', { class: 'stack' }, h('button', { class: 'btn wide', text: me ? 'Change my answer' : 'Answer', onclick: () => go(`?p=${P.id}&v=answer`) }), h('button', { class: 'btn out wide', text: 'Copy link for the group', onclick: e => copy(friendLink(P.id), e.currentTarget) }));
   const saved = JUST && !host; JUST = false;
   const main = h('section', { class: 'main' },
-    saved ? h('div', { class: 'stack' }, h('div', { class: 'since' }, h('h3', { text: st.pending.length ? `You're in. Waiting on ${word(st.pending.length)} more.` : "You're in." }), h('p', { class: 'meta', text: 'Change your answer any time from this link.' })), yourTurn()) : null,
+    saved ? h('div', { class: 'stack' }, h('div', { class: 'since' }, h('h3', { text: st.pending.length ? `You're in. Waiting on ${word(st.pending.length)} more.` : "You're in." }), h('p', { class: 'meta', text: 'Change your answer any time from this link. On another phone or computer, use your edit link.' }),
+      me ? h('button', { class: 'btn out sm', text: 'Copy my edit link', onclick: e => copy(editLink(P.id, me), e.currentTarget) }) : null), yourTurn()) : null,
     h('div', { class: 'bhead' }, h('h2', { text: 'Leading' }), h('span', { class: 'live', id: 'live', text: `Live, ${st.answered} answered` }), h('span', { class: 'sp' }),
       h('div', { class: 'tabs', role: 'tablist' }, [['rank', 'Ranked'], ['grid', 'Full grid']].map(([k, t]) => h('button', { class: BOARD_MODE === k ? 'on' : '', role: 'tab', 'aria-selected': String(BOARD_MODE === k), text: t, onclick: () => { BOARD_MODE = k; renderPlan(P.id, 'wait'); } })))),
     since || (me && !host && !saved) ? h('div', { class: 'since', id: 'since', text: [me && !host && !saved ? `Welcome back, ${me.name}.` : '', since || ''].join(' ').trim() }) : null,
@@ -590,16 +640,16 @@ function boardEl(st, host) {
   const b = h('div', { class: 'board', id: 'board' }, rows.map((r, i) => {
     const was = prev[r.d], arrow = was == null || was === i ? null : was > i ? h('i', { class: 'up', 'aria-label': 'moved up', text: '▲' }) : h('i', { class: 'dn', 'aria-label': 'moved down', text: '▼' });
     const yW = st.answered ? r.y.length / st.answered * 100 : 0, mW = st.answered ? r.m.length / st.answered * 100 : 0;
-    return h('div', { class: 'lrow' + (i === 0 ? ' first' : '') + (gold(st, r, i) ? ' gold' : ''), 'data-d': r.d, 'data-yes': r.y.map(a => a.name).join('\n'), onmouseenter: () => hlRow(r), onmouseleave: () => hl(null) },
+    return h('div', { class: 'lrow' + (i === 0 ? ' first' : '') + (gold(st, r, i) ? ' gold' : ''), 'data-d': r.d, onclick: host ? e => { if (matchMedia('(max-width: 767px)').matches && !e.target.closest('button')) lockAsk(r.d); } : null, 'data-yes': r.y.map(a => a.name).join('\n'), onmouseenter: () => hlRow(r), onmouseleave: () => hl(null) },
       h('span', { class: 'rk tab' }, String(i + 1), arrow),
       h('span', { class: 'dt' }, h('b', { class: 'tab', text: short(r.d).split(' ').slice(0, 2).join(' ') }), h('span', { class: 'meta', text: MON[pd(r.d).getMonth()] })),
       h('div', { class: 'bars' }, h('div', { class: 'track' }, h('span', { class: 'y', style: { width: yW + '%' } }), h('span', { class: 'm', style: { width: mW + '%' } })), h('div', { class: 'faces' }, r.y.slice(0, 8).map(a => face(a.name)))),
       h('div', { class: 'tally' }, h('b', { class: 'tab', text: `${r.y.length} free${r.m.length ? `, ${r.m.length} maybe` : ''}` }),
-        host ? h('button', { class: 'btn sm lockbtn', text: 'Lock this day', onclick: () => lockAsk(r.d) }) : null));
+        host ? h('button', { class: 'btn sm lockbtn', text: 'Lock this day', onclick: () => lockAsk(r.d) }) : null), host ? h('button', { class: 'btn out sm lockrow', text: `Lock ${short(r.d).split(' ').slice(0, 2).join(' ')}`, onclick: () => lockAsk(r.d) }) : null);
   }));
   WATCH.prevRank = Object.fromEntries(st.rows.map((r, i) => [r.d, i]));
   const more = st.rows.length > 4 ? h('button', { class: 'link', text: SHOW_ALL ? 'Show the top 4' : `Show all ${st.rows.length} days`, onclick: () => { SHOW_ALL = !SHOW_ALL; renderPlan(P.id, 'wait'); } }) : null;
-  return h('div', { class: 'stack' }, b, host ? h('button', { class: 'link only-phone', text: 'Pick the day now', onclick: () => st.lead && lockAsk(st.lead) }) : null, more);
+  return h('div', { class: 'stack' }, b, more);
 }
 function gridTable() {
   if (!P.answers.length) return h('div', { class: 'empty' }, h('p', { class: 'meta', text: 'No answers yet.' }));
@@ -667,7 +717,8 @@ function viewLocked(host) {
     opt,
     h('div', { class: 'box' }, h('h2', { text: "Who's in" }), yes.length || maybe.length ? h('div', { class: 'roster' }, yes.map(a => h('span', { class: 'person' }, face(a.name), a.name)), maybe.map(a => h('span', { class: 'person' }, face(a.name), `${a.name} (maybe)`))) : h('p', { class: 'meta', text: 'Nobody said yes to this day yet.' })),
     h('div', { class: 'opt' }, h('button', { class: 'btn out', text: 'Copy plan text', onclick: e => copy(`${P.title}: ${longd(d)}${P.start_time ? ' at ' + P.start_time : ''}. ${friendLink(P.id)}`, e.currentTarget) }),
-      host ? h('button', { class: 'link', style: { marginLeft: '16px' }, text: 'Unlock the date', onclick: async () => { try { P = fix(await rpc('sl_host', { p_id: P.id, p_key: hostKey(P.id), p: { locked_day: '' } })); renderPlan(P.id, 'wait'); } catch (e) { toast(e.message); } } }) : null));
+      host ? h('button', { class: 'link', style: { marginLeft: '16px' }, text: 'Unlock the date', onclick: async () => { const was = P.locked_day; try { P = fix(await rpc('sl_host', { p_id: P.id, p_key: hostKey(P.id), p: { locked_day: '' } })); renderPlan(P.id, 'wait');
+        toast('Date unlocked. Friends can vote again.', { label: 'Undo', run: async () => { try { P = fix(await rpc('sl_host', { p_id: P.id, p_key: hostKey(P.id), p: { locked_day: was } })); renderPlan(P.id); } catch (e) { toast(e.message); } } }); } catch (e) { toast(e.message); } } }) : null));
   if (!host) main.append(yourTurn());
   return h('div', {}, bar(false, host ? h('span', { class: 'micro', text: 'You are the host' }) : null), h('main', { class: 'cols wide' }, h('aside', { class: 'side' }, card), main));
 }
@@ -771,8 +822,13 @@ function route() {
     // only keep a host key the server accepts, and never replace one that already works
     if (m[1] !== hostKey(id)) { rpc('sl_host', { p_id: id, p_key: m[1], p: {} }).then(() => { store.set('sl.h.' + id, m[1]); if (P && P.id === id) renderPlan(id); }, () => toast('That host link is not valid for this plan.')); }
   }
+  const ma = /[#&]a=([A-Za-z0-9_-]{4,40})\.([A-Za-z0-9_-]{10,80})/.exec(location.hash);
+  if (id && ma) { history.replaceState(null, '', location.pathname + location.search); const old = myAns(id); if (!old || old.answer !== ma[1]) store.set('sl.a.' + id, { answer: ma[1], key: ma[2], name: null }); }
   if (id && /^[a-z0-9]{6,20}$/.test(id)) { const v = u.get('v'); renderPlan(id, ['share', 'answer', 'wait'].includes(v) ? v : null); }
   else { P = null; VIEW = 'create'; $('#app').replaceChildren(renderCreate()); }
 }
-addEventListener('popstate', route);
+addEventListener('popstate', e => {
+  if (VIEW === 'create' && !new URLSearchParams(location.search).get('p') && window.CREATE_STEP) { const st = e.state && e.state.step != null ? e.state.step : 0; window.CREATE_STEP(st); return; }
+  route();
+});
 route();
