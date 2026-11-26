@@ -692,7 +692,7 @@ function route() {
     // only keep a host key the server accepts, and never replace one that already works
     if (m[1] !== hostKey(id)) { rpc('sl_host', { p_id: id, p_key: m[1], p: {} }).then(() => { store.set('sl.h.' + id, m[1]); if (P && P.id === id) renderPlan(id); }, () => toast('That host link is not valid for this plan.')); }
   }
-  if (id && /^[a-z0-9]{6,12}$/.test(id)) { const v = u.get('v'); renderPlan(id, ['share', 'answer', 'wait'].includes(v) ? v : null); }
+  if (id && /^[a-z0-9]{6,20}$/.test(id)) { const v = u.get('v'); renderPlan(id, ['share', 'answer', 'wait'].includes(v) ? v : null); }
   else { P = null; VIEW = 'create'; $('#app').replaceChildren(renderCreate()); }
 }
 addEventListener('popstate', route);
