@@ -124,9 +124,29 @@ function tilt(el) {
   el.addEventListener('pointermove', e => { const r = el.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width * 2 - 1; ty = (e.clientY - r.top) / r.height * 2 - 1; if (!raf) raf = requestAnimationFrame(step); });
   el.addEventListener('pointerleave', () => { tx = ty = 0; if (!raf) raf = requestAnimationFrame(step); });
 }
+// Logo candidates (Jakob 26/11: "a button so I can switch between them"). Open the site once with ?logos to show the switch.
+const GLOGOS = ((document.querySelector('meta[name=sl-logos]') || {}).content || '').split(',').filter(Boolean);
+const LOGOS = [
+  { n: 'Say Less (now)', el: () => ['Say Less'] },
+  { n: 'say less. with blue dot', el: () => [h('span', { class: 'lg-dot' }, 'say less', h('i'))] },
+  { n: 'say/less tile', el: () => [h('span', { class: 'lg-tile' }, 'say', h('br'), 'less')] },
+  { n: 'Clay object + say less', el: () => [h('img', { class: 'lg-obj', src: `${BASE}a/${(P && KINDS[lookOf(P).kind] || KINDS.drinks).obj}.webp`, alt: '' }), h('span', { class: 'lg-low' }, 'say less')] },
+  ...[1, 2, 3, 4, 5, 6].map(i => ({ n: 'Cut letters ' + i, el: () => [h('img', { class: 'lg-svg', src: `${BASE}a/logo_${i}.svg`, alt: 'Say Less' })] })),
+  ...GLOGOS.map((f, i) => ({ n: 'Your image ' + (i + 1), el: () => [h('img', { class: 'lg-img', src: `${BASE}a/${f}`, alt: 'Say Less' })] }))
+];
+const logoIx = () => { const i = +store.get('sl.logo'); return i >= 0 && i < LOGOS.length ? i : 0; };
 function bar(onPlan, right) {
   return h('header', { class: 'bar' + (onPlan ? ' on-plan' : '') }, h('div', { class: 'bar-in' },
-    h('a', { class: 'brand', href: BASE, 'aria-label': 'Say Less, start a new plan' }, 'Say Less'), h('span', { class: 'sp' }), right || null));
+    h('a', { class: 'brand', href: BASE, 'aria-label': 'Say Less, start a new plan' }, ...LOGOS[logoIx()].el()), h('span', { class: 'sp' }), right || null));
+}
+function logoSwitch() {
+  if (/[?&]logos\b/.test(location.search)) store.set('sl.logos', 1);
+  if (!store.get('sl.logos') || $('.lgsw')) return;
+  const lab = h('span'), set = d => { store.set('sl.logo', (logoIx() + d + LOGOS.length) % LOGOS.length); paint(); route(); };
+  const paint = () => { lab.textContent = `${logoIx() + 1}/${LOGOS.length} ${LOGOS[logoIx()].n}`; };
+  document.body.append(h('div', { class: 'lgsw', role: 'group', 'aria-label': 'Try logos' }, h('button', { 'aria-label': 'Previous logo', text: '‹', onclick: () => set(-1) }), lab,
+    h('button', { 'aria-label': 'Next logo', text: '›', onclick: () => set(1) }), h('button', { 'aria-label': 'Hide the logo switch', text: '×', onclick: e => { store.set('sl.logos', ''); e.currentTarget.parentNode.remove(); } })));
+  paint();
 }
 function favicon(n) {
   const c = h('canvas', { width: 64, height: 64 }), x = c.getContext('2d');
@@ -734,6 +754,7 @@ function qrCanvas(text) {
 /* ---------- router ---------- */
 function go(q, replace) { history[replace ? 'replaceState' : 'pushState'](null, '', BASE + q); route(); }
 function route() {
+  logoSwitch();
   clearInterval(POLL);
   const u = new URLSearchParams(location.search), id = u.get('p');
   const m = /[#&]h=([a-z0-9]{10,40})/.exec(location.hash);
