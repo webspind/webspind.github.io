@@ -265,11 +265,12 @@ function renderCreate() {
   function stepWhen() {
     const t0 = today(), m0 = new Date(t0.getFullYear(), t0.getMonth() + C.mOff, 1);
     const wrap = h('div', { class: 'months' });
-    // span: tap the first day, then the last day (or drag across). Every day between is in. Max 62 days.
-    const span = (a, b) => { let x = pd(a < b ? a : b); const y = pd(a < b ? b : a); C.days = new Set(); while (x <= y && C.days.size < 62) { C.days.add(iso(x)); x = add(x, 1); } };
-    const tapDay = d => { if (C.a == null || C.b != null) { C.a = d; C.b = null; C.days = new Set([d]); } else { C.b = d; span(C.a, d); } };
+    // Tap a day to add or remove just that one. Drag across to add (or clear) every day between. Max 62 days.
+    const MAXD = 62;
+    const span = (a, b, on, base) => { let x = pd(a < b ? a : b); const y = pd(a < b ? b : a); C.days = new Set(base); while (x <= y) { const s = iso(x); if (on) { if (C.days.size < MAXD) C.days.add(s); } else C.days.delete(s); x = add(x, 1); } };
+    const tapDay = d => { if (C.days.has(d)) C.days.delete(d); else if (C.days.size < MAXD) C.days.add(d); else toast('62 days is the most'); };
     let drag = null;
-    const refresh = () => { $$('.d[data-d]', wrap).forEach(b => b.classList.toggle('on', C.days.has(b.dataset.d))); const card = $('.stage .card'); const n = cardEl(cPlan()); tilt(n); card.replaceWith(n); $('.foot .btn').disabled = !C.days.size; $('.foot .cnt').textContent = C.days.size ? (C.a != null && C.b == null && C.days.size === 1 ? 'Now tap the last day' : `${C.days.size} ${C.days.size === 1 ? 'day' : 'days'} picked`) : 'Tap the first day'; };
+    const refresh = () => { $$('.d[data-d]', wrap).forEach(b => b.classList.toggle('on', C.days.has(b.dataset.d))); const card = $('.stage .card'); const n = cardEl(cPlan()); tilt(n); card.replaceWith(n); $('.foot .btn').disabled = !C.days.size; $('.foot .cnt').textContent = C.days.size ? `${C.days.size} ${C.days.size === 1 ? 'day' : 'days'} picked` : 'Tap days, or drag across'; const cl = $('.clr'); if (cl) cl.hidden = !C.days.size; $$('.d[data-d]', wrap).forEach(b => b.setAttribute('aria-pressed', String(C.days.has(b.dataset.d)))); };
     for (let k = 0; k < 2; k++) {
       const m = new Date(m0.getFullYear(), m0.getMonth() + k, 1), g = h('div', { class: 'mgrid', role: 'group', 'aria-label': `${MON[m.getMonth()]} ${m.getFullYear()}` });
       ['M', 'T', 'W', 'T', 'F', 'S', 'S'].forEach(w => g.append(h('span', { class: 'micro wd', text: w })));
@@ -281,23 +282,23 @@ function renderCreate() {
       wrap.append(h('div', { class: 'month' }, h('h3', { text: `${MON[m.getMonth()]} ${m.getFullYear()}` }), g));
     }
     const at = e => { const el = document.elementFromPoint(e.clientX, e.clientY); return el && el.matches && el.matches('.d[data-d]:not([disabled])') ? el : null; };
-    wrap.addEventListener('pointerdown', e => { const b = at(e); if (!b) return; e.preventDefault(); drag = { from: b.dataset.d, moved: false }; if (e.pointerType !== 'mouse') wrap.setPointerCapture(e.pointerId); });
-    wrap.addEventListener('pointermove', e => { if (!drag) return; const b = at(e); if (!b || (b.dataset.d === drag.from && !drag.moved) || b.dataset.d === drag.last) return; drag.moved = true; drag.last = b.dataset.d; C.a = drag.from; C.b = b.dataset.d; const n0 = C.days.size; span(drag.from, b.dataset.d); refresh(); if (C.days.size !== n0) { buzz(); popDay(b); } });
+    wrap.addEventListener('pointerdown', e => { const b = at(e); if (!b) return; e.preventDefault(); drag = { from: b.dataset.d, moved: false, on: !C.days.has(b.dataset.d), base: new Set(C.days) }; if (e.pointerType !== 'mouse') wrap.setPointerCapture(e.pointerId); });
+    wrap.addEventListener('pointermove', e => { if (!drag) return; const b = at(e); if (!b || (b.dataset.d === drag.from && !drag.moved) || b.dataset.d === drag.last) return; drag.moved = true; drag.last = b.dataset.d; const n0 = C.days.size; span(drag.from, b.dataset.d, drag.on, drag.base); refresh(); if (C.days.size !== n0) { buzz(); popDay(b); } });
     const end = () => { if (drag && !drag.moved) { tapDay(drag.from); refresh(); buzz(); const b = $(`.d[data-d="${drag.from}"]`, wrap); if (b) popDay(b); } drag = null; };
     wrap.addEventListener('pointerup', end); wrap.addEventListener('pointercancel', () => { drag = null; });
     wrap.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.dataset.d) { e.preventDefault(); tapDay(e.target.dataset.d); refresh(); } });
     const quick = (label, f) => h('button', { class: 'btn out sm', text: label, onclick: () => {
-      const ds = f().filter(d => d >= t0).map(iso); C.days = new Set(); C.a = ds[0]; C.b = ds[ds.length - 1]; const first = ds[0] && pd(ds[0]); C.mOff = first ? (first.getFullYear() - t0.getFullYear()) * 12 + first.getMonth() - t0.getMonth() : 0; draw();
+      const ds = f().filter(d => d >= t0).map(iso); C.days = new Set(); const first = ds[0] && pd(ds[0]); C.mOff = first ? (first.getFullYear() - t0.getFullYear()) * 12 + first.getMonth() - t0.getMonth() : 0; draw();
       ds.forEach((s, i) => setTimeout(() => { C.days.add(s); const b = $(`.d[data-d="${s}"]`); if (b) { b.classList.add('on', 'pop'); b.setAttribute('aria-pressed', 'true'); } if (i === ds.length - 1) refreshAll(); }, RM ? 0 : i * 45));
     } });
-    const refreshAll = () => { const card = $('.stage .card'); const n = cardEl(cPlan()); tilt(n); card.replaceWith(n); $('.foot .btn').disabled = !C.days.size; $('.foot .cnt').textContent = `${C.days.size} ${C.days.size === 1 ? 'day' : 'days'} picked`; };
+    const refreshAll = () => { const card = $('.stage .card'); const n = cardEl(cPlan()); tilt(n); card.replaceWith(n); $('.foot .btn').disabled = !C.days.size; $('.foot .cnt').textContent = `${C.days.size} ${C.days.size === 1 ? 'day' : 'days'} picked`; const cl = $('.clr'); if (cl) cl.hidden = !C.days.size; };
     const fri = () => { for (let i = 0; i < 7; i++) { const d = add(t0, i); if (d.getDay() === 5) return d; if (d.getDay() === 6 || d.getDay() === 0) return add(d, d.getDay() === 6 ? -1 : -2); } return t0; };
     const time = h('input', { class: 'field', type: 'time', value: C.time, 'aria-label': 'Start time', style: { maxWidth: '180px', height: '48px' }, oninput: e => { C.time = e.target.value; } });
     return h('div', {},
       h('div', { class: 'bhead' }, h('h1', { text: 'Pick the period' }), h('div', { class: 'calnav' }, h('button', { class: 'btn out sm', 'aria-label': 'Previous month', text: '<', disabled: C.mOff <= 0, onclick: () => { C.mOff--; draw(); } }), h('button', { class: 'btn out sm', 'aria-label': 'Next month', text: '>', onclick: () => { C.mOff++; draw(); } }))),
-      h('p', { class: 'lead', text: 'Tap the first day, then the last day. Friends tap the days they are free in between.' }),
+      h('p', { class: 'lead', text: 'Tap the days that could work, or drag across many. Tap a day again to take it out. Friends pick from these.' }),
       h('div', { class: 'quick' }, quick('This weekend', () => { const f = fri(); return [f, add(f, 1), add(f, 2)]; }), quick('Next 2 weeks', () => [...Array(14)].map((_, i) => add(t0, i))), quick('Next 3 weeks', () => [...Array(21)].map((_, i) => add(t0, i))),
-        C.days.size ? h('button', { class: 'link', text: 'Clear', onclick: () => { C.days.clear(); C.a = C.b = null; draw(); } }) : null),
+        h('button', { class: 'link clr', text: 'Clear', hidden: !C.days.size, onclick: () => { C.days.clear(); draw(); } })),
       wrap,
       h('div', { class: 'row', style: { marginTop: '28px' } }, h('span', { class: 'grow' }, h('b', { text: 'Add a time' }), h('div', { class: 'meta', text: 'Optional. Leave it off and you decide later.' })),
         C.timeOn ? time : null, h('button', { class: 'sw', role: 'switch', 'aria-checked': String(C.timeOn), 'aria-label': 'Add a time', onclick: () => { C.timeOn = !C.timeOn; if (!C.timeOn) C.time = ''; else if (!C.time) C.time = '19:00'; draw(); } })),
@@ -348,7 +349,7 @@ function renderCreate() {
     const nxt = C.step < 2;
     const btn = h('button', { class: 'btn', text: nxt ? 'Next' : 'Make the link', disabled: (C.step === 0 && !C.title.trim()) || (C.step === 1 && !C.days.size) || C.busy, onclick: () => nxt ? (C.step++, history.pushState({ step: C.step }, '', location.pathname + location.search + '#s' + C.step), draw(), scrollTo(0, 0)) : make(btn) });
     return h('div', { class: 'foot' }, C.step ? h('button', { class: 'link', text: 'Back', onclick: () => { if (history.state && history.state.step != null) history.back(); else { C.step--; draw(); } } }) : null,
-      h('span', { class: 'meta cnt' + (C.step === 1 ? '' : ' hide-phone'), text: C.step === 1 ? (C.days.size ? `${C.days.size} ${C.days.size === 1 ? 'day' : 'days'} picked` : 'Tap the first day') : 'Friends never pay.' }), h('span', { class: 'sp' }), btn);
+      h('span', { class: 'meta cnt' + (C.step === 1 ? '' : ' hide-phone'), text: C.step === 1 ? (C.days.size ? `${C.days.size} ${C.days.size === 1 ? 'day' : 'days'} picked` : 'Tap days, or drag across') : 'Friends never pay.' }), h('span', { class: 'sp' }), btn);
   };
   async function make(btn) {
     C.busy = true; btn.disabled = true; btn.textContent = 'Making it...';
@@ -380,6 +381,7 @@ const friendLink = id => `${location.origin}${BASE}?p=${id}`;
    ================================================================ */
 let P = null, POLL = null, VIEW = '', WATCH = { lead: null, ids: null };
 const hostKey = id => store.get('sl.h.' + id);
+const PEND = {};
 const editLink = (id, a) => `${friendLink(id)}#a=${a.answer}.${a.key}`;
 const myAns = id => store.get('sl.a.' + id);
 function stats(p) {
@@ -485,7 +487,11 @@ function qrSheet(text) {
 /* ---------- friend answer ---------- */
 function viewAnswer() {
   let mine = myAns(P.id);
-  if (mine && !mine.name) { const a = P.answers.find(x => x.id === mine.answer); if (a) { mine = { ...mine, name: a.name }; store.set('sl.a.' + P.id, mine); } else { try { localStorage.removeItem('sl.a.' + P.id); } catch (e) {} mine = null; } }
+  const pe = !mine && PEND[P.id]; if (pe) { delete PEND[P.id]; const a = P.answers.find(x => x.id === pe.answer);
+    if (!a) toast('That edit link does not match an answer on this plan.');
+    else { const sh = sheet(`Continue as ${a.name}?`, h('p', { class: 'meta', text: `This edit link changes ${a.name}'s answer. Only continue if that is you.` }),
+      h('button', { class: 'btn wide', text: `Yes, I'm ${a.name}`, onclick: () => { store.set('sl.a.' + P.id, { answer: a.id, key: pe.key, name: a.name }); sh.close(); renderPlan(P.id, 'answer'); } }),
+      h('button', { class: 'btn out wide', text: 'No', onclick: () => sh.close() })); } }
   const st = stats(P);
   const A = { name: mine ? mine.name : null, votes: {}, picks: [] };
   if (mine) { const a = P.answers.find(x => x.id === mine.answer); if (a) { A.votes = { ...a.days }; A.picks = a.picks.slice(); A.name = a.name; } }
@@ -825,7 +831,7 @@ function route() {
   const ma = /[#&]a=([A-Za-z0-9_-]{4,40})\.([A-Za-z0-9_-]{10,80})/.exec(location.hash);
   if (id && ma) { history.replaceState(null, '', location.pathname + location.search); const old = myAns(id);
     // never silently replace an answer this browser already holds; the server checks the key on every save
-    if (!old) store.set('sl.a.' + id, { answer: ma[1], key: ma[2], name: null });
+    if (!old) PEND[id] = { answer: ma[1], key: ma[2] }; // kept in memory only, until the person confirms the name
     else if (old.answer !== ma[1]) setTimeout(() => toast(`This browser already answers as ${old.name || 'someone'}. Tap Switch first, then open the edit link again.`), 600); }
   if (id && /^[a-z0-9]{6,20}$/.test(id)) { const v = u.get('v'); renderPlan(id, ['share', 'answer', 'wait'].includes(v) ? v : null); }
   else { P = null; VIEW = 'create'; $('#app').replaceChildren(renderCreate()); }
