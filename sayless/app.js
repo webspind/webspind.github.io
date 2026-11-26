@@ -208,10 +208,17 @@ function lookOf(p) {
   if (KINDS[k]) return { kind: k, col: safeCol(l.color || KINDS[k].col) };
   return { kind: 'letters', col: safeCol(l.color || nameCol(p.title)) };
 }
+// The picture takes the room the words leave: one short word gets a big picture, a long name and a line get a smaller one.
+function objSize(p) {
+  const t = (p.title || '').trim(), words = t.split(/\s+/), lines = Math.max(1, Math.ceil(t.length / 12)), sub = p.subtitle ? 1 : 0;
+  const load = lines + sub * 1.2 + (words.some(w => w.length > 11) ? .5 : 0);
+  const z = load <= 1 ? { w: 84, top: 4, text: 22 } : load <= 2 ? { w: 74, top: 5, text: 32 } : load <= 3.3 ? { w: 63, top: 7, text: 42 } : { w: 52, top: 7, text: 52 };
+  z.h = 100 - z.top - z.text - 3; return z; // the picture never runs into the words
+}
 function cardEl(p, o = {}) {
   const L = lookOf(p);
   const c = h('div', { class: 'card gloss ' + (isSilver(L.col) && L.kind !== 'photo' ? 'silver ' : '') + (L.kind === 'letters' ? 'letters' : L.kind === 'photo' ? 'photo' : 'model'), style: { background: L.kind === 'photo' ? `#111 url("${L.photo}") center/cover no-repeat` : L.col } });
-  if (L.kind !== 'letters' && L.kind !== 'photo') c.append(h('div', { class: 'shadow' }), h('img', { class: 'obj', src: `${BASE}a/${KINDS[L.kind].obj}.webp`, alt: '', draggable: false }));
+  if (L.kind !== 'letters' && L.kind !== 'photo') { const z = objSize(p); c.append(h('div', { class: 'shadow', style: { top: (z.top + z.h - 2) + '%', width: (z.w * .6) + '%' } }), h('img', { class: 'obj', src: `${BASE}a/${KINDS[L.kind].obj}.webp`, alt: '', draggable: false, style: { width: z.w + '%', height: z.h + '%', top: z.top + '%', objectFit: 'contain', objectPosition: '50% 100%' } })); }
   if (o.dates !== false && p.days && p.days.length) c.append(h('span', { class: 'dates', text: span(p.days) }));
   c.append(h('div', { class: 'tt' }, (p.title || 'Untitled').trim(), p.subtitle ? h('small', { text: p.subtitle }) : null));
   if (o.corner) c.append(o.corner);
@@ -236,7 +243,7 @@ function cBy() {
 }
 
 function renderCreate() {
-  setPlanColor(cCol()); document.title = 'Say Less: make a plan'; favicon(null);
+  setPlanColor(cCol()); document.title = 'Say Less. Do more.'; favicon(null);
   const stage = h('aside', { class: 'stage', 'aria-label': 'Your plan card' });
   const work = h('section', { class: 'work' });
   const root = h('div', {}, bar(false, h('span', { class: 'meta hide-phone', text: 'Friends never pay. No app, no account.' })), h('main', { class: 'split' }, stage, work));
@@ -291,6 +298,7 @@ function renderCreate() {
     const ideasOpen = C.ideasOpen || !has;
     const mine = (store.get('sl.mine') || []).slice(0, 8);
     return h('div', { class: 'what' },
+      h('p', { class: 'slogan', text: 'Say less. Do more.' }),
       h('h1', { class: 'qh', text: 'What do you want to do with the group?' }),
       h('p', { class: 'lead', text: 'Write it your way. We find a picture for it, and you can swap it.' }),
       h('div', { class: 'wrow' }, iconBtn(), title),
@@ -797,7 +805,7 @@ async function png(btn) {
     if (sv) { const g = x.createLinearGradient(0, 0, W, H); [[0, '#D9DCE1'], [.22, '#F4F5F7'], [.48, '#AEB3BC'], [.7, '#EEF0F3'], [1, '#B9BEC6']].forEach(([o, c]) => g.addColorStop(o, c)); x.fillStyle = g; } else x.fillStyle = L.col; x.fillRect(0, 0, W, H);
     const load = s => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.onerror = () => r(null); i.src = s; });
     if (L.kind === 'photo') { const i = await load(L.photo); if (i) { const s = Math.max(W / i.width, H / i.height); x.drawImage(i, (W - i.width * s) / 2, (H - i.height * s) / 2, i.width * s, i.height * s); x.fillStyle = 'rgba(0,0,0,.45)'; x.fillRect(0, 0, W, H); } }
-    else if (L.kind !== 'letters') { const i = await load(`${BASE}a/${KINDS[L.kind].obj}.webp`); if (i) { const s = 560 / Math.max(i.width, i.height); x.drawImage(i, (W - i.width * s) / 2, 150, i.width * s, i.height * s); } }
+    else if (L.kind !== 'letters') { const i = await load(`${BASE}a/${KINDS[L.kind].obj}.webp`); if (i) { const s = 560 * objSize(P).w / 63 / Math.max(i.width, i.height); x.drawImage(i, (W - i.width * s) / 2, 150, i.width * s, i.height * s); } }
     x.fillStyle = sv ? '#16171C' : '#fff'; x.textBaseline = 'alphabetic';
     x.font = '900 92px Rubik'; wrap(x, P.title, 80, 880, W - 160, 92);
     x.font = '800 54px Rubik'; x.fillText(`${WDL[dd.getDay()]} ${dd.getDate()} ${MON[dd.getMonth()]}${P.start_time ? ', ' + P.start_time : ''}`, 80, 1190);

@@ -459,3 +459,6 @@ input, textarea, select { font-size: max(16px, 1em); }
 .silversw { position: relative; width: 32px; height: 32px; border-radius: 8px; border: 2px solid rgba(255,255,255,.5); cursor: pointer; background: linear-gradient(135deg, #D9DCE1, #F4F5F7 30%, #AEB3BC 60%, #EEF0F3); }
 .silversw i { position: absolute; bottom: -9px; left: 50%; transform: translateX(-50%); background: var(--ink); color: #fff; font: 800 9px/1 var(--body); font-style: normal; padding: 2px 4px; border-radius: 5px; }
 .silversw.on { box-shadow: 0 0 0 3px var(--on); }
+
+.slogan { margin: 0 0 10px; font: 900 15px/1 var(--head); letter-spacing: -.01em; color: var(--plan); }
+.card .obj, .card .shadow { transition: width .35s var(--ease), top .35s var(--ease), transform .2s; }
