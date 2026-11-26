@@ -144,6 +144,21 @@ h3 { font: 700 20px/1.2 var(--body); letter-spacing: -.015em; }
 .d.pop { animation: pop .32s var(--ease) both; }
 .d[disabled] { background: none; color: color-mix(in srgb, var(--ink2) 45%, #fff); cursor: default; }
 .d.blank { visibility: hidden; }
+/* friend calendar: tap free, tap twice maybe; small count of friends already free */
+.months.ans { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); margin: 8px 0 4px; }
+.months.ans .mgrid { max-width: none; }
+.d { position: relative; }
+.d.mb { background: color-mix(in srgb, var(--plan) 30%, #fff); color: var(--ink); box-shadow: inset 0 0 0 2px var(--plan); }
+.months.ans .d { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
+.d .fr { display: flex; align-items: center; height: 16px; }
+.d .fr .face { width: 16px; height: 16px; font-size: 8px; margin-left: -4px; box-shadow: 0 0 0 1.5px #fff; }
+.d .fr .face:first-child { margin-left: 0; }
+.d .fr b { font: 800 10px/1 var(--body); margin-left: 2px; }
+.d:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 14px; font-size: 14px; color: var(--ink2); }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.legend .d { display: inline-block; width: 22px; min-height: 22px; height: 22px; aspect-ratio: auto; border-radius: 6px; }
+
 @keyframes pop { 0% { transform: scale(.6); } 60% { transform: scale(1.12, .92); } 100% { transform: scale(1); } }
 .calnav { display: none; }
 
@@ -277,7 +292,7 @@ h3 { font: 700 20px/1.2 var(--body); letter-spacing: -.015em; }
   .card.letters .tt { font-size: 60px; }
   .work-in, .foot { padding-left: 40px; padding-right: 40px; }
   .months { grid-template-columns: 1fr; }
-  .months .month:nth-child(2) { display: none; }
+  .months:not(.ans) .month:nth-child(2) { display: none; }
   .calnav { display: flex; gap: 8px; margin-left: auto; }
   .cols { grid-template-columns: 340px 1fr; gap: 32px; padding: 32px; }
   .lrow { grid-template-columns: 36px 110px 1fr 150px; padding: 16px; }

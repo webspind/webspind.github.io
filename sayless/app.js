@@ -210,9 +210,11 @@ function renderCreate() {
   function stepWhen() {
     const t0 = today(), m0 = new Date(t0.getFullYear(), t0.getMonth() + C.mOff, 1);
     const wrap = h('div', { class: 'months' });
-    let paint = null;
-    const set = (d, on) => { if (on) { if (C.days.size >= 62) return; C.days.add(d); } else C.days.delete(d); };
-    const refresh = () => { $$('.d[data-d]', wrap).forEach(b => b.classList.toggle('on', C.days.has(b.dataset.d))); const card = $('.stage .card'); const n = cardEl(cPlan()); tilt(n); card.replaceWith(n); $('.foot .btn').disabled = !C.days.size; $('.foot .cnt').textContent = C.days.size ? `${C.days.size} ${C.days.size === 1 ? 'day' : 'days'} picked` : 'Pick at least one day'; };
+    // span: tap the first day, then the last day (or drag across). Every day between is in. Max 62 days.
+    const span = (a, b) => { let x = pd(a < b ? a : b); const y = pd(a < b ? b : a); C.days = new Set(); while (x <= y && C.days.size < 62) { C.days.add(iso(x)); x = add(x, 1); } };
+    const tapDay = d => { if (C.a == null || C.b != null) { C.a = d; C.b = null; C.days = new Set([d]); } else { C.b = d; span(C.a, d); } };
+    let drag = null;
+    const refresh = () => { $$('.d[data-d]', wrap).forEach(b => b.classList.toggle('on', C.days.has(b.dataset.d))); const card = $('.stage .card'); const n = cardEl(cPlan()); tilt(n); card.replaceWith(n); $('.foot .btn').disabled = !C.days.size; $('.foot .cnt').textContent = C.days.size ? (C.a != null && C.b == null && C.days.size === 1 ? 'Now tap the last day' : `${C.days.size} ${C.days.size === 1 ? 'day' : 'days'} picked`) : 'Tap the first day'; };
     for (let k = 0; k < 2; k++) {
       const m = new Date(m0.getFullYear(), m0.getMonth() + k, 1), g = h('div', { class: 'mgrid', role: 'grid' });
       ['M', 'T', 'W', 'T', 'F', 'S', 'S'].forEach(w => g.append(h('span', { class: 'micro wd', text: w })));
@@ -224,24 +226,23 @@ function renderCreate() {
       wrap.append(h('div', { class: 'month' }, h('h3', { text: `${MON[m.getMonth()]} ${m.getFullYear()}` }), g));
     }
     const at = e => { const el = document.elementFromPoint(e.clientX, e.clientY); return el && el.matches && el.matches('.d[data-d]:not([disabled])') ? el : null; };
-    wrap.addEventListener('pointerdown', e => { const b = at(e); if (!b) return; e.preventDefault(); paint = !C.days.has(b.dataset.d); set(b.dataset.d, paint); refresh(); if (e.pointerType !== 'mouse') wrap.setPointerCapture(e.pointerId); });
-    wrap.addEventListener('pointermove', e => { if (paint === null) return; const b = at(e); if (b && C.days.has(b.dataset.d) !== paint) { set(b.dataset.d, paint); refresh(); } });
-    const end = () => { paint = null; };
-    wrap.addEventListener('pointerup', end); wrap.addEventListener('pointercancel', end); wrap.addEventListener('lostpointercapture', end);
-    wrap.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.dataset.d) { e.preventDefault(); set(e.target.dataset.d, !C.days.has(e.target.dataset.d)); refresh(); } });
-    wrap.addEventListener('click', e => { if (e.detail === 0 && e.target.dataset && e.target.dataset.d) { set(e.target.dataset.d, !C.days.has(e.target.dataset.d)); refresh(); } });
+    wrap.addEventListener('pointerdown', e => { const b = at(e); if (!b) return; e.preventDefault(); drag = { from: b.dataset.d, moved: false }; if (e.pointerType !== 'mouse') wrap.setPointerCapture(e.pointerId); });
+    wrap.addEventListener('pointermove', e => { if (!drag) return; const b = at(e); if (!b || (b.dataset.d === drag.from && !drag.moved)) return; drag.moved = true; C.a = drag.from; C.b = b.dataset.d; span(drag.from, b.dataset.d); refresh(); });
+    const end = () => { if (drag && !drag.moved) { tapDay(drag.from); refresh(); } drag = null; };
+    wrap.addEventListener('pointerup', end); wrap.addEventListener('pointercancel', () => { drag = null; });
+    wrap.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.dataset.d) { e.preventDefault(); tapDay(e.target.dataset.d); refresh(); } });
     const quick = (label, f) => h('button', { class: 'btn out sm', text: label, onclick: () => {
-      const ds = f().filter(d => d >= t0).map(iso); C.days = new Set(); const first = ds[0] && pd(ds[0]); C.mOff = first ? (first.getFullYear() - t0.getFullYear()) * 12 + first.getMonth() - t0.getMonth() : 0; draw();
+      const ds = f().filter(d => d >= t0).map(iso); C.days = new Set(); C.a = ds[0]; C.b = ds[ds.length - 1]; const first = ds[0] && pd(ds[0]); C.mOff = first ? (first.getFullYear() - t0.getFullYear()) * 12 + first.getMonth() - t0.getMonth() : 0; draw();
       ds.forEach((s, i) => setTimeout(() => { C.days.add(s); const b = $(`.d[data-d="${s}"]`); if (b) { b.classList.add('on', 'pop'); b.setAttribute('aria-pressed', 'true'); } if (i === ds.length - 1) refreshAll(); }, RM ? 0 : i * 45));
     } });
     const refreshAll = () => { const card = $('.stage .card'); const n = cardEl(cPlan()); tilt(n); card.replaceWith(n); $('.foot .btn').disabled = !C.days.size; $('.foot .cnt').textContent = `${C.days.size} ${C.days.size === 1 ? 'day' : 'days'} picked`; };
     const fri = () => { for (let i = 0; i < 7; i++) { const d = add(t0, i); if (d.getDay() === 5) return d; if (d.getDay() === 6 || d.getDay() === 0) return add(d, d.getDay() === 6 ? -1 : -2); } return t0; };
     const time = h('input', { class: 'field', type: 'time', value: C.time, 'aria-label': 'Start time', style: { maxWidth: '180px', height: '48px' }, oninput: e => { C.time = e.target.value; } });
     return h('div', {},
-      h('div', { class: 'bhead' }, h('h1', { text: 'Pick the days' }), h('div', { class: 'calnav' }, h('button', { class: 'btn out sm', 'aria-label': 'Previous month', text: '<', disabled: C.mOff <= 0, onclick: () => { C.mOff--; draw(); } }), h('button', { class: 'btn out sm', 'aria-label': 'Next month', text: '>', onclick: () => { C.mOff++; draw(); } }))),
-      h('p', { class: 'lead', text: 'Tap the days that could work, or drag across them. Friends only see these.' }),
-      h('div', { class: 'quick' }, quick('This weekend', () => { const f = fri(); return [f, add(f, 1), add(f, 2)]; }), quick('Next 2 weeks', () => [...Array(14)].map((_, i) => add(t0, i))),
-        quick('Fri and Sat', () => [...Array(35)].map((_, i) => add(t0, i)).filter(d => d.getDay() === 5 || d.getDay() === 6)), C.days.size ? h('button', { class: 'link', text: 'Clear', onclick: () => { C.days.clear(); draw(); } }) : null),
+      h('div', { class: 'bhead' }, h('h1', { text: 'Pick the period' }), h('div', { class: 'calnav' }, h('button', { class: 'btn out sm', 'aria-label': 'Previous month', text: '<', disabled: C.mOff <= 0, onclick: () => { C.mOff--; draw(); } }), h('button', { class: 'btn out sm', 'aria-label': 'Next month', text: '>', onclick: () => { C.mOff++; draw(); } }))),
+      h('p', { class: 'lead', text: 'Tap the first day, then the last day. Friends tap the days they are free in between.' }),
+      h('div', { class: 'quick' }, quick('This weekend', () => { const f = fri(); return [f, add(f, 1), add(f, 2)]; }), quick('Next 2 weeks', () => [...Array(14)].map((_, i) => add(t0, i))), quick('Next 3 weeks', () => [...Array(21)].map((_, i) => add(t0, i))),
+        C.days.size ? h('button', { class: 'link', text: 'Clear', onclick: () => { C.days.clear(); C.a = C.b = null; draw(); } }) : null),
       wrap,
       h('div', { class: 'row', style: { marginTop: '28px' } }, h('span', { class: 'grow' }, h('b', { text: 'Add a time' }), h('div', { class: 'meta', text: 'Optional. Leave it off and you decide later.' })),
         C.timeOn ? time : null, h('button', { class: 'sw', role: 'switch', 'aria-checked': String(C.timeOn), 'aria-label': 'Add a time', onclick: () => { C.timeOn = !C.timeOn; if (!C.timeOn) C.time = ''; else if (!C.time) C.time = '19:00'; draw(); } })),
@@ -259,7 +260,7 @@ function renderCreate() {
     const drawChips = () => chips.replaceChildren(...C.names.map((n, i) => h('span', { class: 'chip' }, face(n), n, h('button', { 'aria-label': 'Remove ' + n, text: '×', onclick: () => { C.names.splice(i, 1); drawChips(); } }))));
     const addName = () => { const v = nameIn.value.trim(); if (v && !C.names.some(n => n.toLowerCase() === v.toLowerCase()) && C.names.length < 30) { C.names.push(v); drawChips(); } nameIn.value = ''; nameIn.focus(); };
     drawChips();
-    return h('div', {}, h('h1', { text: 'Ready?' }), h('p', { class: 'lead', text: `${d.length} ${d.length === 1 ? 'day' : 'days'}, ${span(d)}${C.time ? ', from ' + C.time : ''}. Friends tap yes, maybe or no on each.` }),
+    return h('div', {}, h('h1', { text: 'Ready?' }), h('p', { class: 'lead', text: `${d.length} ${d.length === 1 ? 'day' : 'days'}, ${span(d)}${C.time ? ', from ' + C.time : ''}. Friends tap the days they are free.` }),
       h('div', { class: 'rows' },
         h('div', { class: 'row' }, h('span', { class: 'grow' }, h('b', { text: 'Answer by' }), h('div', { class: 'meta', text: by ? 'That day the leading night is picked for you.' : 'No deadline. You lock it when you are happy.' })),
           h('button', { class: 'datebtn', text: by ? longd(by) : 'No deadline', onclick: pickBy })),
@@ -438,46 +439,76 @@ function viewAnswer() {
     const names = [...new Set([...(P.names || []), ...P.answers.map(a => a.name)])];
     const join = h('input', { class: 'field', maxLength: 40, placeholder: 'Not on the list? Your name', 'aria-label': 'Your name', autocomplete: 'given-name', onkeydown: e => { if (e.key === 'Enter') joinGo(); } });
     const joinGo = () => { const v = join.value.trim(); if (!v) return join.focus(); if (taken.has(v.toLowerCase())) { toast(`${v} already answered. Add a last letter, like ${v} B.`); return; } A.name = v; vote(); };
-    main.replaceChildren(h('h1', { text: 'Who are you?' }), names.length ? h('div', { class: 'who' }, names.map(n => { const done = taken.has(n.trim().toLowerCase()); return h('button', { class: 'tile', disabled: done, onclick: () => { A.name = n; vote(); } }, face(n), h('b', { text: n }), h('span', { class: 'meta', text: done ? '✓ Answered' : 'Tap to answer' })); })) : h('p', { class: 'lead', text: 'Write your name and pick the nights that work.' }),
+    main.replaceChildren(h('h1', { text: 'Who are you?' }), names.length ? h('div', { class: 'who' }, names.map(n => { const done = taken.has(n.trim().toLowerCase()); return h('button', { class: 'tile', disabled: done, onclick: () => { A.name = n; vote(); } }, face(n), h('b', { text: n }), h('span', { class: 'meta', text: done ? '✓ Answered' : 'Tap to answer' })); })) : h('p', { class: 'lead', text: 'Write your name and tap the days you are free.' }),
       h('div', { class: 'opt' }, join, h('button', { class: 'btn', text: 'Join', onclick: joinGo })));
   };
   const vote = () => {
-    const rows = P.days.map((d, i) => {
-      const yesBy = P.answers.filter(a => a.days[d] === 'yes' && (!mine || a.id !== mine.answer));
-      const seg = h('div', { class: 'seg', role: 'radiogroup', 'aria-label': longd(d) }, [['yes', 'Yes', 'Y', 'y'], ['maybe', 'Maybe', 'M', 'm'], ['no', 'No', 'N', 'n']].map(([v, t, k, c]) =>
-        h('button', { class: c, 'aria-pressed': String(A.votes[d] === v), 'data-v': v, onclick: () => { setV(d, v); } }, t, h('kbd', { text: k }))));
-      return h('div', { class: 'night', tabindex: '-1', 'data-d': d, 'data-i': i }, h('b', { class: 'tab', text: short(d) }), h('div', { class: 'faces', 'aria-label': yesBy.length ? `${yesBy.length} said yes` : 'No yes yet' }, yesBy.slice(0, 7).map(a => face(a.name))), seg);
-    });
-    const setV = (d, v) => { A.votes[d] = v; const r = $(`.night[data-d="${d}"]`, main); $$('.seg button', r).forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === v))); upd(); };
+    // Friends tap the days they are free in a calendar of the host's period. Tap once: free. Twice: maybe. Three times: clear.
+    // Drag across days to mark (or clear) many at once. Days left empty are saved as "no".
+    const inPlan = new Set(P.days), t0 = today();
+    const othersYes = d => P.answers.filter(a => a.days[d] === 'yes' && (!mine || a.id !== mine.answer));
+    const first = pd(P.days[0]), last = pd(P.days[P.days.length - 1]);
+    const wrap = h('div', { class: 'months ans' });
+    for (let m = new Date(first.getFullYear(), first.getMonth(), 1); m <= last; m = new Date(m.getFullYear(), m.getMonth() + 1, 1)) {
+      const g = h('div', { class: 'mgrid', role: 'grid' });
+      ['M', 'T', 'W', 'T', 'F', 'S', 'S'].forEach(w => g.append(h('span', { class: 'micro wd', text: w })));
+      // only the weeks that hold a day of the span, like the old wall calendar
+      const lead = (m.getDay() + 6) % 7, mdays = [];
+      for (let i = 0; i < lead; i++) mdays.push(null);
+      for (let d = new Date(m); d.getMonth() === m.getMonth(); d = add(d, 1)) mdays.push(new Date(d));
+      const weeks = []; for (let i = 0; i < mdays.length; i += 7) weeks.push(mdays.slice(i, i + 7));
+      for (const wk of weeks) {
+        if (!wk.some(d => d && inPlan.has(iso(d)))) continue;
+        for (const d of wk) { if (!d) { g.append(h('span', { class: 'd blank' })); continue; }
+        const s = iso(d), ok = inPlan.has(s) && d >= add(t0, -1), ys = ok ? othersYes(s) : [], n = ys.length;
+        g.append(h('button', { class: 'd', 'data-d': ok ? s : null, disabled: !ok, 'aria-label': longd(s) + (n ? `, ${n} others can` : ''), title: n ? ys.map(a => a.name).join(', ') + ' can' : null },
+          h('span', { class: 'dn', text: String(d.getDate()) }), n ? h('span', { class: 'fr' }, ys.slice(0, 3).map(a => face(a.name)), n > 3 ? h('b', { text: '+' + (n - 3) }) : null) : null));
+        }
+      }
+      if (!g.querySelector('.d:not(.blank)')) continue;
+      wrap.append(h('div', { class: 'month' }, h('h3', { text: `${MON[m.getMonth()]} ${m.getFullYear()}` }), g));
+    }
+    const cells = () => $$('.d[data-d]', wrap);
+    const paintCell = b => { const v = A.votes[b.dataset.d]; b.classList.toggle('on', v === 'yes'); b.classList.toggle('mb', v === 'maybe'); b.setAttribute('aria-pressed', v === 'yes' ? 'true' : v === 'maybe' ? 'mixed' : 'false'); };
+    const setV = (d, v) => { if (v) A.votes[d] = v; else A.votes[d] = undefined; const b = $(`.d[data-d="${d}"]`, wrap); if (b) paintCell(b); upd(); };
+    const cycle = d => { const v = A.votes[d]; setV(d, v === 'yes' ? 'maybe' : v === 'maybe' ? null : 'yes'); };
+    // pointer: a plain tap cycles, a drag paints
+    let start = null, mode = null, moved = false;
+    const at = e => { const el = document.elementFromPoint(e.clientX, e.clientY); return el && el.closest ? el.closest('.d[data-d]') : null; };
+    wrap.addEventListener('pointerdown', e => { const b = at(e); if (!b) return; e.preventDefault(); start = b; moved = false; mode = A.votes[b.dataset.d] ? null : 'yes'; if (e.pointerType !== 'mouse') wrap.setPointerCapture(e.pointerId); });
+    wrap.addEventListener('pointermove', e => { if (!start) return; const b = at(e); if (!b || (b === start && !moved)) return; if (!moved) { moved = true; setV(start.dataset.d, mode); } if ((A.votes[b.dataset.d] || null) !== mode) setV(b.dataset.d, mode); });
+    const end = () => { if (start && !moved) { cycle(start.dataset.d); start.focus({ preventScroll: true }); } start = null; };
+    wrap.addEventListener('pointerup', end); wrap.addEventListener('pointercancel', () => { start = null; });
+    wrap.addEventListener('click', e => { const b = e.target.closest && e.target.closest('.d[data-d]'); if (b && e.detail === 0) cycle(b.dataset.d); }); // keyboard Enter/Space
     const cnt = h('span', { class: 'meta tab' });
     const save = h('button', { class: 'btn', text: mine ? 'Save changes' : 'Save my answer', onclick: () => send() });
-    const upd = () => { const n = P.days.filter(d => A.votes[d]).length; cnt.textContent = `${n} of ${P.days.length} ${P.days.length === 1 ? 'day' : 'days'} answered`; };
+    const upd = () => { const y = P.days.filter(d => A.votes[d] === 'yes').length, m = P.days.filter(d => A.votes[d] === 'maybe').length; cnt.textContent = y || m ? `${y} free${m ? `, ${m} if I have to` : ''}` : 'Tap the days you are free'; };
     const picks = P.options && P.options.length ? h('div', { class: 'stack' }, h('h2', { text: 'What should we do?' }), h('p', { class: 'meta', text: 'Pick as many as you like.' }),
       h('div', { class: 'picks' }, P.options.map((o, i) => h('button', { class: 'tile' + (A.picks.includes(i) ? ' on' : ''), 'aria-pressed': String(A.picks.includes(i)), text: o, onclick: e => { const k = A.picks.indexOf(i); if (k < 0) A.picks.push(i); else A.picks.splice(k, 1); e.currentTarget.classList.toggle('on', k < 0); e.currentTarget.setAttribute('aria-pressed', String(k < 0)); } })))) : null;
-    const list = h('div', { class: 'board' }, rows);
+    const legend = h('div', { class: 'legend' }, h('span', {}, h('i', { class: 'd on' }), 'Free'), h('span', {}, h('i', { class: 'd mb' }), 'If I have to (tap twice)'), h('span', {}, face('A'), 'Friends who can'));
     main.replaceChildren(
       h('div', { class: 'idbar' }, face(A.name), h('span', { class: 'grow' }, mine ? 'Welcome back, ' : 'Answering as ', h('b', { text: A.name }), mine ? '. Change your answers?' : ''),
-        h('button', { class: 'link', text: mine ? `Not ${A.name}? Switch` : 'Switch', onclick: () => { if (mine) { try { localStorage.removeItem('sl.a.' + P.id); } catch (e) {} renderPlan(P.id, 'answer'); } else who(); } }),
-        h('button', { class: 'link', text: "Can't make any", onclick: () => { P.days.forEach(d => setV(d, 'no')); } })),
-      h('div', {}, h('h1', { text: 'Which days work?' }), h('p', { class: 'lead hide-phone', text: 'Click, or use the keys: arrows to move, Y, M or N to answer.' }), tzNote()), list, picks,
-      h('div', { class: 'foot', style: { padding: '18px 0', margin: '0' } }, cnt, h('span', { class: 'sp' }), save));
+        h('button', { class: 'link', text: mine ? `Not ${A.name}? Switch` : 'Switch', onclick: () => { if (mine) { try { localStorage.removeItem('sl.a.' + P.id); } catch (e) {} renderPlan(P.id, 'answer'); } else who(); } })),
+      h('div', {}, h('h1', { text: 'When are you free?' }), h('p', { class: 'lead', text: 'Tap the days you can. Tap twice for “if I have to”. Drag to mark many.' }), h('p', { class: 'meta hide-phone', text: 'Keys: arrows to move, Y free, M maybe, N clear.' }), tzNote()),
+      wrap, legend, picks,
+      h('div', { class: 'foot', style: { padding: '18px 0', margin: '0' } }, cnt, h('button', { class: 'link', text: "Can't make any", onclick: () => { P.days.forEach(d => { A.votes[d] = undefined; }); cells().forEach(paintCell); send(true); } }), h('span', { class: 'sp' }), save));
     $('.idbar .grow', main).style.flex = '1';
-    upd();
-    let cur = 0;
-    const focusRow = i => { cur = Math.max(0, Math.min(P.days.length - 1, i)); const r = $$('.night', main)[cur]; $$('.night', main).forEach(x => x.classList.toggle('focus', x === r)); r.focus({ preventScroll: true }); r.scrollIntoView({ block: 'nearest', behavior: RM ? 'auto' : 'smooth' }); };
-    list.addEventListener('focusin', e => { const r = e.target.closest('.night'); if (r) cur = +r.dataset.i; });
-    main.onkeydown = e => {
-      if (e.target.matches('input')) return;
-      const k = e.key.toLowerCase();
-      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') { e.preventDefault(); send(); return; }
-      if (k === 'arrowdown' || k === 'arrowup') { e.preventDefault(); focusRow(cur + (k === 'arrowdown' ? 1 : -1)); }
-      else if (k === 'y' || k === 'm' || k === 'n') { e.preventDefault(); setV(P.days[cur], { y: 'yes', m: 'maybe', n: 'no' }[k]); setTimeout(() => focusRow(cur + 1), 120); }
-    };
-    async function send() {
-      if (!P.days.some(d => A.votes[d])) { toast('Answer at least one day first.'); return; }
+    cells().forEach(paintCell); upd();
+    // keyboard: move by day or week across the plan's days
+    const near = (d, step) => { let x = pd(d); for (let i = 0; i < 70; i++) { x = add(x, step); if (x > last || x < first) return null; const b = $(`.d[data-d="${iso(x)}"]`, wrap); if (b) return b; } return null; };
+    wrap.addEventListener('keydown', e => {
+      const b = e.target.closest && e.target.closest('.d[data-d]'); if (!b) return;
+      const k = e.key.toLowerCase(), mv = { arrowright: 1, arrowleft: -1, arrowdown: 7, arrowup: -7 }[k];
+      if (mv) { e.preventDefault(); const nb = near(b.dataset.d, mv) || (Math.abs(mv) === 7 ? near(b.dataset.d, Math.sign(mv)) : null); if (nb) nb.focus(); }
+      else if (k === 'y' || k === 'm' || k === 'n' || k === 'backspace' || k === 'delete') { e.preventDefault(); setV(b.dataset.d, { y: 'yes', m: 'maybe' }[k] || null); }
+    });
+    main.onkeydown = e => { if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') { e.preventDefault(); send(); } };
+    async function send(none) {
+      if (!none && !P.days.some(d => A.votes[d])) { toast("Tap the days you're free, or press Can't make any."); return; }
+      const out = {}; P.days.forEach(d => { out[d] = A.votes[d] || 'no'; });
       save.disabled = true; save.textContent = 'Saving...';
       try {
-        const r = await rpc('sl_answer', { p_id: P.id, p_name: A.name, p_days: A.votes, p_picks: A.picks, p_answer: mine ? mine.answer : null, p_key: mine ? mine.key : null });
+        const r = await rpc('sl_answer', { p_id: P.id, p_name: A.name, p_days: out, p_picks: A.picks, p_answer: mine ? mine.answer : null, p_key: mine ? mine.key : null });
         store.set('sl.a.' + P.id, { answer: r.answer, key: r.key, name: A.name });
         P = await loadPlan(P.id); JUST = true; go(`?p=${P.id}&v=wait`, true);
       } catch (e) { save.disabled = false; save.textContent = 'Try again'; toast(e.message === 'plan is locked' ? 'The host just locked the date.' : e.message); }
@@ -543,7 +574,7 @@ function boardEl(st, host) {
       h('span', { class: 'rk tab' }, String(i + 1), arrow),
       h('span', { class: 'dt' }, h('b', { class: 'tab', text: short(r.d).split(' ').slice(0, 2).join(' ') }), h('span', { class: 'meta', text: MON[pd(r.d).getMonth()] })),
       h('div', { class: 'bars' }, h('div', { class: 'track' }, h('span', { class: 'y', style: { width: yW + '%' } }), h('span', { class: 'm', style: { width: mW + '%' } })), h('div', { class: 'faces' }, r.y.slice(0, 8).map(a => face(a.name)))),
-      h('div', { class: 'tally' }, h('b', { class: 'tab', text: `${r.y.length} yes${r.m.length ? `, ${r.m.length} maybe` : ''}` }),
+      h('div', { class: 'tally' }, h('b', { class: 'tab', text: `${r.y.length} free${r.m.length ? `, ${r.m.length} maybe` : ''}` }),
         host ? h('button', { class: 'btn sm lockbtn', text: 'Lock this day', onclick: () => lockAsk(r.d) }) : null));
   }));
   WATCH.prevRank = Object.fromEntries(st.rows.map((r, i) => [r.d, i]));
