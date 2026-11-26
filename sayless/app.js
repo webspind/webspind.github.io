@@ -77,15 +77,28 @@ const KINDS = {
   birthday: { obj: 'cake', label: 'Birthday', name: 'Birthday, the big one', desc: 'They said nothing big. They did not mean it.', ideas: ['Karaoke', 'House party', 'One long dinner'], col: '#C9286B' },
   film: { obj: 'film', label: 'Film night', name: 'Film night', desc: 'Someone else picks. No one complains.', ideas: ['Something scary', 'Something funny', 'Something old'], col: '#5A2C8A' },
   dinner: { obj: 'pasta', label: 'Pasta night', name: 'Pasta night', desc: 'Bring wine. Leave your phone in the hall.', ideas: ['Carbonara', 'Lasagne', 'Pizza from scratch'], col: '#C4361B' },
+  music: { obj: 'concert', label: 'Concert', name: 'Gig night', desc: 'Loud music. Bad ears tomorrow.', ideas: ['A small venue', 'Festival day', 'Karaoke'], col: '#1F1F2E' },
+  grill: { obj: 'grill', label: 'Barbecue', name: 'Barbecue in the park', desc: 'Someone brings the grill. Everyone brings sausages.', ideas: ['The park', 'Someone’s garden', 'The beach'], col: '#B5481E' },
+  padel: { obj: 'padel', label: 'Padel', name: 'Padel, two v two', desc: 'Losers buy the beers.', ideas: ['Padel', 'Tennis', 'Table tennis'], col: '#0B7A75' },
+  camp: { obj: 'tent', label: 'Camping', name: 'One night in a tent', desc: 'No hotel. Bring a warm jumper.', ideas: ['By the lake', 'In the woods', 'On the beach'], col: '#C2561A' },
+  outside: { obj: 'weather', label: 'Outdoors', name: 'Beach day', desc: 'If the sun shows up, so do we.', ideas: ['The beach', 'A long walk', 'Picnic in the park'], col: '#1E7FC2' },
 };
 const KW = [
+  ['music', /concert|koncert|gig\b|festival|music|musik|band\b|karaoke|dj\b|rave|club|klub/i],
+  ['grill', /bbq|barbecue|grill|pølse|sausage/i],
+  ['padel', /padel|tennis|squash|badminton|ping ?pong|bordtennis/i],
+  ['camp', /camp|tent|telt|bonfire|bål/i],
+  ['outside', /beach|strand|picnic|piknik|park\b|sun\b|sol\b|outdoor|udenfor|walk|gåtur|swim|bade/i],
   ['drinks', /drink|beer|øl|bajer|bar\b|wine|vin\b|cocktail|pub|fredagsbar|shots/i],
-  ['cabin', /cabin|hytte|sommerhus|trip|tur\b|camp|tent|telt|hike|weekend|getaway|ski/i],
-  ['run', /run|løb|5k|10k|padel|tennis|football|fodbold|gym|walk|gåtur|bike|cykel|swim|svøm|sport|match/i],
+  ['cabin', /cabin|hytte|sommerhus|trip|tur\b|hike|weekend|getaway|ski/i],
+  ['run', /run|løb|5k|10k|football|fodbold|gym|bike|cykel|svøm|sport|match/i],
   ['birthday', /birthday|fødselsdag|bday|b-day|cake|kage|party|fest|turns \d|bliver \d/i],
   ['film', /film|movie|cinema|biograf|\bbio\b|netflix|series|serie|show|gaming|game night/i],
-  ['dinner', /dinner|middag|food|mad\b|pizza|pasta|brunch|lunch|eat|spise|restaurant|sushi|burger|bbq|grill/i],
+  ['dinner', /dinner|middag|food|mad\b|pizza|pasta|brunch|lunch|eat|spise|restaurant|sushi|burger/i],
 ];
+// "Give me ideas": a mix of easy plans, each with its picture.
+const IDEAS = [['Movie night', 'film'], ['One drink after work', 'drinks'], ['Padel, two v two', 'padel'], ['Barbecue in the park', 'grill'], ['Cabin weekend', 'cabin'], ['Pasta at mine', 'dinner'],
+  ['Gig night', 'music'], ['Beach day', 'outside'], ['5K, then pastries', 'run'], ['One night in a tent', 'camp'], ['Birthday dinner', 'birthday'], ['Board game night', 'film'], ['Sunday brunch', 'dinner'], ['Karaoke', 'music']];
 const guess = t => (KW.find(([, r]) => r.test(t || '')) || [])[0];
 const COLS = ['#2E44FF', '#17614A', '#0E68C8', '#C9286B', '#5A2C8A', '#C4361B'];
 const hash = s => { let x = 7; for (const c of (s || '').toLowerCase()) x = (x * 31 + c.charCodeAt(0)) >>> 0; return x; };
@@ -206,7 +219,7 @@ function cardEl(p, o = {}) {
 /* ================================================================
    CREATE: What, When, Ready
    ================================================================ */
-const C = { step: 0, title: '', subtitle: '', kind: null, color: null, photo: null, preset: null, days: new Set(), time: '', timeOn: false, by: undefined, optsOn: false, opts: [], namesOpen: false, names: [], host: '', mOff: 0, busy: false };
+const C = { step: 0, title: '', subtitle: '', kind: null, color: null, photo: null, preset: null, kindManual: false, ideasOpen: false, days: new Set(), time: '', timeOn: false, by: undefined, optsOn: false, opts: [], namesOpen: false, names: [], host: '', mOff: 0, busy: false };
 const cKind = () => C.photo ? 'photo' : C.kind || guess(C.title) || 'letters';
 const cCol = () => C.color || (KINDS[cKind()] ? KINDS[cKind()].col : nameCol(C.title));
 const cDays = () => [...C.days].sort();
@@ -226,12 +239,13 @@ function renderCreate() {
   const root = h('div', {}, bar(false, h('span', { class: 'meta hide-phone', text: 'Friends never pay. No app, no account.' })), h('main', { class: 'split' }, stage, work));
   const draw = () => {
     setPlanColor(cCol());
-    stage.replaceChildren();
+    stage.replaceChildren(); stage.classList.toggle('waiting', C.step === 0 && !C.title.trim()); stage.classList.toggle('s0', C.step === 0);
+    if (C.step === 0 && !C.title.trim()) { stage.append(h('div', { class: 'stage-wait' }, h('img', { src: `${BASE}a/crew.webp`, alt: '' }), h('p', { text: 'Your card shows up here as you write.' }))); const steps0 = h('nav', { class: 'steps', 'aria-label': 'Steps' }, ['1. What', '2. When', '3. Ready'].map((t, i) => h('button', { class: i === 0 ? 'on' : '', text: t, disabled: i > 0, 'aria-current': i === 0 ? 'step' : null }))); work.replaceChildren(h('div', { class: 'work-in' }, steps0, stepWhat()), foot()); return; }
     const card = cardEl(cPlan(), C.step === 2 ? { corner: h('button', { class: 'corner', 'aria-label': 'Shuffle the look', title: 'Shuffle', onclick: shuffle }, svgIcon(I_SHUFFLE)) } : {});
     tilt(card);
     stage.append(card, h('div', { class: 'stage-side' },
       h('div', { class: 'swatches', role: 'group', 'aria-label': 'Card colour' }, COLS.map(c => h('button', { class: c === cCol() ? 'on' : '', style: { background: c }, 'aria-label': 'Colour ' + c, 'aria-pressed': String(c === cCol()), onclick: () => { C.color = c; draw(); } }))),
-      h('button', { class: 'link', text: 'Pick a look', onclick: pickLook })));
+      h('button', { class: 'link', text: 'Swap the picture', onclick: pickLook })));
     const steps = h('nav', { class: 'steps', 'aria-label': 'Steps' }, ['1. What', '2. When', '3. Ready'].map((t, i) => h('button', { class: i === C.step ? 'on' : '', text: t, disabled: i > C.step && !canGo(i), 'aria-current': i === C.step ? 'step' : null, onclick: () => { if (i <= C.step || canGo(i)) { C.step = i; draw(); } } })));
     const body = [stepWhat, stepWhen, stepReady][C.step]();
     work.replaceChildren(h('div', { class: 'work-in' }, steps, body), foot());
@@ -239,25 +253,43 @@ function renderCreate() {
   const canGo = i => (i >= 1 ? C.title.trim().length > 0 : true) && (i >= 2 ? C.days.size > 0 : true);
   const shuffle = () => { const ks = Object.keys(KINDS); if (C.photo) { C.color = COLS[(COLS.indexOf(cCol()) + 1) % COLS.length]; } else { const cur = cKind(); const nk = ks[(ks.indexOf(cur) + 1 + Math.floor(Math.random() * (ks.length - 1))) % ks.length]; C.kind = nk; C.color = null; } draw(); };
 
-  // Empty name: "Or start from one" fills a whole plan. Once you write: "Pick its object" only changes the card, never your words.
-  function starts() {
-    const empty = !C.title.trim();
-    return h('div', { class: 'stack', id: 'starts' }, h('span', { class: 'micro', text: empty ? 'Or start from one' : 'Pick its object' }),
-      h('div', { class: 'presets' }, Object.entries(KINDS).map(([k, v]) => h('button', { class: 'tile' + ((empty ? C.preset === k : cKind() === k && !C.photo) ? ' on' : ''), 'aria-pressed': empty ? null : String(cKind() === k && !C.photo),
-        onclick: () => { if (empty) { C.preset = k; C.title = v.name; C.subtitle = v.desc; C.kind = k; C.color = null; C.photo = null; C.opts = v.ideas.slice(); draw(); } else { C.kind = k; C.photo = null; C.color = null; buzz(); draw(); } } },
-        h('img', { src: `${BASE}a/${v.obj}.webp`, alt: '' }), empty ? v.label : (v.label.split(' ')[0])))));
+  // Step 1 (Jakob 26/11): the question first. Write what you want to do; the picture follows your words and can be swapped.
+  function iconBtn() {
+    const k = cKind(), obj = KINDS[k] ? KINDS[k].obj : null;
+    return h('button', { class: 'wico' + (C.title.trim() ? '' : ' idle'), id: 'wico', type: 'button', 'aria-label': obj ? `Picture: ${KINDS[k].label}. Tap to swap` : 'Pick a picture', title: 'Swap the picture', onclick: () => pickLook() },
+      C.photo ? h('img', { src: C.photo, alt: '', class: 'ph' }) : obj ? h('img', { src: `${BASE}a/${obj}.webp`, alt: '' }) : h('span', { class: 'lt', text: C.title.trim() ? C.title.trim().charAt(0).toUpperCase() : '?' }),
+      h('span', { class: 'swp', text: 'Swap' }));
+  }
+  function ideasEl() {
+    return h('div', { class: 'ideas', id: 'ideas' }, IDEAS.map(([t, k]) => h('button', { class: 'idea', type: 'button', onclick: () => {
+      const prev = { title: C.title, subtitle: C.subtitle, kind: C.kind, color: C.color, opts: C.opts };
+      C.title = t; C.kind = k; C.color = null; C.photo = null; C.opts = KINDS[k].ideas.slice(); buzz(); draw();
+      if (prev.title.trim() && prev.title !== t) toast(`Swapped “${prev.title}” for “${t}”.`, { label: 'Undo', run: () => { Object.assign(C, prev); draw(); } });
+    } }, h('img', { src: `${BASE}a/${KINDS[k].obj}.webp`, alt: '' }), h('span', { text: t }))));
   }
   function stepWhat() {
-    const title = h('input', { class: 'field big', id: 'title', maxLength: 60, placeholder: 'One drink, cabin trip, pasta night...', value: C.title, 'aria-label': 'Plan name', autocomplete: 'off',
-      oninput: e => { const was = !!C.title.trim(); C.title = e.target.value; if (C.preset && C.title !== KINDS[C.preset].name) C.preset = null; if (was !== !!C.title.trim()) { const st = $('#starts'); if (st) st.replaceWith(starts()); } draw2(); } });
-    const sub = h('input', { class: 'field', maxLength: 80, placeholder: 'One line for your friends (optional)', value: C.subtitle, 'aria-label': 'Subtitle', autocomplete: 'off', oninput: e => { C.subtitle = e.target.value; draw2(); } });
-    const draw2 = () => { const card = $('.stage .card'); const n = cardEl(cPlan()); tilt(n); card.replaceWith(n); setPlanColor(cCol()); $$('.swatches button').forEach(b => b.classList.toggle('on', b.getAttribute('aria-label') === 'Colour ' + cCol())); $('.foot .btn').disabled = !C.title.trim(); };
-    setTimeout(() => title.focus(), 50);
+    let lastK = cKind();
+    const title = h('input', { class: 'field big', id: 'title', maxLength: 60, placeholder: 'Movie night, padel, a cabin trip...', value: C.title, 'aria-label': 'What do you want to do?', autocomplete: 'off',
+      oninput: e => { const was = !!C.title.trim(); C.title = e.target.value; C.preset = null; if (!C.kindManual && !C.photo) { const g = guess(C.title); if (g) C.kind = g; else if (!C.title.trim()) C.kind = null; } if (was !== !!C.title.trim()) { draw(); const t = $('#title'); t.focus(); t.setSelectionRange(t.value.length, t.value.length); return; } draw2(); } });
+    const sub = h('input', { class: 'field', maxLength: 80, placeholder: 'A line for your friends (optional)', value: C.subtitle, 'aria-label': 'A line for your friends', autocomplete: 'off', oninput: e => { C.subtitle = e.target.value; draw2(); } });
+    const draw2 = () => {
+      const card = $('.stage .card'); if (card) { const n = cardEl(cPlan()); tilt(n); card.replaceWith(n); }
+      setPlanColor(cCol()); $$('.swatches button').forEach(b => b.classList.toggle('on', b.getAttribute('aria-label') === 'Colour ' + cCol())); $('.foot .btn').disabled = !C.title.trim();
+      const k = cKind(); const ib = $('#wico'); if (ib) { const n = iconBtn(); ib.replaceWith(n); if (k !== lastK && KINDS[k]) { popDay(n); buzz(8); } } lastK = k;
+    };
+    setTimeout(() => { if (matchMedia('(pointer: fine)').matches || !C.title) title.focus({ preventScroll: true }); }, 50);
+    const has = !!C.title.trim();
+    const ideasOpen = C.ideasOpen || !has;
     const mine = (store.get('sl.mine') || []).slice(0, 8);
-    return h('div', {}, h('p', { class: 'micro', style: { marginBottom: '10px' }, text: 'Pick a night with friends in ten seconds. No app, no account.' }), h('h1', { text: "What's the plan?" }), h('p', { class: 'lead', text: 'Name it. The card picks a look from the words, or pick one yourself.' }),
-      h('div', { class: 'stack' }, title, sub),
-      starts(),
-      h('p', { class: 'meta', style: { marginTop: '24px' }, text: 'Free while Say Less is new. Friends never pay.' }),
+    return h('div', { class: 'what' },
+      h('h1', { class: 'qh', text: 'What do you want to do with the group?' }),
+      h('p', { class: 'lead', text: 'Write it your way. We find a picture for it, and you can swap it.' }),
+      h('div', { class: 'wrow' }, iconBtn(), title),
+      has ? sub : null,
+      h('div', { class: 'stack' },
+        has ? h('button', { class: 'btn out sm ideabtn', type: 'button', 'aria-expanded': String(!!C.ideasOpen), text: C.ideasOpen ? 'Hide ideas' : 'Give me ideas', onclick: () => { C.ideasOpen = !C.ideasOpen; draw(); } }) : h('span', { class: 'micro', text: 'Or tap an idea' }),
+        ideasOpen ? ideasEl() : null),
+      h('p', { class: 'meta', style: { marginTop: '24px' }, text: 'Free while Say Less is new. Friends never pay, and need no app.' }),
       mine.length ? h('div', { class: 'stack shelf' }, h('span', { class: 'micro', text: 'Your plans' }), h('div', { class: 'presets' }, mine.map(m => h('a', { class: 'tile', href: `${BASE}?p=${m.id}` },
         m.obj ? h('img', { src: `${BASE}a/${m.obj}.webp`, alt: '' }) : h('span', { class: 'lt', style: { width: '64px', height: '64px', display: 'grid', placeItems: 'center', font: '900 30px/1 var(--head)', color: safeCol(m.col) }, text: (m.t || 'S').charAt(0).toUpperCase() }), m.t)))) : null);
   }
@@ -339,11 +371,12 @@ function renderCreate() {
   }
   function pickLook() {
     const file = h('input', { type: 'file', accept: 'image/*', class: 'vh', 'aria-label': 'Upload a photo', onchange: async e => { const f = e.target.files[0]; if (!f) return; try { C.photo = await shrink(f); C.kind = null; s.close(); draw(); } catch (er) { toast('That photo did not work. Try another.'); } } });
-    const s = sheet('Pick a look',
-      h('div', { class: 'looks' }, Object.entries(KINDS).map(([k, v]) => h('button', { class: 'tile' + (cKind() === k ? ' on' : ''), onclick: () => { C.kind = k; C.photo = null; C.color = null; s.close(); draw(); } }, h('img', { src: `${BASE}a/${v.obj}.webp`, alt: '' }), v.label)),
-        h('button', { class: 'tile' + (cKind() === 'letters' ? ' on' : ''), onclick: () => { C.kind = 'letters'; C.photo = null; s.close(); draw(); } }, h('span', { class: 'lt', text: 'Aa' }), 'Letters'),
+    const s = sheet('Pick a picture',
+      h('div', { class: 'looks' }, Object.entries(KINDS).map(([k, v]) => h('button', { class: 'tile' + (cKind() === k ? ' on' : ''), onclick: () => { C.kind = k; C.kindManual = true; C.photo = null; C.color = null; s.close(); draw(); } }, h('img', { src: `${BASE}a/${v.obj}.webp`, alt: '' }), v.label)),
+        h('button', { class: 'tile' + (cKind() === 'letters' ? ' on' : ''), onclick: () => { C.kind = 'letters'; C.kindManual = true; C.photo = null; s.close(); draw(); } }, h('span', { class: 'lt', text: 'Aa' }), 'Letters'),
         h('button', { class: 'tile' + (cKind() === 'photo' ? ' on' : ''), onclick: () => file.click() }, h('span', { class: 'lt', text: '+' }), 'Your photo')), file,
       h('p', { class: 'meta', text: 'Photos are made small and stored with the plan, so anyone with the link sees them.' }));
+    $$('.looks .tile', s).forEach(b => b.addEventListener('click', () => buzz(), { capture: true }));
   }
   const foot = () => {
     const nxt = C.step < 2;
@@ -355,12 +388,14 @@ function renderCreate() {
     C.busy = true; btn.disabled = true; btn.textContent = 'Making it...';
     const body = { title: C.title.trim(), subtitle: C.subtitle.trim(), days: cDays(), start_time: C.time || '', answer_by: cBy() || '', options: C.optsOn ? C.opts.map(s => s.trim()).filter(Boolean) : [], names: C.names, host_name: C.host.trim(), look: { kind: cKind(), color: cCol(), tz: Intl.DateTimeFormat().resolvedOptions().timeZone, ...(C.photo ? { photo: C.photo } : {}) } };
     try {
-      const r = await rpc('sl_create', { p: body });
+      // Until the server knows the new pictures, fall back to the nearest old one instead of failing.
+      const OLD = { music: 'drinks', grill: 'dinner', padel: 'run', camp: 'cabin', outside: 'cabin' };
+      const r = await rpc('sl_create', { p: body }).catch(e => { if (/bad look/.test(e.message) && OLD[body.look.kind]) { body.look.kind = OLD[body.look.kind]; return rpc('sl_create', { p: body }); } throw e; });
       store.set('sl.h.' + r.id, r.host_key);
       const mine = store.get('sl.mine') || []; mine.unshift({ id: r.id, t: body.title, at: Date.now(), obj: KINDS[body.look.kind] ? KINDS[body.look.kind].obj : null, col: body.look.color }); store.set('sl.mine', mine.slice(0, 30));
       const link = friendLink(r.id); const copied = await copy(link);
       const card = $('.stage .card'); const tk = cardEl(cPlan(), { stub: copied ? 'Link copied' : 'Link ready' }); card.replaceWith(tk); tk.classList.add('ticket'); confetti(tk);
-      setTimeout(() => { Object.assign(C, { step: 0, title: '', subtitle: '', kind: null, color: null, photo: null, preset: null, days: new Set(), time: '', timeOn: false, by: undefined, optsOn: false, opts: [], namesOpen: false, names: [], busy: false }); go(`?p=${r.id}&v=share`); }, RM ? 300 : 1500);
+      setTimeout(() => { Object.assign(C, { step: 0, title: '', subtitle: '', kind: null, color: null, photo: null, preset: null, kindManual: false, ideasOpen: false, days: new Set(), time: '', timeOn: false, by: undefined, optsOn: false, opts: [], namesOpen: false, names: [], busy: false }); go(`?p=${r.id}&v=share`); }, RM ? 300 : 1500);
     } catch (e) { C.busy = false; btn.disabled = false; btn.textContent = 'Make the link'; toast(e.message); }
   }
   window.CREATE_STEP = n => { C.step = Math.max(0, Math.min(n, C.title.trim() ? (C.days.size ? 2 : 1) : 0)); draw(); scrollTo(0, 0); };
