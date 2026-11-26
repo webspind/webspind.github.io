@@ -377,3 +377,7 @@ h3 { font: 700 20px/1.2 var(--body); letter-spacing: -.015em; }
 .lgsw { position: fixed; left: 16px; bottom: 16px; z-index: 90; display: flex; align-items: center; gap: 6px; padding: 6px; border-radius: 14px; background: var(--ink); color: #fff; font: 700 13px/1 var(--body); box-shadow: 0 8px 24px rgba(0,0,0,.25); }
 .lgsw span { padding: 0 6px; white-space: nowrap; }
 .lgsw button { width: 34px; height: 34px; border: 0; border-radius: 10px; background: rgba(255,255,255,.16); color: #fff; font: 800 18px/1 var(--body); cursor: pointer; }
+
+/* phone keyboard: never zoom on focus (iOS zooms below 16px); while typing, the bottom bar joins the page flow so the keyboard can't cover or float it */
+input, textarea, select { font-size: max(16px, 1em); }
+@media (max-width: 767px) { .kb .foot { position: static; } .kb .lgsw { display: none; } }

@@ -753,6 +753,14 @@ function qrCanvas(text) {
 
 /* ---------- router ---------- */
 function go(q, replace) { history[replace ? 'replaceState' : 'pushState'](null, '', BASE + q); route(); }
+// Phone keyboard: mark <html class=kb> while the on-screen keyboard is up, keep the focused field in view,
+// and give every text field a fitting Enter key label.
+(() => {
+  const vv = window.visualViewport; if (!vv) return;
+  const up = () => document.documentElement.classList.toggle('kb', innerHeight - vv.height > 150 && !!document.activeElement && document.activeElement.matches('input, textarea'));
+  vv.addEventListener('resize', up); addEventListener('focusout', () => setTimeout(up, 50));
+  addEventListener('focusin', e => { if (!e.target.matches('input, textarea')) return; if (!e.target.hasAttribute('enterkeyhint')) e.target.setAttribute('enterkeyhint', e.target.closest('.opt, .stack') && e.target.type !== 'email' ? 'next' : 'done'); setTimeout(() => { up(); if (matchMedia('(pointer: coarse)').matches) e.target.scrollIntoView({ block: 'center', behavior: RM ? 'auto' : 'smooth' }); }, 300); });
+})();
 function route() {
   logoSwitch();
   clearInterval(POLL);
