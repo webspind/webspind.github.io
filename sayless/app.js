@@ -1,7 +1,7 @@
 /* Say Less web. Plain JS, no third-party code. All user text goes through textContent, never innerHTML. */
 'use strict';
-const API = 'https://brmktjxfyobhumyjmnmb.supabase.co/rest/v1/rpc/';
-const PUB = 'sb_publishable_aFnn_3q0Cp_ExMHh2FLg5w_sf-RE_ne'; // publishable key: safe in a browser, tables are locked
+// The API address is set by build.py in <meta name=sl-api> (Cloudflare Worker; a local stand-in for tests).
+const API = (document.querySelector('meta[name=sl-api]') || {}).content || 'https://sayless-api.webspind.workers.dev/rpc/';
 const BASE = location.pathname.replace(/[^/]*$/, '');
 
 /* ---------- tiny DOM helper ---------- */
@@ -28,7 +28,7 @@ const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* ---------- api ---------- */
 async function rpc(fn, body) {
   let r;
-  try { r = await fetch(API + fn, { method: 'POST', headers: { apikey: PUB, 'Content-Type': 'application/json' }, body: JSON.stringify(body), referrerPolicy: 'no-referrer', cache: 'no-store' }); }
+  try { r = await fetch(API + fn, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), referrerPolicy: 'no-referrer', cache: 'no-store' }); }
   catch (e) { throw new Error('No connection. Try again in a moment.'); }
   const j = await r.json().catch(() => null);
   if (!r.ok) throw new Error((j && j.message) || 'Something went wrong. Try again.');
@@ -36,7 +36,7 @@ async function rpc(fn, body) {
 }
 // Read-only calls go as GET so the CDN and browser can cache them (photos never change).
 async function rpcGet(fn, args, cache) {
-  const r = await fetch(API + fn + '?' + new URLSearchParams(args), { headers: { apikey: PUB }, referrerPolicy: 'no-referrer', cache: cache || 'no-store' });
+  const r = await fetch(API + fn + '?' + new URLSearchParams(args), { referrerPolicy: 'no-referrer', cache: cache || 'no-store' });
   if (!r.ok) throw new Error('Something went wrong. Try again.');
   return r.json();
 }
