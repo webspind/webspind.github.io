@@ -103,9 +103,9 @@ const guess = t => (KW.find(([, r]) => r.test(t || '')) || [])[0];
 const COLS = ['#2E44FF', '#17614A', '#0E68C8', '#C9286B', '#5A2C8A', '#C4361B'];
 const hash = s => { let x = 7; for (const c of (s || '').toLowerCase()) x = (x * 31 + c.charCodeAt(0)) >>> 0; return x; };
 const nameCol = t => COLS[hash(t) % COLS.length];
-const FACES = ['emil', 'freja', 'ida', 'mads', 'oliver', 'sofie'];
+const FACES = [...Array(12)].map((_, i) => 'gh_' + i); // clay ghosts, one per person in a plan
 let FACEMAP = null;
-const faceSrc = n => { const k = (n || '').trim().toLowerCase(); const i = FACEMAP && FACEMAP.has(k) ? FACEMAP.get(k) : hash(k); return `${BASE}a/f_${FACES[i % FACES.length]}.webp`; };
+const faceSrc = n => { const k = (n || '').trim().toLowerCase(); const i = FACEMAP && FACEMAP.has(k) ? FACEMAP.get(k) : hash(k); return `${BASE}a/${FACES[i % FACES.length]}.webp`; };
 function buildFaces(p) { FACEMAP = new Map(); let i = hash(p.id || '') % FACES.length; [...(p.names || []), ...(p.answers || []).map(a => a.name)].forEach(n => { const k = n.trim().toLowerCase(); if (!FACEMAP.has(k)) FACEMAP.set(k, i++); }); }
 const face = (n, cls = 'face') => h('img', { class: cls, src: faceSrc(n), alt: n, title: n, width: 64, height: 64, draggable: false });
 const ROAST = [n => `${n}, we saved you a seat.`, n => `${n}, the group chat can see you not answering.`, n => `${n}, one tap. That is all we ask.`, n => `${n}, your calendar called. It says you are free.`, n => `${n}, we almost picked a day without you. Almost.`, n => `${n}, the plan is ready. It is only missing you.`];
@@ -162,7 +162,7 @@ function blip() {
 function tilt(el) {
   if (RM || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   let raf = 0, tx = 0, ty = 0, cx = 0, cy = 0; const obj = $('.obj', el);
-  const step = () => { cx += (tx - cx) * .14; cy += (ty - cy) * .14; el.style.transform = `perspective(900px) rotateX(${(-cy * 5).toFixed(2)}deg) rotateY(${(cx * 5).toFixed(2)}deg)`; if (obj) obj.style.transform = `translateX(-50%) translate(${(cx * -8).toFixed(1)}px,${(cy * -8).toFixed(1)}px)`; if (Math.abs(tx - cx) + Math.abs(ty - cy) > .002) raf = requestAnimationFrame(step); else raf = 0; };
+  const step = () => { cx += (tx - cx) * .14; cy += (ty - cy) * .14; el.style.setProperty('--mx', (50 + cx * 50).toFixed(1) + '%'); el.style.setProperty('--my', (50 + cy * 50).toFixed(1) + '%'); el.style.transform = `perspective(900px) rotateX(${(-cy * 5).toFixed(2)}deg) rotateY(${(cx * 5).toFixed(2)}deg)`; if (obj) obj.style.transform = `translateX(-50%) translate(${(cx * -8).toFixed(1)}px,${(cy * -8).toFixed(1)}px)`; if (Math.abs(tx - cx) + Math.abs(ty - cy) > .002) raf = requestAnimationFrame(step); else raf = 0; };
   el.addEventListener('pointermove', e => { const r = el.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width * 2 - 1; ty = (e.clientY - r.top) / r.height * 2 - 1; if (!raf) raf = requestAnimationFrame(step); });
   el.addEventListener('pointerleave', () => { tx = ty = 0; if (!raf) raf = requestAnimationFrame(step); });
 }
