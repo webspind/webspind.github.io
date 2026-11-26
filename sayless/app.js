@@ -34,6 +34,13 @@ async function rpc(fn, body) {
   if (!r.ok) throw new Error((j && j.message) || 'Something went wrong. Try again.');
   return j;
 }
+// Read-only calls go as GET so the CDN and browser can cache them (photos never change).
+async function rpcGet(fn, args, cache) {
+  const r = await fetch(API + fn + '?' + new URLSearchParams(args), { headers: { apikey: PUB }, referrerPolicy: 'no-referrer', cache: cache || 'no-store' });
+  if (!r.ok) throw new Error('Something went wrong. Try again.');
+  return r.json();
+}
+const PHOTOS = {};
 
 /* ---------- dates ---------- */
 const MON = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -336,6 +343,10 @@ function gold(st, r, i) {
 async function loadPlan(id) {
   const p = await rpc('sl_get', { p_id: id });
   if (!p) throw new Error('nf');
+  if (p.look && p.look.photo === true) {
+    if (!(p.id in PHOTOS)) PHOTOS[p.id] = await rpcGet('sl_photo', { p_id: p.id }, 'force-cache').catch(() => null);
+    if (PHOTOS[p.id]) p.look = { ...p.look, photo: PHOTOS[p.id] }; else p.look = { ...p.look, kind: 'letters', photo: undefined };
+  }
   p.answers = (p.answers || []).map(a => ({ ...a, days: a.days || {}, picks: Array.isArray(a.picks) ? a.picks : [] }));
   return p;
 }
@@ -361,10 +372,18 @@ async function renderPlan(id, view) {
 function titleCount() { if (!P) return; const n = P.answers.length; document.title = (n ? `(${n}) ` : '') + P.title + ' · Say Less'; favicon(n || null); }
 function startPoll(id) {
   clearInterval(POLL);
+  let ver = null, quiet = 0, tick = 0;
+  rpcGet('sl_version', { p_id: id }).then(v => { if (ver === null) ver = v; }).catch(() => {});
   POLL = setInterval(async () => {
-    if (document.hidden && VIEW !== 'wait') return;
+    tick++;
+    if (document.hidden && (VIEW !== 'wait' || tick % 6)) return; // hidden tabs check every 30 s
+    if (quiet > 120 && tick % 6) return;                            // nothing for 10 min: slow to 30 s
     if (!P || P.id !== id) return clearInterval(POLL);
     try {
+      const v = await rpcGet('sl_version', { p_id: id });            // a few bytes instead of the whole plan
+      if (ver === null) { ver = v; return; }
+      if (v === ver) { quiet++; return; }
+      ver = v; quiet = 0;
       const np = await loadPlan(id), sig = x => JSON.stringify([x.locked_day, x.answers.map(a => [a.id, a.updated_at])]);
       if (sig(np) === sig(P)) return;
       const old = P; P = np; buildFaces(P); titleCount();
