@@ -5,6 +5,8 @@ const API = (document.querySelector('meta[name=sl-api]') || {}).content || 'http
 const BASE = location.pathname.replace(/[^/]*$/, '');
 
 /* ---------- tiny DOM helper ---------- */
+// Danish (web/i18n): T() translates strings the page never shows as text (typed-in values, mail bodies); weekday letters per language
+const T = s => (window.SL_TR ? window.SL_TR(s) : s), DA = window.SL_LANG === 'da', WDX = () => DA ? ['M', 'T', 'O', 'T', 'F', 'L', 'S'] : ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 function h(tag, a, ...kids) {
   const e = document.createElement(tag);
   if (a) for (const [k, v] of Object.entries(a)) {
@@ -279,7 +281,7 @@ function renderCreate() {
   function ideasEl() {
     return h('div', { class: 'ideas', id: 'ideas' }, IDEAS.map(([t, k]) => h('button', { class: 'idea', type: 'button', onclick: () => {
       const prev = { title: C.title, subtitle: C.subtitle, kind: C.kind, color: C.color, opts: C.opts };
-      C.title = t; C.kind = k; C.color = null; C.photo = null; C.opts = KINDS[k].ideas.slice(); buzz(); draw();
+      C.title = T(t); C.kind = k; C.color = null; C.photo = null; C.opts = KINDS[k].ideas.map(T); buzz(); draw();
       if (prev.title.trim() && prev.title !== t) toast(`Swapped “${prev.title}” for “${t}”.`, { label: 'Undo', run: () => { Object.assign(C, prev); draw(); } });
     } }, h('img', { src: `${BASE}a/${KINDS[k].obj}.webp`, alt: '' }), h('span', { text: t }))));
   }
@@ -322,7 +324,7 @@ function renderCreate() {
     const refresh = () => { $$('.d[data-d]', wrap).forEach(b => b.classList.toggle('on', C.days.has(b.dataset.d))); const card = $('.stage .card'); const n = cardEl(cPlan()); tilt(n); card.replaceWith(n); $('.foot .btn').disabled = !C.days.size; $('.foot .cnt').textContent = C.days.size ? `${C.days.size} ${C.days.size === 1 ? 'day' : 'days'} picked` : 'Tap days, or drag across'; const cl = $('.clr'); if (cl) cl.hidden = !C.days.size; $$('.d[data-d]', wrap).forEach(b => b.setAttribute('aria-pressed', String(C.days.has(b.dataset.d)))); };
     for (let k = 0; k < 2; k++) {
       const m = new Date(m0.getFullYear(), m0.getMonth() + k, 1), g = h('div', { class: 'mgrid', role: 'group', 'aria-label': `${MON[m.getMonth()]} ${m.getFullYear()}` });
-      ['M', 'T', 'W', 'T', 'F', 'S', 'S'].forEach(w => g.append(h('span', { class: 'micro wd', text: w })));
+      WDX().forEach(w => g.append(h('span', { class: 'micro wd', text: w, 'data-no-tr': '' })));
       const lead = (m.getDay() + 6) % 7; for (let i = 0; i < lead; i++) g.append(h('span', { class: 'd blank' }));
       for (let d = new Date(m); d.getMonth() === m.getMonth(); d = add(d, 1)) {
         const s = iso(d), past = d < t0, far = diff(t0, d) > 180;
@@ -370,7 +372,7 @@ function renderCreate() {
         h('div', { class: 'row' }, h('span', { class: 'grow' }, h('b', { text: 'Answer by' }), h('div', { class: 'meta', text: by ? 'That day the leading night is picked for you.' : 'No deadline. You lock it when you are happy.' })),
           h('button', { class: 'datebtn', text: by ? longd(by) : 'No deadline', onclick: pickBy })),
         h('div', { class: 'row' }, h('span', { class: 'grow' }, h('b', { text: 'Add options to vote on' }), h('div', { class: 'meta', text: 'Like where to go. Friends pick as many as they like.' })),
-          h('button', { class: 'sw', role: 'switch', 'aria-checked': String(C.optsOn), 'aria-label': 'Add options to vote on', onclick: () => { C.optsOn = !C.optsOn; if (C.optsOn && !C.opts.length) C.opts = (KINDS[cKind()] || KINDS.drinks).ideas.slice(); draw(); } })),
+          h('button', { class: 'sw', role: 'switch', 'aria-checked': String(C.optsOn), 'aria-label': 'Add options to vote on', onclick: () => { C.optsOn = !C.optsOn; if (C.optsOn && !C.opts.length) C.opts = (KINDS[cKind()] || KINDS.drinks).ideas.map(T); draw(); } })),
         C.optsOn ? h('div', { class: 'row', style: { display: 'block', padding: '16px 18px' } }, opts) : null,
         h('button', { class: 'row', style: { border: 0, width: '100%', textAlign: 'left' }, 'aria-expanded': String(C.namesOpen), onclick: () => { C.namesOpen = !C.namesOpen; draw(); } },
           h('span', { class: 'grow' }, h('b', { text: 'Add names (optional)' }), h('div', { class: 'meta', text: C.names.length ? C.names.join(', ') : 'So friends just tap their name. Anyone with the link can still join.' })), h('b', { text: C.namesOpen ? '−' : '+' })),
@@ -525,7 +527,7 @@ function viewShare(host) {
         h('div', { class: 'linkbox' }, h('code', { text: link.replace(/^https?:\/\//, '') }), c1),
         h('div', { class: 'three' },
           h('button', { class: 'btn out', text: 'Copy invite text', onclick: e => copy(invite, e.currentTarget) }),
-          h('a', { class: 'btn out', href: `mailto:?subject=${encodeURIComponent(P.title)}&body=${encodeURIComponent(invite)}`, text: 'Email' }),
+          h('a', { class: 'btn out', href: `mailto:?subject=${encodeURIComponent(P.title)}&body=${encodeURIComponent(T(invite))}`, text: 'Email' }),
           navigator.share ? h('button', { class: 'btn out', text: 'Share', onclick: () => navigator.share({ title: P.title, text: invite.split('\n').slice(0, 2).join(' '), url: link }).catch(() => {}) }) : h('button', { class: 'btn out', text: 'Show QR', onclick: () => qrSheet(link) })),
         hk && host ? h('div', { class: 'hostbox' }, h('h3', { text: 'Your host link' }), h('p', { class: 'meta', text: 'Keep this one to yourself. It is how you lock the night from another phone or computer. This browser remembers it already.' }),
           h('div', { class: 'opt' }, h('button', { class: 'btn ink sm', text: 'Copy host link', onclick: e => copy(hostLink, e.currentTarget) }))) : null,
@@ -573,7 +575,7 @@ function viewAnswer() {
     const wrap = h('div', { class: 'months ans' });
     for (let m = new Date(first.getFullYear(), first.getMonth(), 1); m <= last; m = new Date(m.getFullYear(), m.getMonth() + 1, 1)) {
       const g = h('div', { class: 'mgrid', role: 'group', 'aria-label': `${MON[m.getMonth()]} ${m.getFullYear()}` });
-      ['M', 'T', 'W', 'T', 'F', 'S', 'S'].forEach(w => g.append(h('span', { class: 'micro wd', text: w })));
+      WDX().forEach(w => g.append(h('span', { class: 'micro wd', text: w, 'data-no-tr': '' })));
       // only the weeks that hold a day of the span, like the old wall calendar
       const lead = (m.getDay() + 6) % 7, mdays = [];
       for (let i = 0; i < lead; i++) mdays.push(null);
@@ -711,7 +713,7 @@ function boardEl(st, host) {
 }
 function gridTable() {
   if (!P.answers.length) return h('div', { class: 'empty' }, h('p', { class: 'meta', text: 'No answers yet.' }));
-  const lab = { yes: 'Y', maybe: '?', no: '-' };
+  const lab = { yes: DA ? 'J' : 'Y', maybe: '?', no: '-' };
   return h('div', { class: 'grid-table' }, h('table', {}, h('thead', {}, h('tr', {}, h('th', {}), P.days.map(d => h('th', { scope: 'col', class: 'tab', text: short(d).split(' ').slice(0, 2).join(' ') })))),
     h('tbody', {}, P.answers.map(a => h('tr', {}, h('th', { scope: 'row', class: 'nm' }, face(a.name), a.name), P.days.map(d => { const v = a.days[d] || 'none'; return h('td', { class: v, 'aria-label': `${a.name}, ${short(d)}: ${v === 'none' ? 'no answer' : v}`, text: lab[v] || '' }); }))))));
 }

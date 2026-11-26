@@ -513,3 +513,8 @@ a.contact-card:hover { text-decoration: none; box-shadow: 0 10px 30px -18px rgba
   .nav-group { padding: 12px 10px 2px; }
   .nav-panel > a { display: flex; align-items: center; min-height: 50px; font-size: 18px; font-weight: 700; border-top: 1px solid var(--line); }
 }
+
+/* Say Less: the one app that runs in the browser (Jakob 26/11) */
+.chip.st-web { background: #e4e8ff; color: #2336d9; }
+.t-open { margin-top: 18px; }
+@media (max-width: 900px) { .t-open { text-align: center; } }

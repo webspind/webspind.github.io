@@ -68,7 +68,9 @@ LANG = {
   "home_btn_mail": "Skriv til mig ›",
   "skip": "Spring til apps",
   "shelf_label": "Apps",
-  "status": {"live": "I App Store", "review": "Til godkendelse", "soon": "Kommer snart"},
+  "status": {"live": "I App Store", "review": "Til godkendelse", "soon": "Kommer snart", "web": "Gratis i browseren"},
+  "group_web": ("Prøv den nu.", "Gratis i din browser. Ingen app, ingen konto."),
+  "btn_open": "Åbn %s",
   "group_live": ("I App Store.", "Ude nu, til iPhone og iPad."),
   "group_review": ("På vej ud.", "Sendt til Apple. Ude, så snart den er godkendt."),
   "group_soon": ("Den næste.", "Den app, jeg gør færdig lige nu. Den er ikke ude endnu."),
@@ -240,7 +242,9 @@ LANG = {
   "home_btn_mail": "Write to me ›",
   "skip": "Skip to the apps",
   "shelf_label": "Apps",
-  "status": {"live": "On the App Store", "review": "In review", "soon": "Coming soon"},
+  "status": {"live": "On the App Store", "review": "In review", "soon": "Coming soon", "web": "Free in your browser"},
+  "group_web": ("Try it now.", "Free, in your browser. No app, no account."),
+  "btn_open": "Open %s",
   "group_live": ("On the App Store.", "Out now, on iPhone and iPad."),
   "group_review": ("In review.", "Submitted to Apple. Out as soon as it's approved."),
   "group_soon": ("Up next.", "The app I'm finishing right now. It isn't out yet."),
@@ -406,6 +410,13 @@ STORE_JAGTPROVEN = "https://apps.apple.com/dk/app/id6811615877"
 STORE_WAKEBIRD = "https://apps.apple.com/dk/app/id6820910324"
 
 APPS = [
+    dict(id="sayless", name="Say Less", full="Say Less: pick a night with friends", status="web", c="#2E44FF", home=True,
+         open="/sayless/",
+         kind={"da": "Find en dag med vennerne", "en": "Pick a night with friends"},
+         line={"da": "Sig mindre. Gør mere.", "en": "Say less. Do more."},
+         desc={"da": "Lav et kort til planen, send ét link, og vennerne trykker på de dage, de kan. Ingen app, ingen konto, det tager ti sekunder.",
+               "en": "Make a card for the plan, send one link, and friends tap the days they can. No app, no account, it takes ten seconds."},
+         priv=None, sup=None),
     dict(id="wakebird", name="Wakebird", full="Wakebird: Birdsong Alarm Clock", status="live", c="#c4421f", store=STORE_WAKEBIRD, home=True,
          kind={"da": "Vækkeur med fuglesang", "en": "Birdsong alarm clock"},
          line={"da": "Vågn til ægte fuglesang.", "en": "Wake to real birdsong."},
@@ -573,9 +584,12 @@ def footer(lang):
     rows = []
     for a in HOME_APPS:
         bits = []
+        if a.get("open"):
+            bits.append(((L["btn_open"] % "").strip(), a["open"]))
         if a.get("page"):
             bits.append((L["lbl_about_app"], P(lang, a["page"])))
-        bits.append((L["lbl_privacy"], a["priv"][lang]))
+        if a.get("priv"):
+            bits.append((L["lbl_privacy"], a["priv"][lang]))
         if a["sup"]:
             bits.append((L["lbl_support"], a["sup"][lang]))
         rows.append('<li><span class="fl-name">%s</span>%s</li>' % (
@@ -673,7 +687,7 @@ def icon(a, L, cls, alt=True):
 
 # Apps whose screenshots exist in Danish and English: <id>-a.webp is Danish,
 # <id>-a-en.webp is English. Every other app has one set, used on both trees.
-LOCALISED = {"wakebird", "longwalk", "cookside"}
+LOCALISED = {"wakebird", "longwalk", "cookside", "sayless"}
 
 
 def phone(a, L, s, cls="phone", lazy=True):
@@ -690,7 +704,8 @@ def app_links(a, L, lang):
     out.extend(a.get("tools", {}).get(lang, []))
     if a.get("page"):
         out.append((L["lbl_about_app"], P(lang, a["page"])))
-    out.append((L["lbl_privacy"], a["priv"][lang]))
+    if a.get("priv"):
+        out.append((L["lbl_privacy"], a["priv"][lang]))
     if a["sup"]:
         out.append((L["lbl_support"], a["sup"][lang]))
     return "".join('<a class="more" href="%s"%s>%s</a>' % (h, ext(h), t) for t, h in out)
@@ -706,11 +721,12 @@ def tile(a, L, lang, size):
           <p class="t-kind">%s</p>
           <p class="t-line">%s</p>
           <p class="t-desc">%s</p>
-          <p class="t-links">%s</p>
+          %s<p class="t-links">%s</p>
         </div>
         <div class="t-dev">%s</div>
       </article>''' % (size, a["id"], a["c"], icon(a, L, "t-ic"), a["status"], L["status"][a["status"]],
                        esc(a["name"]), esc(a["kind"][lang]), esc(a["line"][lang]), esc(a["desc"][lang]),
+                       ('<p class="t-open"><a class="btn" href="%s">%s</a></p>' % (a["open"], esc(L["btn_open"] % a["name"])) if a.get("open") else ""),
                        app_links(a, L, lang), devs)
 
 
@@ -764,7 +780,7 @@ def home_body(L, lang):
       </div>
     </section>''' % (L["home_eyebrow"], L["home_h1"], L["home_lede"], L["home_btn_apps"], L["home_btn_mail"],
                      hero, L["shelf_label"], shelf,
-                     group(L, lang, "live", "wide", ""), group(L, lang, "review", "third", "g3"),
+                     group(L, lang, "web", "wide", "") + "\n\n" + group(L, lang, "live", "wide", ""), group(L, lang, "review", "third", "g3"),
                      group(L, lang, "soon", "wide", ""),
                      L["jakob_photo_alt"], L["jakob_eyebrow"], L["jakob_h"], L["jakob_p"], LINKEDIN, L["jakob_hi"])
 
@@ -1047,7 +1063,7 @@ def priv_index_body(L, lang):
           <span class="desc">%s</span>
           <span class="go">%s</span>
         </a>''' % (a["id"], a["priv"][lang], icon(a, L, "pc-ic", alt=False), esc(a["full"]), esc(a["pdesc"][lang]),
-                     L["priv_card_go"]) for a in APPS)
+                     L["priv_card_go"]) for a in APPS if a.get("priv"))
     return '''    <div class="support-page">
       <div class="page-head">
         <h1>%s</h1>

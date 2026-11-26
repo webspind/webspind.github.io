@@ -462,3 +462,9 @@ input, textarea, select { font-size: max(16px, 1em); }
 
 .slogan { margin: 0 0 10px; font: 900 15px/1 var(--head); letter-spacing: -.01em; color: var(--plan); }
 .card .obj, .card .shadow { transition: width .35s var(--ease), top .35s var(--ease), transform .2s; }
+
+.langsw { margin-left: 10px; min-width: 44px; height: 36px; padding: 0 10px; border: 2px solid currentColor; border-radius: 10px; background: transparent; color: inherit; font: 900 14px/1 var(--head); letter-spacing: .04em; cursor: pointer; }
+.langsw:focus-visible { outline: 3px solid var(--plan); outline-offset: 2px; }
+
+/* Danish labels run longer: keep the footer buttons on one line */
+.foot .btn { white-space: nowrap; }
