@@ -823,7 +823,10 @@ function route() {
     if (m[1] !== hostKey(id)) { rpc('sl_host', { p_id: id, p_key: m[1], p: {} }).then(() => { store.set('sl.h.' + id, m[1]); if (P && P.id === id) renderPlan(id); }, () => toast('That host link is not valid for this plan.')); }
   }
   const ma = /[#&]a=([A-Za-z0-9_-]{4,40})\.([A-Za-z0-9_-]{10,80})/.exec(location.hash);
-  if (id && ma) { history.replaceState(null, '', location.pathname + location.search); const old = myAns(id); if (!old || old.answer !== ma[1]) store.set('sl.a.' + id, { answer: ma[1], key: ma[2], name: null }); }
+  if (id && ma) { history.replaceState(null, '', location.pathname + location.search); const old = myAns(id);
+    // never silently replace an answer this browser already holds; the server checks the key on every save
+    if (!old) store.set('sl.a.' + id, { answer: ma[1], key: ma[2], name: null });
+    else if (old.answer !== ma[1]) setTimeout(() => toast(`This browser already answers as ${old.name || 'someone'}. Tap Switch first, then open the edit link again.`), 600); }
   if (id && /^[a-z0-9]{6,20}$/.test(id)) { const v = u.get('v'); renderPlan(id, ['share', 'answer', 'wait'].includes(v) ? v : null); }
   else { P = null; VIEW = 'create'; $('#app').replaceChildren(renderCreate()); }
 }
