@@ -101,6 +101,8 @@ const IDEAS = [['Movie night', 'film'], ['One drink after work', 'drinks'], ['Pa
   ['Gig night', 'music'], ['Beach day', 'outside'], ['5K, then pastries', 'run'], ['One night in a tent', 'camp'], ['Birthday dinner', 'birthday'], ['Board game night', 'film'], ['Sunday brunch', 'dinner'], ['Karaoke', 'music']];
 const guess = t => (KW.find(([, r]) => r.test(t || '')) || [])[0];
 const COLS = ['#2E44FF', '#17614A', '#0E68C8', '#C9286B', '#5A2C8A', '#C4361B'];
+const SILVER = '#C0C5CE'; // the silver foil finish (Plus)
+const isSilver = c => String(c || '').toUpperCase() === SILVER;
 const hash = s => { let x = 7; for (const c of (s || '').toLowerCase()) x = (x * 31 + c.charCodeAt(0)) >>> 0; return x; };
 const nameCol = t => COLS[hash(t) % COLS.length];
 const FACES = [...Array(12)].map((_, i) => 'gh_' + i); // clay ghosts, one per person in a plan
@@ -110,7 +112,8 @@ function buildFaces(p) { FACEMAP = new Map(); let i = hash(p.id || '') % FACES.l
 const face = (n, cls = 'face') => h('img', { class: cls, src: faceSrc(n), alt: n, title: n, width: 64, height: 64, draggable: false });
 const ROAST = [n => `${n}, we saved you a seat.`, n => `${n}, the group chat can see you not answering.`, n => `${n}, one tap. That is all we ask.`, n => `${n}, your calendar called. It says you are free.`, n => `${n}, we almost picked a day without you. Almost.`, n => `${n}, the plan is ready. It is only missing you.`];
 const safeCol = c => /^#[0-9a-fA-F]{6}$/.test(c || '') ? c : COLS[0];
-const setPlanColor = c => document.documentElement.style.setProperty('--plan', safeCol(c));
+// silver: the card is foil, the page around it uses a dark steel so buttons and text keep their contrast
+const setPlanColor = c => { document.documentElement.style.setProperty('--plan', isSilver(c) ? '#4E5564' : safeCol(c)); document.documentElement.style.setProperty('--on', '#FFFFFF'); };
 
 /* ---------- small ui ---------- */
 let toastT;
@@ -207,7 +210,7 @@ function lookOf(p) {
 }
 function cardEl(p, o = {}) {
   const L = lookOf(p);
-  const c = h('div', { class: 'card ' + (L.kind === 'letters' ? 'letters' : L.kind === 'photo' ? 'photo' : 'model'), style: { background: L.kind === 'photo' ? `#111 url("${L.photo}") center/cover no-repeat` : L.col } });
+  const c = h('div', { class: 'card gloss ' + (isSilver(L.col) && L.kind !== 'photo' ? 'silver ' : '') + (L.kind === 'letters' ? 'letters' : L.kind === 'photo' ? 'photo' : 'model'), style: { background: L.kind === 'photo' ? `#111 url("${L.photo}") center/cover no-repeat` : L.col } });
   if (L.kind !== 'letters' && L.kind !== 'photo') c.append(h('div', { class: 'shadow' }), h('img', { class: 'obj', src: `${BASE}a/${KINDS[L.kind].obj}.webp`, alt: '', draggable: false }));
   if (o.dates !== false && p.days && p.days.length) c.append(h('span', { class: 'dates', text: span(p.days) }));
   c.append(h('div', { class: 'tt' }, (p.title || 'Untitled').trim(), p.subtitle ? h('small', { text: p.subtitle }) : null));
@@ -244,12 +247,18 @@ function renderCreate() {
     const card = cardEl(cPlan(), C.step === 2 ? { corner: h('button', { class: 'corner', 'aria-label': 'Shuffle the look', title: 'Shuffle', onclick: shuffle }, svgIcon(I_SHUFFLE)) } : {});
     tilt(card);
     stage.append(card, h('div', { class: 'stage-side' },
-      h('div', { class: 'swatches', role: 'group', 'aria-label': 'Card colour' }, COLS.map(c => h('button', { class: c === cCol() ? 'on' : '', style: { background: c }, 'aria-label': 'Colour ' + c, 'aria-pressed': String(c === cCol()), onclick: () => { C.color = c; draw(); } }))),
+      h('div', { class: 'swatches', role: 'group', 'aria-label': 'Card colour' }, COLS.map(c => h('button', { class: c === cCol() ? 'on' : '', style: { background: c }, 'aria-label': 'Colour ' + c, 'aria-pressed': String(c === cCol()), onclick: () => { C.color = c; draw(); } })),
+        h('button', { class: 'silversw' + (isSilver(cCol()) ? ' on' : ''), 'aria-label': 'Silver foil, a Plus finish', title: 'Silver foil (Plus)', onclick: () => silverAsk() }, h('i', { text: 'Plus' }))),
       h('button', { class: 'link', text: 'Swap the picture', onclick: pickLook })));
     const steps = h('nav', { class: 'steps', 'aria-label': 'Steps' }, ['1. What', '2. When', '3. Ready'].map((t, i) => h('button', { class: i === C.step ? 'on' : '', text: t, disabled: i > C.step && !canGo(i), 'aria-current': i === C.step ? 'step' : null, onclick: () => { if (i <= C.step || canGo(i)) { C.step = i; draw(); } } })));
     const body = [stepWhat, stepWhen, stepReady][C.step]();
     work.replaceChildren(h('div', { class: 'work-in' }, steps, body), foot());
   };
+  // Silver is part of Plus. Plus is not on sale yet, so it says so honestly instead of a dead button.
+  const silverAsk = () => { if (store.get('sl.plus')) { C.color = SILVER; draw(); return; }
+    const s = sheet('Silver foil is a Plus finish', h('p', { class: 'meta', text: 'Plus gives your plans a silver card, more pictures and every group you plan with. It opens soon. Everything else stays free, and friends never pay.' }),
+      h('div', { class: 'card gloss silver model', style: { width: '200px', margin: '6px auto 10px', aspectRatio: '380 / 460' } }, h('img', { class: 'obj', src: `${BASE}a/${(KINDS[cKind()] || KINDS.film).obj}.webp`, alt: '' }), h('div', { class: 'tt', style: { fontSize: '26px' }, text: C.title.trim() || 'Your plan' })),
+      h('button', { class: 'btn wide', text: 'Got it', onclick: () => s.close() })); };
   const canGo = i => (i >= 1 ? C.title.trim().length > 0 : true) && (i >= 2 ? C.days.size > 0 : true);
   const shuffle = () => { const ks = Object.keys(KINDS); if (C.photo) { C.color = COLS[(COLS.indexOf(cCol()) + 1) % COLS.length]; } else { const cur = cKind(); const nk = ks[(ks.indexOf(cur) + 1 + Math.floor(Math.random() * (ks.length - 1))) % ks.length]; C.kind = nk; C.color = null; } draw(); };
 
@@ -784,11 +793,12 @@ async function png(btn) {
   btn.disabled = true;
   try {
     await document.fonts.load('900 80px Rubik'); const L = lookOf(P), W = 1080, H = 1350, c = h('canvas', { width: W, height: H }), x = c.getContext('2d'), dd = pd(P.locked_day);
-    x.fillStyle = L.col; x.fillRect(0, 0, W, H);
+    const sv = isSilver(L.col) && L.kind !== 'photo';
+    if (sv) { const g = x.createLinearGradient(0, 0, W, H); [[0, '#D9DCE1'], [.22, '#F4F5F7'], [.48, '#AEB3BC'], [.7, '#EEF0F3'], [1, '#B9BEC6']].forEach(([o, c]) => g.addColorStop(o, c)); x.fillStyle = g; } else x.fillStyle = L.col; x.fillRect(0, 0, W, H);
     const load = s => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.onerror = () => r(null); i.src = s; });
     if (L.kind === 'photo') { const i = await load(L.photo); if (i) { const s = Math.max(W / i.width, H / i.height); x.drawImage(i, (W - i.width * s) / 2, (H - i.height * s) / 2, i.width * s, i.height * s); x.fillStyle = 'rgba(0,0,0,.45)'; x.fillRect(0, 0, W, H); } }
     else if (L.kind !== 'letters') { const i = await load(`${BASE}a/${KINDS[L.kind].obj}.webp`); if (i) { const s = 560 / Math.max(i.width, i.height); x.drawImage(i, (W - i.width * s) / 2, 150, i.width * s, i.height * s); } }
-    x.fillStyle = '#fff'; x.textBaseline = 'alphabetic';
+    x.fillStyle = sv ? '#16171C' : '#fff'; x.textBaseline = 'alphabetic';
     x.font = '900 92px Rubik'; wrap(x, P.title, 80, 880, W - 160, 92);
     x.font = '800 54px Rubik'; x.fillText(`${WDL[dd.getDay()]} ${dd.getDate()} ${MON[dd.getMonth()]}${P.start_time ? ', ' + P.start_time : ''}`, 80, 1190);
     x.font = '700 34px Jakarta, sans-serif'; x.fillText('Say Less', 80, 1270);

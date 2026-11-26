@@ -449,3 +449,13 @@ input, textarea, select { font-size: max(16px, 1em); }
     linear-gradient(115deg, rgba(255,255,255,0) 35%, rgba(255,255,255,.55) 48%, rgba(255,255,255,0) 60%); }
 .card.silver .dates { background: #16171C; color: #fff; }
 .card.silver .shadow { background: rgba(0,0,0,.28); }
+
+/* gloss on every card; on touch screens the light drifts by itself */
+@property --mx { syntax: '<percentage>'; inherits: true; initial-value: 30%; }
+@property --my { syntax: '<percentage>'; inherits: true; initial-value: 20%; }
+@media (hover: none) { .card.gloss { animation: sheen 7s ease-in-out infinite alternate; } }
+@keyframes sheen { 0% { --mx: 18%; --my: 12%; } 50% { --mx: 70%; --my: 30%; } 100% { --mx: 40%; --my: 70%; } }
+@media (prefers-reduced-motion: reduce) { .card.gloss { animation: none; } }
+.silversw { position: relative; width: 32px; height: 32px; border-radius: 8px; border: 2px solid rgba(255,255,255,.5); cursor: pointer; background: linear-gradient(135deg, #D9DCE1, #F4F5F7 30%, #AEB3BC 60%, #EEF0F3); }
+.silversw i { position: absolute; bottom: -9px; left: 50%; transform: translateX(-50%); background: var(--ink); color: #fff; font: 800 9px/1 var(--body); font-style: normal; padding: 2px 4px; border-radius: 5px; }
+.silversw.on { box-shadow: 0 0 0 3px var(--on); }
