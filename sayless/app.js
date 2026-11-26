@@ -560,9 +560,9 @@ function viewAnswer() {
     const me0 = store.get('sl.me'), meHit = me0 && names.find(n => n.trim().toLowerCase() === String(me0).trim().toLowerCase() && !taken.has(n.trim().toLowerCase()));
     if (me0 && !meHit && !join.value) join.value = me0;
     const joinGo = () => { const v = join.value.trim(); if (!v) return join.focus(); if (taken.has(v.toLowerCase())) { toast(`${v} already answered. Add a last letter, like ${v} B.`); return; } A.name = v; vote(); };
-    main.replaceChildren(h('h1', { text: 'Who are you?', tabindex: '-1' }), meHit ? h('button', { class: 'btn wide', text: `Answer as ${meHit}`, onclick: () => { A.name = meHit; vote(); } }) : null,
+    main.replaceChildren(...[h('h1', { text: 'Who are you?', tabindex: '-1' }), meHit ? h('button', { class: 'btn wide', text: `Answer as ${meHit}`, onclick: () => { A.name = meHit; vote(); } }) : null,
       names.length ? h('div', { class: 'who' }, names.map(n => { const done = taken.has(n.trim().toLowerCase()); return h('button', { class: 'tile' + (done ? ' done' : ''), 'aria-disabled': done ? 'true' : null, onclick: () => { if (done) return toast(`${n} answered already. To change it, open ${n}'s edit link.`); A.name = n; vote(); } }, face(n), h('b', { text: n }), h('span', { class: 'meta', text: done ? '✓ Answered' : 'Tap to answer' })); })) : h('p', { class: 'lead', text: 'Write your name and tap the days you are free.' }),
-      h('div', { class: 'opt' }, join, h('button', { class: 'btn', text: 'Join', onclick: joinGo })));
+      h('div', { class: 'opt' }, join, h('button', { class: 'btn', text: 'Join', onclick: joinGo }))].filter(Boolean));
   };
   const vote = () => {
     // Friends tap the days they are free in a calendar of the host's period. Tap once: free. Twice: maybe. Three times: clear.
