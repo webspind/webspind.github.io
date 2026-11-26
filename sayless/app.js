@@ -610,11 +610,12 @@ function calMenu() {
 }
 function download(name, blob) { const u = URL.createObjectURL(blob), a = h('a', { href: u, download: name }); document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 2000); }
 function ics() {
-  const d = P.locked_day.replace(/-/g, ''), esc = s => s.replace(/[\\;,]/g, m => '\\' + m).replace(/\n/g, '\\n');
+  if (!/^\d{4}-\d\d-\d\d$/.test(P.locked_day || '')) return;
+  const d = P.locked_day.replace(/-/g, ''), esc = s => String(s).replace(/\r\n|\r|\n/g, '\n').replace(/[\u0000-\u0009\u000B-\u001F\u007F]/g, '').replace(/[\\;,]/g, m => '\\' + m).replace(/\n/g, '\\n');
   let dt;
   if (P.start_time && /^\d\d:\d\d$/.test(P.start_time)) { const t = P.start_time.replace(':', '') + '00', e = pd(P.locked_day); const end = new Date(e.getFullYear(), e.getMonth(), e.getDate(), +P.start_time.slice(0, 2) + 3, +P.start_time.slice(3)); dt = `DTSTART:${d}T${t}\r\nDTEND:${iso(end).replace(/-/g, '')}T${String(end.getHours()).padStart(2, '0')}${String(end.getMinutes()).padStart(2, '0')}00`; }
   else dt = `DTSTART;VALUE=DATE:${d}\r\nDTEND;VALUE=DATE:${iso(add(pd(P.locked_day), 1)).replace(/-/g, '')}`;
-  const body = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Say Less//EN', 'BEGIN:VEVENT', `UID:${P.id}-${d}@saylless`, `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').slice(0, 15)}Z`, dt, `SUMMARY:${esc(P.title)}`, `DESCRIPTION:${esc((P.subtitle ? P.subtitle + '\n' : '') + friendLink(P.id))}`, 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+  const body = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Say Less//EN', 'BEGIN:VEVENT', `UID:${P.id}-${d}@sayless.webspind.com`, `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').slice(0, 15)}Z`, dt, `SUMMARY:${esc(P.title)}`, `DESCRIPTION:${esc((P.subtitle ? P.subtitle + '\n' : '') + friendLink(P.id))}`, 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
   download(`${P.title.replace(/[^\w\- ]+/g, '').trim() || 'plan'}.ics`, new Blob([body], { type: 'text/calendar' }));
 }
 async function png(btn) {
@@ -637,7 +638,7 @@ function wrap(x, t, X, Y, w, lh) { const words = t.split(/\s+/), lines = []; let
 /* ---------- QR (byte mode, ECC level M, versions 1 to 10). Small self-made encoder, no third-party code. ---------- */
 function qrCanvas(text) {
   const data = new TextEncoder().encode(text);
-  const CAP = [0, 14, 26, 42, 62, 84, 106, 122, 152, 180, 213]; // data codewords, level M
+  const CAP = [0, 16, 28, 44, 64, 86, 108, 124, 154, 182, 216]; // data codewords, level M
   const EC = [0, 10, 16, 26, 18, 24, 16, 18, 22, 22, 26]; // ec codewords per block
   const BL = [0, [1, 0], [1, 0], [1, 0], [2, 0], [2, 0], [4, 0], [4, 0], [2, 2], [3, 2], [4, 1]]; // [g1 blocks, g2 blocks]
   let v = 1; while (v <= 10 && CAP[v] < data.length + 3) v++; if (v > 10) return null;
@@ -661,7 +662,7 @@ function qrCanvas(text) {
   finder(0, 0); finder(0, N - 7); finder(N - 7, 0);
   for (let i = 8; i < N - 8; i++) { set(6, i, i % 2 === 0); set(i, 6, i % 2 === 0); }
   const AP = [[], [], [6, 18], [6, 22], [6, 26], [6, 30], [6, 34], [6, 22, 38], [6, 24, 42], [6, 26, 46], [6, 28, 50]][v];
-  AP.forEach(r => AP.forEach(c => { if (R[r][c]) return; for (let i = -2; i <= 2; i++) for (let j = -2; j <= 2; j++) set(r + i, c + j, Math.max(Math.abs(i), Math.abs(j)) !== 1); }));
+  const LA = AP.length - 1; AP.forEach((r, ri) => AP.forEach((c, ci) => { if ((ri === 0 && ci === 0) || (ri === 0 && ci === LA) || (ri === LA && ci === 0)) return; for (let i = -2; i <= 2; i++) for (let j = -2; j <= 2; j++) set(r + i, c + j, Math.max(Math.abs(i), Math.abs(j)) !== 1); }));
   for (let i = 0; i < 9; i++) { R[8][i] = R[i][8] = true; } for (let i = 0; i < 8; i++) { R[8][N - 1 - i] = R[N - 1 - i][8] = true; }
   set(N - 8, 8, true);
   if (v >= 7) { let vb = v << 12, rem = v; for (let i = 0; i < 12; i++) rem = (rem << 1) ^ ((rem >> 11) * 0x1F25); vb |= rem; for (let i = 0; i < 18; i++) { const b = ((vb >> i) & 1) === 1, a = Math.floor(i / 3), c = i % 3 + N - 11; set(a, c, b); set(c, a, b); } }
@@ -672,8 +673,8 @@ function qrCanvas(text) {
   for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) if (!R[r][c] && mask(r, c)) M[r][c] = !M[r][c];
   let f = (0 << 3) | 0; let rem = f; for (let i = 0; i < 10; i++) rem = (rem << 1) ^ ((rem >> 9) * 0x537); f = ((f << 10) | rem) ^ 0x5412;
   const fb = i => ((f >> i) & 1) === 1;
-  for (let i = 0; i <= 5; i++) M[8][i] = fb(14 - i); M[8][7] = fb(8); M[8][8] = fb(7); M[7][8] = fb(6); for (let i = 9; i < 15; i++) M[14 - i][8] = fb(14 - i);
-  for (let i = 0; i < 8; i++) M[N - 1 - i][8] = fb(14 - i); for (let i = 8; i < 15; i++) M[8][N - 15 + i] = fb(14 - i);
+  for (let i = 0; i <= 5; i++) M[i][8] = fb(i); M[7][8] = fb(6); M[8][8] = fb(7); M[8][7] = fb(8); for (let i = 9; i < 15; i++) M[8][14 - i] = fb(i);
+  for (let i = 0; i < 8; i++) M[8][N - 1 - i] = fb(i); for (let i = 8; i < 15; i++) M[N - 15 + i][8] = fb(i);
   const q = 4, sc = 8, cv = h('canvas', { width: (N + q * 2) * sc, height: (N + q * 2) * sc, 'aria-label': 'QR code for the link', role: 'img' }), x = cv.getContext('2d');
   x.fillStyle = '#fff'; x.fillRect(0, 0, cv.width, cv.height); x.fillStyle = '#0A0B0F';
   for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) if (M[r][c]) x.fillRect((c + q) * sc, (r + q) * sc, sc, sc);
@@ -686,7 +687,11 @@ function route() {
   clearInterval(POLL);
   const u = new URLSearchParams(location.search), id = u.get('p');
   const m = /[#&]h=([a-z0-9]{10,40})/.exec(location.hash);
-  if (id && m) { store.set('sl.h.' + id, m[1]); history.replaceState(null, '', location.pathname + location.search); }
+  if (id && m) {
+    history.replaceState(null, '', location.pathname + location.search);
+    // only keep a host key the server accepts, and never replace one that already works
+    if (m[1] !== hostKey(id)) { rpc('sl_host', { p_id: id, p_key: m[1], p: {} }).then(() => { store.set('sl.h.' + id, m[1]); if (P && P.id === id) renderPlan(id); }, () => toast('That host link is not valid for this plan.')); }
+  }
   if (id && /^[a-z0-9]{6,12}$/.test(id)) { const v = u.get('v'); renderPlan(id, ['share', 'answer', 'wait'].includes(v) ? v : null); }
   else { P = null; VIEW = 'create'; $('#app').replaceChildren(renderCreate()); }
 }
