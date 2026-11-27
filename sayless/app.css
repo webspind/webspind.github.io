@@ -363,24 +363,25 @@ h3 { font: 700 20px/1.2 var(--body); letter-spacing: -.015em; }
 @media (min-width: 768px) { .only-phone { display: none !important; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
 
-/* logo candidates + the switch (only shown after opening ?logos) */
-.lg-dot { font: 900 26px/1 var(--head); letter-spacing: -.04em; text-transform: lowercase; }
-.lg-dot i { display: inline-block; width: .3em; height: .3em; margin-left: .06em; border-radius: .08em; background: #2E44FF; }
-.bar.on-plan .lg-dot i { background: #fff; }
-.lg-tile { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: #2E44FF; color: #fff; font: 900 13px/.95 var(--head); letter-spacing: -.03em; text-align: left; }
-.bar.on-plan .lg-tile { background: #fff; color: var(--plan); }
-.brand .lg-obj { width: 40px; height: 40px; object-fit: contain; }
-.lg-low { font: 900 26px/1 var(--head); letter-spacing: -.04em; }
-.brand .lg-svg { width: auto; height: 34px; }
-.brand .lg-img { width: auto; height: 44px; border-radius: 10px; }
-.bar.on-plan .brand .lg-svg { filter: brightness(0) invert(1); }
-.lgsw { position: fixed; left: 16px; bottom: 16px; z-index: 90; display: flex; align-items: center; gap: 6px; padding: 6px; border-radius: 14px; background: var(--ink); color: #fff; font: 700 13px/1 var(--body); box-shadow: 0 8px 24px rgba(0,0,0,.25); }
-.lgsw span { padding: 0 6px; white-space: nowrap; }
-.lgsw button { width: 34px; height: 34px; border: 0; border-radius: 10px; background: rgba(255,255,255,.16); color: #fff; font: 800 18px/1 var(--body); cursor: pointer; }
+/* logo (Jakob 27/11) + ghost mascot, the app's look */
+.brand .logo { width: auto; height: 30px; user-select: none; -webkit-user-select: none; -webkit-user-drag: none; }
+.bar.on-plan .brand .logo { filter: brightness(0) invert(1); }
+.stage-wait .ghost { width: min(300px, 70%); animation: up .5s var(--ease), bob 3.2s ease-in-out .5s infinite; }
+@keyframes bob { 50% { transform: translateY(-10px) rotate(-1.5deg); } }
+.lead { color: var(--ink); }
+.btn[disabled] { opacity: 1; background: var(--tint2); color: color-mix(in srgb, var(--plan) 55%, #fff); }
+.btn.out[disabled], .btn.white[disabled] { background: #fff; }
+@media (max-width: 767px) {
+  .brand .logo { height: 26px; }
+  .stage-wait .ghost { width: 150px; }
+  .steps { gap: 6px; margin-bottom: 24px; }
+  .steps button { font-size: 0; padding: 0; height: 5px; border: 0; border-radius: 3px; background: var(--line); }
+  .steps button.on { background: var(--plan); }
+}
 
 /* phone keyboard: never zoom on focus (iOS zooms below 16px); while typing, the bottom bar joins the page flow so the keyboard can't cover or float it */
 input, textarea, select { font-size: max(16px, 1em); }
-@media (max-width: 767px) { .kb .foot { position: static; } .kb .lgsw { display: none; } }
+@media (max-width: 767px) { .kb .foot { position: static; } }
 
 /* QoL 26/11 */
 .toast { display: flex; align-items: center; gap: 14px; }

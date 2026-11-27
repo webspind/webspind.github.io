@@ -171,31 +171,12 @@ function tilt(el) {
   el.addEventListener('pointermove', e => { const r = el.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width * 2 - 1; ty = (e.clientY - r.top) / r.height * 2 - 1; if (!raf) raf = requestAnimationFrame(step); });
   el.addEventListener('pointerleave', () => { tx = ty = 0; if (!raf) raf = requestAnimationFrame(step); });
 }
-// Logo candidates (Jakob 26/11: "a button so I can switch between them"). Open the site once with ?logos to show the switch.
-const GLOGOS = ((document.querySelector('meta[name=sl-logos]') || {}).content || '').split(',').filter(Boolean);
-const LOGOS = [
-  { n: 'Say Less (now)', el: () => ['Say Less'] },
-  { n: 'say less. with blue dot', el: () => [h('span', { class: 'lg-dot' }, 'say less', h('i'))] },
-  { n: 'say/less tile', el: () => [h('span', { class: 'lg-tile' }, 'say', h('br'), 'less')] },
-  { n: 'Clay object + say less', el: () => [h('img', { class: 'lg-obj', src: `${BASE}a/${(P && KINDS[lookOf(P).kind] || KINDS.drinks).obj}.webp`, alt: '' }), h('span', { class: 'lg-low' }, 'say less')] },
-  ...[1, 2, 3, 4, 5, 6].map(i => ({ n: 'Cut letters ' + i, el: () => [h('img', { class: 'lg-svg', src: `${BASE}a/logo_${i}.svg`, alt: 'Say Less' })] })),
-  ...GLOGOS.map((f, i) => ({ n: 'Your image ' + (i + 1), el: () => [h('img', { class: 'lg-img', src: `${BASE}a/${f}`, alt: 'Say Less' })] }))
-];
-const logoIx = () => { const i = +store.get('sl.logo'); return i >= 0 && i < LOGOS.length ? i : 0; };
 function bar(onPlan, right) {
   return h('header', { class: 'bar' + (onPlan ? ' on-plan' : '') }, h('div', { class: 'bar-in' },
-    h('a', { class: 'brand', href: BASE, 'aria-label': 'Say Less, start a new plan' }, ...LOGOS[logoIx()].el()), h('span', { class: 'sp' }), right || null));
-}
-function logoSwitch() {
-  if (/[?&]logos\b/.test(location.search)) store.set('sl.logos', 1);
-  if (!store.get('sl.logos') || $('.lgsw')) return;
-  const lab = h('span'), set = d => { store.set('sl.logo', (logoIx() + d + LOGOS.length) % LOGOS.length); paint(); route(); };
-  const paint = () => { lab.textContent = `${logoIx() + 1}/${LOGOS.length} ${LOGOS[logoIx()].n}`; };
-  document.body.append(h('div', { class: 'lgsw', role: 'group', 'aria-label': 'Try logos' }, h('button', { 'aria-label': 'Previous logo', text: '‹', onclick: () => set(-1) }), lab,
-    h('button', { 'aria-label': 'Next logo', text: '›', onclick: () => set(1) }), h('button', { 'aria-label': 'Hide the logo switch', text: '×', onclick: e => { store.set('sl.logos', ''); e.currentTarget.parentNode.remove(); } })));
-  paint();
+    h('a', { class: 'brand', href: BASE, 'aria-label': 'Say Less, start a new plan' }, h('img', { class: 'logo', src: `${BASE}a/logo.png`, alt: 'say less.' })), h('span', { class: 'sp' }), right || null));
 }
 function favicon(n) {
+  if (n == null) { let l = $('link[rel=icon]'); if (l) l.href = `${BASE}a/fav.png`; return; }
   const c = h('canvas', { width: 64, height: 64 }), x = c.getContext('2d');
   x.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--plan').trim() || COLS[0];
   x.beginPath(); x.roundRect ? x.roundRect(0, 0, 64, 64, 14) : x.rect(0, 0, 64, 64); x.fill();
@@ -233,7 +214,7 @@ function cardEl(p, o = {}) {
    ================================================================ */
 const C = { step: 0, title: '', subtitle: '', kind: null, color: null, photo: null, preset: null, kindManual: false, ideasOpen: false, days: new Set(), time: '', timeOn: false, by: undefined, optsOn: false, opts: [], namesOpen: false, names: [], host: '', mOff: 0, busy: false };
 const cKind = () => C.photo ? 'photo' : C.kind || guess(C.title) || 'letters';
-const cCol = () => C.color || (KINDS[cKind()] ? KINDS[cKind()].col : nameCol(C.title));
+const cCol = () => C.color || (!C.title.trim() && !C.photo && !C.kind ? COLS[0] : KINDS[cKind()] ? KINDS[cKind()].col : nameCol(C.title));
 const cDays = () => [...C.days].sort();
 const cPlan = () => ({ title: C.title || 'Your plan', subtitle: C.subtitle, days: cDays(), look: { kind: cKind(), color: cCol(), photo: C.photo } });
 function cBy() {
@@ -252,7 +233,7 @@ function renderCreate() {
   const draw = () => {
     setPlanColor(cCol());
     stage.replaceChildren(); stage.classList.toggle('waiting', C.step === 0 && !C.title.trim()); stage.classList.toggle('s0', C.step === 0);
-    if (C.step === 0 && !C.title.trim()) { stage.append(h('div', { class: 'stage-wait' }, h('img', { src: `${BASE}a/crew.webp`, alt: '' }), h('p', { text: 'Your card shows up here as you write.' }))); const steps0 = h('nav', { class: 'steps', 'aria-label': 'Steps' }, ['1. What', '2. When', '3. Ready'].map((t, i) => h('button', { class: i === 0 ? 'on' : '', text: t, disabled: i > 0, 'aria-current': i === 0 ? 'step' : null }))); work.replaceChildren(h('div', { class: 'work-in' }, steps0, stepWhat()), foot()); return; }
+    if (C.step === 0 && !C.title.trim()) { stage.append(h('div', { class: 'stage-wait' }, h('img', { class: 'ghost', src: `${BASE}a/ghost.webp`, alt: '' }), h('p', { text: 'Your card shows up here as you write.' }))); const steps0 = h('nav', { class: 'steps', 'aria-label': 'Steps' }, ['1. What', '2. When', '3. Ready'].map((t, i) => h('button', { class: i === 0 ? 'on' : '', text: t, disabled: i > 0, 'aria-current': i === 0 ? 'step' : null }))); work.replaceChildren(h('div', { class: 'work-in' }, steps0, stepWhat()), foot()); return; }
     const card = cardEl(cPlan(), C.step === 2 ? { corner: h('button', { class: 'corner', 'aria-label': 'Shuffle the look', title: 'Shuffle', onclick: shuffle }, svgIcon(I_SHUFFLE)) } : {});
     tilt(card);
     stage.append(card, h('div', { class: 'stage-side' },
@@ -874,7 +855,6 @@ function go(q, replace) { history[replace ? 'replaceState' : 'pushState'](null, 
   addEventListener('focusin', e => { if (!e.target.matches('input, textarea')) return; if (!e.target.hasAttribute('enterkeyhint')) e.target.setAttribute('enterkeyhint', e.target.closest('.opt, .stack') && e.target.type !== 'email' ? 'next' : 'done'); setTimeout(() => { up(); if (matchMedia('(pointer: coarse)').matches) e.target.scrollIntoView({ block: 'center', behavior: RM ? 'auto' : 'smooth' }); }, 300); });
 })();
 function route() {
-  logoSwitch();
   clearInterval(POLL);
   const u = new URLSearchParams(location.search), id = u.get('p');
   const m = /[#&]h=([a-z0-9]{10,40})/.exec(location.hash);
