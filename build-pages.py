@@ -84,10 +84,10 @@ LANG = {
 
   # ---- app page
   "app_title": "Jagtprøven — hele teorien, uden gætteri | Webspind",
-  "app_desc": "Jagtprøven: hele teorien, fuglekending og jagttider i én app, med en forklaring på hvert svar. Uafhængig træningsapp til iPhone og iPad.",
+  "app_desc": "Jagtprøven: hele teorien, fuglekending og jagttider i én app, med en forklaring på hvert svar. Uafhængig træningsapp til iPhone.",
   "breadcrumb": "← Alle apps",
-  "app_platform": "Jagttegn · iPhone og iPad",
-  "app_price": "Ét engangskøb — ikke abonnement",
+  "app_platform": "Jagttegn · iPhone",
+  "app_price": "Gratis at prøve · Eksamenspas 129 kr. for 3 måneder",
   "app_store": "Hent i App Store",
   "app_h1": 'Gå til jagtprøven, når du er <span class="accent">helt sikker</span> i det.',
   "app_lede": 'Hele teorien, fuglekendingen og jagttiderne i én app — med en forklaring på hvert svar, så du forstår reglen i stedet for at gætte. <span class="muted">Øv i bussen, i skoven, uden dækning.</span>',
@@ -119,10 +119,14 @@ LANG = {
     ("Prøvesæt under tid", "40 spørgsmål på 30 minutter, bestået ved 36 rigtige — nøjagtig som på dagen, med sektion for sektion bagefter."),
     ("Ser dine svage emner", "Appen følger din statistik pr. emne og peger på, hvor du taber point — så du øver det rigtige."),
     ("Øv hvor som helst", "Appen virker helt uden netforbindelse, så du kan tage en runde i bilen, i skjulet eller i pausen på arbejde."),
+    ("På vej mod 36", "Fra første dag ser du, hvor tæt du er på de 36 rigtige. Fortæl, hvornår du skal op, så lægger appen en plan frem til dagen."),
+    ("Øv dine fejl", "En runde, der samler netop de spørgsmål, du sidst svarede forkert på. Dem, der koster point på dagen."),
+    ("Arter og tider", "100 vildtarter med foto, de arter de forveksles med, og jagttiderne samlet. Åbent i dag ser du med ét blik."),
+    ("Bestået", "Når du har bestået, fejrer appen det med dig. Dagen efter prøven minder den dig om at opsige Eksamenspasset, hvis du vil."),
   ],
 
   "topics_head": "De otte emner",
-  "topics_sub": "Appen holder øje med, hvilke emner du er svagest i, så du kan sætte ind præcis dér. Ét emne efter eget valg er gratis.",
+  "topics_sub": "Appen holder øje med, hvilke emner du er svagest i, så du kan sætte ind præcis dér. Ét emne efter eget valg er gratis, og du kan skifte det.",
   "topics": [
     ("Artsbestemmelse og vildtbiologi", "+ fotoquiz"),
     ("Vildtforvaltning", ""),
@@ -153,11 +157,11 @@ LANG = {
                   ("Hvad må jeg jage i dag?", "Se hvilke arter der har jagttid på en dato, også lokalt.", "/jagttider-i-dag/")],
 
   "free_head": "Prøv det gratis først",
-  "free_sub": "Ét emne efter eget valg, ét fuldt prøvesæt, én dagens runde og otte vildtarter er gratis. Kan du bruge appen, koster resten ét engangskøb — ikke et abonnement.",
+  "free_sub": "Ét emne efter eget valg, tre prøvespørgsmål i hvert af de andre emner, ét fuldt prøvesæt, dagens runde og jagttiderne for i dag er gratis. Resten låses op med Jagtprøven Pro: Eksamenspas (3 måneder, 129 kr.), Månedlig (69 kr. om måneden) eller Livstid (249 kr., ét køb). Eksamenspas og Månedlig er abonnementer, der fornyes, til du opsiger dem under Indstillinger → Apple-konto → Abonnementer. Har du købt appen før, beholder du alt.",
   "free_items": [
-    ("Ét emne", "efter eget valg, så tit du vil"),
+    ("Ét emne", "efter eget valg, og du kan skifte"),
     ("Ét prøvesæt", "40 spørgsmål på 30 minutter"),
-    ("8 vildtarter", "med foto og kendetegn"),
+    ("3 spørgsmål", "i hvert af de andre emner"),
   ],
 
   "about_head": "Hej — Webspind er mig alene.",
@@ -171,7 +175,7 @@ LANG = {
   ],
 
   "cta_head": "Prøv et helt prøvesæt gratis.",
-  "cta_body": "Et fuldt prøvesæt og ét emne efter eget valg er gratis i appen — tag dem, og se om formen passer dig, før du køber resten.",
+  "cta_body": "Et fuldt prøvesæt og ét emne efter eget valg er gratis i appen — tag dem, og se om formen passer dig, før du vælger en plan.",
   "cta_btn": "Har du et spørgsmål?",
 
   # ---- support
@@ -197,7 +201,9 @@ LANG = {
   "faqs": [
     ("Er det prøvens rigtige spørgsmål?", "Nej. Spørgsmålene er skrevet til appen ud fra det offentlige pensum til jagttegnsprøven. Appen er en uafhængig træningsapp og er ikke tilknyttet Naturstyrelsen eller Miljøministeriet."),
     ("Kan jeg bruge jagttiderne, når jeg er på jagt?", "Brug dem til at øve. Jagttiderne i appen er vejledende og er ikke et juridisk opslagsværk — slå altid op i den gældende bekendtgørelse, før du går ud. Flere arter har desuden lokale og regionale jagttider, som appen kun noterer."),
-    ("Hvad kan jeg prøve gratis?", "Ét emne efter eget valg, ét fuldt prøvesæt, én dagens runde og otte vildtarter. Resten låses op med ét engangskøb, ikke et abonnement."),
+    ("Hvad kan jeg prøve gratis?", "Ét emne efter eget valg, som du kan skifte, tre prøvespørgsmål i hvert af de andre emner, ét fuldt prøvesæt, dagens runde og jagttiderne for i dag. Resten låses op med Jagtprøven Pro."),
+    ("Hvad koster Jagtprøven Pro?", "Eksamenspas for 3 måneder koster 129 kr., Månedlig koster 69 kr. om måneden, og Livstid koster 249 kr. som ét køb. Efter prøven kan du tegne Jæger-år til 99 kr. om året. Har du købt appen før 1.2, beholder du alt."),
+    ("Hvordan opsiger jeg?", "Eksamenspas, Månedlig og Jæger-år er abonnementer, der fornyes automatisk, til du opsiger dem. Det gør du under Indstillinger → Apple-konto → Abonnementer. Appen minder dig om at opsige Eksamenspasset dagen efter din prøve."),
     ("Hvordan får jeg mit køb tilbage på en ny telefon?", "Åbn appen, gå til Indstillinger og tryk Gendan køb. Købet hænger på din Apple-konto, så det er nok at være logget ind med den samme. Sker der intet, så skriv til mig med købsdatoen, så ordner jeg det."),
     ("Gemmer appen mine besvarelser et sted?", "På din telefon og i din egen private iCloud, så de følger med til en ny iPhone. Der er ingen brugerkonto og ingen server hos mig, og jeg kan ikke se dine svar."),
     ("Jeg mener, et svar er forkert", "Skriv hvilket spørgsmål det er, og hvad du mener er galt, gerne med henvisning. Pensum ændrer sig, og jeg retter hurtigt — det er mig selv, der læser mailen."),
@@ -258,10 +264,10 @@ LANG = {
 
   # ---- app page
   "app_title": "Jagtprøven — the whole syllabus, no guesswork | Webspind",
-  "app_desc": "Jagtprøven: the whole syllabus, bird identification and hunting seasons in one app, with an explanation behind every answer. An independent practice app for the Danish hunting licence exam, for iPhone and iPad.",
+  "app_desc": "Jagtprøven: the whole syllabus, bird identification and hunting seasons in one app, with an explanation behind every answer. An independent practice app for the Danish hunting licence exam, for iPhone.",
   "breadcrumb": "← All apps",
-  "app_platform": "Hunting licence · iPhone and iPad",
-  "app_price": "One-time purchase, not a subscription",
+  "app_platform": "Hunting licence · iPhone",
+  "app_price": "Free to try · Exam pass 129 kr. for 3 months",
   "app_store": "Download on the App Store",
   "app_h1": 'Walk into the exam <span class="accent">completely sure</span> of it.',
   "app_lede": 'The whole syllabus, the bird identification and the hunting seasons in one app — with an explanation behind every answer, so you understand the rule instead of guessing. <span class="muted">Practise on the bus, in the woods, with no signal.</span>',
@@ -293,10 +299,14 @@ LANG = {
     ("Timed mock exam", "40 questions in 30 minutes, 36 to pass — exactly like the day, with a section-by-section breakdown afterwards."),
     ("Spots your weak topics", "The app tracks your stats per topic and points at where you are losing points — so you practise the right thing."),
     ("Practise anywhere", "The app works with no connection at all, so you can take a round in the car, in the hide or on your break at work."),
+    ("On your way to 36", "From day one you see how close you are to the 36 correct answers. Tell the app when your exam is, and it lays out a plan up to the day."),
+    ("Practise your mistakes", "A round that collects exactly the questions you last got wrong. They are the ones that cost points on the day."),
+    ("Species and seasons", "100 species with photos, the species they are mistaken for, and the hunting seasons in one place. Open today at a glance."),
+    ("Passed", "When you pass, the app celebrates with you. The day after your exam it reminds you to cancel the Exam pass, if you want to."),
   ],
 
   "topics_head": "The eight topics",
-  "topics_sub": "The app keeps track of which topics you are weakest in, so you can put the work exactly there. One topic of your choice is free.",
+  "topics_sub": "The app keeps track of which topics you are weakest in, so you can put the work exactly there. One topic of your choice is free, and you can switch it.",
   "topics": [
     ("Species identification and wildlife biology", "+ photo quiz"),
     ("Game management", ""),
@@ -327,11 +337,11 @@ LANG = {
                   ("Hvad må jeg jage i dag?", "See which species are in season on a date.", "/jagttider-i-dag/")],
 
   "free_head": "Try it free first",
-  "free_sub": "One topic of your choice, one full mock exam, one daily round and eight species are free. If the app works for you, the rest is one purchase — not a subscription.",
+  "free_sub": "One topic of your choice, three sample questions in each of the other topics, one full mock exam, the daily round and today's hunting seasons are free. The rest unlocks with Jagtprøven Pro: Exam pass (3 months, 129 kr.), Monthly (69 kr. a month) or Lifetime (249 kr., one purchase). Exam pass and Monthly are subscriptions that renew until you cancel them in Settings → Apple Account → Subscriptions. If you bought the app before, you keep everything.",
   "free_items": [
-    ("One topic", "of your choice, as often as you like"),
+    ("One topic", "of your choice, and you can switch"),
     ("One mock exam", "40 questions in 30 minutes"),
-    ("8 species", "with photos and field marks"),
+    ("3 questions", "in each of the other topics"),
   ],
 
   "about_head": "Hi — Webspind is just me.",
@@ -345,7 +355,7 @@ LANG = {
   ],
 
   "cta_head": "Try a whole mock exam for free.",
-  "cta_body": "A full mock exam and one topic of your choice are free in the app — take them and see whether the format suits you before you buy the rest.",
+  "cta_body": "A full mock exam and one topic of your choice are free in the app — take them and see whether the format suits you before you pick a plan.",
   "cta_btn": "Got a question?",
 
   # ---- support
@@ -371,7 +381,9 @@ LANG = {
   "faqs": [
     ("Are these the real exam questions?", "No. The questions were written for the app from the public syllabus for the Danish hunting licence exam. The app is an independent practice app and is not affiliated with the Danish Nature Agency or the Ministry of the Environment."),
     ("Can I use the hunting seasons while I am out hunting?", "Use them to practise. The seasons in the app are for guidance and are not a legal reference — always check the current statutory order before you head out. Several species also have local and regional seasons, which the app only notes."),
-    ("What can I try for free?", "One topic of your choice, one full mock exam, one daily round and eight species. The rest unlocks with a single one-time purchase, not a subscription."),
+    ("What can I try for free?", "One topic of your choice, which you can switch, three sample questions in each of the other topics, one full mock exam, the daily round and today's hunting seasons. The rest unlocks with Jagtprøven Pro."),
+    ("What does Jagtprøven Pro cost?", "The Exam pass for 3 months costs 129 kr., Monthly costs 69 kr. a month, and Lifetime costs 249 kr. as one purchase. After the exam you can take Hunter year for 99 kr. a year. If you bought the app before 1.2, you keep everything."),
+    ("How do I cancel?", "The Exam pass, Monthly and Hunter year are subscriptions that renew automatically until you cancel them. You do that in Settings → Apple Account → Subscriptions. The app reminds you to cancel the Exam pass the day after your exam."),
     ("How do I get my purchase back on a new phone?", "Open the app, go to Settings and tap Restore purchases. The purchase is tied to your Apple account, so being signed in with the same one is enough. If nothing happens, write to me with the purchase date and I will sort it out."),
     ("Does the app store my answers anywhere?", "On your phone and in your own private iCloud, so they follow you to a new iPhone. There is no user account and no server at my end, and I cannot see your answers."),
     ("I think an answer is wrong", "Tell me which question it is and what you think is off, ideally with a reference. The syllabus changes and I fix things quickly — I am the one reading the mail."),
@@ -453,13 +465,13 @@ APPS = [
          tools={"da": [("Gratis quiz", "/jagtproeve-quiz/"), ("Hvad må jeg jage i dag?", "/jagttider-i-dag/")], "en": [("Free quiz (in Danish)", "/jagtproeve-quiz/"), ("Seasons today (in Danish)", "/jagttider-i-dag/")]},
          kind={"da": "Jagttegnsprøven", "en": "Danish hunting exam · In Danish"},
          line={"da": "Bestå jagtprøven første gang.", "en": "Pass the hunting exam the first time."},
-         desc={"da": "522 spørgsmål med en kilde bag hvert svar, alle 100 vildtarter med foto og de jagttider, der gælder lige nu. iPhone og iPad.",
-               "en": "522 questions with a source behind every answer, all 100 species with photos, and the seasons that apply right now. iPhone and iPad."},
+         desc={"da": "522 spørgsmål med en kilde bag hvert svar, alle 100 vildtarter med foto og de jagttider, der gælder lige nu. Til iPhone.",
+               "en": "522 questions with a source behind every answer, all 100 species with photos, and the seasons that apply right now. For iPhone."},
          store=STORE_JAGTPROVEN, page="/jagtproven/",
          priv={"da": "/privacy/jagtproven.html", "en": "/privacy/jagtproven.html"},
          sup={"da": "/support.html", "en": "/en/support.html"},
-         pdesc={"da": "Dine svar ligger på din enhed og i din egen iCloud. Ingen konto, ingen analyse. Køb bekræftes via RevenueCat.",
-                "en": "Your answers stay on your device and in your own iCloud. No account, no analytics. Purchases are verified via RevenueCat. The policy is in Danish, like the app; write to me if you need it in English."}),
+         pdesc={"da": "Dine svar ligger på din enhed og i din egen iCloud. Ingen konto, ingen analyse. Køb og abonnementer bekræftes via RevenueCat.",
+                "en": "Your answers stay on your device and in your own iCloud. No account, no analytics. Purchases and subscriptions are verified via RevenueCat. The policy is in Danish, like the app; write to me if you need it in English."}),
     dict(id="dronecamp", name="DroneCamp", full="DroneCamp: Part 107 Drone Test", status="soon", c="#1254E8", home=True,
          tools={"da": [("Gratis prøvetest", "/part-107-practice-test/")], "en": [("Free practice test", "/part-107-practice-test/")]},
          kind={"da": "FAA Part 107-droneprøven · På engelsk", "en": "FAA Part 107 drone test"},
@@ -517,7 +529,7 @@ POLICY_SECTIONS = [
     ("Hvad appen gemmer", "Dine besvarelser, prøvesæt, udmærkelser, streak og de vildtarter, du har gemt som favoritter. Hvis du selv oplyser det, også dit fornavn, din prøvedato, dit prøvested og det emne, du vil starte med. Der er ingen brugerkonto, intet login, intet reklame-id, ingen fingerprinting og ingen analyseværktøjer i appen."),
     ("Hvor dine data ligger", "På din enhed og, hvis du bruger iCloud, i din egen private iCloud-database og iCloud-lager hos Apple, så de følger med til en ny iPhone. Kun du har adgang til dem. Webspind har ingen kopi og kan ikke læse dem."),
     ("Hvor længe", "Dine data ligger, indtil du selv sletter dem i appen eller sletter appen og dens iCloud-data. Webspind opbevarer intet. RevenueCat opbevarer købsoplysningerne efter sin egen privatlivspolitik, så længe købet skal kunne gendannes."),
-    ("Køb", 'Køb håndteres af Apple. Til at bekræfte og gendanne dit køb bruger appen tjenesten <a href="https://www.revenuecat.com/privacy">RevenueCat</a>, som modtager et anonymt app-bruger-id, oplysninger om dine køb (produkt, pris, tidspunkt og kvittering fra App Store) og tekniske oplysninger som app-version og land. RevenueCat får ikke dit navn, din e-mail eller dine svar. Fra Apple får jeg salgstal og opgørelser på landeniveau — aldrig dine kortoplysninger, din adresse eller din e-mail.'),
+    ("Køb", 'Køb, både abonnementerne (Eksamenspas, Månedlig og Jæger-år) og Livstid som engangskøb, håndteres af Apple. Du styrer og opsiger abonnementer under Indstillinger → Apple-konto → Abonnementer. Til at bekræfte og gendanne dem bruger appen tjenesten <a href="https://www.revenuecat.com/privacy">RevenueCat</a>, som modtager et anonymt app-bruger-id, oplysninger om dine køb (produkt, pris, tidspunkt og kvittering fra App Store) og tekniske oplysninger som app-version og land. RevenueCat får ikke dit navn, din e-mail eller dine svar. Fra Apple får jeg salgstal og opgørelser på landeniveau — aldrig dine kortoplysninger, din adresse eller din e-mail.'),
     ("Påmindelser", "Slår du den daglige påmindelse til, planlægges den lokalt på din iPhone. Der sendes intet til en server."),
     ("Nedbrudsrapporter", "Har du slået deling med udviklere til i enhedens indstillinger, kan Apple sende mig samlede nedbrudsrapporter med enhedsmodel, iOS-version og et stakspor. De indeholder hverken navn, e-mail, indhold eller et blivende id, og jeg kan ikke bruge dem til at kontakte dig."),
     ("Børn", "Appen er henvendt til dem, der skal tage jagttegn, og er ikke rettet mod børn."),
@@ -1126,7 +1138,7 @@ def page(path, *a, **k):
 ARTICLE_SRC = os.path.join("..", "..", "Viden", "site-articles")
 ARTICLE_APPS = {
     "jagtproven": dict(lang="da", name="Jagtprøven", store=STORE_JAGTPROVEN,
-                       line="Øv til jagtprøven på iPhone og iPad. Appen er ikke officiel.", btn="Hent i App Store"),
+                       line="Øv til jagtprøven på iPhone. Appen er ikke officiel.", btn="Hent i App Store"),
     "wakebird": dict(lang="en", name="Wakebird", store=STORE_WAKEBIRD,
                      line="An iPhone alarm clock that rings with real birdsong. Try it free for a week.", btn="Get it on the App Store"),
 }
